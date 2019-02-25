@@ -1,4 +1,4 @@
-## Materials Share 2
+# Materials Share 2
 
 A sharing resorce for teachers.
 
@@ -6,7 +6,7 @@ Built on the MERN stack
 
 ---
 
-# Functionality to add:
+## Functionality to add:
 
 Share material - display in public or not
 
@@ -26,7 +26,7 @@ Comment on Materials
 
 Save Other Materials to profile
 
-# Bugs:
+## Bugs:
 
 Need to add AWS for file storage 
 
