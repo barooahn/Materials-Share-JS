@@ -6,7 +6,7 @@ Built on the MERN stack
 
 ---
 
-Functionality to add:
+# Functionality to add:
 
 Share material - display in public or not
 
@@ -25,3 +25,9 @@ Like or Rate other Materials
 Comment on Materials
 
 Save Other Materials to profile
+
+# Bugs:
+
+Need to add AWS for file storage 
+
+Browser back button exits form - need warning/fix 
