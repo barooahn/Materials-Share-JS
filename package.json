@@ -1,0 +1,55 @@
+{
+  "name": "materials-share-fullstack",
+  "version": "1.0.0",
+  "description": "teachers resource application, save, comment, find and share teaching resources",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "npm install --prefix client",
+    "test": "test",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server --inspect\" \"npm run client \"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "repository": {
+    "type": "git",
+    "url": "materialsshare_js"
+  },
+  "keywords": [
+    "teacher",
+    "resources"
+  ],
+  "author": "Nicholas R Barooah",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.3",
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.1.0",
+    "connect-flash": "^0.1.1",
+    "connect-multiparty": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^6.2.0",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.1.1-alpha.1",
+    "express-session": "^1.15.6",
+    "helmet": "^3.15.0",
+    "jsonwebtoken": "^8.4.0",
+    "mongoose": "^5.4.4",
+    "morgan": "^1.9.1",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-facebook-token": "^3.3.0",
+    "passport-google-oauth": "^1.0.0",
+    "passport-google-plus-token": "^2.1.0",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "passport-twitter": "^1.0.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.9"
+  },
+  "engines": {
+    "node": "11.3.0"
+  }
+}
