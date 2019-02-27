@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import axios from "axios";
 import MaterialCard from "./MaterialCard";
 import { Paper, Grid, Typography } from "@material-ui/core";
+import axios from "axios";
 import Material from "./Material/Material";
 
 class Materials extends Component {
@@ -16,6 +16,7 @@ class Materials extends Component {
   handleClick = material => {
     this.setState({ material: true, materialDetails: material });
   };
+  
   getMaterials = async () => {
     try {
       const response = await axios.get("/api/materials");

@@ -1,8 +1,3 @@
-// const secret = require("../config/keys").JWT_KEY;
-// const googleClientId = require("../config/keys").GOOGLE_CLIENT_ID;
-// const googleClientSecret = require("../config/keys").GOOGLE_CLIENT_SECRET;
-// const facebookAppId = require("../config/keys").FACEBOOK_APP_ID;
-// const facebookSecret = require("../config/keys").FACEBOOK_SECRET;
 const dotenv = require("dotenv").config();
 
 const passport = require("passport");

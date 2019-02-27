@@ -10,7 +10,7 @@ Built on the MERN stack
 
 Share material - display in public or not
 
-User Profile - Display users Materials
+User Profile - Display users Materials - done
 
 Update Material - new fields or remove / edit existing fields
 
@@ -28,7 +28,7 @@ Save Other Materials to profile
 
 ## Bugs:
 
-Need to add AWS for file storage
+Need to add cloud file storage - done
 
 Browser back button exits form - need warning/fix
 

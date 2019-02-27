@@ -81,6 +81,16 @@ module.exports = {
     });
   },
 
+  getUserMaterials: async (req, res, next) => {
+    await Material.find({ author_id: req.params.author_id }).exec(
+      (err, materials) => {
+        if (materials) return res.send(materials);
+        else if (err) return res.send(err);
+        else return res.send(404);
+      }
+    );
+  },
+
   getMaterials: async (req, res, next) => {
     await Material.find().exec((err, materials) => {
       if (materials) return res.send(materials);

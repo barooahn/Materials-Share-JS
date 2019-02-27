@@ -28,6 +28,13 @@ module.exports = router => {
    * add a material
    */
   router
+    .route("/materials/:author_id")
+    .get(materialcontroller.getUserMaterials);
+  /**
+   * add a material
+   */
+
+  router
     .route("/material")
     .post(multipartWare, materialcontroller.addMaterial)
     /**

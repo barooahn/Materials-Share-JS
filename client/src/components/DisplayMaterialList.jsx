@@ -42,7 +42,7 @@ const getFilledProps = props => {
       item !== "dateCreated" &&
       item !== "dateModified" &&
       item !== "book" &&
-      item !== "author" &&
+      item !== "author_id" &&
       item !== "shared" &&
       item !== "filePaths" &&
       item !== "showContinue" &&
