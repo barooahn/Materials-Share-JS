@@ -70,7 +70,7 @@ const DisplayMaterialList = props => {
     console.log("final value ", value);
 
     return (
-      <Grid item xs={12} md={6} key={resource}>
+      <Grid item xs={12} md={6} key={Object.keys(resource)}>
         <List>
           <ListItem>
             <ListItemText

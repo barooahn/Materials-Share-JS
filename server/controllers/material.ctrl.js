@@ -1,6 +1,7 @@
 /** server/controllers/material.ctrl.js*/
 const Material = require("../models/Material");
 const fs = require("fs");
+const uploadAws = require("../file-upload/aws-file-upload");
 
 const filepath = `${__dirname}../../../client/public/files/`;
 
@@ -15,35 +16,30 @@ module.exports = {
     });
   },
 
-  uploadFile: (req, res) => {
+  uploadFile: async (req, res) => {
     console.log("uploading file ...");
-    //check if more than one file
-    if (Array.isArray(req.files.files)) {
-      Promise.all(req.files.files.map(file => moveFile(file))).then(result => {
+
+    Promise.all(req.files.files.map(file => uploadAws.uploadAws(file))).then(
+      result => {
         // console.log("result if array back end", result);
         res.json(result);
         //save to DB
-      });
-    } else {
-      moveFile(req.files.file).then(result => {
-        res.json(result);
-        // console.log("result if one back end", result);
-        //save to DB
-      });
-    }
+      }
+    );
 
-    function moveFile(file) {
-      file.name = file.name.replace(/\s/g, "_").toLowerCase();
-      return new Promise(function(resolve, reject) {
-        const oldPath = file.path;
-        const newPath = filepath + file.name;
-        fs.rename(oldPath, newPath, function(err) {
-          if (err) reject(new Error("Could not upload file " + err));
-          console.log;
-          resolve({ file: file.name });
-        });
-      });
-    }
+    // ****local storeage moved to AWS ****
+    // function moveFile(file) {
+    //   file.name = file.name.replace(/\s/g, "_").toLowerCase();
+    //   return new Promise(function(resolve, reject) {
+    //     const oldPath = file.path;
+    //     const newPath = filepath + file.name;
+    //     fs.rename(oldPath, newPath, function(err) {
+    //       if (err) reject(new Error("Could not upload file " + err));
+    //       console.log;
+    //       resolve({ file: file.name });
+    //     });
+    //   });
+    // }
   },
 
   deleteFile: async (req, res, next) => {
@@ -57,6 +53,8 @@ module.exports = {
   },
 
   addMaterial: (req, res, next) => {
+    console.log("saving material backend... ");
+
     filterProperties = obj => {
       for (var key in obj) {
         if (obj[key] !== null && obj[key] != "" && obj[key] != []) {
@@ -67,9 +65,7 @@ module.exports = {
       }
     };
 
-    author_id = localStorage.getItem("USER_ID");
-
-    console.log("req.body ", req.body);
+    //console.log("req.body ", req.body);
     const filteredMaterial = filterProperties(req.body);
     console.log("filteredMaterial ", filteredMaterial);
 
@@ -77,7 +73,7 @@ module.exports = {
       if (err) res.send(err);
       else if (!material) res.send(400);
       else {
-        return material.addAuthor(author_id).then(_material => {
+        return material.addAuthor(material.author_id).then(_material => {
           return res.send(_material);
         });
       }
@@ -152,10 +148,10 @@ module.exports = {
       let distinct = [];
 
       values.forEach(x => {
-        console.log("x.label ===", x.label);
+        //console.log("x.label ===", x.label);
         distinct.includes(x.label) ? null : distinct.push(x.label);
       });
-      console.log("Distinct values: ", distinct);
+      //console.log("Distinct values: ", distinct);
       res.json({ values: distinct });
     });
   }

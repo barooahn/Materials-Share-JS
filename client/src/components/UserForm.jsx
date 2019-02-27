@@ -157,10 +157,8 @@ export class UserForm extends Component {
         }
       })
       .then(res => {
-        console.log("it's an array", res.data);
-        const paths = res.data.map(data => {
-          return data.file;
-        });
+        //console.log("it's an array", res.data);
+        const paths = res.data.map(data => data.path);
         this.setState({
           filePaths: [...this.state.filePaths, ...paths],
           showContinue: true
@@ -290,6 +288,8 @@ export class UserForm extends Component {
   };
 
   sendToDb = material => {
+    material.author_id = localStorage.getItem("USER_ID");
+    console.log("sending material to db...", material);
     axios
       .post("/api/material/", material, {
         onUploadProgress: ProgressEvent => {
@@ -316,7 +316,7 @@ export class UserForm extends Component {
         axios
           .get("/api/material/field/" + field)
           .then(res => {
-            console.log("options ", res.data);
+            //.log("options ", res.data);
             return res.data.values.map(label => ({
               label: label,
               value: label.toLowerCase().replace(/\W/g, "")

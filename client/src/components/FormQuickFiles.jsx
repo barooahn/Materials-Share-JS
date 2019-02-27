@@ -72,7 +72,7 @@ export class FormQuickFiles extends Component {
           <br />
           <div className="attachement">
             {values.filePaths.map(file => {
-              return <Viewer file={file} />;
+              return <Viewer file={file} key={file} />;
             })}
           </div>
           <br />

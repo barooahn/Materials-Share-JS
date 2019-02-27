@@ -26,12 +26,7 @@ const renderPlayer = filesInput => {
     return <VideoFile key={file.name} file={file.name} />;
   } else if (file.type === "image") {
     return (
-      <img
-        style={mediaStyle}
-        key={file.name}
-        alt={file.name}
-        src={"/files/" + file.name}
-      />
+      <img style={mediaStyle} key={file.name} alt={file.name} src={file.name} />
     );
   } else {
     return <DocViewer key={file.name} file={file.name} ext={file.ext} />;

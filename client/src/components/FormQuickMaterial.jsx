@@ -23,12 +23,12 @@ class FormQuickMaterial extends Component {
   }
   handleLevelChange = (newValue, actionMeta) => {
     this.props.handleSelectChange("level", newValue);
-    console.log("new value: ", this.props.values.level);
+    // console.log("new value: ", this.props.values.level);
   };
 
   handlePupilTaskChange = (newValue, actionMeta) => {
     this.props.handleSelectChange("pupilTask", newValue);
-    console.log("new value: ", this.props.values.pupilTask);
+    // console.log("new value: ", this.props.values.pupilTask);
   };
 
   continue = e => {
@@ -108,7 +108,7 @@ class FormQuickMaterial extends Component {
   render() {
     const { values, handleChange, promiseOptions } = this.props;
 
-    console.log("Level", promiseOptions("level"));
+    // console.log("Level", promiseOptions("level"));
 
     return (
       <Paper className="paperCenter" elevation={1}>
@@ -124,7 +124,7 @@ class FormQuickMaterial extends Component {
         <br />
         <TextField
           id="objective"
-          label="Objective of the resource (you can use multiple lines)"
+          label="Objective of the resource"
           value={values.objective}
           placeholder="By the end of the activity pupils will be able to:"
           onChange={handleChange("objective")}

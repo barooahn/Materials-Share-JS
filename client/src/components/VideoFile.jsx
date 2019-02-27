@@ -11,14 +11,12 @@ import {
   VolumeMenuButton
 } from "video-react";
 
-const filepath = `files/`;
-
 export default props => {
   return (
     <Player
     //poster="/img/bg3.jpg"
     >
-      <source src={filepath + props.file} />
+      <source src={props.file} />
 
       <ControlBar>
         <ReplayControl seconds={10} order={1.1} />
