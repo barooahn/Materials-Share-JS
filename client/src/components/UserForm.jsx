@@ -4,8 +4,8 @@ import FormQuickFiles from "./FormQuickFiles";
 import FormQuickMaterial from "./FormQuickMaterial";
 import Confirm from "./Confirm";
 import Success from "./Success";
-import axios from "axios";
 import FormFullMaterial from "./FormFullMaterial";
+import axios from "axios";
 
 const allowedMimeTypes = [
   "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
@@ -73,30 +73,6 @@ export class UserForm extends Component {
     });
   };
 
-  jsUcfirst = s => {
-    if (typeof s !== "string") return "";
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  };
-
-  // Handle fields change
-  handleChange = input => e => {
-    // console.log("handle", input, e.target.value);
-    this.setState({ [input]: e.target.value });
-  };
-
-  // Handle special case book change
-  handleBookChange = input => e => {
-    let book = { ...this.state.book };
-    book[input] = this.jsUcfirst(e.target.value); //updating value
-    this.setState({ book });
-  };
-
-  handleSelectChange = async (input, value) => {
-    // console.log("select changed ", input, value);
-    await this.setState({ [input]: value });
-    // console.log("state changed ", this.state[input]);
-  };
-
   handleselectedFile = e => {
     let files = Array.from(e.target.files);
     // console.log("uploaded files are ", e.target.files);
@@ -158,7 +134,7 @@ export class UserForm extends Component {
       })
       .then(res => {
         //console.log("it's an array", res.data);
-        const paths = res.data.map(data => data.path);
+        const paths = res.data.map(data => data.name);
         this.setState({
           filePaths: [...this.state.filePaths, ...paths],
           showContinue: true
@@ -167,6 +143,49 @@ export class UserForm extends Component {
       .catch(function(err) {
         console.log(err);
       });
+  };
+
+  getInputSelectOptions = field =>
+    new Promise(resolve => {
+      // console.log("getting options...");
+      resolve(
+        axios
+          .get("/api/material/field/" + field)
+          .then(res => {
+            //.log("options ", res.data);
+            return res.data.values.map(label => ({
+              label: label,
+              value: label.toLowerCase().replace(/\W/g, "")
+            }));
+          })
+          .catch(function(err) {
+            throw err;
+          })
+      );
+    });
+
+  handleSelectChange = async (input, value) => {
+    // console.log("select changed ", input, value);
+    await this.setState({ [input]: value });
+    // console.log("state changed ", this.state[input]);
+  };
+
+  // Handle fields change
+  handleChange = input => e => {
+    // console.log("handle", input, e.target.value);
+    this.setState({ [input]: e.target.value });
+  };
+
+  // Handle special case book change
+  handleBookChange = input => e => {
+    let book = { ...this.state.book };
+    book[input] = this.jsUcfirst(e.target.value); //updating value
+    this.setState({ book });
+  };
+
+  jsUcfirst = s => {
+    if (typeof s !== "string") return "";
+    return s.charAt(0).toUpperCase() + s.slice(1);
   };
 
   saveFull = () => {
@@ -270,7 +289,6 @@ export class UserForm extends Component {
       this.sendToDb(material);
     }
   };
-
   saveMin = () => {
     console.log("saving to db...");
     const { filePaths, title } = this.state;
@@ -308,25 +326,6 @@ export class UserForm extends Component {
         throw err;
       });
   };
-
-  promiseOptions = field =>
-    new Promise(resolve => {
-      // console.log("getting options...");
-      resolve(
-        axios
-          .get("/api/material/field/" + field)
-          .then(res => {
-            //.log("options ", res.data);
-            return res.data.values.map(label => ({
-              label: label,
-              value: label.toLowerCase().replace(/\W/g, "")
-            }));
-          })
-          .catch(function(err) {
-            throw err;
-          })
-      );
-    });
 
   render() {
     const { step } = this.state;
@@ -424,9 +423,8 @@ export class UserForm extends Component {
             handleChange={this.handleChange}
             saveQuick={this.saveQuick}
             values={values}
-            getSelectOptions={this.getSelectOptions}
             handleSelectChange={this.handleSelectChange}
-            promiseOptions={this.promiseOptions}
+            getInputSelectOptions={this.getInputSelectOptions}
           />
         );
       case 4:
@@ -437,10 +435,9 @@ export class UserForm extends Component {
             handleChange={this.handleChange}
             saveFull={this.saveFull}
             values={values}
-            getSelectOptions={this.getSelectOptions}
             handleSelectChange={this.handleSelectChange}
             handleBookChange={this.handleBookChange}
-            promiseOptions={this.promiseOptions}
+            getInputSelectOptions={this.getInputSelectOptions}
           />
         );
       case 5:

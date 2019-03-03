@@ -62,6 +62,7 @@ class Profile extends Component {
             {this.state.materials.map(material => (
               <Grid key={material.title} item xs={12} md={6}>
                 <MaterialCard
+                  edit={true}
                   style={styles.card}
                   material={material}
                   handleClick={this.handleClick}

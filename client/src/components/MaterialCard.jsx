@@ -11,6 +11,7 @@ import {
   Grid
 } from "@material-ui/core";
 import Viewer from "./Viewer/Viewer";
+import MaterialCardButtonEdit from "./MaterialCardButtonEdit";
 
 const styles = {
   card: {
@@ -27,7 +28,6 @@ const styles = {
 
 const MaterialCard = props => {
   const { classes, material, handleClick } = props;
-  // console.log("material", material);
 
   const filePath = Array.isArray(material.files)
     ? material.files[0]
@@ -91,9 +91,17 @@ const MaterialCard = props => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          <Button size="small" color="primary">
-            Share
-          </Button>
+          {props.edit
+            ? [
+                <MaterialCardButtonEdit
+                  material={material}
+                  size="small"
+                  color="primary"
+                >
+                  Edit
+                </MaterialCardButtonEdit>
+              ]
+            : null}
           <Button size="small" color="primary">
             Learn More
           </Button>

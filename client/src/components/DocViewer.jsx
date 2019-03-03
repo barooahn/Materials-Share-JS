@@ -5,10 +5,15 @@ import FileViewer from "react-file-viewer";
 
 class DocViewer extends Component {
   render() {
-    const file = "/files/" + this.props.file;
+    const file = this.props.file;
     const type = this.props.ext;
     return (
-      <FileViewer fileType={type} filePath={file} onError={this.onError} />
+      <FileViewer
+        key={file}
+        fileType={type}
+        filePath={file}
+        onError={this.onError}
+      />
     );
   }
 

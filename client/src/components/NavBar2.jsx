@@ -6,7 +6,6 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import { NavLink } from "react-router-dom";
 import { IconButton, AppBar } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/MenuRounded";
 import HomeIcon from "@material-ui/icons/HomeRounded";
@@ -17,6 +16,7 @@ import HelpIcon from "@material-ui/icons/HelpRounded";
 import Assignment from "@material-ui/icons/AssignmentRounded";
 import Eject from "@material-ui/icons/EjectRounded";
 import { logOut } from "../auth/helpers";
+import { NavLink } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 const styles = () => ({

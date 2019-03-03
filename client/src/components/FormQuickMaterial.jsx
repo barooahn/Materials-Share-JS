@@ -106,9 +106,9 @@ class FormQuickMaterial extends Component {
   }
 
   render() {
-    const { values, handleChange, promiseOptions } = this.props;
+    const { values, handleChange, getInputSelectOptions } = this.props;
 
-    // console.log("Level", promiseOptions("level"));
+    console.log("Level", getInputSelectOptions("level"));
 
     return (
       <Paper className="paperCenter" elevation={1}>
@@ -143,7 +143,7 @@ class FormQuickMaterial extends Component {
           defaultOptions
           isMulti
           name="level"
-          loadOptions={() => promiseOptions("level")}
+          loadOptions={() => getInputSelectOptions("level")}
           defaultValue={values.level}
           onChange={this.handleLevelChange}
         />
@@ -199,7 +199,7 @@ class FormQuickMaterial extends Component {
           isMulti
           name="pupilTask"
           defaultValue={values.pupilTask}
-          loadOptions={() => promiseOptions("pupilTask")}
+          loadOptions={() => getInputSelectOptions("pupilTask")}
           onChange={this.handlePupilTaskChange}
         />
         <br />

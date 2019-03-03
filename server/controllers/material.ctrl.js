@@ -1,7 +1,7 @@
 /** server/controllers/material.ctrl.js*/
 const Material = require("../models/Material");
 const fs = require("fs");
-const uploadAws = require("../file-upload/aws-file-upload");
+const { uploadAws, deleteAws } = require("../file-upload/aws-file-services");
 
 const filepath = `${__dirname}../../../client/public/files/`;
 
@@ -19,13 +19,11 @@ module.exports = {
   uploadFile: async (req, res) => {
     console.log("uploading file ...");
 
-    Promise.all(req.files.files.map(file => uploadAws.uploadAws(file))).then(
-      result => {
-        // console.log("result if array back end", result);
-        res.json(result);
-        //save to DB
-      }
-    );
+    Promise.all(req.files.files.map(file => uploadAws(file))).then(result => {
+      // console.log("result if array back end", result);
+      res.json(result);
+      //save to DB
+    });
 
     // ****local storeage moved to AWS ****
     // function moveFile(file) {
@@ -44,12 +42,14 @@ module.exports = {
 
   deleteFile: async (req, res, next) => {
     console.log("deleting...");
-    console.log("req...", req.body.file);
-    await fs.unlink(filepath + req.body.file, err => {
-      if (err) throw err;
-      console.log("successfully deleted ", req.body.file);
+
+    const result = await deleteAws(req.body.file);
+    if (result) {
       res.json({ deleted: req.body.file });
-    });
+    } else {
+      console.log("err file not deleted");
+      res.err;
+    }
   },
 
   addMaterial: (req, res, next) => {

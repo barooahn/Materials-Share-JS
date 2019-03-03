@@ -14,7 +14,8 @@ import {
 export default props => {
   return (
     <Player
-    //poster="/img/bg3.jpg"
+      key={props.file}
+      //poster="/img/bg3.jpg"
     >
       <source src={props.file} />
 

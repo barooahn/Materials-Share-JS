@@ -16,7 +16,7 @@ class Materials extends Component {
   handleClick = material => {
     this.setState({ material: true, materialDetails: material });
   };
-  
+
   getMaterials = async () => {
     try {
       const response = await axios.get("/api/materials");

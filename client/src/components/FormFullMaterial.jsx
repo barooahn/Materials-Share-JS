@@ -104,7 +104,7 @@ class FormFullMaterial extends Component {
       values,
       handleChange,
       handleBookChange,
-      promiseOptions
+      getInputSelectOptions
     } = this.props;
 
     return (
@@ -219,7 +219,7 @@ class FormFullMaterial extends Component {
             name="category"
             isMulti
             defaultValue={values.category}
-            loadOptions={() => promiseOptions("category")}
+            loadOptions={() => getInputSelectOptions("category")}
             onChange={this.handleCategoryChange}
           />
           <br />
@@ -235,7 +235,7 @@ class FormFullMaterial extends Component {
             isMulti
             name="languageFocus"
             defaultValue={values.languageFocus}
-            loadOptions={() => promiseOptions("languageFocus")}
+            loadOptions={() => getInputSelectOptions("languageFocus")}
             onChange={this.handleLanguageFocusChange}
           />
           <FormHelperText>
@@ -250,7 +250,7 @@ class FormFullMaterial extends Component {
             defaultValue={values.activityUse}
             isMulti
             name="activityUse"
-            loadOptions={() => promiseOptions("activityUse")}
+            loadOptions={() => getInputSelectOptions("activityUse")}
             onChange={this.handleActivityUseChange}
           />
           <br />
