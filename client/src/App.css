@@ -169,3 +169,7 @@ input[type="range"].slider-bar:focus::-ms-fill-upper {
   margin: 20px auto;
   padding: 15px;
 }
+
+.MuiExpansionPanelDetails-root-123 {
+  display: block !important;
+}

@@ -27,7 +27,7 @@ const styles = {
 };
 
 const MaterialCard = props => {
-  const { classes, material, handleClick } = props;
+  const { classes, material, handleClick, edit } = props;
 
   const filePath = Array.isArray(material.files)
     ? material.files[0]
@@ -91,7 +91,7 @@ const MaterialCard = props => {
           </CardContent>
         </CardActionArea>
         <CardActions>
-          {props.edit
+          {edit
             ? [
                 <MaterialCardButtonEdit
                   material={material}

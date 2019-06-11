@@ -5,6 +5,7 @@ import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 import red from "@material-ui/core/colors/red";
 import Grid from "@material-ui/core/Grid";
+import { NavLink } from "react-router-dom";
 
 const styles = theme => ({
   root: {
@@ -38,9 +39,11 @@ function PaperSheet(props) {
     <div>
       <Grid container spacing={8}>
         <Grid item xs={6}>
-          <Icon className={classes.icon} color="secondary">
-            camera_alt
-          </Icon>
+          <NavLink to="/create" className="link">
+            <Icon className={classes.icon} color="secondary">
+              camera_alt
+            </Icon>
+          </NavLink>
         </Grid>
         <Grid item xs={6}>
           <Typography

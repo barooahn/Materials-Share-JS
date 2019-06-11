@@ -21,16 +21,6 @@ class FormQuickMaterial extends Component {
     this.props.values.shared = "true";
     this.props.values.showContinue = false;
   }
-  handleLevelChange = (newValue, actionMeta) => {
-    this.props.handleSelectChange("level", newValue);
-    // console.log("new value: ", this.props.values.level);
-  };
-
-  handlePupilTaskChange = (newValue, actionMeta) => {
-    this.props.handleSelectChange("pupilTask", newValue);
-    // console.log("new value: ", this.props.values.pupilTask);
-  };
-
   continue = e => {
     e.preventDefault();
     this.props.nextStep();
@@ -39,6 +29,15 @@ class FormQuickMaterial extends Component {
   back = e => {
     e.preventDefault();
     this.props.prevStep();
+  };
+  handleLevelChange = (newValue, actionMeta) => {
+    this.props.handleSelectChange("level", newValue);
+    // console.log("new value: ", this.props.values.level);
+  };
+
+  handlePupilTaskChange = (newValue, actionMeta) => {
+    this.props.handleSelectChange("pupilTask", newValue);
+    // console.log("new value: ", this.props.values.pupilTask);
   };
 
   handleChange = name => event => {
