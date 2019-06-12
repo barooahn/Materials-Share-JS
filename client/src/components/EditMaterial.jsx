@@ -202,15 +202,14 @@ class EditMaterial extends Component {
     //   );
     // });
 
-
-//to implement update material
+    //to implement update material
 
     // saveMin = () => {
     //   console.log("saving to db...");
     //   const { filePaths, title } = this.state;
     //   if (filePaths !== {} && title !== "") {
     //     console.log("validated for db");
-  
+
     //     const material = {
     //       files: filePaths,
     //       title: this.jsUcfirst(title).trim(),
@@ -220,7 +219,7 @@ class EditMaterial extends Component {
     //     this.sendToDb(material);
     //   }
     // };
-  
+
     // sendToDb = material => {
     //   material.author_id = localStorage.getItem("USER_ID");
     //   console.log("sending material to db...", material);
@@ -389,242 +388,278 @@ class EditMaterial extends Component {
                     style={{ width: "100%" }}
                   />
                 </div>
-
-                <TextField
-                  id="objective"
-                  label="Objective of the resource"
-                  value={objective}
-                  placeholder="By the end of the activity pupils will be able to:"
-                  onChange={this.handleChange("objective")}
-                  multiline
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-
-                <br />
-                <br />
-                <FormHelperText>
-                  Level of the resource (Choose or type your own)
-                </FormHelperText>
-                <br />
-                <AsyncCreatableSelect
-                  cacheOptions
-                  defaultOptions
-                  isMulti
-                  name="level"
-                  loadOptions={() => this.getInputSelectOptions("level")}
-                  defaultValue={level}
-                  onChange={this.handleLevelChange}
-                />
-                <br />
-                <br />
-                <TextField
-                  id="preparation"
-                  label="Time needed for preparation (slide bar or type - number of minutes)"
-                  value={preparation}
-                  onChange={this.handleChange("preparation")}
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <input
-                  id="preparation"
-                  className="slider-bar"
-                  type="range"
-                  min="0"
-                  max="60"
-                  value={preparation}
-                  onChange={this.handleChange("preparation")}
-                  step="1"
-                />
-                <br />
-                <br />
-                <TextField
-                  id="timeInClass1"
-                  label="Time needed in class (slide bar or type - number of minutes)"
-                  value={timeInClass}
-                  onChange={this.handleChange("timeInClass")}
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <input
-                  id="timeInClass2"
-                  className="slider-bar"
-                  type="range"
-                  min="0"
-                  max="120"
-                  value={timeInClass}
-                  onChange={this.handleChange("timeInClass")}
-                  step="1"
-                />
-                <br />
-                <br />
-                <FormHelperText>
-                  Type of pupil tasks - (Choose or type your own)
-                </FormHelperText>
-                <br />
-                <AsyncCreatableSelect
-                  cacheOptions
-                  defaultOptions
-                  isMulti
-                  name="pupilTask"
-                  defaultValue={pupilTask}
-                  loadOptions={() => this.getInputSelectOptions("pupilTask")}
-                  onChange={this.handlePupilTaskChange}
-                />
-                <br />
-                <br />
-                <TextField
-                  id="procedureBefore"
-                  label="Procedure before class (you can use multiple lines)"
-                  placeholder="eg. Make one copy of the handout for each pupil."
-                  value={procedureBefore}
-                  onChange={this.handleChange("procedureBefore")}
-                  multiline
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <br />
-                <br />
-                <TextField
-                  id="procedureIn"
-                  label="Procedure in class (you can use multiple lines)"
-                  value={procedureIn}
-                  onChange={this.handleChange("procedureIn")}
-                  multiline
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <br />
-                <br />
-                <FormHelperText>
-                  Is the resource based on a textbook?
-                </FormHelperText>
-                <TextField
-                  id="book"
-                  label="Text book title"
-                  value={book.title}
-                  onChange={this.handleBookChange("title")}
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <TextField
-                  id="page"
-                  label="Page of text book"
-                  value={book.page}
-                  onChange={this.handleBookChange("page")}
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <br />
-                <br />
-                <TextField
-                  id="followUp"
-                  label="Follow up activities (you can use multiple lines)"
-                  value={followUp}
-                  onChange={this.handleChange("followUp")}
-                  multiline
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <br />
-                <TextField
-                  id="variations"
-                  label="Variations on the material use (you can use multiple lines)"
-                  placeholder="eg. For weaker students..."
-                  value={variations}
-                  onChange={this.handleChange("variations")}
-                  multiline
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <br />
-                <TextField
-                  id="materials"
-                  label="What materials do I need?"
-                  placeholder="eg. Finger puppet template, colour pencils, scissors and tape."
-                  value={materials}
-                  onChange={this.handleChange("materials")}
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <br />
-                <TextField
-                  id="tips"
-                  label="tips (you can use multiple lines)"
-                  value={tips}
-                  onChange={this.handleChange("tips")}
-                  multiline
-                  margin="normal"
-                  style={{ width: "100%" }}
-                  placeholder="eg. Pupils can use the completed worksheets to make a classroom display "
-                />
-                <br />
-                <TextField
-                  id="notes"
-                  label="notes (you can use multiple lines)"
-                  value={notes}
-                  onChange={this.handleChange("notes")}
-                  multiline
-                  margin="normal"
-                  style={{ width: "100%" }}
-                />
-                <br />
-                <FormHelperText>
-                  What institue is the material for? - School, language center
-                  etc.
-                </FormHelperText>
-                <FormHelperText>(Choose or create your own)</FormHelperText>
-                <br />
-                <AsyncCreatableSelect
-                  cacheOptions
-                  defaultOptions
-                  name="category"
-                  isMulti
-                  defaultValue={category}
-                  loadOptions={() => this.getInputSelectOptions("category")}
-                  onChange={this.handleCategoryChange}
-                />
-                <br />
-                <FormHelperText>
-                  What is the language focus of the resource? - Speaking,
-                  Listening etc.
-                </FormHelperText>
-                <FormHelperText>(Choose or create your own)</FormHelperText>
-                <br />
-                <AsyncCreatableSelect
-                  cacheOptions
-                  defaultOptions
-                  isMulti
-                  name="languageFocus"
-                  defaultValue={languageFocus}
-                  loadOptions={() =>
-                    this.getInputSelectOptions("languageFocus")
-                  }
-                  onChange={this.handleLanguageFocusChange}
-                />
-                <FormHelperText>
-                  What is the activity use of the resource? - Production,
-                  Presenetation etc.
-                </FormHelperText>
-                <FormHelperText>(Choose or create your own)</FormHelperText>
-                <br />
-                <AsyncCreatableSelect
-                  cacheOptions
-                  defaultOptions
-                  defaultValue={activityUse}
-                  isMulti
-                  name="activityUse"
-                  loadOptions={() => this.getInputSelectOptions("activityUse")}
-                  onChange={this.handleActivityUseChange}
-                />
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  onClick={this.props.update}
-                >
-                  Save
-                </Button>
+                <div>
+                  <TextField
+                    id="objective"
+                    label="Objective of the resource"
+                    value={objective}
+                    placeholder="By the end of the activity pupils will be able to:"
+                    onChange={this.handleChange("objective")}
+                    multiline
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                </div>
+                <div>
+                  <br />
+                  <br />
+                  <FormHelperText>
+                    Level of the resource (Choose or type your own)
+                  </FormHelperText>
+                  <br />
+                  <AsyncCreatableSelect
+                    cacheOptions
+                    defaultOptions
+                    isMulti
+                    name="level"
+                    loadOptions={() => this.getInputSelectOptions("level")}
+                    defaultValue={level}
+                    onChange={this.handleLevelChange}
+                  />
+                  <br />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="preparation"
+                    label="Time needed for preparation (slide bar or type - number of minutes)"
+                    value={preparation}
+                    onChange={this.handleChange("preparation")}
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <input
+                    id="preparation"
+                    className="slider-bar"
+                    type="range"
+                    min="0"
+                    max="60"
+                    value={preparation}
+                    onChange={this.handleChange("preparation")}
+                    step="1"
+                  />
+                  <br />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="timeInClass1"
+                    label="Time needed in class (slide bar or type - number of minutes)"
+                    value={timeInClass}
+                    onChange={this.handleChange("timeInClass")}
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <input
+                    id="timeInClass2"
+                    className="slider-bar"
+                    type="range"
+                    min="0"
+                    max="120"
+                    value={timeInClass}
+                    onChange={this.handleChange("timeInClass")}
+                    step="1"
+                  />
+                  <br />
+                  <br />
+                </div>
+                <div>
+                  <FormHelperText>
+                    Type of pupil tasks - (Choose or type your own)
+                  </FormHelperText>
+                  <br />
+                  <AsyncCreatableSelect
+                    cacheOptions
+                    defaultOptions
+                    isMulti
+                    name="pupilTask"
+                    defaultValue={pupilTask}
+                    loadOptions={() => this.getInputSelectOptions("pupilTask")}
+                    onChange={this.handlePupilTaskChange}
+                  />
+                  <br />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="procedureBefore"
+                    label="Procedure before class (you can use multiple lines)"
+                    placeholder="eg. Make one copy of the handout for each pupil."
+                    value={procedureBefore}
+                    onChange={this.handleChange("procedureBefore")}
+                    multiline
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <br />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="procedureIn"
+                    label="Procedure in class (you can use multiple lines)"
+                    value={procedureIn}
+                    onChange={this.handleChange("procedureIn")}
+                    multiline
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <br />
+                  <br />
+                </div>
+                <div>
+                  <FormHelperText>
+                    Is the resource based on a textbook?
+                  </FormHelperText>
+                  <TextField
+                    id="book"
+                    label="Text book title"
+                    value={book.title}
+                    onChange={this.handleBookChange("title")}
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <TextField
+                    id="page"
+                    label="Page of text book"
+                    value={book.page}
+                    onChange={this.handleBookChange("page")}
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <br />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="followUp"
+                    label="Follow up activities (you can use multiple lines)"
+                    value={followUp}
+                    onChange={this.handleChange("followUp")}
+                    multiline
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="variations"
+                    label="Variations on the material use (you can use multiple lines)"
+                    placeholder="eg. For weaker students..."
+                    value={variations}
+                    onChange={this.handleChange("variations")}
+                    multiline
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="materials"
+                    label="What materials do I need?"
+                    placeholder="eg. Finger puppet template, colour pencils, scissors and tape."
+                    value={materials}
+                    onChange={this.handleChange("materials")}
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="tips"
+                    label="tips (you can use multiple lines)"
+                    value={tips}
+                    onChange={this.handleChange("tips")}
+                    multiline
+                    margin="normal"
+                    style={{ width: "100%" }}
+                    placeholder="eg. Pupils can use the completed worksheets to make a classroom display "
+                  />
+                  <br />
+                </div>
+                <div>
+                  <TextField
+                    id="notes"
+                    label="notes (you can use multiple lines)"
+                    value={notes}
+                    onChange={this.handleChange("notes")}
+                    multiline
+                    margin="normal"
+                    style={{ width: "100%" }}
+                  />
+                  <br />
+                </div>
+                <div>
+                  <FormHelperText>
+                    What institue is the material for? - School, language center
+                    etc.
+                  </FormHelperText>
+                  <FormHelperText>(Choose or create your own)</FormHelperText>
+                  <br />
+                  <AsyncCreatableSelect
+                    cacheOptions
+                    defaultOptions
+                    name="category"
+                    isMulti
+                    defaultValue={category}
+                    loadOptions={() => this.getInputSelectOptions("category")}
+                    onChange={this.handleCategoryChange}
+                  />
+                  <br />
+                </div>
+                <div>
+                  <FormHelperText>
+                    What is the language focus of the resource? - Speaking,
+                    Listening etc.
+                  </FormHelperText>
+                  <FormHelperText>(Choose or create your own)</FormHelperText>
+                  <br />
+                  <AsyncCreatableSelect
+                    cacheOptions
+                    defaultOptions
+                    isMulti
+                    name="languageFocus"
+                    defaultValue={languageFocus}
+                    loadOptions={() =>
+                      this.getInputSelectOptions("languageFocus")
+                    }
+                    onChange={this.handleLanguageFocusChange}
+                  />
+                </div>
+                <div>
+                  <FormHelperText>
+                    What is the activity use of the resource? - Production,
+                    Presenetation etc.
+                  </FormHelperText>
+                  <FormHelperText>(Choose or create your own)</FormHelperText>
+                  <br />
+                  <AsyncCreatableSelect
+                    cacheOptions
+                    defaultOptions
+                    defaultValue={activityUse}
+                    isMulti
+                    name="activityUse"
+                    loadOptions={() =>
+                      this.getInputSelectOptions("activityUse")
+                    }
+                    onChange={this.handleActivityUseChange}
+                  />
+                </div>
+                <div>
+                  <br />
+                  <br />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={this.props.update}
+                  >
+                    Save
+                  </Button>
+                </div>
               </ExpansionPanelDetails>
             </ExpansionPanel>
           </div>
