@@ -378,7 +378,7 @@ class EditMaterial extends Component {
                 </Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="standard-name"
                     label="Title"
@@ -388,7 +388,7 @@ class EditMaterial extends Component {
                     style={{ width: "100%" }}
                   />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="objective"
                     label="Objective of the resource"
@@ -400,7 +400,7 @@ class EditMaterial extends Component {
                     style={{ width: "100%" }}
                   />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <br />
                   <br />
                   <FormHelperText>
@@ -419,7 +419,7 @@ class EditMaterial extends Component {
                   <br />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="preparation"
                     label="Time needed for preparation (slide bar or type - number of minutes)"
@@ -441,7 +441,7 @@ class EditMaterial extends Component {
                   <br />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="timeInClass1"
                     label="Time needed in class (slide bar or type - number of minutes)"
@@ -463,7 +463,7 @@ class EditMaterial extends Component {
                   <br />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <FormHelperText>
                     Type of pupil tasks - (Choose or type your own)
                   </FormHelperText>
@@ -480,7 +480,7 @@ class EditMaterial extends Component {
                   <br />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="procedureBefore"
                     label="Procedure before class (you can use multiple lines)"
@@ -494,7 +494,7 @@ class EditMaterial extends Component {
                   <br />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="procedureIn"
                     label="Procedure in class (you can use multiple lines)"
@@ -507,7 +507,7 @@ class EditMaterial extends Component {
                   <br />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <FormHelperText>
                     Is the resource based on a textbook?
                   </FormHelperText>
@@ -530,7 +530,7 @@ class EditMaterial extends Component {
                   <br />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="followUp"
                     label="Follow up activities (you can use multiple lines)"
@@ -542,7 +542,7 @@ class EditMaterial extends Component {
                   />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="variations"
                     label="Variations on the material use (you can use multiple lines)"
@@ -555,7 +555,7 @@ class EditMaterial extends Component {
                   />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="materials"
                     label="What materials do I need?"
@@ -567,7 +567,7 @@ class EditMaterial extends Component {
                   />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="tips"
                     label="tips (you can use multiple lines)"
@@ -580,7 +580,7 @@ class EditMaterial extends Component {
                   />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <TextField
                     id="notes"
                     label="notes (you can use multiple lines)"
@@ -592,7 +592,7 @@ class EditMaterial extends Component {
                   />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <FormHelperText>
                     What institue is the material for? - School, language center
                     etc.
@@ -610,7 +610,7 @@ class EditMaterial extends Component {
                   />
                   <br />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <FormHelperText>
                     What is the language focus of the resource? - Speaking,
                     Listening etc.
@@ -629,7 +629,7 @@ class EditMaterial extends Component {
                     onChange={this.handleLanguageFocusChange}
                   />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <FormHelperText>
                     What is the activity use of the resource? - Production,
                     Presenetation etc.
@@ -648,7 +648,7 @@ class EditMaterial extends Component {
                     onChange={this.handleActivityUseChange}
                   />
                 </div>
-                <div>
+                <div className="editBlocks">
                   <br />
                   <br />
                   <Button

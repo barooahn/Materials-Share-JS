@@ -173,3 +173,7 @@ input[type="range"].slider-bar:focus::-ms-fill-upper {
 .MuiExpansionPanelDetails-root-123 {
   display: block !important;
 }
+
+.editBlocks {
+  display: block;
+}
