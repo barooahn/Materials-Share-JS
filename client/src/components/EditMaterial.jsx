@@ -11,10 +11,10 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
 import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import AsyncCreatableSelect from "react-select/lib/AsyncCreatable";
 import axios from "axios";
+import MuiExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
 
 const styles = theme => ({
   root: {
@@ -241,6 +241,12 @@ class EditMaterial extends Component {
     //       throw err;
     //     });
     // };
+
+    const ExpansionPanelDetails = withStyles(theme => ({
+      root: {
+        display: "block"
+      }
+    }))(MuiExpansionPanelDetails);
 
     return (
       <React.Fragment>
