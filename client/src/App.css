@@ -170,10 +170,7 @@ input[type="range"].slider-bar:focus::-ms-fill-upper {
   padding: 15px;
 }
 
-.MuiExpansionPanelDetails-root-123 {
+.MuiExpansionPanelDetails-root-123,
+.jss123 {
   display: block !important;
-}
-
-.editBlocks {
-  display: block;
 }
