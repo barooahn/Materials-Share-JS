@@ -79,15 +79,14 @@ export class UserForm extends Component {
     //validate mime type
     const reExtension = /(?:\.([^.]+))?$/;
     files.map(x => {
-      const ext = x.name.match(reExtension)[1];
+      const ext = x.name.match(reExtension)[1].toLowerCase();
       if (ext === "docx") {
         return x;
       } else {
-        return files.filter(x => allowedMimeTypes.includes(x.type));
+        return files.filter(ext => allowedMimeTypes.includes(ext.type));
       }
     });
 
-    // check for spaces and invalid chars
     this.setState({
       selectedFiles: files,
       loaded: 0,
@@ -122,6 +121,10 @@ export class UserForm extends Component {
     const data = new FormData();
     for (var i = 0; i < this.state.selectedFiles.length; i++) {
       let file = this.state.selectedFiles[i];
+      Object.defineProperty(file, "name", {
+        writable: true,
+        value: file.name.toLowerCase()
+      });
       data.append("files[" + i + "]", file);
     }
     axios
@@ -144,25 +147,6 @@ export class UserForm extends Component {
         console.log(err);
       });
   };
-
-  getInputSelectOptions = field =>
-    new Promise(resolve => {
-      // console.log("getting options...");
-      resolve(
-        axios
-          .get("/api/material/field/" + field)
-          .then(res => {
-            //.log("options ", res.data);
-            return res.data.values.map(label => ({
-              label: label,
-              value: label.toLowerCase().replace(/\W/g, "")
-            }));
-          })
-          .catch(function(err) {
-            throw err;
-          })
-      );
-    });
 
   handleSelectChange = async (input, value) => {
     // console.log("select changed ", input, value);

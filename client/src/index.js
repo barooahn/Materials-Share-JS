@@ -20,7 +20,7 @@ import {
 import * as serviceWorker from "./serviceWorker";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import Axios from "axios";
-import EditMaterial from "./components/EditMaterial";
+import EditHome from "./components/Edit/EditHome";
 
 //routes
 
@@ -86,11 +86,7 @@ const routing = (
             name="profile"
             component={ProfilePage}
           />
-          <PrivateRoute
-            path="/edit"
-            name="editMaterial"
-            component={EditMaterial}
-          />
+          <PrivateRoute path="/edit" name="editMaterial" component={EditHome} />
           <Route component={Notfound} />
         </Switch>
       </main>

@@ -143,7 +143,18 @@ module.exports = {
   },
 
   updateMaterial: (req, res, next) => {
-    next();
+    console.log("in update material id = ", req.params.id);
+    Material.findOneAndUpdate(
+      req.params.id,
+      { $set: req.body },
+      { upsert: true },
+      function(err, material) {
+        if (err) return next(err);
+        // res.send("material udpated.");
+        console.log("material updated ", material);
+        next();
+      }
+    );
   },
 
   deleteMaterial: (req, res, next) => {

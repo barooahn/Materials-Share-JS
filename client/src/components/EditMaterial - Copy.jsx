@@ -131,104 +131,105 @@ class EditMaterial extends Component {
   // });
 
   //to implement update material
-  // jsUcfirst = s => {
-  //   if (typeof s !== "string") return "";
-  //   return s.charAt(0).toUpperCase() + s.slice(1);
-  // };
+  jsUcfirst = s => {
+    if (typeof s !== "string") return "";
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
-  // updateMaterial = () => {
-  //   console.log("saving to db...");
-  //   const {
-  //     title,
-  //     filePaths,
-  //     timeInClass,
-  //     procedureBefore,
-  //     procedureIn,
-  //     book,
-  //     page,
-  //     followUp,
-  //     variations,
-  //     tips,
-  //     notes,
-  //     category,
-  //     shared,
-  //     objective,
-  //     level,
-  //     languageFocus,
-  //     activityUse,
-  //     pupilTask,
-  //     materials,
-  //     preparation
-  //   } = this.state;
-  //   if (
-  //     filePaths !== {} &&
-  //     title !== "" &&
-  //     objective !== "" &&
-  //     level !== [] &&
-  //     preparation !== 0 &&
-  //     timeInClass !== 0 &&
-  //     pupilTask !== []
-  //   ) {
-  //     console.log("validated for db");
+  updateMaterial = () => {
+    console.log("saving to db...");
+    const {
+      title,
+      filePaths,
+      timeInClass,
+      procedureBefore,
+      procedureIn,
+      book,
+      page,
+      followUp,
+      variations,
+      tips,
+      notes,
+      category,
+      shared,
+      objective,
+      level,
+      languageFocus,
+      activityUse,
+      pupilTask,
+      materials,
+      preparation
+    } = this.state;
+    if (
+      filePaths !== {} &&
+      title !== "" &&
+      objective !== "" &&
+      level !== [] &&
+      preparation !== 0 &&
+      timeInClass !== 0 &&
+      pupilTask !== []
+    ) {
+      console.log("validated for db");
 
-  //     const material = {
-  //       procedureBefore,
-  //       procedureIn,
-  //       book: this.jsUcfirst(book).trim(),
-  //       page,
-  //       followUp,
-  //       variations,
-  //       shared,
-  //       tips,
-  //       notes,
-  //       category,
-  //       languageFocus,
-  //       activityUse,
-  //       materials,
-  //       files: filePaths,
-  //       title: this.jsUcfirst(title).trim(),
-  //       objective: this.jsUcfirst(objective).trim(),
-  //       level,
-  //       preparation,
-  //       timeInClass,
-  //       pupilTask,
-  //       dateCreated: new Date(),
-  //       dateModified: new Date()
-  //     };
-  //     this.sendToDb(material);
-  //   }
-  // };
+      const material = {
+        procedureBefore,
+        procedureIn,
+        book: this.jsUcfirst(book).trim(),
+        page,
+        followUp,
+        variations,
+        shared,
+        tips,
+        notes,
+        category,
+        languageFocus,
+        activityUse,
+        materials,
+        files: filePaths,
+        title: this.jsUcfirst(title).trim(),
+        objective: this.jsUcfirst(objective).trim(),
+        level,
+        preparation,
+        timeInClass,
+        pupilTask,
+        dateCreated: new Date(),
+        dateModified: new Date()
+      };
+      this.sendToDb(material);
+    }
+  };
 
-  // sendToDb = material => {
-  //   material.author_id = localStorage.getItem("USER_ID");
-  //   console.log(
-  //     "sending material to db...",
-  //     this.props.location.state.material
-  //   );
-  //   axios
-  //     .put(
-  //       `/api/material/${this.props.location.state.material._id}/update`,
-  //       material,
-  //       {
-  //         onUploadProgress: ProgressEvent => {
-  //           this.setState({
-  //             loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
-  //           });
-  //         }
-  //       }
-  //     )
-  //     .then(res => {
-  //       console.log("saved to db", res.data);
-  //     })
-  //     .catch(function(err) {
-  //       throw err;
-  //     });
-  // };
+  sendToDb = material => {
+    material.author_id = localStorage.getItem("USER_ID");
+    console.log(
+      "sending material to db...",
+      this.props.location.state.material
+    );
+    axios
+      .put(
+        `/api/material/${this.props.location.state.material._id}/update`,
+        material,
+        {
+          onUploadProgress: ProgressEvent => {
+            this.setState({
+              loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100
+            });
+          }
+        }
+      )
+      .then(res => {
+        console.log("saved to db", res.data);
+      })
+      .catch(function(err) {
+        throw err;
+      });
+  };
 
   render() {
     const { classes } = this.props;
     const {
       expanded,
+      files,
       title,
       timeInClass,
       procedureBefore,
@@ -243,6 +244,7 @@ class EditMaterial extends Component {
       languageFocus,
       activityUse,
       pupilTask,
+      shared,
       book,
       materials,
       preparation
@@ -272,6 +274,125 @@ class EditMaterial extends Component {
         <Paper className="paperCenter" elevation={1}>
           <div className={classes.root}>
             <ExpansionPanel
+              expanded={expanded === "panel1"}
+              onChange={this.handleExpand("panel1")}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  Add Additional Files
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                  Add New Files Here
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography variant="h5" component="h2">
+                  Click 'Select File(s)' button to choose one or more files to
+                  save
+                </Typography>
+                <br />
+                <br />
+
+                <input
+                  accept="image/*, audio/*, video/*, .pdf, .docx, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                  id="contained-button-file"
+                  className="inputFile"
+                  multiple
+                  type="file"
+                  // onChange={handleselectedFile}
+                />
+                <label htmlFor="contained-button-file">
+                  <Button variant="contained" component="span">
+                    Select File(s)
+                  </Button>
+                </label>
+
+                <br />
+                <br />
+                {material.showUpload ? (
+                  <React.Fragment>
+                    <FormHelperText>Selected files</FormHelperText>
+
+                    <ul>{newSelectedFiles}</ul>
+
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      // onClick={handleUpload}
+                      // className={classes.button}
+                    >
+                      Upload
+                    </Button>
+
+                    <br />
+                    <br />
+                    <FormHelperText>Upload progress</FormHelperText>
+                    <br />
+                    <LinearProgress
+                      variant="determinate"
+                      value={Math.round(material.loaded, 2)}
+                    />
+
+                    <br />
+
+                    <FormHelperText>Uploaded files</FormHelperText>
+
+                    {/* <ul>{newFilePaths}</ul> */}
+                  </React.Fragment>
+                ) : null}
+                {material.showContinue ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className="contiune"
+                    onClick={this.continue}
+                  >
+                    Continue
+                  </Button>
+                ) : null}
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel
+              expanded={expanded === "panel2"}
+              onChange={this.handleExpand("panel2")}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  Remove Existing Files{" "}
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                  Remove Files You Previously Added
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography>
+                  Donec placerat, lectus sed mattis semper, neque lectus feugiat
+                  lectus, varius pulvinar diam eros in elit. Pellentesque
+                  convallis laoreet laoreet.
+                </Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel
+              expanded={expanded === "panel3"}
+              onChange={this.handleExpand("panel3")}
+            >
+              <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                <Typography className={classes.heading}>
+                  Add Additional Information
+                </Typography>
+                <Typography className={classes.secondaryHeading}>
+                  Add New Fields To Your Existing Resource
+                </Typography>
+              </ExpansionPanelSummary>
+              <ExpansionPanelDetails>
+                <Typography>
+                  Nunc vitae orci ultricies, auctor nunc in, volutpat nisl.
+                  Integer sit amet egestas eros, vitae egestas augue. Duis vel
+                  est augue.
+                </Typography>
+              </ExpansionPanelDetails>
+            </ExpansionPanel>
+            <ExpansionPanel
               expanded={expanded === "panel4"}
               onChange={this.handleExpand("panel4")}
             >
@@ -300,7 +421,7 @@ class EditMaterial extends Component {
                     label="Objective of the resource"
                     value={objective}
                     placeholder="By the end of the activity pupils will be able to:"
-                    // onChange={this.handleChange("objective")}
+                    onChange={this.handleChange("objective")}
                     multiline
                     margin="normal"
                     style={{ width: "100%" }}
@@ -323,7 +444,7 @@ class EditMaterial extends Component {
                     id="preparation"
                     label="Time needed for preparation (slide bar or type - number of minutes)"
                     value={preparation}
-                    // onChange={this.handleChange("preparation")}
+                    onChange={this.handleChange("preparation")}
                     margin="normal"
                     style={{ width: "100%" }}
                   />
@@ -334,7 +455,7 @@ class EditMaterial extends Component {
                     min="0"
                     max="60"
                     value={preparation}
-                    // onChange={this.handleChange("preparation")}
+                    onChange={this.handleChange("preparation")}
                     step="1"
                   />
                   <br />
@@ -345,7 +466,7 @@ class EditMaterial extends Component {
                     id="timeInClass1"
                     label="Time needed in class (slide bar or type - number of minutes)"
                     value={timeInClass}
-                    // onChange={this.handleChange("timeInClass")}
+                    onChange={this.handleChange("timeInClass")}
                     margin="normal"
                     style={{ width: "100%" }}
                   />
@@ -356,7 +477,7 @@ class EditMaterial extends Component {
                     min="0"
                     max="120"
                     value={timeInClass}
-                    // onChange={this.handleChange("timeInClass")}
+                    onChange={this.handleChange("timeInClass")}
                     step="1"
                   />
                   <br />
@@ -378,7 +499,7 @@ class EditMaterial extends Component {
                     label="Procedure before class (you can use multiple lines)"
                     placeholder="eg. Make one copy of the handout for each pupil."
                     value={procedureBefore}
-                    // onChange={this.handleChange("procedureBefore")}
+                    onChange={this.handleChange("procedureBefore")}
                     multiline
                     margin="normal"
                     style={{ width: "100%" }}
@@ -391,7 +512,7 @@ class EditMaterial extends Component {
                     id="procedureIn"
                     label="Procedure in class (you can use multiple lines)"
                     value={procedureIn}
-                    // onChange={this.handleChange("procedureIn")}
+                    onChange={this.handleChange("procedureIn")}
                     multiline
                     margin="normal"
                     style={{ width: "100%" }}
@@ -427,7 +548,7 @@ class EditMaterial extends Component {
                     id="followUp"
                     label="Follow up activities (you can use multiple lines)"
                     value={followUp}
-                    // onChange={this.handleChange("followUp")}
+                    onChange={this.handleChange("followUp")}
                     multiline
                     margin="normal"
                     style={{ width: "100%" }}
@@ -440,7 +561,7 @@ class EditMaterial extends Component {
                     label="Variations on the material use (you can use multiple lines)"
                     placeholder="eg. For weaker students..."
                     value={variations}
-                    // onChange={this.handleChange("variations")}
+                    onChange={this.handleChange("variations")}
                     multiline
                     margin="normal"
                     style={{ width: "100%" }}
@@ -453,7 +574,7 @@ class EditMaterial extends Component {
                     label="What materials do I need?"
                     placeholder="eg. Finger puppet template, colour pencils, scissors and tape."
                     value={materials}
-                    // onChange={this.handleChange("materials")}
+                    onChange={this.handleChange("materials")}
                     margin="normal"
                     style={{ width: "100%" }}
                   />
@@ -464,7 +585,7 @@ class EditMaterial extends Component {
                     id="tips"
                     label="tips (you can use multiple lines)"
                     value={tips}
-                    // onChange={this.handleChange("tips")}
+                    onChange={this.handleChange("tips")}
                     multiline
                     margin="normal"
                     style={{ width: "100%" }}
@@ -477,7 +598,7 @@ class EditMaterial extends Component {
                     id="notes"
                     label="notes (you can use multiple lines)"
                     value={notes}
-                    // onChange={this.handleChange("notes")}
+                    onChange={this.handleChange("notes")}
                     multiline
                     margin="normal"
                     style={{ width: "100%" }}
@@ -519,7 +640,7 @@ class EditMaterial extends Component {
                     variant="contained"
                     color="primary"
                     className={classes.button}
-                    // onClick={this.updateMaterial}
+                    onClick={this.updateMaterial}
                   >
                     Save
                   </Button>

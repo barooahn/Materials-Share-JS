@@ -37,14 +37,18 @@ module.exports = router => {
   router
     .route("/material")
     .post(multipartWare, materialcontroller.addMaterial)
-    /**
-     * update a material
-     */
-    .put(multipartWare, materialcontroller.updateMaterial)
+
     /**
      * delete a material
      */
     .delete(multipartWare, materialcontroller.deleteMaterial);
+
+  /**
+   * update a particlular material
+   */
+  router
+    .route("/material/:id/update")
+    .put(multipartWare, materialcontroller.updateMaterial);
   /**
    * comment on a material
    */

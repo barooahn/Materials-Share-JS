@@ -8,8 +8,7 @@ import {
   FormControlLabel,
   Checkbox
 } from "@material-ui/core";
-
-import AsyncCreatableSelect from "react-select/lib/AsyncCreatable";
+import SelectBox from "./SelectBox";
 
 class FormQuickMaterial extends Component {
   constructor(props) {
@@ -29,15 +28,6 @@ class FormQuickMaterial extends Component {
   back = e => {
     e.preventDefault();
     this.props.prevStep();
-  };
-  handleLevelChange = (newValue, actionMeta) => {
-    this.props.handleSelectChange("level", newValue);
-    // console.log("new value: ", this.props.values.level);
-  };
-
-  handlePupilTaskChange = (newValue, actionMeta) => {
-    this.props.handleSelectChange("pupilTask", newValue);
-    // console.log("new value: ", this.props.values.pupilTask);
   };
 
   handleChange = name => event => {
@@ -105,9 +95,9 @@ class FormQuickMaterial extends Component {
   }
 
   render() {
-    const { values, handleChange, getInputSelectOptions } = this.props;
+    const { values, handleChange, handleSelectChange } = this.props;
 
-    console.log("Level", getInputSelectOptions("level"));
+    // console.log("Level", getInputSelectOptions("level"));
 
     return (
       <Paper className="paperCenter" elevation={1}>
@@ -133,18 +123,11 @@ class FormQuickMaterial extends Component {
         />
         <br />
         <br />
-        <FormHelperText>
-          Level of the resource (Choose or type your own)
-        </FormHelperText>
-        <br />
-        <AsyncCreatableSelect
-          cacheOptions
-          defaultOptions
-          isMulti
+        <SelectBox
           name="level"
-          loadOptions={() => getInputSelectOptions("level")}
-          defaultValue={values.level}
-          onChange={this.handleLevelChange}
+          label="Level of the resource (Choose or type your own)"
+          value={values.level}
+          handleSelectChange={handleSelectChange}
         />
         <br />
         <br />
@@ -188,18 +171,11 @@ class FormQuickMaterial extends Component {
         />
         <br />
         <br />
-        <FormHelperText>
-          Type of pupil tasks - (Choose or type your own)
-        </FormHelperText>
-        <br />
-        <AsyncCreatableSelect
-          cacheOptions
-          defaultOptions
-          isMulti
+        <SelectBox
+          label="Type of pupil tasks - (Choose or type your own)"
           name="pupilTask"
-          defaultValue={values.pupilTask}
-          loadOptions={() => getInputSelectOptions("pupilTask")}
-          onChange={this.handlePupilTaskChange}
+          value={values.pupilTask}
+          handleSelectChange={handleSelectChange}
         />
         <br />
         <br />

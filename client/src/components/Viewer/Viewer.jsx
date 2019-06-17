@@ -8,7 +8,8 @@ const path = "https://s3.eu-west-2.amazonaws.com/matshre-assets/";
 const getPlayer = props => {
   const { file } = props;
   const reExtension = /(?:\.([^.]+))?$/;
-  const ext = file.match(reExtension)[1];
+
+  const ext = file.match(reExtension)[1].toLowerCase();
   if (ext === "docx" || ext === "pdf")
     return { type: "doc", name: path + file, ext: ext };
   else if (ext === "jpg" || ext === "jpeg" || ext === "svg" || ext === "png") {

@@ -9,6 +9,7 @@ import {
   Checkbox
 } from "@material-ui/core";
 import AsyncCreatableSelect from "react-select/lib/AsyncCreatable";
+import SelectBox from "./SelectBox";
 
 class FormFullMaterial extends Component {
   constructor(props) {
@@ -19,19 +20,6 @@ class FormFullMaterial extends Component {
       shared: true
     };
   }
-
-  handleCategoryChange = (newValue, actionMeta) => {
-    this.props.handleSelectChange("category", newValue);
-    console.log("new value: ", this.props.values.category);
-  };
-  handleActivityUseChange = (newValue, actionMeta) => {
-    this.props.handleSelectChange("activityUse", newValue);
-    console.log("new value: ", this.props.values.activityUse);
-  };
-  handleLanguageFocusChange = (newValue, actionMeta) => {
-    this.props.handleSelectChange("languageFocus", newValue);
-    console.log("new value: ", this.props.values.languageFocus);
-  };
 
   handleChange = name => event => {
     this.setState({ ...this.state, [name]: event.target.checked });
@@ -104,7 +92,8 @@ class FormFullMaterial extends Component {
       values,
       handleChange,
       handleBookChange,
-      getInputSelectOptions
+      getInputSelectOptions,
+      handleSelectChange
     } = this.props;
 
     return (
@@ -208,50 +197,26 @@ class FormFullMaterial extends Component {
             style={{ width: "100%" }}
           />
           <br />
-          <FormHelperText>
-            What institue is the material for? - School, language center etc.
-          </FormHelperText>
-          <FormHelperText>(Choose or create your own)</FormHelperText>
-          <br />
-          <AsyncCreatableSelect
-            cacheOptions
-            defaultOptions
+          <SelectBox
             name="category"
-            isMulti
-            defaultValue={values.category}
-            loadOptions={() => getInputSelectOptions("category")}
-            onChange={this.handleCategoryChange}
+            label="What institue is the material for? - School, language center etc."
+            value={values.category}
+            handleSelectChange={handleSelectChange}
           />
           <br />
-          <FormHelperText>
-            What is the language focus of the resource? - Speaking, Listening
-            etc.
-          </FormHelperText>
-          <FormHelperText>(Choose or create your own)</FormHelperText>
-          <br />
-          <AsyncCreatableSelect
-            cacheOptions
-            defaultOptions
-            isMulti
+          <SelectBox
             name="languageFocus"
-            defaultValue={values.languageFocus}
-            loadOptions={() => getInputSelectOptions("languageFocus")}
-            onChange={this.handleLanguageFocusChange}
+            label="What is the language focus of the resource? - Speaking, Listening
+          etc."
+            value={values.languageFocus}
+            handleSelectChange={handleSelectChange}
           />
-          <FormHelperText>
-            What is the activity use of the resource? - Production,
-            Presenetation etc.
-          </FormHelperText>
-          <FormHelperText>(Choose or create your own)</FormHelperText>
-          <br />
-          <AsyncCreatableSelect
-            cacheOptions
-            defaultOptions
-            defaultValue={values.activityUse}
-            isMulti
+          <SelectBox
             name="activityUse"
-            loadOptions={() => getInputSelectOptions("activityUse")}
-            onChange={this.handleActivityUseChange}
+            label="What is the activity use of the resource? - Production,
+          Presenetation etc."
+            value={values.activityUse}
+            handleSelectChange={handleSelectChange}
           />
           <br />
           <Button variant="contained" color="secondary" onClick={this.back}>
