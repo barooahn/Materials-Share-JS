@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const oauthGoogle = async data => {
-  const res = await axios.post("/api/users/oauth/google", {
+  const res = await axios.get("/api/users/oauth/google", {
     access_token: data
   });
 
