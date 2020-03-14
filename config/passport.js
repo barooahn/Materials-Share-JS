@@ -106,8 +106,9 @@ passport.use(
 passport.use('google', new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://materials-share.herokuapp.com/auth/google/callback"
+    callbackURL: "/auth/google/callback"
   },
+  // callbackURL: "https://materials-share.herokuapp.com/auth/google/callback"
   function(accessToken, refreshToken, profile, done) {
        User.findOrCreate({ googleId: profile.id }, function (err, user) {
          return done(err, user);

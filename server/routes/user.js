@@ -59,8 +59,9 @@ module.exports = router => {
   //   back to this application at /auth/google/callback
   router
     .route('/users/oauth/google')
-  .get(
-    passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
+  .post(
+    passport.authenticate('google', { scope: ["https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email"] }));
 
   // GET /auth/google/callback
   //   Use passport.authenticate() as route middleware to authenticate the
@@ -69,9 +70,10 @@ module.exports = router => {
   //   which, in this example, will redirect the user to the home page.
   router
     .route('/auth/google/callback')
-    .get( 
+    .post( 
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
+    console.log('in user.js google')
     res.redirect('/');
   });
 
