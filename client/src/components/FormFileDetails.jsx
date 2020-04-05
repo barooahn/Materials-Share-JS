@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Icon, Paper, LinearProgress, FormHelperText } from "@material-ui/core";
+import Icon from "@material-ui/core/Icon";
+import Paper from "@material-ui/core/Paper";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 class FormFileDetails extends Component {
   constructor(props) {

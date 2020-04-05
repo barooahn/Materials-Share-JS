@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import AsyncCreatableSelect from "react-select/lib/AsyncCreatable";
-import { FormHelperText } from "@material-ui/core";
+import FormHelperText from "@material-ui/core/FormHelperText";
+
 import axios from "axios";
 
 class SelectBox extends Component {
@@ -21,7 +22,7 @@ class SelectBox extends Component {
               value: label.toLowerCase().replace(/\W/g, "")
             }));
           })
-          .catch(function(err) {
+          .catch(function (err) {
             throw err;
           })
       );

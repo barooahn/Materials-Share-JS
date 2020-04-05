@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { Paper, Typography, Grid } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 import { getSecret } from "../auth/helpers";
 import axios from "axios";
 import Material from "../components/Material/Material";
-import MaterialCard from "../components/MaterialCard";
+import MaterialCard from "../components/Material/MaterialCard";
 
 class Profile extends Component {
   constructor(props) {

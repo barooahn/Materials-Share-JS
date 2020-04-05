@@ -2,15 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import Materials from "./components/Materials";
+import Materials from "./components/Material/Materials";
 import Users from "./components/Users";
-import UserForm from "./components/UserForm";
+// import UserForm from "./components/UserForm";
 import Notfound from "./components/NotFound";
 import NavBar2 from "./components/NavBar2";
 import Help from "./components/Help";
 import Login from "./LoginPage/Login2";
 import Register from "./RegisterPage/Register2";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import Stepper from "./components/materialStepper/MaterialStepper";
+
 import {
   BrowserRouter as Router,
   Route,
@@ -21,6 +23,7 @@ import * as serviceWorker from "./serviceWorker";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import Axios from "axios";
 import EditHome from "./components/Edit/EditHome";
+import MaterialStepper from "./components/materialStepper/MaterialStepper";
 
 //routes
 
@@ -70,7 +73,7 @@ const routing = (
           <Route exact path="/" component={App} />
           <Route path="/users" component={Users} />
           <Route path="/materials" component={Materials} />
-          <PrivateRoute path="/create" name="create" component={UserForm} />
+          <PrivateRoute path="/create" name="create" component={Stepper} />
           <Route path="/help" component={Help} />
           <Route path="/privacy" component={PrivacyPolicy} />
           <Route
@@ -86,7 +89,12 @@ const routing = (
             name="profile"
             component={ProfilePage}
           />
-          <PrivateRoute path="/edit" name="editMaterial" component={EditHome} />
+          <PrivateRoute
+            path="/edit/:id"
+            name="editMaterial"
+            type="Edit"
+            component={MaterialStepper}
+          />
           <Route component={Notfound} />
         </Switch>
       </main>

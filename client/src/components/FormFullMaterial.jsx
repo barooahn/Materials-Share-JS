@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import {
-  TextField,
-  Paper,
-  Typography,
-  Button,
-  FormHelperText,
-  FormControlLabel,
-  Checkbox
-} from "@material-ui/core";
+
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import FormHelperText from '@material-ui/core/FormHelperText';
 import AsyncCreatableSelect from "react-select/lib/AsyncCreatable";
 import SelectBox from "./SelectBox";
 

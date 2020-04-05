@@ -3,6 +3,7 @@ import React from "react";
 const titles = [
   { title: "Title" },
   { timeInClass: "Time In Class (mins)" },
+  { timePrep: "Time To prepare (mins)" },
   { procedureBefore: "Procedure Before Class" },
   { procedureIn: "Procedure In The Classroom" },
   { followUp: "Follow Up Activities" },

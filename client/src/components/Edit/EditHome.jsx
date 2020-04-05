@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import {
-  Button,
-  FormHelperText,
-  LinearProgress,
-  Typography,
-  Paper,
-  TextField
-} from "@material-ui/core";
+
+import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import LinearProgress from "@material-ui/core/LinearProgress";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+
+
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import ExpansionPanel from "@material-ui/core/ExpansionPanel";
@@ -220,7 +220,7 @@ class EditHome extends Component {
       .then(res => {
         console.log("saved to db", res.data);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         throw err;
       });
   };
@@ -300,7 +300,7 @@ class EditHome extends Component {
                   className="inputFile"
                   multiple
                   type="file"
-                  // onChange={handleselectedFile}
+                // onChange={handleselectedFile}
                 />
                 <label htmlFor="contained-button-file">
                   <Button variant="contained" component="span">
@@ -319,8 +319,8 @@ class EditHome extends Component {
                     <Button
                       variant="contained"
                       color="primary"
-                      // onClick={handleUpload}
-                      // className={classes.button}
+                    // onClick={handleUpload}
+                    // className={classes.button}
                     >
                       Upload
                     </Button>

@@ -26,7 +26,8 @@ mongoose
 	.connect(db, {
 		useCreateIndex: true,
 		useNewUrlParser: true,
-		useUnifiedTopology: true
+		useUnifiedTopology: true,
+		useFindAndModify: false
 	})
 	.then(() => {
 		console.log("db connected...");
@@ -36,7 +37,8 @@ mongoose
 	.catch(err => console.log(err));
 
 // /** set up middleware */
-app.use(cors());
+app.options('*', cors());
+// app.options('/products/:id', cors())
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(helmet());
@@ -49,7 +51,7 @@ var options = {
 	index: false,
 	maxAge: "1d",
 	redirect: false,
-	setHeaders: function(res, path, stat) {
+	setHeaders: function (res, path, stat) {
 		res.set("Content-type:application/pdf");
 	}
 };
@@ -62,8 +64,8 @@ app.use(flash());
 app.use((req, res, next) => {
 	res.header(
 		"Access-Control-Allow-Origin",
-		// "http://localhost:3000, http://localhost:5000, http://127.0.0.1:50697, https://accounts.google.com"
-		"*"
+		"https://localhost:3000/api/users/oauth/google, http://localhost:5000, http://127.0.0.1:50697, https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fgoogle%2Fcallback&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email&client_id=164931093808-p5"
+		// "*"
 	);
 	res.header("Content-Type", "application/javascript");
 	res.header("Access-Control-Allow-Credentials", "true");
@@ -116,3 +118,16 @@ let port = process.env.PORT || 5000;
 app.listen(port, () => {
 	console.log(`Server started at port: ${port}`);
 });
+
+//secure but need 
+
+// var fs = require('fs')
+// var https = require('https')
+
+// https.createServer({
+// 	key: fs.readFileSync('server.key'),
+// 	cert: fs.readFileSync('server.cert')
+// }, app)
+// 	.listen(port, () => {
+// 		console.log(`Server started at port: ${port}`);
+// 	});

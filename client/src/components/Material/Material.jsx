@@ -1,14 +1,12 @@
 import React from "react";
-import {
-  Grid,
-  List,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography
-} from "@material-ui/core";
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import Viewer from "../Viewer/Viewer";
-import DisplayMaterialList from "../DisplayMaterialList";
+import DisplayMaterialList from "./DisplayMaterialList";
 
 const Material = props => {
   const { material } = props;
