@@ -97,7 +97,6 @@ export default ({
           type="file"
           onChange={handleChange}
         />
-
         {/* ----------for new files------------------  */}
         {localFiles.map(file => {
           // console.log("Mediafiles.js new file ", file);
@@ -109,18 +108,21 @@ export default ({
             </div>
           );
         })}
-
         {/* ----------for existing files------------------  */}
-        {files.map(file => {
-          // console.log("Mediafiles.js existing file ", file);
-          const reExtension = /(?:\.([^.]+))?$/;
-          const ext = file.match(reExtension)[1].toLowerCase();
-          return (
-            <div className="attachement">
-              <Viewer file={file} ext={ext} key={file} />
-            </div>
-          );
-        })}
+        {
+          (type =
+            "Edit" &&
+            files.map(file => {
+              // console.log("Mediafiles.js existing file ", file);
+              const reExtension = /(?:\.([^.]+))?$/;
+              const ext = file.match(reExtension)[1].toLowerCase();
+              return (
+                <div className="attachement">
+                  <Viewer file={file} ext={ext} key={file} />
+                </div>
+              );
+            }))
+        }
 
         <br />
         <br />

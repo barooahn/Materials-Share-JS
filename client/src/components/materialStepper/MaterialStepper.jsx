@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MaterialStepper({ type = "Create", material = {} }) {
+export default function MaterialStepper({ type = "Create" }) {
   const { id } = useParams();
 
   const classes = useStyles();
@@ -107,7 +107,7 @@ export default function MaterialStepper({ type = "Create", material = {} }) {
   React.useEffect(() => {
     // do stuff here...
     //get all Materials from db setMaterials
-    if (id !== null) {
+    if (id !== undefined ) {
       console.log("edit material - ", id);
       fetch(`http://localhost:5000/api/material/${id}`, {
         method: "GET"
