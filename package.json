@@ -4,7 +4,7 @@
   "description": "teachers resource application, save, comment, find and share teaching resources",
   "main": "server.js",
   "scripts": {
-    "client-install": "npm install --prefix client",
+    "client-install": "cd client && npm install",
     "test": "test",
     "start": "node server.js",
     "server": "nodemon server.js",
