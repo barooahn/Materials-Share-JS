@@ -10,7 +10,6 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const flash = require("connect-flash");
 const dotenv = require("dotenv").config();
-const path = require("path");
 
 const app = express();
 const router = express.Router();
