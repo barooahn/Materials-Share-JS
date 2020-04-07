@@ -9,7 +9,7 @@ const Materials = () => {
   React.useEffect(() => {
     // do stuff here...
     //get all Materials from db setMaterials
-    fetch(`http://localhost:5000/api/materials`, {
+    fetch(`/api/materials`, {
       method: "GET"
     })
       .then(response => response.json())

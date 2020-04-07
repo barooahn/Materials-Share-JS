@@ -107,9 +107,9 @@ export default function MaterialStepper({ type = "Create" }) {
   React.useEffect(() => {
     // do stuff here...
     //get all Materials from db setMaterials
-    if (id !== undefined ) {
+    if (id !== undefined) {
       console.log("edit material - ", id);
-      fetch(`http://localhost:5000/api/material/${id}`, {
+      fetch(`/api/material/${id}`, {
         method: "GET"
       })
         .then(response => response.json())
@@ -256,7 +256,7 @@ export default function MaterialStepper({ type = "Create" }) {
   useEffect(() => {
     // do stuff here...
     //get allValues from db
-    fetch(`http://localhost:5000/api/materials`, {
+    fetch(`/api/materials`, {
       method: "GET"
     })
       .then(response => response.json())

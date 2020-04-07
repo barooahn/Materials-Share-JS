@@ -3,15 +3,16 @@ import UploadFiles from "./uploadFiles";
 const axios = require("axios").default;
 
 export const saveData = payload => {
-  // console.log("save ", payload);
+  console.log("save ", payload);
 
   //get local files
   //save to AWS
 
   // if payload.files === null
   //delete payload.files;
-  // console.log("ms share actions local files: ", payload.localFiles);
-  if (!Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
+   console.log("ms share actions local files: ", Array.isArray(payload.localFiles));
+  if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
+
     handleUpload(payload.localFiles, payload);
   } else {
     if (payload.type == "Create") {
@@ -37,7 +38,7 @@ const editMaterial = material => {
   material.author_id = localStorage.getItem("USER_ID");
   // console.log("sending edit material to db...", material);
   axios
-    .put(`http://localhost:5000/api/material/update/${material.id}`, material, {
+    .put(`/api/material/update/${material.id}`, material, {
       //   onUploadProgress: ProgressEvent => {
       //     this.setState({
       //       loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
@@ -56,7 +57,7 @@ const createMaterial = material => {
   material.author_id = localStorage.getItem("USER_ID");
   // console.log("sending create material to db...", material);
   axios
-    .post(`http://localhost:5000/api/material`, material, {
+    .post(`/api/material`, material, {
       //   onUploadProgress: ProgressEvent => {
       //     this.setState({
       //       loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
@@ -72,7 +73,7 @@ const createMaterial = material => {
 };
 
 const handleUpload = (files, payload) => {
-  // console.log("files in handle upload ", files);
+  console.log("files in handle upload ", files);
   const data = new FormData();
   data.append("saveType", "awsUpload");
   files.forEach((file, index) => {
@@ -80,7 +81,7 @@ const handleUpload = (files, payload) => {
     data.append(`files[${index}]`, file.raw);
   });
   axios
-    .post("http://localhost:5000/api/material/file/upload", data, {
+    .post("/api/material/file/upload", data, {
       //   onUploadProgress: ProgressEvent => {
       //     this.setState({
       //       loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,

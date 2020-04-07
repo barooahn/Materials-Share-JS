@@ -46,6 +46,7 @@ const Viewer = ({ file, ext = null }) => {
     }
   };
 
+  console.log("viever file", file);
   return renderPlayer(file);
 };
 

@@ -59,7 +59,7 @@ export default ({
 
   const handleDelete = file => {
     axios
-      .delete("http://localhost:5000/api/material/file/delete", {
+      .delete("/api/material/file/delete", {
         data: { file: file }
       })
       .then(res => {
