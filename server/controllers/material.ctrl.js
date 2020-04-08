@@ -79,7 +79,7 @@ module.exports = {
   },
 
   deleteFile: async (req, res, next) => {
-    console.log("deleting...");
+    console.log("deleting...", req.body.file);
 
     const result = await deleteAws(req.body.file);
     if (result) {

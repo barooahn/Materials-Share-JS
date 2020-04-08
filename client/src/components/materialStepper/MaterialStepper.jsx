@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MaterialStepper({ type = "Create" }) {
+export default function MaterialStepper() {
   const { id } = useParams();
 
   const classes = useStyles();
@@ -102,6 +102,7 @@ export default function MaterialStepper({ type = "Create" }) {
   const [dynamicLanguageFocus, setDynamicLanguageFocus] = React.useState([]);
   const [targetLanguage, setTargetLanguage] = React.useState("");
   const [share, setShare] = React.useState(true);
+  const [type, setType] = React.useState("Create");
   // const [uploading, setUploading] = React.useState();
 
   React.useEffect(() => {
@@ -135,7 +136,7 @@ export default function MaterialStepper({ type = "Create" }) {
           setTargetLanguage(resultData.targetLanguage);
           setTimeInClass(resultData.timeInClass);
           setTimePrep(resultData.timePrep);
-          type = "Edit";
+          setType("Edit");
         });
     }
   }, []);
@@ -180,8 +181,6 @@ export default function MaterialStepper({ type = "Create" }) {
             share={share}
             setShare={setShare}
             type={type}
-            // id={id}
-            // setId={setId}
           />
         );
       case 2:
@@ -457,13 +456,13 @@ export default function MaterialStepper({ type = "Create" }) {
                 color="primary"
                 onClick={handleNext}
                 className={classes.button}
-                disabled={localFiles.length == 0 || title === ""}
+                disabled={(localFiles.length == 0 || title === "") && !files}
               >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>
 
               <Button
-                disabled={localFiles.length == 0 || title === ""}
+                disabled={(localFiles.length == 0 || title === "") && !files}
                 variant="contained"
                 color="secondary"
                 onClick={save}

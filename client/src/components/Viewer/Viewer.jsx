@@ -45,8 +45,6 @@ const Viewer = ({ file, ext = null }) => {
       return <DocViewer key={file.name} file={file.name} ext={file.ext} />;
     }
   };
-
-  console.log("viever file", file);
   return renderPlayer(file);
 };
 

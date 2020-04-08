@@ -35,13 +35,13 @@ module.exports = {
 
 	/* The following example deletes an object from an S3 bucket. */
 	deleteAws: async file => {
-		//console.log("deleting aws file");
+		console.log("deleting aws file");
 		var params = {
 			Bucket: process.env.S3_BUCKET,
 			Key: file
 		};
-		console.log("key ", params.Key);
 		try {
+			console.log("key ", params.Key);
 			await s3.deleteObject(params).promise();
 			return { path: params.Key };
 		} catch (err) {

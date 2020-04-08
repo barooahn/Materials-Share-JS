@@ -45,11 +45,10 @@ export default ({
   setFiles,
   localFiles,
   setLocalFiles,
-  type = "create"
+  type
 }) => {
   const [errorMsg, setErrorMsg] = useState("");
   const classes = useStyles();
-
   const changeTitle = e => {
     setTitle(e.target.value);
   };
@@ -74,15 +73,16 @@ export default ({
   };
 
   const handleDelete = file => {
-    console.log("file delete AWS: ", file);
+    var fileNoPath = file.substring(
+      "https://matshre-assets.s3.eu-west-2.amazonaws.com/".length
+    );
     axios
       .delete("/api/material/file/delete", {
-        data: { file: file }
+        data: { file: fileNoPath }
       })
       .then(res => {
-        const removed = [...files].filter(x => x !== res.data.deleted);
+        const removed = [...files].filter(x => x !== file);
         setFiles(removed);
-        console.log("files after deleted", files);
       })
       .catch(function(err) {
         console.log(err);
@@ -90,7 +90,6 @@ export default ({
   };
 
   const handleDeleteLocal = file => {
-    console.log("file delete Local: ", file);
     setLocalFiles(localFiles.filter(item => item.raw.name !== file.raw.name));
   };
 
@@ -121,7 +120,6 @@ export default ({
         />
         {/* ----------for new files------------------  */}
         {localFiles.map(file => {
-          // console.log("Mediafiles.js new file ", file);
           const reExtension = /(?:\.([^.]+))?$/;
           const ext = file.raw.name.match(reExtension)[1].toLowerCase();
           return (
@@ -143,7 +141,6 @@ export default ({
           (type =
             "Edit" &&
             files.map(file => {
-              // console.log("Mediafiles.js existing file ", file);
               const reExtension = /(?:\.([^.]+))?$/;
               const ext = file.match(reExtension)[1].toLowerCase();
               return (
@@ -169,7 +166,7 @@ export default ({
         </label>
         <br />
         <br />
-        {localFiles.length > 0 ? (
+        {files || localFiles.length > 0 ? (
           <div>
             <Typography variant="h6" component={"span"}>
               Give your resource a title
@@ -185,7 +182,7 @@ export default ({
           </div>
         ) : null}
         <br />
-        {localFiles.length > 0 && title !== "" ? (
+        {files || (localFiles.length > 0 && title !== "") ? (
           <Typography variant="h6" component={"span"}>
             Choose what to do now...
           </Typography>
