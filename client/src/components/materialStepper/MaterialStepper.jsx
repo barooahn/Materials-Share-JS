@@ -457,11 +457,13 @@ export default function MaterialStepper({ type = "Create" }) {
                 color="primary"
                 onClick={handleNext}
                 className={classes.button}
+                disabled={localFiles.length == 0 || title === ""}
               >
                 {activeStep === steps.length - 1 ? "Finish" : "Next"}
               </Button>
 
               <Button
+                disabled={localFiles.length == 0 || title === ""}
                 variant="contained"
                 color="secondary"
                 onClick={save}

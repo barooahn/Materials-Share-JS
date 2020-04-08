@@ -37,7 +37,7 @@ function PaperSheet(props) {
 
   return (
     <div>
-      <Grid container spacing={8}>
+      <Grid container spacing={0}>
         <Grid item xs={6}>
           <NavLink to="/create" className="link">
             <Icon className={classes.icon} color="secondary">

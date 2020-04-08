@@ -27,7 +27,7 @@ const Materials = () => {
   }, []);
 
   return (
-    <div style={{ display: "flex " }}>
+    <div>
       <Typography gutterBottom variant="h4" component="h1">
         Teaching Material
       </Typography>

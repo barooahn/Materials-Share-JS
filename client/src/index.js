@@ -22,7 +22,6 @@ import {
 import * as serviceWorker from "./serviceWorker";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import Axios from "axios";
-import EditHome from "./components/Edit/EditHome";
 import MaterialStepper from "./components/materialStepper/MaterialStepper";
 
 //routes
