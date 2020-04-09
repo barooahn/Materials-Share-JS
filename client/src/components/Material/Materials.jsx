@@ -18,8 +18,8 @@ const Materials = () => {
         {
           resultData.forEach(material => {
             material.files = Array.isArray(material.files)
-              ? material.files[0]
-              : material.files;
+              ? [material.files[0]]
+              : [material.files];
           });
         }
         setMaterials(resultData);

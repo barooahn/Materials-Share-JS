@@ -10,6 +10,7 @@ import NavBar2 from "./components/NavBar2";
 import Help from "./components/Help";
 import Login from "./LoginPage/Login2";
 import Register from "./RegisterPage/Register2";
+import Material from "./components/Material/Material";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Stepper from "./components/materialStepper/MaterialStepper";
 
@@ -72,6 +73,7 @@ const routing = (
           <Route exact path="/" component={App} />
           <Route path="/users" component={Users} />
           <Route path="/materials" component={Materials} />
+          <Route path="/material/:id" component={Material} />
           <PrivateRoute path="/create" name="create" component={Stepper} />
           <Route path="/help" component={Help} />
           <Route path="/privacy" component={PrivacyPolicy} />

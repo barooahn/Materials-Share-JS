@@ -1,82 +1,72 @@
-import React, { Component } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import { getSecret } from "../auth/helpers";
-import axios from "axios";
 import Material from "../components/Material/Material";
 import MaterialCard from "../components/Material/MaterialCard";
 
-class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      auth: this.props.auth,
-      materials: [],
-      material: false,
-      materialDetails: []
-    };
-  }
+export default () => {
+  var id = localStorage.getItem("USER_ID");
+  const [userMaterials, setUserMaterials] = useState([]);
 
-  showData = async () => {
-    const data = await getSecret();
-    await console.log(data);
-    await this.setState({ data: data });
-  };
+  useEffect(() => {
+    //get all Materials from db setMaterials
+    if (id !== undefined) {
+      console.log("edit material - ", id);
+      fetch("/api/materials/" + id, {
+        method: "GET"
+      })
+        .then(response => response.json())
 
-  getUserMaterials = async () => {
-    try {
-      const response = await axios.get(
-        "/api/materials/" + localStorage.getItem("USER_ID")
-      );
-
-      this.setState({
-        materials: response.data
-      });
-      console.log("response", response.data);
-    } catch (error) {
-      console.error(error);
+        .then(resultData => {
+          console.log("resultData", resultData);
+          setUserMaterials(resultData);
+        });
     }
-  };
+  }, []);
 
-  componentDidMount() {
-    this.getUserMaterials();
-  }
-
-  handleClick = material => {
+  const handleClick = material => {
     this.setState({ material: true, materialDetails: material });
   };
 
-  render() {
-    console.log("state materials", this.state.materials);
-    if (this.state.material) {
-      return <Material material={this.state.materialDetails} />;
-    } else {
-      return (
-        <Paper style={styles.paperCenter} elevation={1}>
-          <Typography gutterBottom variant="h4" component="h1">
-            My Profile
-          </Typography>
-          <Typography gutterBottom variant="h5" component="h5">
-            Materials I Have Made
-          </Typography>
-          <Grid container spacing={16}>
-            {this.state.materials.map(material => (
-              <Grid key={material.title} item xs={12} md={6}>
-                <MaterialCard
-                  edit={true}
-                  style={styles.card}
-                  material={material}
-                  handleClick={this.handleClick}
-                />
-              </Grid>
-            ))}
-          </Grid>
-        </Paper>
-      );
-    }
+  console.log("ProfilePage  materials", userMaterials);
+  if (userMaterials.length > 0) {
+    return (
+      <Paper style={styles.paperCenter} elevation={1}>
+        <Typography gutterBottom variant="h4" component="h1">
+          My Profile
+        </Typography>
+        <Typography gutterBottom variant="h5" component="h5">
+          Materials I Have Made
+        </Typography>
+        <Grid container spacing={16}>
+          {userMaterials.map(material => (
+            <Grid key={userMaterials.title} item xs={12} md={6}>
+              {console.log("material ", material)}
+              <MaterialCard
+                style={styles.card}
+                material={material}
+                onClick={handleClick}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </Paper>
+    );
+  } else {
+    return <div>here</div>;
   }
-}
+};
+
+
+//   showData = async () => {
+//     const data = await getSecret();
+//     await console.log(data);
+//     await this.setState({ data: data });
+//   };
+
+
 
 const styles = {
   paperCenter: {
@@ -97,5 +87,3 @@ const styles = {
     margin: "10px auto"
   }
 };
-
-export default Profile;

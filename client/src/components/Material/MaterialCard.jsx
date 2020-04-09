@@ -32,7 +32,9 @@ const MaterialCard = ({ material }) => {
             {material.title}
           </Typography>
           <div className="attachement">
-            <Viewer file={material.files} key={material.files} />
+            {material.files.map(file => {
+              return <Viewer file={file} key={file} />;
+            })}
           </div>
 
           <Typography gutterBottom variant="h6" component="h4">
@@ -88,9 +90,15 @@ const MaterialCard = ({ material }) => {
           >
             <Button key={"edit"}>Edit</Button>
           </NavLink>
+          <NavLink
+            to={{ pathname: "/material/" + material._id }}
+            className="link"
+            key="ma"
+          >
           <Button size="small" color="primary">
             Learn More
           </Button>
+          </NavLink>
         </CardActions>
       </Card>
     </React.Fragment>
