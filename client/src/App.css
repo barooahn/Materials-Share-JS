@@ -1,5 +1,28 @@
+html {
+  width: 100%;
+}
+
 body {
   background: rgba(0, 0, 0, 0.05);
+}
+
+#root {
+  width: 100%;
+}
+
+main {
+  width: 100%;
+}
+
+#cards-container {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: stretch;
+}
+
+#card {
+  align-self: auto;
+  margin: 10px;
 }
 
 .App-link {
