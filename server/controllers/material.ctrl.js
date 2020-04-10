@@ -205,9 +205,12 @@ module.exports = {
       }
     );
   },
-
+  // need to test delete
   deleteMaterial: (req, res, next) => {
-    next();
+    Material.findOneAndDelete({ _id: req.params.id }, function(err) {
+      if (err) console.log(err);
+      console.log("material deleted ");
+    });
   },
 
   getDistinct: (req, res, next) => {

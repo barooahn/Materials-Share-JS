@@ -15,6 +15,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import Viewer from "../Viewer/Viewer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,10 +48,10 @@ export default function MaterialCard2({ material }) {
     setExpanded(!expanded);
   };
   //   console.log("MAterialCard2 material: ", material);
-  
+
   //set date
   const date = new Date(material.dateModified);
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const options = { year: "numeric", month: "long", day: "numeric" };
   const dateMod = date.toLocaleDateString(undefined, options);
 
   return (
@@ -69,9 +70,11 @@ export default function MaterialCard2({ material }) {
         title={material.title}
         subheader={dateMod}
       />
+        {material.files.map(file => {
+          return <Viewer file={file} key={file} />;
+        })}
       <CardMedia
         className={classes.media}
-        image={material.files}
         title={material.title}
       />
       <CardContent>

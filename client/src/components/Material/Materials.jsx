@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MaterialCard2 from "./MaterialCard2";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import StackGrid from "react-stack-grid";
 
 const Materials = () => {
   const [materials, setMaterials] = React.useState([]);
@@ -31,15 +32,15 @@ const Materials = () => {
       <Typography gutterBottom variant="h4" component="h1">
         Teaching Material
       </Typography>
-      <div id="cards-container" style={{ display: "flex" }}>
+      <StackGrid columnWidth={350}>
         {materials.map((material, index) => (
           // <Grid key={material.title} item xs={12} md={6} lg={3} >
-          <div id="card" style={{}}>
+          // <div id="card" style={{}}>
             <MaterialCard2 material={material} index={index} />
-          </div>
+          // </div>
           // </Grid>
         ))}
-      </div>
+      </StackGrid>
     </div>
   );
 };
