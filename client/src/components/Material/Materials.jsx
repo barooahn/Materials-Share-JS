@@ -32,11 +32,11 @@ const Materials = () => {
       <Typography gutterBottom variant="h4" component="h1">
         Teaching Material
       </Typography>
-      <StackGrid columnWidth={350}>
+      <StackGrid columnWidth={350} gutterWidth={5} gutterHeight={10}>
         {materials.map((material, index) => (
           // <Grid key={material.title} item xs={12} md={6} lg={3} >
           // <div id="card" style={{}}>
-            <MaterialCard2 material={material} index={index} />
+          <MaterialCard2 material={material} index={index} />
           // </div>
           // </Grid>
         ))}

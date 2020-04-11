@@ -48,100 +48,6 @@ main {
   padding-left: 10px;
 }
 
-/* slider-bar */
-input[type="range"].slider-bar {
-  -webkit-appearance: none;
-  width: 100%;
-  margin: 8.55px 0;
-}
-input[type="range"].slider-bar:focus {
-  outline: none;
-}
-input[type="range"].slider-bar::-webkit-slider-runnable-track {
-  width: 100%;
-  height: 2.9px;
-  cursor: pointer;
-  box-shadow: 1.8px 1.8px 6.2px rgba(0, 0, 0, 0.2),
-    0px 0px 1.8px rgba(13, 13, 13, 0.2);
-  background: #3071a9;
-  border-radius: 1.3px;
-  border: 0.2px solid #3071a9;
-}
-input[type="range"].slider-bar::-webkit-slider-thumb {
-  box-shadow: 3.1px 3.1px 6.9px rgba(0, 0, 0, 0.33),
-    0px 0px 3.1px rgba(13, 13, 13, 0.33);
-  border: 0.5px solid rgba(0, 0, 0, 0.65);
-  height: 20px;
-  width: 20px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.84);
-  cursor: pointer;
-  -webkit-appearance: none;
-  margin-top: -8.75px;
-}
-input[type="range"].slider-bar:focus::-webkit-slider-runnable-track {
-  background: #7aadd9;
-}
-input[type="range"].slider-bar::-moz-range-track {
-  width: 100%;
-  height: 2.9px;
-  cursor: pointer;
-  box-shadow: 1.8px 1.8px 6.2px rgba(0, 0, 0, 0.2),
-    0px 0px 1.8px rgba(13, 13, 13, 0.2);
-  background: #3071a9;
-  border-radius: 1.3px;
-  border: 0.2px solid #3071a9;
-}
-input[type="range"].slider-bar::-moz-range-thumb {
-  box-shadow: 3.1px 3.1px 6.9px rgba(0, 0, 0, 0.33),
-    0px 0px 3.1px rgba(13, 13, 13, 0.33);
-  border: 0.5px solid rgba(0, 0, 0, 0.65);
-  height: 20px;
-  width: 20px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.84);
-  cursor: pointer;
-}
-input[type="range"].slider-bar::-ms-track {
-  width: 100%;
-  height: 2.9px;
-  cursor: pointer;
-  background: transparent;
-  border-color: transparent;
-  color: transparent;
-}
-input[type="range"].slider-bar::-ms-fill-lower {
-  background: #15314a;
-  border: 0.2px solid #3071a9;
-  border-radius: 2.6px;
-  box-shadow: 1.8px 1.8px 6.2px rgba(0, 0, 0, 0.2),
-    0px 0px 1.8px rgba(13, 13, 13, 0.2);
-}
-input[type="range"].slider-bar::-ms-fill-upper {
-  background: #3071a9;
-  border: 0.2px solid #3071a9;
-  border-radius: 2.6px;
-  box-shadow: 1.8px 1.8px 6.2px rgba(0, 0, 0, 0.2),
-    0px 0px 1.8px rgba(13, 13, 13, 0.2);
-}
-input[type="range"].slider-bar::-ms-thumb {
-  box-shadow: 3.1px 3.1px 6.9px rgba(0, 0, 0, 0.33),
-    0px 0px 3.1px rgba(13, 13, 13, 0.33);
-  border: 0.5px solid rgba(0, 0, 0, 0.65);
-  height: 20px;
-  width: 20px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.84);
-  cursor: pointer;
-  height: 2.9px;
-}
-input[type="range"].slider-bar:focus::-ms-fill-lower {
-  background: #3071a9;
-}
-input[type="range"].slider-bar:focus::-ms-fill-upper {
-  background: #7aadd9;
-}
-/* end of slider-bar */
 .inputFile {
   display: none;
 }
@@ -171,4 +77,9 @@ input[type="range"].slider-bar:focus::-ms-fill-upper {
 .MuiExpansionPanelDetails-root-123,
 .jss123 {
   display: block !important;
+}
+
+/* document viewer */
+.pg-viewer-wrapper {
+  overflow-y: initial;
 }
