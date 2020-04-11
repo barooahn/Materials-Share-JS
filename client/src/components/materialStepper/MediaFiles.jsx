@@ -7,7 +7,6 @@ import Icon from "@material-ui/core/Icon";
 import TextField from "@material-ui/core/TextField";
 // import Viewer from "../Viewer/Viewer";
 import Button from "@material-ui/core/Button";
-import DeleteForever from "@material-ui/icons/DeleteForever";
 import Viewer from "../Viewer/Viewer";
 
 const allowedMimeTypes = [

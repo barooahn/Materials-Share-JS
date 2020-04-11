@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 import { getSecret } from "../auth/helpers";
-import Material from "../components/Material/Material";
-import MaterialCard from "../components/Material/MaterialCard";
+import MaterialCard2 from "../components/Material/MaterialCard2";
+import StackGrid from "react-stack-grid";
 
 export default () => {
   var id = localStorage.getItem("USER_ID");
@@ -26,47 +24,34 @@ export default () => {
     }
   }, []);
 
-  const handleClick = material => {
-    this.setState({ material: true, materialDetails: material });
-  };
-
   console.log("ProfilePage  materials", userMaterials);
   if (userMaterials.length > 0) {
     return (
-      <Paper style={styles.paperCenter} elevation={1}>
+      <div>
         <Typography gutterBottom variant="h4" component="h1">
           My Profile
         </Typography>
         <Typography gutterBottom variant="h5" component="h5">
           Materials I Have Made
         </Typography>
-        <Grid container spacing={16}>
-          {userMaterials.map(material => (
-            <Grid key={userMaterials.title} item xs={12} md={6}>
-              {console.log("material ", material)}
-              <MaterialCard
-                style={styles.card}
-                material={material}
-                onClick={handleClick}
-              />
-            </Grid>
+
+        <StackGrid columnWidth={350} gutterWidth={5} gutterHeight={10}>
+          {userMaterials.map((material, index) => (
+            <MaterialCard2 material={material} index={index} />
           ))}
-        </Grid>
-      </Paper>
+        </StackGrid>
+      </div>
     );
   } else {
     return <div>here</div>;
   }
 };
 
-
 //   showData = async () => {
 //     const data = await getSecret();
 //     await console.log(data);
 //     await this.setState({ data: data });
 //   };
-
-
 
 const styles = {
   paperCenter: {
