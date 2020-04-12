@@ -15,8 +15,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Viewer from "../Viewer/Viewer";
-import Button from "@material-ui/core/Button";
 import { NavLink } from "react-router-dom";
+import SocialShare from "./SocialShare";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,7 +47,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MaterialCard2({ material }) {
+  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   //set date
   const date = new Date(material.dateModified);
@@ -55,78 +64,81 @@ export default function MaterialCard2({ material }) {
   const dateMod = date.toLocaleDateString(undefined, options);
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea>
-        <NavLink
-          to={{ pathname: "/material/" + material._id }}
-          className="link"
-          key="ma"
-        >
-          <CardHeader
-            avatar={
-              <Avatar aria-label="material" className={classes.avatar}>
-                M
-              </Avatar>
-            }
-            action={
-              <IconButton aria-label="settings">
-                <MoreVertIcon />
-              </IconButton>
-            }
-            title={material.title}
-            subheader={dateMod}
-          />
-          <CardContent>
-            <div className={classes.media}>
-              <Viewer file={material.files[0]} key={material.files[0]} />
-            </div>
-            <br />
-            {material.objective ? (
-              <Typography variant="body2" color="textSecondary" component="p">
-                <strong>Objective:</strong> {material.objective}
-              </Typography>
-            ) : null}
-            {material.timpPrep.length > 0 ? (
-              <Typography variant="body2" color="textSecondary" component="p">
-                Preparation Time (mins): {material.timpPrep}
-              </Typography>
-            ) : null}
-            {material.timeInClass.length > 0 ? (
-              <Typography variant="body2" color="textSecondary" component="p">
-                Class Time (mins): {material.timeInClass}
-              </Typography>
-            ) : null}
-            {material.level.length > 0 ? (
-              <Typography variant="body2" color="textSecondary" component="p">
-                Level:
-                {material.level.map(level => (
-                  <span key={level.label}>{level.label} </span>
-                ))}
-              </Typography>
-            ) : null}
-          </CardContent>
-        </NavLink>
-      </CardActionArea>
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <NavLink
-          to={{ pathname: "/material/" + material._id }}
-          className="link"
-          key="ma"
-        >
-          <IconButton aria-label="edit">
-            <EditIcon />
+    <React.Fragment>
+      <Card className={classes.root}>
+        <CardActionArea>
+          <NavLink
+            to={{ pathname: "/material/" + material._id }}
+            className="link"
+            key="ma"
+          >
+            <CardHeader
+              avatar={
+                <Avatar aria-label="material" className={classes.avatar}>
+                  M
+                </Avatar>
+              }
+              action={
+                <IconButton aria-label="settings">
+                  <MoreVertIcon />
+                </IconButton>
+              }
+              title={material.title}
+              subheader={dateMod}
+            />
+            <CardContent>
+              <div className={classes.media}>
+                <Viewer file={material.files[0]} key={material.files[0]} />
+              </div>
+              <br />
+              {material.objective ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  <strong>Objective:</strong> {material.objective}
+                </Typography>
+              ) : null}
+              {material.timpPrep.length > 0 ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Preparation Time (mins): {material.timpPrep}
+                </Typography>
+              ) : null}
+              {material.timeInClass.length > 0 ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Class Time (mins): {material.timeInClass}
+                </Typography>
+              ) : null}
+              {material.level.length > 0 ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Level:
+                  {material.level.map(level => (
+                    <span key={level.label}>{level.label} </span>
+                  ))}
+                </Typography>
+              ) : null}
+            </CardContent>
+          </NavLink>
+        </CardActionArea>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
           </IconButton>
-        </NavLink>
-        <IconButton aria-label="delete">
-          <DeleteForeverIcon />
-        </IconButton>
-      </CardActions>
-    </Card>
+          <IconButton aria-label="share" onClick={handleOpen}>
+            <ShareIcon />
+          </IconButton>
+          <NavLink
+            to={{ pathname: "/material/" + material._id }}
+            className="link"
+            key="ma"
+          >
+            <IconButton aria-label="edit">
+              <EditIcon />
+            </IconButton>
+          </NavLink>
+          <IconButton aria-label="delete">
+            <DeleteForeverIcon />
+          </IconButton>
+        </CardActions>
+      </Card>
+      <SocialShare handleClose={handleClose} open={open} />
+    </React.Fragment>
   );
 }
