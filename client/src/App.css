@@ -20,18 +20,18 @@ main {
   align-content: stretch;
 }
 
-#card {
+/* #card {
   align-self: auto;
   margin: 10px;
-}
+} */
 
 .App-link {
   color: #61dafb;
 }
 
-.mainImg {
+/* .mainImg {
   width: 50%;
-}
+} */
 
 .link {
   color: #2b333f;
@@ -41,6 +41,7 @@ main {
 .menu {
   justify-content: left !important;
   width: 50px;
+  margin-left: 20px;
 }
 
 .delete-icon {
@@ -52,34 +53,17 @@ main {
   display: none;
 }
 
-.document-container {
+/* .document-container {
   width: 100% !important;
   padding: 0 !important;
-}
+} */
 
 .viewer {
   max-height: 250px !important;
   overflow: hidden;
 }
 
-.paperCenter {
-  width: 92%;
-  margin: 20px auto;
-  padding: 15px;
-}
-
-.attachment {
-  width: 100%;
-  margin: 20px auto;
-  padding: 15px;
-}
-
-.MuiExpansionPanelDetails-root-123,
-.jss123 {
-  display: block !important;
-}
-
 /* document viewer */
 .pg-viewer-wrapper {
-  overflow-y: initial;
+  overflow-y: hidden;
 }

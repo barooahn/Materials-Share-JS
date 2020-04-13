@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import MaterialCard2 from "./MaterialCard2";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
 
@@ -27,17 +26,19 @@ const Materials = () => {
       });
   }, []);
 
+  const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
+
   return (
-    <div id="cards" style={{ width: "100%" }}>
-      <Typography gutterBottom variant="h4" component="h1">
-        Teaching Material
+    <React.Fragment>
+      <Typography gutterBottom variant="h2" component="h2" align="center">
+        Teaching Resorces
       </Typography>
-      <StackGrid columnWidth={350} gutterWidth={5} gutterHeight={10}>
+      <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
         {materials.map((material, index) => (
           <MaterialCard2 material={material} index={index} />
         ))}
       </StackGrid>
-    </div>
+    </React.Fragment>
   );
 };
 

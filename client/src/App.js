@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "./App.css";
 import Home from "./components/Home";
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { fab } from "@fortawesome/free-brands-svg-icons";
+// import { library } from "@fortawesome/fontawesome-svg-core";
+// import { fab } from "@fortawesome/free-brands-svg-icons";
 
-library.add(fab);
+// library.add(fab);
 
 class App extends Component {
   render() {

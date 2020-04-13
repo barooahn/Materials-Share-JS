@@ -7,39 +7,30 @@ import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Viewer from "../Viewer/Viewer";
-import { NavLink } from "react-router-dom";
 import SocialShare from "./SocialShare";
+import { NavLink } from "react-router-dom";
+import CardMenu from "./CardMenu";
+import { model } from "mongoose";
+
+const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 345
+    maxWidth: cardWidth
   },
   media: {
     height: 0,
     // paddingTop: "56.25%", // 16:9
-    height: 200,
+    height: 150,
     overflow: "hidden",
     marginLeft: -16,
     marginRight: -16,
     paddingBottom: 5
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
-  },
-  expandOpen: {
-    transform: "rotate(180deg)"
   },
   avatar: {
     backgroundColor: red[500]
@@ -47,9 +38,12 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function MaterialCard2({ material }) {
-  const [open, setOpen] = React.useState(false);
   const classes = useStyles();
 
+  const author = localStorage.getItem("USER_ID");
+
+  //model stuff
+  const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
   };
@@ -60,32 +54,34 @@ export default function MaterialCard2({ material }) {
 
   //set date
   const date = new Date(material.dateModified);
-  const options = { year: "numeric", month: "long", day: "numeric" };
-  const dateMod = date.toLocaleDateString(undefined, options);
+  const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+  const dateMod = date.toLocaleDateString(undefined, dateOptions);
+
+  const owner = () => {
+    return author === material.author_id ? (
+      <CardMenu material={material} square={true}></CardMenu>
+    ) : null;
+  };
 
   return (
     <React.Fragment>
       <Card className={classes.root}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="material" className={classes.avatar}>
+              M
+            </Avatar>
+          }
+          action={owner()}
+          title={material.title}
+          subheader={dateMod}
+        />
         <CardActionArea>
           <NavLink
             to={{ pathname: "/material/" + material._id }}
             className="link"
             key="ma"
           >
-            <CardHeader
-              avatar={
-                <Avatar aria-label="material" className={classes.avatar}>
-                  M
-                </Avatar>
-              }
-              action={
-                <IconButton aria-label="settings">
-                  <MoreVertIcon />
-                </IconButton>
-              }
-              title={material.title}
-              subheader={dateMod}
-            />
             <CardContent>
               <div className={classes.media}>
                 <Viewer file={material.files[0]} key={material.files[0]} />
@@ -93,10 +89,10 @@ export default function MaterialCard2({ material }) {
               <br />
               {material.objective ? (
                 <Typography variant="body2" color="textSecondary" component="p">
-                  <strong>Objective:</strong> {material.objective}
+                  {material.objective}
                 </Typography>
               ) : null}
-              {material.timpPrep.length > 0 ? (
+              {/* {material.timpPrep.length > 0 ? (
                 <Typography variant="body2" color="textSecondary" component="p">
                   Preparation Time (mins): {material.timpPrep}
                 </Typography>
@@ -113,7 +109,7 @@ export default function MaterialCard2({ material }) {
                     <span key={level.label}>{level.label} </span>
                   ))}
                 </Typography>
-              ) : null}
+              ) : null} */}
             </CardContent>
           </NavLink>
         </CardActionArea>
@@ -123,18 +119,6 @@ export default function MaterialCard2({ material }) {
           </IconButton>
           <IconButton aria-label="share" onClick={handleOpen}>
             <ShareIcon />
-          </IconButton>
-          <NavLink
-            to={{ pathname: "/material/" + material._id }}
-            className="link"
-            key="ma"
-          >
-            <IconButton aria-label="edit">
-              <EditIcon />
-            </IconButton>
-          </NavLink>
-          <IconButton aria-label="delete">
-            <DeleteForeverIcon />
           </IconButton>
         </CardActions>
       </Card>

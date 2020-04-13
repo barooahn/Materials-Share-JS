@@ -3,7 +3,6 @@ import VideoFile from "./VideoFile";
 import DocViewer from "./DocViewer";
 
 const Viewer = ({ file, ext = null }) => {
-  console.log("Viewer - File: ", file);
 
   const getPlayer = file => {
     if (ext === null) {

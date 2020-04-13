@@ -31,21 +31,23 @@ export default () => {
 
   return (
     <Paper className="paperCenter" elevation={1}>
-      <Typography variant="h4" component="h2">
+      <Typography gutterBottom variant="h2" component="h2" align="center">
         {material.title}
       </Typography>
-      <Grid container spacing={16}>
-        <Grid item xs={12}>
+      <Grid container spacing={1}>
+
           <List>
             <ListItem>
-              {/* <div className="attachement"> */}
-              {material.files
-                ? material.files.map(file => <div className="attachement"><Viewer key={file} file={file} /></div>)
-                : null}
-              {/* </div> */}
+              <div style={{marginLeft: -8, marginRight: -8}}>
+                {material.files
+                  ? material.files.map(file => (
+                      <Viewer key={file} file={file} />
+                    ))
+                  : null}
+              </div>
             </ListItem>
           </List>
-        </Grid>
+
 
         {DisplayMaterialList(material)}
 
