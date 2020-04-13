@@ -1,19 +1,17 @@
 import React, { Component } from "react";
 import HomeMain from "./HomeMain";
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import withStyles from "@material-ui/core/styles/withStyles";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
 
 class Home extends Component {
   state = {};
 
-  handleSearch = () => { };
+  handleSearch = () => {};
 
   render() {
-    const { classes } = this.props;
     return (
-      <main className={classes.main}>
+      <main className="main">
         <Paper className="paperCenter" elevation={1}>
           <Typography align="center" variant="h4" component="h1">
             Teaching resources made easy
@@ -22,7 +20,7 @@ class Home extends Component {
             It's simple ...
           </Typography>
           <br />
-          <Grid container spacing={8}>
+          <Grid container spacing={12}>
             <Grid item xs={12}>
               <HomeMain />
             </Grid>
@@ -33,26 +31,4 @@ class Home extends Component {
   }
 }
 
-const styles = theme => ({
-  main: {
-    width: "auto",
-    display: "block", // Fix IE 11 issue.
-    marginLeft: theme.spacing.unit * 3,
-    marginRight: theme.spacing.unit * 3,
-    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
-      marginLeft: "auto",
-      marginRight: "auto"
-    }
-  },
-  paper: {
-    marginTop: theme.spacing.unit * 8,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
-  }
-});
-
-export default withStyles(styles)(Home);
+export default Home;

@@ -10,20 +10,26 @@ body {
   width: 100%;
 }
 
-main {
-  width: 100%;
-}
-
 #cards-container {
   flex-wrap: wrap;
   justify-content: space-around;
   align-content: stretch;
 }
 
+.paperCenter {
+  margin: 5px;
+}
+
 /* #card {
   align-self: auto;
-  margin: 10px;
+  margin-top: 10px;
 } */
+
+.attachment {
+  /* width: 300px; */
+  /* margin: 20px auto;
+  padding: 15px; */
+}
 
 .App-link {
   color: #61dafb;
@@ -58,9 +64,13 @@ main {
   padding: 0 !important;
 } */
 
-.viewer {
+/* .viewer {
   max-height: 250px !important;
   overflow: hidden;
+} */
+
+.MuiList-root {
+  width: 100%;
 }
 
 /* document viewer */

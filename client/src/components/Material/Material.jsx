@@ -1,4 +1,5 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -9,7 +10,14 @@ import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: "100%"
+  }
+}));
+
 export default () => {
+  const classes = useStyles();
   const { id } = useParams();
   const [material, setMaterial] = React.useState([]);
 
@@ -35,19 +43,15 @@ export default () => {
         {material.title}
       </Typography>
       <Grid container spacing={1}>
-
-          <List>
-            <ListItem>
-              <div style={{marginLeft: -8, marginRight: -8}}>
-                {material.files
-                  ? material.files.map(file => (
-                      <Viewer key={file} file={file} />
-                    ))
-                  : null}
+        <List>
+          <ListItem>
+            <div>
+            {material.files
+              ? material.files.map(file => <Viewer key={file} file={file} />)
+              : null}
               </div>
-            </ListItem>
-          </List>
-
+          </ListItem>
+        </List>
 
         {DisplayMaterialList(material)}
 
