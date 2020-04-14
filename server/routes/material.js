@@ -38,14 +38,14 @@ module.exports = router => {
    * add a material
    */
 
-  router
-    .route("/material")
-    .post(multipartWare, materialcontroller.addMaterial)
+  router.route("/material").post(multipartWare, materialcontroller.addMaterial);
 
-    /**
-     * delete a material
-     */
-    .delete(multipartWare, materialcontroller.deleteMaterial);
+  /**
+   * delete a material
+   */
+  router
+    .route("/material/delete/:id")
+    .delete(materialcontroller.deleteMaterial);
 
   /**
    * update a particlular material

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Typography from "@material-ui/core/Typography";
 import { getSecret } from "../auth/helpers";
-import MaterialCard2 from "../components/Material/MaterialCard2";
+import MaterialCard2 from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
 
 export default () => {

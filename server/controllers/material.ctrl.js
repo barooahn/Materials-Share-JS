@@ -80,7 +80,6 @@ module.exports = {
 
   deleteFile: async (req, res, next) => {
     console.log("deleting...", req.body.file);
-
     const result = await deleteAws(req.body.file);
     if (result) {
       res.json({ deleted: req.body.file });
@@ -208,7 +207,7 @@ module.exports = {
   // need to test delete
   deleteMaterial: (req, res, next) => {
     Material.findOneAndDelete({ _id: req.params.id }, function(err) {
-      if (err) console.log(err);
+      if (err) console.log("there was an error deleteing the material", err);
       console.log("material deleted ");
     });
   },

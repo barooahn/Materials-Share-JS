@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MaterialCard2 from "./MaterialCard2";
+import MaterialCard2 from "./MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
 

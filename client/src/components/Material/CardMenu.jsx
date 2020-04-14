@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { NavLink } from "react-router-dom";
+import DeleteMaterial from "../helpers/DeleteMaterial";
 
 const StyledMenu = withStyles({
   paper: {
@@ -52,6 +53,11 @@ export default function CustomizedMenus({ material }) {
     setAnchorEl(null);
   };
 
+  const handleDeleteMaterial = () => {
+    console.log("in card menu delte", material);
+    DeleteMaterial(material._id);
+  };
+
   return (
     <div>
       <IconButton
@@ -69,15 +75,15 @@ export default function CustomizedMenus({ material }) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <StyledMenuItem>
-          <NavLink to={{ pathname: "/material/" + material._id }}>
+        <NavLink to={{ pathname: "/edit/" + material._id }}>
+          <StyledMenuItem>
             <ListItemIcon>
               <EditIcon fontSize="small" />
             </ListItemIcon>
-          </NavLink>
-          <ListItemText primary="Edit" />
-        </StyledMenuItem>
-        <StyledMenuItem>
+            <ListItemText primary="Edit" />
+          </StyledMenuItem>
+        </NavLink>
+        <StyledMenuItem onClick={event => handleDeleteMaterial(event)}>
           <ListItemIcon>
             <DeleteForeverIcon fontSize="small" />
           </ListItemIcon>

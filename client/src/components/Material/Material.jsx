@@ -13,6 +13,11 @@ import { BrowserRouter as Router, useParams } from "react-router-dom";
 const useStyles = makeStyles(theme => ({
   root: {
     maxWidth: "100%"
+  },
+  media: {
+    // paddingTop: "56.25%", // 16:9
+    width: "100%",
+    paddingBottom: 5
   }
 }));
 
@@ -45,11 +50,11 @@ export default () => {
       <Grid container spacing={1}>
         <List>
           <ListItem>
-            <div>
-            {material.files
-              ? material.files.map(file => <Viewer key={file} file={file} />)
-              : null}
-              </div>
+            <div className={classes.media}>
+              {material.files
+                ? material.files.map(file => <Viewer key={file} file={file} />)
+                : null}
+            </div>
           </ListItem>
         </List>
 

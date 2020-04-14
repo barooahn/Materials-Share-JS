@@ -59,10 +59,10 @@ body {
   display: none;
 }
 
-/* .document-container {
+.document-container {
   width: 100% !important;
   padding: 0 !important;
-} */
+}
 
 /* .viewer {
   max-height: 250px !important;
@@ -75,5 +75,5 @@ body {
 
 /* document viewer */
 .pg-viewer-wrapper {
-  overflow-y: hidden;
+  overflow: hidden !important;
 }

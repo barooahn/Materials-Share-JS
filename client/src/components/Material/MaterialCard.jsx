@@ -1,112 +1,126 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { red } from "@material-ui/core/colors";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
 import Viewer from "../Viewer/Viewer";
-import Button from "@material-ui/core/Button";
+import SocialShare from "./SocialShare";
 import { NavLink } from "react-router-dom";
+import CardMenu from "./CardMenu";
 
-const styles = {
-  card: {
-    margin: "0 auto",
-    padding: 10
+const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: cardWidth
   },
   media: {
-    height: 140
+    // paddingTop: "56.25%", // 16:9
+    height: 150,
+    overflow: "hidden",
+    marginLeft: -16,
+    marginRight: -16,
+    paddingBottom: 5
   },
-  spans: {
-    display: "block"
+  avatar: {
+    backgroundColor: red[500]
   }
-};
+}));
 
-const MaterialCard = ({ material }) => {
+export default function MaterialCard({ material }) {
+  const classes = useStyles();
+
+  const author = localStorage.getItem("USER_ID");
+
+  //model stuff
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  //set date
+  const date = new Date(material.dateModified);
+  const dateOptions = { year: "numeric", month: "long", day: "numeric" };
+  const dateMod = date.toLocaleDateString(undefined, dateOptions);
+
+  const owner = () => {
+    return author === material.author_id ? (
+      <CardMenu material={material} square={true}></CardMenu>
+    ) : null;
+  };
+
   return (
     <React.Fragment>
-      <Card>
-        <CardContent>
-          <Typography gutterBottom variant="h4" component="h2">
-            {material.title}
-          </Typography>
-          <div className="attachement">
-            {material.files.map(file => {
-              return <Viewer file={file} key={file} />;
-            })}
-          </div>
-
-          <Typography gutterBottom variant="h6" component="h4">
-            Objective
-          </Typography>
-          <Typography variant="body1">{material.objective} </Typography>
-          <br />
-          <Grid container spacing={10}>
-            <Grid item xs={12} md={3}>
-              <Typography gutterBottom variant="h6" component="h4">
-                Preparation Time (mins)
-              </Typography>
-              <Typography variant="body1">{material.preparation}</Typography>
-            </Grid>
-
-            <Grid item xs={12} md={3}>
-              <Typography gutterBottom variant="h6" component="h4">
-                Class Time (mins)
-              </Typography>
-              <Typography variant="body1">{material.timeInClass}</Typography>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Typography gutterBottom variant="h6" component="h4">
-                Pupil Tasks
-              </Typography>
-              <Typography variant="body1">
-                {material.pupilTask.map(pupilTask => (
-                  <span style={styles.spans} key={pupilTask.label}>
-                    {pupilTask.label}
-                  </span>
-                ))}
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <Typography gutterBottom variant="h6" component="h4">
-                Level
-              </Typography>
-              <Typography variant="body1">
-                {material.level.map(level => (
-                  <span style={styles.spans} key={level.label}>
-                    {level.label}
-                  </span>
-                ))}
-              </Typography>
-            </Grid>
-          </Grid>
-        </CardContent>
-        <CardActions>
-          <NavLink
-            to={{ pathname: "/edit/" + material._id }}
-            className="link"
-            key="edit"
-          >
-            <Button key={"edit"}>Edit</Button>
-          </NavLink>
+      <Card className={classes.root}>
+        <CardHeader
+          avatar={
+            <Avatar aria-label="material" className={classes.avatar}>
+              M
+            </Avatar>
+          }
+          action={owner()}
+          title={material.title}
+          subheader={dateMod}
+        />
+        <CardActionArea>
           <NavLink
             to={{ pathname: "/material/" + material._id }}
             className="link"
             key="ma"
           >
-          <Button size="small" color="primary">
-            Learn More
-          </Button>
+            <CardContent>
+              <div className={classes.media}>
+                <Viewer file={material.files[0]} key={material.files[0]} />
+              </div>
+              <br />
+              {material.objective ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  {material.objective}
+                </Typography>
+              ) : null}
+              {/* {material.timpPrep.length > 0 ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Preparation Time (mins): {material.timpPrep}
+                </Typography>
+              ) : null}
+              {material.timeInClass.length > 0 ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Class Time (mins): {material.timeInClass}
+                </Typography>
+              ) : null}
+              {material.level.length > 0 ? (
+                <Typography variant="body2" color="textSecondary" component="p">
+                  Level:
+                  {material.level.map(level => (
+                    <span key={level.label}>{level.label} </span>
+                  ))}
+                </Typography>
+              ) : null} */}
+            </CardContent>
           </NavLink>
+        </CardActionArea>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share" onClick={handleOpen}>
+            <ShareIcon />
+          </IconButton>
         </CardActions>
       </Card>
+      <SocialShare handleClose={handleClose} open={open} />
     </React.Fragment>
   );
-};
-
-MaterialCard.propTypes = {
-  classes: PropTypes.object.isRequired
-};
-
-export default withStyles(styles)(MaterialCard);
+}

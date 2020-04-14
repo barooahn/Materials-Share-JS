@@ -14,9 +14,9 @@ import {
 export default props => {
   return (
     <Player
-      playsInline
       key={props.file}
       //poster="/img/bg3.jpg"
+      //poster="../../../public/img/backgroundBlack.gif"
     >
       <source src={props.file} />
 
