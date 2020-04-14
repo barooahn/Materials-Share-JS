@@ -42,7 +42,11 @@ const StyledMenuItem = withStyles(theme => ({
   }
 }))(MenuItem);
 
-export default function CustomizedMenus({ material }) {
+export default function CustomizedMenus({
+  material,
+  setMaterials,
+  materials
+}) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -56,6 +60,7 @@ export default function CustomizedMenus({ material }) {
   const handleDeleteMaterial = () => {
     console.log("in card menu delte", material);
     DeleteMaterial(material._id);
+    setMaterials(materials.filter(m => m._id !== material._id));
   };
 
   return (

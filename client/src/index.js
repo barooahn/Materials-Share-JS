@@ -12,7 +12,6 @@ import Login from "./LoginPage/Login2";
 import Register from "./RegisterPage/Register2";
 import Material from "./components/Material/Material";
 import PrivacyPolicy from "./components/PrivacyPolicy";
-import DeleteMaterial from "./components/Material/DeleteMaterial";
 
 import {
   BrowserRouter as Router,
@@ -24,7 +23,6 @@ import * as serviceWorker from "./serviceWorker";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import Axios from "axios";
 import MaterialStepper from "./components/materialStepper/MaterialStepper";
-
 
 //routes
 
@@ -75,7 +73,11 @@ const routing = (
           <Route path="/users" component={Users} />
           <Route path="/materials" component={Materials} />
           <Route path="/material/:id" component={Material} />
-          <PrivateRoute path="/create" name="create" component={MaterialStepper} />
+          <PrivateRoute
+            path="/create"
+            name="create"
+            component={MaterialStepper}
+          />
           <Route path="/help" component={Help} />
           <Route path="/privacy" component={PrivacyPolicy} />
           <Route
@@ -96,12 +98,6 @@ const routing = (
             name="editMaterial"
             type="edit"
             component={MaterialStepper}
-          />
-          <PrivateRoute
-            path="/delete/:id"
-            name="deleteMaterial"
-            type="delete"
-            component={DeleteMaterial}
           />
           <Route component={Notfound} />
         </Switch>

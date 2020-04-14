@@ -35,7 +35,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function MaterialCard({ material }) {
+export default function MaterialCard({ material, setMaterials, materials }) {
   const classes = useStyles();
 
   const author = localStorage.getItem("USER_ID");
@@ -57,7 +57,12 @@ export default function MaterialCard({ material }) {
 
   const owner = () => {
     return author === material.author_id ? (
-      <CardMenu material={material} square={true}></CardMenu>
+      <CardMenu
+        material={material}
+        square={true}
+        setMaterials={setMaterials}
+        materials={materials}
+      ></CardMenu>
     ) : null;
   };
 

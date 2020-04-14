@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import MaterialCard2 from "./MaterialCard";
+import MaterialCard from "./MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
 
@@ -35,7 +35,12 @@ const Materials = () => {
       </Typography>
       <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
         {materials.map((material, index) => (
-          <MaterialCard2 material={material} index={index} />
+          <MaterialCard
+            material={material}
+            index={index}
+            setMaterials={setMaterials}
+            materials={materials}
+          />
         ))}
       </StackGrid>
     </React.Fragment>
