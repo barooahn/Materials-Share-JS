@@ -8,7 +8,6 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
-import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import Viewer from "../Viewer/Viewer";
@@ -17,6 +16,7 @@ import { NavLink } from "react-router-dom";
 import CardMenu from "./CardMenu";
 import Badge from "@material-ui/core/Badge";
 import ToggleLikes from "../helpers/ToggleLikes";
+import red from "@material-ui/core/colors/red";
 
 const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
@@ -45,6 +45,17 @@ export default function MaterialCard({ material, setMaterials, materials }) {
     ToggleLikes(author, likes, setLikes, material._id);
   };
 
+  const setLikesColour = () => {
+    let color = "default";
+    likes.forEach(like => {
+      if (like === author) {
+        console.log("Material card - you like this material");
+        color = "secondary";
+      }
+    });
+    return color;
+  };
+
   //model stuff
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
@@ -71,6 +82,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
     ) : null;
   };
 
+  console.log("Material card - what color", setLikesColour());
   return (
     <React.Fragment>
       <Card className={classes.root}>
@@ -122,8 +134,12 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           </NavLink>
         </CardActionArea>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites" onClick={toggleLikes}>
-            <Badge color="secondary" badgeContent={likes.length}>
+          <IconButton
+            aria-label="add to favorites"
+            onClick={toggleLikes}
+            color={setLikesColour()}
+          >
+            <Badge color="default" badgeContent={likes.length}>
               <FavoriteIcon />
             </Badge>
           </IconButton>
