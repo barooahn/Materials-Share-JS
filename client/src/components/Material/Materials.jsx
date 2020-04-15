@@ -36,6 +36,7 @@ const Materials = () => {
       <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
         {materials.map((material, index) => (
           <MaterialCard
+            key={material._id}
             material={material}
             index={index}
             setMaterials={setMaterials}

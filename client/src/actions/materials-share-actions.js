@@ -10,9 +10,11 @@ export const saveData = payload => {
 
   // if payload.files === null
   //delete payload.files;
-   console.log("ms share actions local files: ", Array.isArray(payload.localFiles));
+  console.log(
+    "ms share actions local files: ",
+    Array.isArray(payload.localFiles)
+  );
   if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
-
     handleUpload(payload.localFiles, payload);
   } else {
     if (payload.type == "Create") {
@@ -35,8 +37,10 @@ export const saveData = payload => {
 };
 
 const editMaterial = material => {
-  material.author_id = localStorage.getItem("USER_ID");
-  // console.log("sending edit material to db...", material);
+  console.log(
+    "Material-share-actions - sending edit material to db...",
+    material
+  );
   axios
     .put(`/api/material/update/${material.id}`, material, {
       //   onUploadProgress: ProgressEvent => {

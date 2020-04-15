@@ -103,10 +103,8 @@ export default function MaterialStepper() {
   const [targetLanguage, setTargetLanguage] = React.useState("");
   const [share, setShare] = React.useState(true);
   const [type, setType] = React.useState("Create");
-  // const [uploading, setUploading] = React.useState();
 
   React.useEffect(() => {
-    // do stuff here...
     //get all Materials from db setMaterials
     if (id !== undefined) {
       console.log("edit material - ", id);
@@ -318,7 +316,7 @@ export default function MaterialStepper() {
   }, []); // <-- empty dependency array
 
   const save = () => {
-    //add ,  clap, comments, category
+    //add , comments
     saveData({
       type,
       title,
@@ -334,6 +332,7 @@ export default function MaterialStepper() {
       notes,
       files,
       localFiles,
+      likes: [],
       objective,
       level: levelValue,
       languageFocus: languageFocusValue,

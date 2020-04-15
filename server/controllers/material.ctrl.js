@@ -191,7 +191,7 @@ module.exports = {
   },
 
   updateMaterial: (req, res, next) => {
-    console.log("in update material id = ", req.params.id);
+    console.log("in update material body = ", req.body);
     Material.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },
@@ -199,7 +199,7 @@ module.exports = {
       function(err, material) {
         if (err) return next(err);
         // res.send("material udpated.");
-        console.log("material updated ", material);
+        // console.log("material updated ", material);
         return res.send(material);
       }
     );

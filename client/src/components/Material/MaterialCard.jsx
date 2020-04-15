@@ -15,6 +15,8 @@ import Viewer from "../Viewer/Viewer";
 import SocialShare from "./SocialShare";
 import { NavLink } from "react-router-dom";
 import CardMenu from "./CardMenu";
+import Badge from "@material-ui/core/Badge";
+import ToggleLikes from "../helpers/ToggleLikes";
 
 const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
@@ -37,8 +39,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function MaterialCard({ material, setMaterials, materials }) {
   const classes = useStyles();
-
+  const [likes, setLikes] = React.useState(material.likes || []);
   const author = localStorage.getItem("USER_ID");
+  const toggleLikes = () => {
+    ToggleLikes(author, likes, setLikes, material._id);
+  };
 
   //model stuff
   const [open, setOpen] = React.useState(false);
@@ -117,8 +122,10 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           </NavLink>
         </CardActionArea>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="add to favorites" onClick={toggleLikes}>
+            <Badge color="secondary" badgeContent={likes.length}>
+              <FavoriteIcon />
+            </Badge>
           </IconButton>
           <IconButton aria-label="share" onClick={handleOpen}>
             <ShareIcon />
