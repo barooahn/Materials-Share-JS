@@ -7,6 +7,7 @@ import StackGrid from "react-stack-grid";
 export default () => {
   var id = localStorage.getItem("USER_ID");
   const [userMaterials, setUserMaterials] = useState([]);
+  const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
   useEffect(() => {
     //get all Materials from db setMaterials
@@ -35,7 +36,7 @@ export default () => {
           Materials I Have Made
         </Typography>
 
-        <StackGrid columnWidth={350} gutterWidth={5} gutterHeight={10}>
+        <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
           {userMaterials.map((material, index) => (
             <MaterialCard2 material={material} index={index} />
           ))}

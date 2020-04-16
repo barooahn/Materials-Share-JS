@@ -1,5 +1,4 @@
 import React from "react";
-
 const titles = [
   { title: "Title" },
   { timeInClass: "Time In Class (mins)" },
@@ -17,7 +16,8 @@ const titles = [
   { pupilTask: "Tasks For Pupils" },
   { activityUse: "Activity Use" },
   { materials: "Materials needed" },
-  { preparation: "Time Needed For Preperation (mins)" }
+  { preparation: "Time Needed For Preperation (mins)" },
+  { likes: "Likes" }
 ];
 
 const getLabel = name => {

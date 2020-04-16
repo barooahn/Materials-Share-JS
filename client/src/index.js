@@ -6,9 +6,10 @@ import Materials from "./components/Material/Materials";
 import Users from "./components/Users";
 // import UserForm from "./components/UserForm";
 import Notfound from "./components/NotFound";
-import NavBar2 from "./components/NavBar2";
+import NavBar from "./components/NavBar";
+import MobileNavBar from "./components/MobileNavBar";
 import Help from "./components/Help";
-import Login from "./LoginPage/Login2";
+import Login from "./LoginPage/Login";
 import Register from "./RegisterPage/Register2";
 import Material from "./components/Material/Material";
 import PrivacyPolicy from "./components/PrivacyPolicy";
@@ -62,46 +63,53 @@ function withProps(Component, props) {
   };
 }
 
+const routePaths = () => {
+  return (
+    <main>
+      <Switch>
+        <Route exact path="/" component={App} />
+        <Route path="/users" component={Users} />
+        <Route path="/materials" component={Materials} />
+        <Route path="/material/:id" component={Material} />
+        <PrivateRoute
+          path="/create"
+          name="create"
+          component={MaterialStepper}
+        />
+        <Route path="/help" component={Help} />
+        <Route path="/privacy" component={PrivacyPolicy} />
+        <Route
+          path="/login"
+          component={withProps(Login, { state: { prevPath: "login" } })}
+        />
+        <Route
+          path="/register"
+          component={withProps(Register, { state: { prevPath: "register" } })}
+        />
+        <PrivateRoute path="/profile" name="profile" component={ProfilePage} />
+        <PrivateRoute
+          path="/edit/:id"
+          name="editMaterial"
+          type="edit"
+          component={MaterialStepper}
+        />
+        <Route component={Notfound} />
+      </Switch>
+    </main>
+  );
+};
+
+const nav =
+  document.documentElement.clientWidth < 600 ? (
+    <MobileNavBar routePaths={routePaths()} />
+  ) : (
+    <NavBar routePaths={routePaths()} />
+  );
+
 const routing = (
   <Router>
     <React.Fragment>
-      <NavBar2 />
-
-      <main>
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route path="/users" component={Users} />
-          <Route path="/materials" component={Materials} />
-          <Route path="/material/:id" component={Material} />
-          <PrivateRoute
-            path="/create"
-            name="create"
-            component={MaterialStepper}
-          />
-          <Route path="/help" component={Help} />
-          <Route path="/privacy" component={PrivacyPolicy} />
-          <Route
-            path="/login"
-            component={withProps(Login, { state: { prevPath: "login" } })}
-          />
-          <Route
-            path="/register"
-            component={withProps(Register, { state: { prevPath: "register" } })}
-          />
-          <PrivateRoute
-            path="/profile"
-            name="profile"
-            component={ProfilePage}
-          />
-          <PrivateRoute
-            path="/edit/:id"
-            name="editMaterial"
-            type="edit"
-            component={MaterialStepper}
-          />
-          <Route component={Notfound} />
-        </Switch>
-      </main>
+      {nav}
     </React.Fragment>
   </Router>
 );

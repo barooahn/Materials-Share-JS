@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import MaterialCard from "./MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";

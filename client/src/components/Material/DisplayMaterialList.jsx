@@ -3,7 +3,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import Grid from "@material-ui/core/Grid";
 import ListItemText from "@material-ui/core/ListItemText";
-import GetFilledProps from "./GetFilledProps";
+import GetFilledProps from "../helpers/GetFilledProps";
 
 const DisplayMaterialList = props => {
   console.log(" props ", props);

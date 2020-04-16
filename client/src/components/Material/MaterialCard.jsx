@@ -49,7 +49,6 @@ export default function MaterialCard({ material, setMaterials, materials }) {
     let color = "default";
     likes.forEach(like => {
       if (like === author) {
-        console.log("Material card - you like this material");
         color = "secondary";
       }
     });
@@ -82,7 +81,12 @@ export default function MaterialCard({ material, setMaterials, materials }) {
     ) : null;
   };
 
-  console.log("Material card - what color", setLikesColour());
+  console.log(
+    "Material card - athor ",
+    author,
+    "file creator ",
+    material.author_id
+  );
   return (
     <React.Fragment>
       <Card className={classes.root}>
