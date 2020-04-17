@@ -6,8 +6,8 @@ import Materials from "./components/Material/Materials";
 import Users from "./components/Users";
 // import UserForm from "./components/UserForm";
 import Notfound from "./components/NotFound";
-import NavBar from "./components/NavBar";
-import MobileNavBar from "./components/MobileNavBar";
+import NavBar from "./components/nav/NavBar";
+import MobileNavBar from "./components/nav/MobileNavBar";
 import Help from "./components/Help";
 import Login from "./LoginPage/Login";
 import Register from "./RegisterPage/Register2";
@@ -24,6 +24,7 @@ import * as serviceWorker from "./serviceWorker";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import Axios from "axios";
 import MaterialStepper from "./components/materialStepper/MaterialStepper";
+import SearchResults from "./components/nav/SearchResults";
 
 //routes
 
@@ -86,6 +87,7 @@ const routePaths = () => {
           path="/register"
           component={withProps(Register, { state: { prevPath: "register" } })}
         />
+        <Route path="/search" component={SearchResults} />
         <PrivateRoute path="/profile" name="profile" component={ProfilePage} />
         <PrivateRoute
           path="/edit/:id"
@@ -108,9 +110,7 @@ const nav =
 
 const routing = (
   <Router>
-    <React.Fragment>
-      {nav}
-    </React.Fragment>
+    <React.Fragment>{nav}</React.Fragment>
   </Router>
 );
 

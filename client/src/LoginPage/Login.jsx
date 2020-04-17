@@ -67,7 +67,7 @@ export default () => {
 
   const setReturnPath = () => {
     const to =
-      location.state !== undefined && location.prevPath === "create"
+      location.state !== undefined && location.state.prevPath === "create"
         ? "/create"
         : "/profile";
     history.push(to);

@@ -31,13 +31,20 @@ module.exports = router => {
   /**
    * add a material
    */
-  router
-    .route("/materials/:author_id")
-    .get(materialcontroller.getUserMaterials);
+  /**
+   * get distinct values from a field
+   */
+  router.route("/materials/search/:q").get(materialcontroller.getSearchResults);
+  /**
+   * get all titles
+   */
+  router.route("/materials/titles").get(materialcontroller.getTitles);
   /**
    * add a material
    */
-
+  router
+    .route("/materials/:author_id")
+    .get(materialcontroller.getUserMaterials);
   router.route("/material").post(multipartWare, materialcontroller.addMaterial);
 
   /**

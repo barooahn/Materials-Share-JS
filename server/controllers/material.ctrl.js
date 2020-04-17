@@ -21,6 +21,10 @@ const moveFile = file => {
   });
 };
 
+const escapeRegex = text => {
+  return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+};
+
 getFileFromPath = filePath => {
   return fs.readFileSync(
     `${__dirname}..\\..\\..\\public\\${filePath}`,
@@ -226,5 +230,23 @@ module.exports = {
       //console.log("Distinct values: ", distinct);
       res.json({ values: distinct });
     });
+  },
+
+  getSearchResults: (req, res, next) => {
+    const regex = new RegExp(escapeRegex(req.params.q), "gi");
+    Material.find({ $text: { $search: regex } }, function(err, materials) {
+      if (err) console.log("there was a search error", err);
+      res.send(materials);
+    });
+  },
+
+  getTitles: async (req, res, next) => {
+    await Material.find()
+      .select({ title: 1, _id: 0 })
+      .exec((err, titles) => {
+        if (titles) return res.send(titles);
+        else if (err) return res.send(err);
+        else return res.send(404);
+      });
   }
 };

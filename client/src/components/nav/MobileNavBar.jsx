@@ -7,7 +7,6 @@ import HomeIcon from "@material-ui/icons/HomeRounded";
 import ViewListIcon from "@material-ui/icons/ViewListRounded";
 import HelpIcon from "@material-ui/icons/HelpRounded";
 import { useHistory } from "react-router-dom";
-import { zIndex } from "material-ui/styles";
 
 const useStyles = makeStyles({
   root: {
@@ -21,6 +20,8 @@ const useStyles = makeStyles({
 export default function LabelBottomNavigation({ routePaths }) {
   const classes = useStyles();
   const [value, setValue] = React.useState("recents");
+  const [searchResults, setSearchResults] = React.useState({});
+  
   let history = useHistory();
 
   const handleChange = (event, newValue) => {
@@ -48,7 +49,6 @@ export default function LabelBottomNavigation({ routePaths }) {
         onChange={handleChange}
         className={classes.root}
         position="fixed"
-        
       >
         <BottomNavigationAction
           label="Home"
