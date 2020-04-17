@@ -34,11 +34,11 @@ module.exports = router => {
   /**
    * get distinct values from a field
    */
-  router.route("/materials/search/:q").get(materialcontroller.getSearchResults);
+  router.route("/search/:q").get(materialcontroller.getSearchResults);
   /**
    * get all titles
    */
-  router.route("/materials/titles").get(materialcontroller.getTitles);
+  router.route("/titles").get(materialcontroller.getTitles);
   /**
    * add a material
    */

@@ -53,7 +53,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Search() {
   const classes = useStyles();
-  const [search, setSearch] = React.useState({});
   const [searchResults, setSearchResults] = React.useState([]);
   const [autoCompleteOptions, setAutoCompleteOptions] = React.useState([]);
 
@@ -71,7 +70,7 @@ export default function Search() {
 
   React.useEffect(
     () => {
-      fetch(`/api/materials/titles`, {
+      fetch(`/api/titles`, {
         method: "GET"
       })
         .then(response => response.json())
@@ -87,11 +86,9 @@ export default function Search() {
   );
 
   const handleSearchChange = (e, values) => {
-    let searchQuery = e.target.value === 0 ? values.title : e.target.value;
-    console.log("Serach handle change event", searchQuery);
-    setSearch({ query: searchQuery });
-    if (search.query && search.query.length > 0) {
-      fetch(`api/materials/search/${searchQuery}`, {
+    let searchQuery = values ? values.title : e.target.value;
+    if (searchQuery && searchQuery.length > 0) {
+      fetch(`api/search/${searchQuery}`, {
         method: "GET"
       })
         .then(response => response.json())
