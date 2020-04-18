@@ -215,7 +215,9 @@ export default function MiniDrawer({ routePaths }) {
             Materials Share
           </Typography>
 
-          {"/" === location.pathname || "/materials" === location.pathname || "/search" === location.pathname? (
+          {"/" === location.pathname ||
+          "/materials" === location.pathname ||
+          "/search" === location.pathname ? (
             <Search />
           ) : null}
 
@@ -236,11 +238,9 @@ export default function MiniDrawer({ routePaths }) {
           <NavLink to="/profile" className="link" key="profile">
             <ListItem>
               <ListItemIcon>
-                <Assignment fontSize="small" />
+                <Assignment />
               </ListItemIcon>
-              <Typography variant="inherit" noWrap>
-                Profile
-              </Typography>
+              <ListItemText primary="Profile" />
             </ListItem>
           </NavLink>
         </MenuItem>

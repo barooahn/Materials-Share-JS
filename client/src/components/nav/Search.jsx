@@ -3,53 +3,10 @@ import { makeStyles, useTheme, fade } from "@material-ui/core/styles";
 import { withRouter, useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import Paper from "@material-ui/core/Paper";
 
-const useStyles = makeStyles(theme => ({
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  },
-  grow: {
-    flexGrow: 1
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginRight: theme.spacing(2),
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(3),
-      width: "auto"
-    }
-  },
-  searchIcon: {
-    padding: theme.spacing(0, 2),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "20ch"
-    }
-  }
-}));
+
+const useStyles = makeStyles(theme => ({}));
 
 export default function Search() {
   const classes = useStyles();
@@ -103,11 +60,35 @@ export default function Search() {
   return (
     <div>
       <div className={classes.search}>
+        
         <Autocomplete
+          freeSolo
+          
+          id="free-solo-2-demo"
+          style={{ width: 200 }}
+          disableClearable
+          options={autoCompleteOptions}
+          onChange={handleSearchChange}
+          getOptionLabel={option => option.title}
+          onKeyPress={goToResults}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Search input"
+              margin="normal"
+              // variant="outlined"
+              color="default"
+              onChange={handleSearchChange}
+              onKeyPress={goToResults}
+              InputProps={{ ...params.InputProps, type: "search" }}
+            />
+          )}
+        />
+     
+        {/* <Autocomplete
           id="combo-box-demo"
           options={autoCompleteOptions}
           getOptionLabel={option => option.title}
-          style={{ width: 300 }}
           onChange={handleSearchChange}
           onKeyPress={goToResults}
           classes={{
@@ -115,15 +96,39 @@ export default function Search() {
             input: classes.inputInput
           }}
           renderInput={params => (
-            <TextField
+            // <TextField
+            //   onChange={handleSearchChange}
+            //   onKeyPress={goToResults}
+            //   {...params}
+            //   label="Search…"
+            //   variant="outlined"
+            //   size="small"
+            // />
+            <Paper
+              // component="form"
+              className={classes.root}
               onChange={handleSearchChange}
               onKeyPress={goToResults}
-              {...params}
-              label="Search…"
-              variant="outlined"
-            />
+              // {...params}
+            >
+              <IconButton
+                // type="submit"
+                className={classes.iconButton}
+                aria-label="search"
+              >
+                <SearchIcon />
+              </IconButton>
+              <InputBase
+                className={classes.input}
+                placeholder="Search Materials Share"
+                inputProps={{ "aria-label": "search google maps" }}
+                {...params}
+                onChange={handleSearchChange}
+                onKeyPress={goToResults}
+              />
+            </Paper>
           )}
-        />
+        /> */}
       </div>
     </div>
   );
