@@ -147,7 +147,7 @@ export default function MiniDrawer({ routePaths }) {
     history.push("/");
   };
 
-  console.log("Navbar - location.pathname ", location.pathname);
+  //console.log("Navbar - location.pathname ", location.pathname);
 
   const menuProfile = () => {
     if (!localStorage.getItem("JWT_TOKEN")) {

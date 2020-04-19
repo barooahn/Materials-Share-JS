@@ -12,20 +12,20 @@ export default () => {
   useEffect(() => {
     //get all Materials from db setMaterials
     if (id !== undefined) {
-      console.log("edit material - ", id);
+      //console.log("edit material - ", id);
       fetch("/api/materials/" + id, {
         method: "GET"
       })
         .then(response => response.json())
 
         .then(resultData => {
-          console.log("resultData", resultData);
+          //console.log("resultData", resultData);
           setUserMaterials(resultData);
         });
     }
   }, []);
 
-  console.log("ProfilePage  materials", userMaterials);
+  //console.log("ProfilePage  materials", userMaterials);
   if (userMaterials.length > 0) {
     return (
       <div>

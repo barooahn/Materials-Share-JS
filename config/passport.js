@@ -8,7 +8,7 @@ const ExtractJwt = passportJWT.ExtractJwt;
 const User = require("../server/models/User");
 // const GooglePlusTokenStrategy = require("passport-google-plus-token");
 
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
 const FacebookTokenStrategy = require("passport-facebook-token");
 
 const opts = {
@@ -98,23 +98,51 @@ passport.use(
 //   )
 // );
 
-
 // Use the GoogleStrategy within Passport.
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, and Google
 //   profile), and invoke a callback with a user object.
-passport.use('google', new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: "/auth/google/callback"
-},
-  // callbackURL: "https://materials-share.herokuapp.com/auth/google/callback"
-  function (accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return done(err, user);
-    });
-  }
-));
+passport.use(
+  "google",
+  new GoogleStrategy(
+    {
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: "/auth/google/callback"
+    },
+    // callbackURL: "https://materials-share.herokuapp.com/auth/google/callback"
+    async function(accessToken, refreshToken, profile, done) {
+      try {
+        console.log("profile", profile);
+        console.log("accessToken", accessToken);
+        console.log("refreshToken", refreshToken);
+
+        const existingUser = await User.findOne({ "google.id": profile.id });
+        if (existingUser) {
+          return done(null, existingUser);
+        }
+
+        const newUser = new User({
+          method: "google",
+          facebook: {
+            id: profile.id,
+            email: profile.emails[0].value
+          }
+        });
+
+        await newUser.save();
+        done(null, newUser);
+      } catch (error) {
+        done(error, false, error.message);
+      }
+
+      // console.log("here in passport - google auth");
+      // User.findOrCreate({ googleId: profile.id }, function(err, user) {
+      //   return done(err, user);
+      // });
+    }
+  )
+);
 
 passport.use(
   "facebookToken",

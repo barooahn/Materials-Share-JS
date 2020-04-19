@@ -1,5 +1,3 @@
-import UploadFiles from "./uploadFiles";
-// import { EditorAttachFile } from "material-ui/svg-icons";
 const axios = require("axios").default;
 
 export const saveData = payload => {

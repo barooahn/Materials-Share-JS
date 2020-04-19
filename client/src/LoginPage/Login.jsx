@@ -87,8 +87,8 @@ export default () => {
   };
 
   const responseGoogle = async res => {
-    console.log(res);
-    await oauthGoogle(res.accessToken);
+    console.log("Login Google token: ", res);
+    await oauthGoogle(res);
     if (!state.errorMessage) {
       setReturnPath();
     }

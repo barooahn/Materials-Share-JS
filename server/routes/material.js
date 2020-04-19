@@ -31,6 +31,7 @@ module.exports = router => {
   /**
    * add a material
    */
+  router.route("/material").post(multipartWare, materialcontroller.addMaterial);
   /**
    * get distinct values from a field
    */
@@ -40,12 +41,11 @@ module.exports = router => {
    */
   router.route("/titles").get(materialcontroller.getTitles);
   /**
-   * add a material
+   * get author
    */
   router
     .route("/materials/:author_id")
     .get(materialcontroller.getUserMaterials);
-  router.route("/material").post(multipartWare, materialcontroller.addMaterial);
 
   /**
    * delete a material
