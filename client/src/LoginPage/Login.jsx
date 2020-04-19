@@ -147,6 +147,7 @@ export default () => {
           // cssClass="my-facebook-button-class"
           icon="fa-facebook"
           textButton="Login"
+          disableMobileRedirect={true}
         />
         <GoogleLogin
           clientId="164931093808-jtgcj34sphhdtvt9j6vg488nm3uvmall.apps.googleusercontent.com"
