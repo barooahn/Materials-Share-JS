@@ -54,14 +54,47 @@ module.exports = {
       .json({ message: "User logged In", token, id: req.user._id });
   },
 
-  googleOAuth: async (req, res, next) => {
+  signUser: async (req, res, next) => {
     // Generate token
-    console.log("google user", req);
-    const token = signUser.signUser(req.profileObj.googleId);
+    const user = req.body.user;
+    const token = signUser.signUser(user);
+
+    const existingUser = await User.findOne({ [user.profile]: user.id });
+    if (existingUser) {
+      res.status(200).json({
+        message: "User logged In With Google",
+        token,
+        id: existingUser.id
+      });
+    }
+
+    const newUser = new User({
+      method: user.method,
+      [user.method]: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        img: user.img
+      }
+    });
+
+    await newUser.save();
+
     res.status(200).json({
       message: "User logged In With Google",
       token,
-      id: req.profileObj.googleId
+      id: newUser.id
+    });
+  },
+
+  googleOAuth: async (req, res, next) => {
+    // Generate token
+    console.log("google user", req);
+    const token = signUser.signUser(req.profileObj);
+    res.status(200).json({
+      message: "User logged In With Google",
+      token,
+      id: req.profileObj
     });
   },
 

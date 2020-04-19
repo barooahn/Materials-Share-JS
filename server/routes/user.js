@@ -44,6 +44,8 @@ module.exports = router => {
   //     usercontroller.googleOAuth
   //   );
 
+  router.route("/users/signUser").post(usercontroller.signUser);
+
   router
     .route("/users/oauth/facebook")
     .post(
@@ -73,9 +75,7 @@ module.exports = router => {
       passport.authenticate("google", { failureRedirect: "/login" }),
       function(req, res) {
         console.log("in user.js google");
-        return res
-          .status(200)
-          .redirect("/");
+        return res.status(200).redirect("/");
       }
     );
 

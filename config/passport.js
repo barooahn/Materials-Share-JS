@@ -117,14 +117,14 @@ passport.use(
         console.log("accessToken", accessToken);
         console.log("refreshToken", refreshToken);
 
-        const existingUser = await User.findOne({ "google.id": profile.id });
+        const existingUser = await User.findOne({ googleId: profile.id });
         if (existingUser) {
           return done(null, existingUser);
         }
 
         const newUser = new User({
           method: "google",
-          facebook: {
+          google: {
             id: profile.id,
             email: profile.emails[0].value
           }

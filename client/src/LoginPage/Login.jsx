@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import { withRouter, useLocation, useHistory } from "react-router-dom";
-import { oauthFacebook, oauthGoogle, logIn } from "../auth/helpers";
+import { oauthFacebook, oauthGoogle, signUser, logIn } from "../auth/helpers";
 
 const useStyles = makeStyles(theme => ({
   main: {
@@ -87,15 +87,33 @@ export default () => {
   };
 
   const responseGoogle = async res => {
-    console.log("Login Google token: ", res);
-    await oauthGoogle(res);
+    const user = {
+      method: "google",
+      name: res.profileObj.name,
+      id: res.profileObj.googleId,
+      img: res.profileObj.imageUrl,
+      email: res.profileObj.email
+    };
+
+    const response = await signUser(user);
+
     if (!state.errorMessage) {
       setReturnPath();
     }
   };
 
   const responseFacebook = async res => {
-    await oauthFacebook(res.accessToken);
+    const user = {
+      method: "facebook",
+      name: res.name,
+      id: res.id,
+      img: res.picture.data.url,
+      email: res.email
+    };
+    const response = await signUser(user);
+
+    console.log("got facebook response ", response);
+
     if (!state.errorMessage) {
       setReturnPath();
     }
