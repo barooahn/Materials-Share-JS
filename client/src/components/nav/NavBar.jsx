@@ -152,7 +152,7 @@ export default function MiniDrawer({ routePaths }) {
   const menuProfile = () => {
     if (!localStorage.getItem("JWT_TOKEN")) {
       return (
-        <React.Fragment>
+        <div>
           <Button
             variant="contained"
             color="secondary"
@@ -171,7 +171,7 @@ export default function MiniDrawer({ routePaths }) {
           >
             Register
           </Button>
-        </React.Fragment>
+        </div>
       );
     } else {
       return (

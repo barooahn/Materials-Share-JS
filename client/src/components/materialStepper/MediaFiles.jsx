@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import axios from "axios";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -23,18 +23,18 @@ const allowedMimeTypes = [
   "video/webm",
   "video/ogg"
 ];
-
 const useStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    marginBottom: 70
-  },
   button: {
     marginRight: theme.spacing(1)
   },
   instructions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1)
+  },
+  paper: {
+    width: "95%",
+    margin: "20px auto",
+    padding: "15px"
   }
 }));
 
@@ -93,101 +93,93 @@ export default ({
     setLocalFiles(localFiles.filter(item => item.raw.name !== file.raw.name));
   };
 
-  const paperCenter = {
-    width: "95%",
-    margin: "20px auto",
-    padding: "15px"
-  };
-
   return (
-    <React.Fragment>
-      <Paper style={paperCenter} elevation={1}>
-        <Typography variant="h5" component={"span"}>
-          {errorMsg}
-        </Typography>
-        <Typography variant="h5" component={"span"}>
-          Step 1: Upload Media
-        </Typography>
-        <br />
-        <br />
-        <input
-          accept="image/*, audio/*, video/*, .pdf, .docx, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-          id="contained-button-file"
-          className="inputFile"
-          multiple
-          type="file"
-          onChange={handleChange}
-        />
-        {/* ----------for new files------------------  */}
-        {localFiles.map(file => {
-          const reExtension = /(?:\.([^.]+))?$/;
-          const ext = file.raw.name.match(reExtension)[1].toLowerCase();
-          return (
-            <div className="attachement" key={file.preview}>
-              <Viewer file={file.preview} ext={ext} key={file.preview} />
+    <Paper className={classes.paper}>
+      <Typography variant="h5" component={"span"}>
+        {errorMsg}
+      </Typography>
+      <Typography variant="h5" component={"span"}>
+        Step 1: Upload Media
+      </Typography>
+      <br />
+      <br />
+      <input
+        accept="image/*, audio/*, video/*, .pdf, .docx, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+        id="contained-button-file"
+        className="inputFile"
+        multiple
+        type="file"
+        onChange={handleChange}
+      />
+      {/* ----------for new files------------------  */}
+      {localFiles.map(file => {
+        const reExtension = /(?:\.([^.]+))?$/;
+        const ext = file.raw.name.match(reExtension)[1].toLowerCase();
+        return (
+          <div className="attachement" key={file.preview}>
+            <Viewer file={file.preview} ext={ext} key={file.preview} />
 
-              <Button
-                color="secondary"
-                onClick={() => handleDeleteLocal(file)}
-                className={classes.button}
-              >
-                <Icon>delete_forever</Icon> Delete
-              </Button>
-            </div>
-          );
-        })}
-        {/* ----------for existing files------------------  */}
-        {
-          (type =
-            "Edit" &&
-            files.map(file => {
-              const reExtension = /(?:\.([^.]+))?$/;
-              const ext = file.match(reExtension)[1].toLowerCase();
-              return (
-                <div className="attachement" key={file}>
-                  <Viewer file={file} ext={ext} key={file} />
-                  <Button
-                    color="secondary"
-                    onClick={() => handleDelete(file)}
-                    className={classes.button}
-                  >
-                    <Icon>delete_forever</Icon> Delete
-                  </Button>
-                  <br />
-                </div>
-              );
-            }))
-        }
-        <br />
-        <label htmlFor="contained-button-file">
-          <Button variant="contained" component="span">
-            Select Media
-          </Button>
-        </label>
-        <br />
-        <br />
-        {files || localFiles.length > 0 ? (
-          <div>
-            <Typography variant="h6" component={"span"}>
-              Give your resource a title
-            </Typography>
-            <TextField
-              key="Give your resource a title"
-              label="Give your resource a title"
-              value={title}
-              onChange={changeTitle}
-              margin="normal"
-              style={{ width: "100%" }}
-            />
+            <Button
+              color="secondary"
+              onClick={() => handleDeleteLocal(file)}
+              className={classes.button}
+            >
+              <Icon>delete_forever</Icon> Delete
+            </Button>
           </div>
-        ) : null}
-        <br />
-        {files || (localFiles.length > 0 && title !== "") ? (
+        );
+      })}
+      {/* ----------for existing files------------------  */}
+      {
+        (type =
+          "Edit" &&
+          files.map(file => {
+            const reExtension = /(?:\.([^.]+))?$/;
+            const ext = file.match(reExtension)[1].toLowerCase();
+            return (
+              <div className="attachement" key={file}>
+                <Viewer file={file} ext={ext} key={file} />
+                <Button
+                  color="secondary"
+                  onClick={() => handleDelete(file)}
+                  className={classes.button}
+                >
+                  <Icon>delete_forever</Icon> Delete
+                </Button>
+                <br />
+              </div>
+            );
+          }))
+      }
+      <br />
+      <label htmlFor="contained-button-file">
+        <Button variant="contained" component="span">
+          Select Media
+        </Button>
+      </label>
+      <br />
+      <br />
+      {files || localFiles.length > 0 ? (
+        <div>
           <Typography variant="h6" component={"span"}>
-            Choose what to do now...
+            Give your resource a title
           </Typography>
-        ) : null}
-      </Paper>
-    </React.Fragment>
+          <TextField
+            key="Give your resource a title"
+            label="Give your resource a title"
+            value={title}
+            onChange={changeTitle}
+            margin="normal"
+            style={{ width: "100%" }}
+          />
+        </div>
+      ) : null}
+      <br />
+      {files || (localFiles.length > 0 && title !== "") ? (
+        <Typography variant="h6" component={"span"}>
+          Choose what to do now...
+        </Typography>
+      ) : null}
+    </Paper>
   );
 };

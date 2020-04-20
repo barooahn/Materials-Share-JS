@@ -28,6 +28,8 @@ export const signUser = async user => {
   console.log("result from signing: ", res);
   localStorage.setItem("JWT_TOKEN", res.data.token);
   localStorage.setItem("USER_ID", res.data.id);
+  localStorage.setItem("USER_IMG", res.data.img);
+  localStorage.setItem("USER_NAME", res.data.name);
   axios.defaults.headers.common["Authorization"] = res.data.token;
 };
 

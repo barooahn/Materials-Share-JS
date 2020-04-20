@@ -12,7 +12,6 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import Fab from "@material-ui/core/Fab";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import AddIcon from "@material-ui/icons/Add";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
@@ -20,13 +19,13 @@ import Slide from "@material-ui/core/Slide";
 import Search from "./Search";
 import AccountBoxIcon from "@material-ui/icons/AccountBoxRounded";
 import Assignment from "@material-ui/icons/AssignmentRounded";
-import AccountCircle from "@material-ui/icons/AccountCircle";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Eject from "@material-ui/icons/EjectRounded";
+import { deepOrange } from "@material-ui/core/colors";
 
 import { logOut } from "../../auth/helpers";
 import { NavLink } from "react-router-dom";
@@ -64,6 +63,10 @@ const useStyles = makeStyles(theme => ({
 
     right: 10
     // margin: "0 auto"
+  },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500]
   }
 }));
 
@@ -133,7 +136,7 @@ export default function LabelBottomNavigation({ routePaths }) {
   const menuOptions = () => {
     if (!localStorage.getItem("JWT_TOKEN")) {
       return (
-        <React.Fragment>
+        <div>
           <MenuItem onClick={handleMenuClose}>
             <NavLink to="/profile" className="link" key="profile">
               <ListItem onClick={handleLoginClick}>
@@ -146,7 +149,7 @@ export default function LabelBottomNavigation({ routePaths }) {
           </MenuItem>
           <MenuItem onClick={handleMenuClose}>
             <NavLink to="/profile" className="link" key="profile">
-              <ListItem onClick={handleLoginClick}>
+              <ListItem onClick={handleRegisterClick}>
                 <ListItemIcon>
                   <Assignment />
                 </ListItemIcon>
@@ -154,11 +157,11 @@ export default function LabelBottomNavigation({ routePaths }) {
               </ListItem>
             </NavLink>
           </MenuItem>
-        </React.Fragment>
+        </div>
       );
     } else {
       return (
-        <React.Fragment>
+        <div>
           <MenuItem onClick={handleMenuClose}>
             <NavLink to="/profile" className="link" key="profile">
               <ListItem>
@@ -178,7 +181,7 @@ export default function LabelBottomNavigation({ routePaths }) {
               <ListItemText primary="Logout" />
             </ListItem>
           </MenuItem>
-        </React.Fragment>
+        </div>
       );
     }
   };
@@ -200,7 +203,11 @@ export default function LabelBottomNavigation({ routePaths }) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <Avatar
+                alt={localStorage.getItem("USER_NAME")}
+                src={localStorage.getItem("USER_IMG")}
+                className={classes.orange}
+              />
             </IconButton>
           </Toolbar>
         </AppBar>

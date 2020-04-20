@@ -1,22 +1,27 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Autocomplete } from "@material-ui/lab";
 import Typography from "@material-ui/core/Typography";
 import { Slider } from "@material-ui/core";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
+import Paper from "@material-ui/core/Paper";
 
-const styles = {
+const useStyles = makeStyles(theme => ({
   inputWrapper: {
     display: "flex",
     flexDirection: "column",
     padding: 20
+  },
+  paper: {
+    width: "95%",
+    margin: "20px auto",
+    padding: "15px"
   }
-};
+}));
 
-function MaterialDetails({
-  classes,
+export default ({
   title,
   setTitle,
   objective,
@@ -34,9 +39,9 @@ function MaterialDetails({
   share,
   setShare,
   targetLanguage,
-  setTargetLanguage,
-  id
-}) {
+  setTargetLanguage
+}) => {
+  const classes = useStyles();
   const changeTitle = e => {
     setTitle(e.target.value);
   };
@@ -94,8 +99,7 @@ function MaterialDetails({
   ];
 
   return (
-    <div className={classes.inputWrapper}>
-      <p> id: {id} </p>{" "}
+    <Paper className={classes.paper}>
       {inputs.map((input, index) => {
         if (input.type === "text") {
           return (
@@ -177,8 +181,6 @@ function MaterialDetails({
         }
         label="Share your resource"
       />
-    </div>
+    </Paper>
   );
-}
-
-export default withStyles(styles)(MaterialDetails);
+};

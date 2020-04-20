@@ -1,21 +1,30 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import { withStyles } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Autocomplete } from "@material-ui/lab";
+import Paper from "@material-ui/core/Paper";
 
-const styles = {
+const useStyles = makeStyles(theme => ({
   inputWrapper: {
     display: "flex",
     flexDirection: "column",
     paddingTop: 40
   },
   autoComplete: {
-    paddingTop: 30
+    paddingTop: 30,
+    width: "100%"
+  },
+  paper: {
+    width: "95%",
+    margin: "20px auto",
+    padding: "15px"
+  },
+  inputText: {
+    width: "100%"
   }
-};
+}));
 
-function MaterialDetailsFull({
-  classes,
+export default ({
   procedureBefore,
   setProcedureBefore,
   procedureIn,
@@ -43,7 +52,8 @@ function MaterialDetailsFull({
   category,
   categoryValue,
   setCategoryValue
-}) {
+}) => {
+  const classes = useStyles();
   const changeProcedureBefore = e => {
     setProcedureBefore(e.target.value);
   };
@@ -146,82 +156,80 @@ function MaterialDetailsFull({
   ];
 
   return (
-    <div className={classes.inputWrapper}>
-      {inputs.map(input => {
-        if (input.type === "text") {
-          return (
+    <Paper className={classes.paper}>
+      <div className={classes.inputWrapper}>
+        {inputs.map(input => {
+          if (input.type === "text") {
+            return (
+              <TextField
+                className={classes.inputText}
+                key={input.label}
+                label={input.label}
+                value={input.value}
+                onChange={input.onChange}
+                placeholder={input.placeholder}
+              />
+            );
+          } else {
+            return null;
+          }
+        })}
+
+        <Autocomplete
+          className={classes.autoComplete}
+          id="category"
+          multiple
+          value={categoryValue}
+          onChange={setCategoryValue}
+          options={category}
+          freeSolo={true}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
             <TextField
-              key={input.label}
-              label={input.label}
-              value={input.value}
-              onChange={input.onChange}
-              placeholder={input.placeholder}
+              {...params}
+              label="What institue is the material for? - School, language center etc."
+              variant="outlined"
+              fullWidth
             />
-          );
-        } else {
-          return null;
-        }
-      })}
-
-      <Autocomplete
-        className={classes.autoComplete}
-        id="category"
-        multiple
-        value={categoryValue}
-        onChange={setCategoryValue}
-        options={category}
-        freeSolo={true}
-        getOptionLabel={option => option.label}
-        style={{ width: 600 }}
-        renderInput={params => (
-          <TextField
-            {...params}
-            label="What institue is the material for? - School, language center etc."
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-      <Autocomplete
-        className={classes.autoComplete}
-        id="language-focus"
-        multiple
-        value={languageFocusValue}
-        onChange={setLanguageFocusValue}
-        options={languageFocus}
-        freeSolo={true}
-        getOptionLabel={option => option.label}
-        style={{ width: 600 }}
-        renderInput={params => (
-          <TextField
-            {...params}
-            label="What is the language focus of the resource? - Speaking, Listening etc."
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-      <Autocomplete
-        className={classes.autoComplete}
-        id="activity-use"
-        multiple
-        value={activityUseValue}
-        onChange={setActivityUseValue}
-        options={activityUse}
-        freeSolo={true}
-        getOptionLabel={option => option.label}
-        style={{ width: 600 }}
-        renderInput={params => (
-          <TextField
-            {...params}
-            label="What is the activity use of the resource? - Production, Presenetation etc."
-            variant="outlined"
-            fullWidth
-          />
-        )}
-      />
-    </div>
+          )}
+        />
+        <Autocomplete
+          className={classes.autoComplete}
+          id="language-focus"
+          multiple
+          value={languageFocusValue}
+          onChange={setLanguageFocusValue}
+          options={languageFocus}
+          freeSolo={true}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="What is the language focus of the resource? - Speaking, Listening etc."
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+        <Autocomplete
+          className={classes.autoComplete}
+          id="activity-use"
+          multiple
+          value={activityUseValue}
+          onChange={setActivityUseValue}
+          options={activityUse}
+          freeSolo={true}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="What is the activity use of the resource? - Production, Presenetation etc."
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+    </Paper>
   );
-}
-
-export default withStyles(styles)(MaterialDetailsFull);
+};

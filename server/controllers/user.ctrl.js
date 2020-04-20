@@ -59,12 +59,16 @@ module.exports = {
     const user = req.body.user;
     const token = signUser.signUser(user);
 
-    const existingUser = await User.findOne({ [user.profile]: user.id });
+    const userEmail = user.method + ".email";
+    const existingUser = await User.findOne({ [userEmail]: user.email });
+    console.log("user.ctrl.js- user found", existingUser);
     if (existingUser) {
       res.status(200).json({
-        message: "User logged In With Google",
+        message: "User logged In with " + existingUser.method,
         token,
-        id: existingUser.id
+        id: existingUser.id,
+        name: existingUser.name,
+        img: user.img
       });
     }
 
@@ -87,27 +91,27 @@ module.exports = {
     });
   },
 
-  googleOAuth: async (req, res, next) => {
-    // Generate token
-    console.log("google user", req);
-    const token = signUser.signUser(req.profileObj);
-    res.status(200).json({
-      message: "User logged In With Google",
-      token,
-      id: req.profileObj
-    });
-  },
+  // googleOAuth: async (req, res, next) => {
+  //   // Generate token
+  //   console.log("google user", req);
+  //   const token = signUser.signUser(req.profileObj);
+  //   res.status(200).json({
+  //     message: "User logged In With Google",
+  //     token,
+  //     id: req.profileObj
+  //   });
+  // },
 
-  facebookOAuth: async (req, res, next) => {
-    // Generate token
-    console.log("facebook user", req.user);
-    const token = signUser.signUser(req.user);
-    res.status(200).json({
-      message: "User logged In With Facebook",
-      token,
-      id: req.user._id
-    });
-  },
+  // facebookOAuth: async (req, res, next) => {
+  //   // Generate token
+  //   console.log("facebook user", req.user);
+  //   const token = signUser.signUser(req.user);
+  //   res.status(200).json({
+  //     message: "User logged In With Facebook",
+  //     token,
+  //     id: req.user._id
+  //   });
+  // },
 
   addUser: (req, res, next) => {
     new User(req.body).save((err, newUser) => {
