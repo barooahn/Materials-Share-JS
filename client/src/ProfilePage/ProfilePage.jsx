@@ -3,8 +3,16 @@ import Typography from "@material-ui/core/Typography";
 import { getSecret } from "../auth/helpers";
 import MaterialCard2 from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: "70px"
+  }
+}));
 
 export default () => {
+  const classes = useStyles();
   var id = localStorage.getItem("USER_ID");
   const [userMaterials, setUserMaterials] = useState([]);
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
@@ -28,7 +36,7 @@ export default () => {
   //console.log("ProfilePage  materials", userMaterials);
   if (userMaterials.length > 0) {
     return (
-      <div>
+      <div className={classes.root}>
         <Typography gutterBottom variant="h4" component="h1">
           My Profile
         </Typography>

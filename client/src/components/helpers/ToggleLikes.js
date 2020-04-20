@@ -1,7 +1,7 @@
-import { saveData } from "../../actions/materials-share-actions";
+import { SaveData } from "../../actions/materials-share-actions";
 
 const save = (likes, materialId) => {
-  saveData({
+  SaveData({
     likes: likes,
     type: "Edit",
     id: materialId

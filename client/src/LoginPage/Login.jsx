@@ -14,7 +14,7 @@ import Typography from "@material-ui/core/Typography";
 import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import { withRouter, useLocation, useHistory } from "react-router-dom";
-import { oauthFacebook, oauthGoogle, signUser, logIn } from "../auth/helpers";
+import { signUser, logIn } from "../auth/helpers";
 
 const useStyles = makeStyles(theme => ({
   main: {

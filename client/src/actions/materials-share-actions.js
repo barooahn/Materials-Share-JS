@@ -1,6 +1,6 @@
 const axios = require("axios").default;
 
-export const saveData = payload => {
+export const SaveData = (payload, type, setCompleted, setSaved) => {
   console.log("save ", payload);
 
   //get local files
@@ -13,24 +13,21 @@ export const saveData = payload => {
     Array.isArray(payload.localFiles)
   );
   if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
-    handleUpload(payload.localFiles, payload);
+    handleUpload(payload.localFiles, payload, setCompleted, setSaved);
   } else {
-    if (payload.type == "Create") {
-      delete payload.type;
+    if (type == "Create") {
       console.log("Saving create material", payload);
       createMaterial(payload);
     }
 
     //save data to db
-    if (payload.type == "Edit") {
-      delete payload.type;
+    if (type == "Edit") {
       console.log("Saving edit material", payload);
-      // console.log("full payload", payload);
-
       editMaterial(payload);
     }
   }
-
+  console.log("Materials-share.actions -finished saving ");
+  return true;
   //route to my materials
 };
 
@@ -40,13 +37,7 @@ const editMaterial = material => {
     material
   );
   axios
-    .put(`/api/material/update/${material.id}`, material, {
-      //   onUploadProgress: ProgressEvent => {
-      //     this.setState({
-      //       loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-      //     })
-      //   },
-    })
+    .put(`/api/material/update/${material.id}`, material, {})
     .then(res => {
       console.log("saved to db", res.data);
     })
@@ -57,15 +48,8 @@ const editMaterial = material => {
 
 const createMaterial = material => {
   material.author_id = localStorage.getItem("USER_ID");
-  // console.log("sending create material to db...", material);
   axios
-    .post(`/api/material`, material, {
-      //   onUploadProgress: ProgressEvent => {
-      //     this.setState({
-      //       loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-      //     })
-      //   },
-    })
+    .post(`/api/material`, material, {})
     .then(res => {
       console.log("saved to db", res.data);
     })
@@ -74,7 +58,7 @@ const createMaterial = material => {
     });
 };
 
-const handleUpload = (files, payload) => {
+const handleUpload = (files, payload, setCompleted, setSaved) => {
   console.log("files in handle upload ", files);
   const data = new FormData();
   data.append("saveType", "awsUpload");
@@ -84,16 +68,21 @@ const handleUpload = (files, payload) => {
   });
   axios
     .post("/api/material/file/upload", data, {
-      //   onUploadProgress: ProgressEvent => {
-      //     this.setState({
-      //       loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-      //     })
-      //   },
+      onUploadProgress: ProgressEvent => {
+        setCompleted(oldCompleted => {
+          if (oldCompleted === 100) {
+            return 0;
+          }
+          const diff = (ProgressEvent.loaded / ProgressEvent.total) * 100;
+          return Math.min(oldCompleted + diff, 100);
+        });
+      }
     })
     .then(res => {
       res.data.forEach(file => {
         // console.log("adding file to payload: ", file.path);
         payload.files.push(file.path);
+        setSaved(true);
       });
       //remove from material
       delete payload.localFiles;

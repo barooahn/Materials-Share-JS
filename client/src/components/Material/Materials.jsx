@@ -2,8 +2,16 @@ import React from "react";
 import MaterialCard from "./MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    marginBottom: "70px"
+  },
+}));
 
 const Materials = () => {
+  const classes = useStyles();
   const [materials, setMaterials] = React.useState([]);
 
   React.useEffect(() => {
@@ -29,7 +37,7 @@ const Materials = () => {
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
   return (
-    <React.Fragment>
+    <div className={classes.root}>
       <Typography gutterBottom variant="h2" component="h2" align="center">
         Teaching Resorces
       </Typography>
@@ -44,7 +52,7 @@ const Materials = () => {
           />
         ))}
       </StackGrid>
-    </React.Fragment>
+    </div>
   );
 };
 

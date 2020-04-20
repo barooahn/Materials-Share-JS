@@ -26,7 +26,8 @@ const allowedMimeTypes = [
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: "100%"
+    width: "100%",
+    marginBottom: 70
   },
   button: {
     marginRight: theme.spacing(1)

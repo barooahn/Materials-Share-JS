@@ -7,9 +7,14 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import MediaFiles from "./MediaFiles";
 import MaterialDetails from "./MaterialDetails";
-import { saveData } from "../../actions/materials-share-actions";
+import { SaveData } from "../../actions/materials-share-actions";
 import MaterialDetailsFull from "./MaterialDetailsFull";
-import { BrowserRouter as Router, useParams } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  useParams,
+  useHistory
+} from "react-router-dom";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,6 +26,12 @@ const useStyles = makeStyles(theme => ({
   instructions: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(1)
+  },
+  linearProgress: {
+    width: "100%",
+    "& > * + *": {
+      marginTop: theme.spacing(2)
+    }
   }
 }));
 
@@ -30,6 +41,10 @@ export default function MaterialStepper() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [skipped, setSkipped] = React.useState(new Set());
+  const [completed, setCompleted] = React.useState(0);
+  const [saved, setSaved] = React.useState(false);
+  let history = useHistory();
+
   const steps = getSteps();
 
   const isStepOptional = step => {
@@ -317,35 +332,46 @@ export default function MaterialStepper() {
 
   const save = () => {
     //add , comments
-    saveData({
+
+    SaveData(
+      {
+        type,
+        title,
+        timeInClass,
+        timePrep,
+        procedureBefore,
+        procedureIn,
+        book,
+        page,
+        followUp,
+        variations,
+        tips,
+        notes,
+        files,
+        localFiles,
+        likes: [],
+        objective,
+        level: levelValue,
+        languageFocus: languageFocusValue,
+        activityUse: activityUseValue,
+        pupilTask: pupilTaskValue,
+        category: categoryValue,
+        targetLanguage,
+        materials,
+        shared: share,
+        id: id,
+        dateModified: Date.now()
+      },
       type,
-      title,
-      timeInClass,
-      timePrep,
-      procedureBefore,
-      procedureIn,
-      book,
-      page,
-      followUp,
-      variations,
-      tips,
-      notes,
-      files,
-      localFiles,
-      likes: [],
-      objective,
-      level: levelValue,
-      languageFocus: languageFocusValue,
-      activityUse: activityUseValue,
-      pupilTask: pupilTaskValue,
-      category: categoryValue,
-      targetLanguage,
-      materials,
-      shared: share,
-      id: id,
-      dateModified: Date.now()
-    });
+      setCompleted,
+      setSaved
+    );
   };
+  React.useEffect(() => {
+    //get all Materials from db setMaterials
+    console.log("materialstepper - saved: ", saved);
+    if (saved) history.push("/profile");
+  }, [saved]);
 
   const convertValue = value => {
     return value
@@ -431,6 +457,16 @@ export default function MaterialStepper() {
             <Typography component={"span"} className={classes.instructions}>
               {getStepContent(activeStep)}
             </Typography>
+
+            {completed > 0 ? (
+              <div className={classes.linearProgress}>
+                <Typography component={"span"} className={classes.instructions}>
+                  Saving ...
+                </Typography>
+                <LinearProgress color="secondary" />
+                <br />
+              </div>
+            ) : null}
             <div>
               <Button
                 disabled={activeStep === 0}
