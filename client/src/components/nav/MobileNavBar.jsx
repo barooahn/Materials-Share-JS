@@ -188,7 +188,11 @@ export default function LabelBottomNavigation({ routePaths }) {
     <React.Fragment>
       <CssBaseline />
       <HideOnScroll>
-        <AppBar position="sticky" color="primary" className={classes.appBar}>
+        <AppBar
+          position="sticky"
+          color="default"
+          className={classes.appBar}
+        >
           <Toolbar>
             <div className={classes.grow} />
             <Search />

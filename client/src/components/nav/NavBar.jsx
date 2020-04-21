@@ -198,6 +198,7 @@ export default function MiniDrawer({ routePaths }) {
       <CssBaseline />
       <AppBar
         position="fixed"
+        color="default"
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open
         })}

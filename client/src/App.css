@@ -77,3 +77,9 @@ body {
 .pg-viewer-wrapper {
   overflow: hidden !important;
 }
+
+@media screen and (min-width: 600px) {
+  .MuiFormControl-marginNormal {
+    margin: 0 0 0 60px !important;
+  }
+}

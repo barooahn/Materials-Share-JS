@@ -3,6 +3,8 @@ import { makeStyles, useTheme, fade } from "@material-ui/core/styles";
 import { withRouter, useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import SearchIcon from "@material-ui/icons/Search";
 
 const useStyles = makeStyles(theme => ({}));
 
@@ -58,31 +60,34 @@ export default function Search() {
   return (
     <div>
       <div className={classes.search}>
-        
         <Autocomplete
           freeSolo
-          
-          id="free-solo-2-demo"
-          style={{ width: 200 }}
-          disableClearable
+          id="Materialss share search"
+          style={{ width: 250 }}
           options={autoCompleteOptions}
           onChange={handleSearchChange}
           getOptionLabel={option => option.title}
           onKeyPress={goToResults}
+          autoSelect={true}
+          clearOnEscape={true}
+          fullWidth={true}
+          size={"small"}
+          
           renderInput={params => (
             <TextField
               {...params}
-              label="Search input"
+              label="Search Materials..."
               margin="normal"
               // variant="outlined"
-              color="default"
+              color="secondary"
+              variant="outlined"
               onChange={handleSearchChange}
               onKeyPress={goToResults}
-              InputProps={{ ...params.InputProps, type: "search" }}
+              InputProps={{ ...params.InputProps, type: "search " }}
             />
           )}
         />
-     
+
         {/* <Autocomplete
           id="combo-box-demo"
           options={autoCompleteOptions}
