@@ -38,6 +38,12 @@ const UserSchema = new Schema({
     email: {
       type: String,
       lowercase: true
+    },
+    name: {
+      type: String
+    },
+    img: {
+      type: String
     }
   },
   facebook: {
@@ -47,6 +53,12 @@ const UserSchema = new Schema({
     email: {
       type: String,
       lowercase: true
+    },
+    name: {
+      type: String
+    },
+    img: {
+      type: String
     }
   }
 });

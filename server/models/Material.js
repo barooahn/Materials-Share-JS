@@ -57,14 +57,12 @@ let MaterialSchema = new mongoose.Schema({
   dateCreated: Date,
   dateModified: Date,
   author_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    type: String
   },
   comments: [
     {
       author_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+        type: String
       },
       text: String
     }

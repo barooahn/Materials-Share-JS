@@ -61,13 +61,19 @@ module.exports = {
 
     const userEmail = user.method + ".email";
     const existingUser = await User.findOne({ [userEmail]: user.email });
-    console.log("user.ctrl.js- user found", existingUser);
+    let eUser = {};
     if (existingUser) {
+      if (existingUser.method === "facebook") {
+        eUser = existingUser.facebook;
+      }
+      if (existingUser.method === "google") {
+        eUser = existingUser.google;
+      }
       res.status(200).json({
-        message: "User logged In with " + existingUser.method,
+        message: `User ${eUser.name} logged In with ${existingUser.method}`,
         token,
-        id: existingUser.id,
-        name: existingUser.name,
+        id: eUser.id,
+        name: eUser.name,
         img: user.img
       });
     }
@@ -85,9 +91,12 @@ module.exports = {
     await newUser.save();
 
     res.status(200).json({
-      message: "User logged In With Google",
+      message: "User logged In with " + user.method,
       token,
-      id: newUser.id
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      img: user.img
     });
   },
 

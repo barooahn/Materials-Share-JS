@@ -6,7 +6,7 @@ module.exports = {
     return jwt.sign(
       {
         iss: "MaterialsShare",
-        sub: user._id,
+        sub: user.id,
         iat: new Date().getTime()
       },
       process.env.JWT_KEY,

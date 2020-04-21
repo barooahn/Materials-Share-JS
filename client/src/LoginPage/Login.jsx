@@ -103,6 +103,7 @@ export default () => {
   };
 
   const responseFacebook = async res => {
+    console.log("got facebook response ", res.id);
     const user = {
       method: "facebook",
       name: res.name,
@@ -111,8 +112,6 @@ export default () => {
       email: res.email
     };
     const response = await signUser(user);
-
-    console.log("got facebook response ", response);
 
     if (!state.errorMessage) {
       setReturnPath();
