@@ -42,9 +42,9 @@
     "passport-local": "^1.0.0"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9",
+    "concurrently": "^4.1.2",
     "dotenv": "^6.2.0",
-    "concurrently": "^4.1.2"
+    "nodemon": "^1.18.9"
   },
   "engines": {
     "node": "12.x"
