@@ -26,8 +26,8 @@ import Assignment from "@material-ui/icons/AssignmentRounded";
 import Eject from "@material-ui/icons/EjectRounded";
 import { logOut } from "../../auth/helpers";
 import { NavLink } from "react-router-dom";
-import { useLocation, useHistory, matchPath } from "react-router-dom";
-import AccountCircle from "@material-ui/icons/AccountCircle";
+import { useLocation, useHistory } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Search from "./Search";
 
@@ -183,7 +183,11 @@ export default function MiniDrawer({ routePaths }) {
           onClick={handleProfileMenuOpen}
           color="inherit"
         >
-          <AccountCircle />
+          <Avatar
+            alt={localStorage.getItem("USER_NAME")}
+            src={localStorage.getItem("USER_IMG")}
+            className={classes.orange}
+          />
         </IconButton>
       );
     }

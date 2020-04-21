@@ -53,7 +53,6 @@ let MaterialSchema = new mongoose.Schema({
     }
   ],
   materials: String,
-  clap: Number,
   shared: Boolean,
   dateCreated: Date,
   dateModified: Date,

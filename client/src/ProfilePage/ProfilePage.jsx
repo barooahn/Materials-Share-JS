@@ -18,7 +18,7 @@ export default () => {
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
   useEffect(() => {
-    //get all Materials from db setMaterials
+    //get all Materials where author id === user id
     if (id !== undefined) {
       //console.log("edit material - ", id);
       fetch("/api/materials/" + id, {

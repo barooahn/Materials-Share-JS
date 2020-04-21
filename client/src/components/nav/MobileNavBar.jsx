@@ -148,14 +148,12 @@ export default function LabelBottomNavigation({ routePaths }) {
             </NavLink>
           </MenuItem>
           <MenuItem onClick={handleMenuClose}>
-            <NavLink to="/profile" className="link" key="profile">
-              <ListItem onClick={handleRegisterClick}>
-                <ListItemIcon>
-                  <Assignment />
-                </ListItemIcon>
-                <ListItemText primary="Register" />
-              </ListItem>
-            </NavLink>
+            <ListItem onClick={handleRegisterClick}>
+              <ListItemIcon>
+                <Assignment />
+              </ListItemIcon>
+              <ListItemText primary="Register" />
+            </ListItem>
           </MenuItem>
         </div>
       );
