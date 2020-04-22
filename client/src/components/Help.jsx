@@ -17,7 +17,7 @@ const Help = () => {
       </Typography>
       <br />
       <br />
-      <Grid container spacing={8}>
+      <Grid container spacing={0}>
         <Grid item xs={12} md={3}>
           <Typography variant="h6" component="h3">
             Index
