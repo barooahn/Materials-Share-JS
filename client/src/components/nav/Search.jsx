@@ -20,9 +20,6 @@ const style = {
   backgroundColor: "#f5f5f5"
 };
 
-const auto = {
-  zIndex: "2000"
-};
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -110,7 +107,7 @@ export default function Search() {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div >
       <div className={classes.root}>
         <ExpansionPanel
           defaultExpanded={false}

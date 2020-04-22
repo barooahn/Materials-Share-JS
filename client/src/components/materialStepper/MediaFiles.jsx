@@ -175,7 +175,7 @@ export default ({
         </div>
       ) : null}
       <br />
-      {files || (localFiles.length > 0 && title !== "") ? (
+      {files.length > 0 || (localFiles.length > 0 && title.length > 3) ? (
         <Typography variant="h6" component={"span"}>
           Choose what to do now...
         </Typography>

@@ -468,45 +468,47 @@ export default function MaterialStepper() {
                 <br />
               </div>
             ) : null}
-            <div>
-              <Button
-                disabled={activeStep === 0}
-                onClick={handleBack}
-                className={classes.button}
-              >
-                Back
-              </Button>
-              {isStepOptional(activeStep) && (
+            {title.length > 3 && localFiles.length > 0 ? (
+              <div>
+                <Button
+                  disabled={activeStep === 0}
+                  onClick={handleBack}
+                  className={classes.button}
+                >
+                  Back
+                </Button>
+                {isStepOptional(activeStep) && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSkip}
+                    className={classes.button}
+                  >
+                    Skip
+                  </Button>
+                )}
+
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleSkip}
+                  onClick={handleNext}
+                  className={classes.button}
+                  disabled={(localFiles.length == 0 || title === "") && !files}
+                >
+                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
+                </Button>
+
+                <Button
+                  disabled={(localFiles.length == 0 || title === "") && !files}
+                  variant="contained"
+                  color="secondary"
+                  onClick={save}
                   className={classes.button}
                 >
-                  Skip
+                  Save
                 </Button>
-              )}
-
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                className={classes.button}
-                disabled={(localFiles.length == 0 || title === "") && !files}
-              >
-                {activeStep === steps.length - 1 ? "Finish" : "Next"}
-              </Button>
-
-              <Button
-                disabled={(localFiles.length == 0 || title === "") && !files}
-                variant="contained"
-                color="secondary"
-                onClick={save}
-                className={classes.button}
-              >
-                Save
-              </Button>
-            </div>
+              </div>
+            ) : null}
           </div>
         )}
       </div>
