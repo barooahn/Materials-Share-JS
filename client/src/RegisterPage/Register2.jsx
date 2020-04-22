@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
       width: 400,
       marginLeft: "auto",
       marginRight: "auto"
-    }
+    },
+    paddingBottom: 70
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
@@ -66,10 +67,7 @@ export default () => {
   const onSubmit = async e => {
     e.preventDefault();
     let password;
-    password =
-      state.password === state.password1
-        ? state.password1
-        : null;
+    password = state.password === state.password1 ? state.password1 : null;
 
     const user = {
       name: state.name,
