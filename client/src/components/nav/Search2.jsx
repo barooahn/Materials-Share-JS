@@ -110,7 +110,42 @@ export default function Search() {
   };
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{width: "100%"}}>
+      <div className={classes.root}>
+        <Autocomplete
+          style={auto}
+          freeSolo
+          id="Materials share search"
+          options={autoCompleteOptions}
+          onChange={handleSearchChange}
+          getOptionLabel={option => option.title}
+          onKeyPress={goToResults}
+          autoSelect={true}
+          fullWidth
+          clearOnEscape={true}
+          size={"small"}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Search Materials..."
+              fullWidth
+              color="secondary"
+              variant="outlined"
+              onChange={handleSearchChange}
+              onKeyPress={goToResults}
+              InputProps={{
+                ...params,
+                type: "search ",
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon />
+                  </InputAdornment>
+                )
+              }}
+            />
+          )}
+        />
+      </div>
       <div className={classes.root}>
         <ExpansionPanel
           defaultExpanded={false}
@@ -124,32 +159,7 @@ export default function Search() {
             aria-controls="panel1c-content"
             id="panel1c-header"
             style={style}
-          >
-            <div className={classes.root}>
-              <Autocomplete
-                options={autoCompleteOptions}
-                getOptionLabel={option => option.title}
-                freeSolo
-                id="Materialss share search"
-                onChange={handleSearchChange}
-                getOptionLabel={option => option.title}
-                onKeyPress={goToResults}
-                autoSelect={true}
-                clearOnEscape={true}
-                fullWidth={true}
-                size="small"
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="Search Materials..."
-                    variant="outlined"
-                    color="secondary"
-                    fullWidth={true}
-                  />
-                )}
-              />
-            </div>
-          </ExpansionPanelSummary>
+          ></ExpansionPanelSummary>
           <ExpansionPanelDetails className={classes.details}>
             <div className={classes.column} />
             <div className={classes.column}>
