@@ -20,14 +20,16 @@ const useStyles = makeStyles(theme => ({
   },
   small: {
     width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
+    height: theme.spacing(3)
+  }
 }));
 
 export default () => {
   const classes = useStyles();
   var id = localStorage.getItem("USER_ID");
   const [userMaterials, setUserMaterials] = useState([]);
+  const [userLikes, setUserLikes] = useState([]);
+  const [showLikes, setshowLikes] = useState([false]);
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
   useEffect(() => {
@@ -46,12 +48,56 @@ export default () => {
     }
   }, []);
 
-  const handleMyMaterials = event => {
+  const handleMyMaterials = () => {
     console.log("herer");
+    setshowLikes(true);
   };
 
-  const handleMyLikes = event => {
-    console.log("herer");
+  const handleMyLikes = () => {
+    console.log("Likes");
+    setshowLikes(false);
+    fetch("/api/materials/user/likes/" + id, {
+      method: "GET"
+    })
+      .then(response => response.json())
+
+      .then(resultData => {
+        console.log("resultData", resultData);
+        setUserLikes(resultData);
+      });
+  };
+
+  const showTabs = () => {
+    if (!showLikes) {
+      return (
+        <div>
+          <Typography gutterBottom variant="h5" component="h5">
+            Materials I Like
+          </Typography>
+
+          <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
+            {userLikes.map((material, index) => (
+              <MaterialCard2 material={material} index={index} />
+            ))}
+          </StackGrid>
+        </div>
+      );
+    } else {
+      console.log("Profilepage- userlikes ", userLikes);
+      return (
+        <div>
+          <Typography gutterBottom variant="h5" component="h5">
+            Materials I Have Made
+          </Typography>
+
+          <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
+            {userMaterials.map((material, index) => (
+              <MaterialCard2 material={material} index={index} />
+            ))}
+          </StackGrid>
+        </div>
+      );
+    }
   };
 
   //console.log("ProfilePage  materials", userMaterials);
@@ -89,15 +135,7 @@ export default () => {
           My Likes
         </Button>
 
-        <Typography gutterBottom variant="h5" component="h5">
-          Materials I Have Made
-        </Typography>
-
-        <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
-          {userMaterials.map((material, index) => (
-            <MaterialCard2 material={material} index={index} />
-          ))}
-        </StackGrid>
+        {showTabs()}
       </div>
     );
   } else {

@@ -123,21 +123,23 @@ module.exports = {
   },
 
   getUserMaterials: async (req, res, next) => {
-    await Material.find({ author_id: req.params.author_id }).exec(
-      (err, materials) => {
+    await Material.find({ author_id: req.params.author_id })
+      .sort({ dateModified: -1 })
+      .exec((err, materials) => {
         if (materials) return res.send(materials);
         else if (err) return res.send(err);
         else return res.send(404);
-      }
-    );
+      });
   },
 
   getMaterials: async (req, res, next) => {
-    await Material.find().exec((err, materials) => {
-      if (materials) return res.send(materials);
-      else if (err) return res.send(err);
-      else return res.send(404);
-    });
+    await Material.find()
+      .sort({ dateModified: -1 })
+      .exec((err, materials) => {
+        if (materials) return res.send(materials);
+        else if (err) return res.send(err);
+        else return res.send(404);
+      });
   },
   getLiveMaterials: async (req, res, next) => {
     startDate = new Date(req.body.latestMaterialModifiyDate);
@@ -153,39 +155,38 @@ module.exports = {
   /**
    * material_id
    */
-  clapMaterial: (req, res, next) => {
-    Material.findById(req.body.material_id)
-      .then(material => {
-        return material.clap().then(() => {
-          return res.json({ msg: "Done" });
-        });
-      })
-      .catch(next);
-  },
-  /**
-   * comment, author_id, material_id
-   */
-  commentMaterial: (req, res, next) => {
-    Material.findById(req.body.material_id)
-      .then(material => {
-        return material
-          .comment({
-            author: req.body.author_id,
-            text: req.body.comment
-          })
-          .then(() => {
-            return res.json({ msg: "Done" });
-          });
-      })
-      .catch(next);
-  },
+  // clapMaterial: (req, res, next) => {
+  //   Material.findById(req.body.material_id)
+  //     .then(material => {
+  //       return material.clap().then(() => {
+  //         return res.json({ msg: "Done" });
+  //       });
+  //     })
+  //     .catch(next);
+  // },
+  // /**
+  //  * comment, author_id, material_id
+  //  */
+  // commentMaterial: (req, res, next) => {
+  //   Material.findById(req.body.material_id)
+  //     .then(material => {
+  //       return material
+  //         .comment({
+  //           author: req.body.author_id,
+  //           text: req.body.comment
+  //         })
+  //         .then(() => {
+  //           return res.json({ msg: "Done" });
+  //         });
+  //     })
+  //     .catch(next);
+  // },
   /**
    * material_id
    */
   getMaterial: (req, res, next) => {
     Material.findById(req.params.id)
       .populate("author")
-      .populate("comments.author")
       .exec((err, material) => {
         if (err) res.send(err);
         else if (!material) res.send(404);
@@ -243,8 +244,20 @@ module.exports = {
   getTitles: async (req, res, next) => {
     await Material.find()
       .select({ title: 1, _id: 0 })
+      .sort({ dateModified: -1 })
       .exec((err, titles) => {
         if (titles) return res.send(titles);
+        else if (err) return res.send(err);
+        else return res.send(404);
+      });
+  },
+
+  getUserLikes: async (req, res, next) => {
+    console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
+    await Material.find({ likes: req.params.author_id })
+      .sort({ dateModified: -1 })
+      .exec((err, materials) => {
+        if (materials) return res.send(materials);
         else if (err) return res.send(err);
         else return res.send(404);
       });

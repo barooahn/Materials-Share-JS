@@ -61,7 +61,7 @@ module.exports = router => {
   /**
    * comment on a material
    */
-  router.route("/material/comment").post(materialcontroller.commentMaterial);
+  // router.route("/material/comment").post(materialcontroller.commentMaterial);
   /**
    * get a particlular material to view
    */
@@ -70,4 +70,11 @@ module.exports = router => {
    * get distinct values from a field
    */
   router.route("/material/field/:field").get(materialcontroller.getDistinct);
+
+  /**
+   * get author likes
+   */
+  router
+    .route("/materials/user/likes/:author_id")
+    .get(materialcontroller.getUserLikes);
 };

@@ -20,8 +20,8 @@ class Home extends Component {
             It's simple ...
           </Typography>
           <br />
-          <Grid container spacing={12}>
-            <Grid item xs={12}>
+          <Grid container spacing={10}>
+            <Grid item xs={10}>
               <HomeMain />
             </Grid>
           </Grid>

@@ -1,11 +1,15 @@
 import { SaveData } from "../../actions/materials-share-actions";
 
+const type = "Edit";
+
 const save = (likes, materialId) => {
-  SaveData({
-    likes: likes,
-    type: "Edit",
-    id: materialId
-  });
+  SaveData(
+    {
+      likes: likes,
+      id: materialId
+    },
+    type
+  );
 };
 
 const ToggleLike = (userId, likes, setLikes, materialId) => {

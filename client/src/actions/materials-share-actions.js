@@ -1,7 +1,7 @@
 const axios = require("axios").default;
 
-export const SaveData = (payload, type, setCompleted, setSaved) => {
-  console.log("save ", payload);
+export const SaveData = (payload, type, setCompleted = "", setSaved = "") => {
+  console.log("ms-share-actions- save ", payload);
 
   //get local files
   //save to AWS
@@ -9,23 +9,24 @@ export const SaveData = (payload, type, setCompleted, setSaved) => {
   // if payload.files === null
   //delete payload.files;
   console.log(
-    "ms share actions local files: ",
+    "ms-share-actions localfiles: ",
     Array.isArray(payload.localFiles)
   );
   if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
     handleUpload(payload.localFiles, payload, setCompleted, setSaved);
-  } else {
-    if (type == "Create") {
-      console.log("Saving create material", payload);
-      createMaterial(payload);
-    }
-
-    //save data to db
-    if (type == "Edit") {
-      console.log("Saving edit material", payload);
-      editMaterial(payload);
-    }
   }
+  console.log("ms-share-actions type: ", type);
+  console.log("ms-share-actions type === Edit: ", type == "Edit");
+
+  //save data to db
+  if (type === "Create") {
+    console.log("ms-share-actions -Saving create material", payload);
+    createMaterial(payload);
+  } else if (type === "Edit") {
+    console.log("ms-share-actions -Saving edit material", payload);
+    editMaterial(payload);
+  }
+
   console.log("Materials-share.actions -finished saving ");
   return true;
   //route to my materials
@@ -87,7 +88,7 @@ const handleUpload = (files, payload, setCompleted, setSaved) => {
       //remove from material
       delete payload.localFiles;
 
-      if (payload.type == "Create") {
+      if (payload.type === "Create") {
         delete payload.type;
         createMaterial(payload);
       }
@@ -97,7 +98,7 @@ const handleUpload = (files, payload, setCompleted, setSaved) => {
       //if type is Edit
 
       //save data to db
-      if (payload.type == "Edit") {
+      if (payload.type === "Edit") {
         delete payload.type;
         // console.log("full payload", payload);
 
