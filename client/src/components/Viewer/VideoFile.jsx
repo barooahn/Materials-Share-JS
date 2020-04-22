@@ -8,7 +8,8 @@ import {
   CurrentTimeDisplay,
   TimeDivider,
   PlaybackRateMenuButton,
-  VolumeMenuButton
+  VolumeMenuButton,
+  LoadingSpinner
 } from "video-react";
 
 export default props => {
@@ -17,7 +18,9 @@ export default props => {
       key={props.file}
       //poster="/img/bg3.jpg"
       //poster="../../../public/img/backgroundBlack.gif"
+      preload={"metadata"}
     >
+      <LoadingSpinner />
       <source src={props.file} />
 
       <ControlBar>
