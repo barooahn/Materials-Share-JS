@@ -40,7 +40,7 @@ export default () => {
           setMaterial(resultData);
         });
     }
-  }, []);
+  }, [id]);
 
   return (
     <Paper className="paperCenter" elevation={1}>

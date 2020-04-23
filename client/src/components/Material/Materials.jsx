@@ -7,7 +7,7 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: "70px"
-  },
+  }
 }));
 
 const Materials = () => {
@@ -23,13 +23,12 @@ const Materials = () => {
       .then(response => response.json())
 
       .then(resultData => {
-        {
-          resultData.forEach(material => {
-            material.files = Array.isArray(material.files)
-              ? [material.files[0]]
-              : [material.files];
-          });
-        }
+        resultData.forEach(material => {
+          material.files = Array.isArray(material.files)
+            ? [material.files[0]]
+            : [material.files];
+        });
+
         setMaterials(resultData);
       });
   }, []);

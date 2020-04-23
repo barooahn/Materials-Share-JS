@@ -100,7 +100,8 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1
   },
   logo: {
-    marginRight: 20
+    marginRight: 20,
+    width: 170
   }
 }));
 

@@ -28,7 +28,7 @@ import Eject from "@material-ui/icons/EjectRounded";
 import { deepOrange } from "@material-ui/core/colors";
 
 import { logOut } from "../../auth/helpers";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -67,7 +67,8 @@ const useStyles = makeStyles(theme => ({
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500]
-  }
+  },
+  profile: { top: 0, right: 15 }
 }));
 
 export default function LabelBottomNavigation({ routePaths }) {
@@ -77,6 +78,7 @@ export default function LabelBottomNavigation({ routePaths }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isMenuOpen = Boolean(anchorEl);
   const menuId = "primary-search-account-menu";
+  let location = useLocation();
 
   let history = useHistory();
 
@@ -188,16 +190,17 @@ export default function LabelBottomNavigation({ routePaths }) {
     <React.Fragment>
       <CssBaseline />
       <HideOnScroll>
-        <AppBar
-          position="sticky"
-          color="default"
-          className={classes.appBar}
-        >
+        <AppBar position="sticky" color="default" className={classes.appBar}>
           <Toolbar>
-            <div className={classes.grow} />
-            <Search />
-            <div className={classes.grow} />
+            {/* <div className={classes.grow} /> */}
+            {"/" === location.pathname ||
+            "/materials" === location.pathname ||
+            "/search" === location.pathname ? (
+              <Search />
+            ) : null}
+            {/* <div className={classes.grow} /> */}
             <IconButton
+              className={classes.profile}
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -215,11 +218,17 @@ export default function LabelBottomNavigation({ routePaths }) {
         </AppBar>
       </HideOnScroll>
       <Menu
-        anchorEl={anchorEl}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        anchorPosition={{ top: 0, right: 0 }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right"
+        }}
+        transformOrigin={{
+          vertical: "bottom",
+          horizontal: "right"
+        }}
         id={menuId}
         keepMounted
-        transformOrigin={{ vertical: "top", horizontal: "right" }}
         open={isMenuOpen}
         onClose={handleMenuClose}
       >

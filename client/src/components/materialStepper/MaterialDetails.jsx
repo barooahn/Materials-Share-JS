@@ -114,7 +114,7 @@ export default ({
           // console.log(`value of ${input.label}: ${input.value}`)
           return (
             <div key={index}>
-              <Typography gutterBottom> {input.label} </Typography>{" "}
+              <Typography gutterBottom> {input.label} </Typography>
               <Slider
                 key={index}
                 getAriaLabel={index =>
@@ -123,7 +123,7 @@ export default ({
                 value={input.value}
                 valueLabelDisplay="on"
                 onChange={input.onChange}
-              />{" "}
+              />
             </div>
           );
         } else {

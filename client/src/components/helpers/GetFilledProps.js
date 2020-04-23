@@ -1,4 +1,3 @@
-import React from "react";
 const titles = [
   { title: "Title" },
   { timeInClass: "Time In Class (mins)" },

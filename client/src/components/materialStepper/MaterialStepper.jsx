@@ -153,7 +153,7 @@ export default function MaterialStepper() {
           setType("Edit");
         });
     }
-  }, []);
+  }, [id]);
 
   function getSteps() {
     return ["Add Media and Title", "Add details", "Complete material"];
@@ -372,7 +372,7 @@ export default function MaterialStepper() {
     //get all Materials from db setMaterials
     console.log("materialstepper - saved: ", saved);
     if (saved) history.push("/profile");
-  }, [saved]);
+  }, [saved, history]);
 
   const convertValue = value => {
     return value
@@ -493,13 +493,13 @@ export default function MaterialStepper() {
                   color="primary"
                   onClick={handleNext}
                   className={classes.button}
-                  disabled={(localFiles.length == 0 || title === "") && !files}
+                  disabled={(localFiles.length === 0 || title === "") && !files}
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
 
                 <Button
-                  disabled={(localFiles.length == 0 || title === "") && !files}
+                  disabled={(localFiles.length === 0 || title === "") && !files}
                   variant="contained"
                   color="secondary"
                   onClick={save}

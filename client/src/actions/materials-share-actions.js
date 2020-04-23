@@ -16,7 +16,7 @@ export const SaveData = (payload, type, setCompleted = "", setSaved = "") => {
     handleUpload(payload.localFiles, payload, setCompleted, setSaved);
   }
   console.log("ms-share-actions type: ", type);
-  console.log("ms-share-actions type === Edit: ", type == "Edit");
+  console.log("ms-share-actions type === Edit: ", type === "Edit");
 
   //save data to db
   if (type === "Create") {
