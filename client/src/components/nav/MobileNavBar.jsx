@@ -26,7 +26,6 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Eject from "@material-ui/icons/EjectRounded";
 import { deepOrange } from "@material-ui/core/colors";
-
 import { logOut } from "../../auth/helpers";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -68,7 +67,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500]
   },
-  profile: { top: 0, right: 15 }
+  profile: { display: "flex", justifyContent: "flex-end" }
 }));
 
 export default function LabelBottomNavigation({ routePaths }) {
@@ -123,17 +122,9 @@ export default function LabelBottomNavigation({ routePaths }) {
   };
 
   function HideOnScroll(props) {
-    const { children, window } = props;
-    // Note that you normally won't need to set the window ref as useScrollTrigger
-    // will default to window.
-    // This is only being set here because the demo is in an iframe.
-    const trigger = useScrollTrigger({ target: window ? window() : undefined });
-
-    return (
-      <Slide appear={false} direction="down" in={!trigger}>
-        {children}
-      </Slide>
-    );
+    const { children } = props;
+    const trigger = useScrollTrigger();
+    return <Slide in={!trigger}>{children}</Slide>;
   }
   const menuOptions = () => {
     if (!localStorage.getItem("JWT_TOKEN")) {
@@ -191,7 +182,7 @@ export default function LabelBottomNavigation({ routePaths }) {
       <CssBaseline />
       <HideOnScroll>
         <AppBar position="sticky" color="default" className={classes.appBar}>
-          <Toolbar>
+          <Toolbar className={classes.profile}>
             {/* <div className={classes.grow} /> */}
             {"/" === location.pathname ||
             "/materials" === location.pathname ||
@@ -200,7 +191,6 @@ export default function LabelBottomNavigation({ routePaths }) {
             ) : null}
             {/* <div className={classes.grow} /> */}
             <IconButton
-              className={classes.profile}
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
@@ -218,21 +208,13 @@ export default function LabelBottomNavigation({ routePaths }) {
         </AppBar>
       </HideOnScroll>
       <Menu
-        anchorPosition={{ top: 0, right: 0 }}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right"
-        }}
-        transformOrigin={{
-          vertical: "bottom",
-          horizontal: "right"
-        }}
+        anchorEl={anchorEl}
         id={menuId}
         keepMounted
         open={isMenuOpen}
         onClose={handleMenuClose}
       >
-        {menuOptions()}
+        <div>{menuOptions()}</div>
       </Menu>
       <main>{routePaths}</main>
       <BottomNavigation
@@ -269,9 +251,11 @@ export default function LabelBottomNavigation({ routePaths }) {
           showLabel={true}
           onClick={handleHelpClick}
         />
-        <Fab color="secondary" aria-label="add" className={classes.fabButton}>
-          <AddIcon onClick={handleNewClick} />
-        </Fab>
+        <HideOnScroll>
+          <Fab color="secondary" aria-label="add" className={classes.fabButton}>
+            <AddIcon onClick={handleNewClick} />
+          </Fab>
+        </HideOnScroll>
       </BottomNavigation>
     </React.Fragment>
   );

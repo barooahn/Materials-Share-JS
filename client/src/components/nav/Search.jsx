@@ -66,6 +66,7 @@ export default function Search() {
   const classes = useStyles();
   const [searchResults, setSearchResults] = React.useState([]);
   const [autoCompleteOptions, setAutoCompleteOptions] = React.useState([]);
+  const [expanded, setExpanded] = React.useState(null);
 
   const [timeInClassValue, setTimeInClassValue] = React.useState([20, 37]);
 
@@ -121,6 +122,11 @@ export default function Search() {
     }
   };
 
+  const handleExpandedChange = panel => () => {
+    const isExpanded = expanded === panel;
+    setExpanded(isExpanded ? false : panel);
+  };
+
   return (
     <div style={{ width: "100%" }}>
       <ExpansionPanel
@@ -128,12 +134,16 @@ export default function Search() {
         elevation={0}
         square={true}
         style={style}
+        expanded={expanded === "panel1"}
       >
         <ExpansionPanelSummary
           className="expansionPanelSummary"
           expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1c-content"
-          id="panel1c-header"
+          IconButtonProps={{
+            onClick: handleExpandedChange("panel1")
+          }}
+          aria-controls="search-content"
+          id="search-header"
           style={style}
         >
           <div className={classes.search}>
@@ -179,7 +189,6 @@ export default function Search() {
         <Divider />
         <ExpansionPanelActions>
           <Button size="small">Search</Button>
-
         </ExpansionPanelActions>
       </ExpansionPanel>
     </div>
