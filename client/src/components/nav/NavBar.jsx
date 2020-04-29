@@ -30,6 +30,8 @@ import { useLocation, useHistory } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Search from "./Search";
+import Filter from "./Filter";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const drawerWidth = 240;
 
@@ -102,7 +104,22 @@ const useStyles = makeStyles(theme => ({
   logo: {
     marginRight: 20,
     width: 170
-  }
+  },
+  filter: {
+    width: "100%"
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: "rotate(180deg)"
+  },
+  profile: { display: "flex", justifyContent: "flex-end" },
+  search: { display: "flex ", width: "100%" }
 }));
 
 export default function MiniDrawer({ routePaths }) {
@@ -110,6 +127,12 @@ export default function MiniDrawer({ routePaths }) {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   const isMenuOpen = Boolean(anchorEl);
   const menuId = "primary-search-account-menu";
@@ -227,7 +250,19 @@ export default function MiniDrawer({ routePaths }) {
           {"/" === location.pathname ||
           "/materials" === location.pathname ||
           "/search" === location.pathname ? (
-            <Search />
+            <div className={classes.search}>
+              <Search />
+              <IconButton
+                className={clsx(classes.expand, {
+                  [classes.expandOpen]: expanded
+                })}
+                onClick={handleExpandClick}
+                aria-expanded={expanded}
+                aria-label="show more"
+              >
+                <ExpandMoreIcon />
+              </IconButton>
+            </div>
           ) : null}
 
           <div className={classes.grow} />
@@ -338,6 +373,11 @@ export default function MiniDrawer({ routePaths }) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
+        {"/" === location.pathname ||
+        "/materials" === location.pathname ||
+        "/search" === location.pathname ? (
+          <Filter expanded={expanded} className={classes.filter} />
+        ) : null}
         {routePaths}
       </main>
     </div>

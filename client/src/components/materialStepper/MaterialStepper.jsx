@@ -15,6 +15,7 @@ import {
   useHistory
 } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import SetAutocompletes from "../helpers/SetAutocompletes";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -237,99 +238,99 @@ export default function MaterialStepper() {
     }
   }
 
-  const compareValues = (key, order = "asc") => {
-    return function innerSort(a, b) {
-      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-        // property doesn't exist on either object
-        return 0;
-      }
+  // const compareValues = (key, order = "asc") => {
+  //   return function innerSort(a, b) {
+  //     if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+  //       // property doesn't exist on either object
+  //       return 0;
+  //     }
 
-      const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
-      const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+  //     const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
+  //     const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
 
-      let comparison = 0;
-      if (varA > varB) {
-        comparison = 1;
-      } else if (varA < varB) {
-        comparison = -1;
-      }
-      return order === "desc" ? comparison * -1 : comparison;
-    };
-  };
+  //     let comparison = 0;
+  //     if (varA > varB) {
+  //       comparison = 1;
+  //     } else if (varA < varB) {
+  //       comparison = -1;
+  //     }
+  //     return order === "desc" ? comparison * -1 : comparison;
+  //   };
+  // };
 
-  const IsInObject = (value, resultArray) => {
-    for (let i = 0; i < resultArray.length; i++) {
-      if (resultArray[i]["value"] === value) {
-        return true;
-      }
-    }
-    return false;
-  };
+  // const IsInObject = (value, resultArray) => {
+  //   for (let i = 0; i < resultArray.length; i++) {
+  //     if (resultArray[i]["value"] === value) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // };
 
-  useEffect(() => {
-    // do stuff here...
-    //get allValues from db
-    fetch(`/api/materials`, {
-      method: "GET"
-    })
-      .then(response => response.json())
+  // useEffect(() => {
+  //   // do stuff here...
+  //   //get allValues from db
+  //   fetch(`/api/materials`, {
+  //     method: "GET"
+  //   })
+  //     .then(response => response.json())
 
-      .then(resultData => {
-        //loop through each of the colums
-        //loop through each material
-        //see if the column is in the key of the material
-        //if so add the key and value of the material to the resultsArray
-        // add the results array to to the state
+  //     .then(resultData => {
+  //       //loop through each of the colums
+  //       //loop through each material
+  //       //see if the column is in the key of the material
+  //       //if so add the key and value of the material to the resultsArray
+  //       // add the results array to to the state
 
-        const columns = [
-          "level",
-          "languageFocus",
-          "activityUse",
-          "pupilTask",
-          "category"
-        ];
-        let resultArray = [];
-        columns.forEach(column => {
-          resultData.forEach(node => {
-            if (node[column] !== null) {
-              node[column].forEach(item => {
-                if (!IsInObject(item.value, resultArray))
-                  resultArray.push({
-                    label: item.label,
-                    value: item.value
-                  });
-              });
-            }
-          });
-          resultArray.sort(compareValues("label"));
-          //set state
-          switch (column) {
-            case "level":
-              setDynamicLevels(resultArray);
-              resultArray = [];
-              break;
-            case "languageFocus":
-              setDynamicLanguageFocus(resultArray);
-              resultArray = [];
-              break;
-            case "activityUse":
-              setDynamicActivityUse(resultArray);
-              resultArray = [];
-              break;
-            case "pupilTask":
-              setDynamicPupilTask(resultArray);
-              resultArray = [];
-              break;
-            case "category":
-              setDynamicCategory(resultArray);
-              resultArray = [];
-              break;
-            default:
-              break;
-          }
-        });
-      });
-  }, []); // <-- empty dependency array
+  //       const columns = [
+  //         "level",
+  //         "languageFocus",
+  //         "activityUse",
+  //         "pupilTask",
+  //         "category"
+  //       ];
+  //       let resultArray = [];
+  //       columns.forEach(column => {
+  //         resultData.forEach(node => {
+  //           if (node[column] !== null) {
+  //             node[column].forEach(item => {
+  //               if (!IsInObject(item.value, resultArray))
+  //                 resultArray.push({
+  //                   label: item.label,
+  //                   value: item.value
+  //                 });
+  //             });
+  //           }
+  //         });
+  //         resultArray.sort(compareValues("label"));
+  //         //set state
+  //         switch (column) {
+  //           case "level":
+  //             setDynamicLevels(resultArray);
+  //             resultArray = [];
+  //             break;
+  //           case "languageFocus":
+  //             setDynamicLanguageFocus(resultArray);
+  //             resultArray = [];
+  //             break;
+  //           case "activityUse":
+  //             setDynamicActivityUse(resultArray);
+  //             resultArray = [];
+  //             break;
+  //           case "pupilTask":
+  //             setDynamicPupilTask(resultArray);
+  //             resultArray = [];
+  //             break;
+  //           case "category":
+  //             setDynamicCategory(resultArray);
+  //             resultArray = [];
+  //             break;
+  //           default:
+  //             break;
+  //         }
+  //       });
+  //     });
+  // }, []); // <-- empty dependency array
 
   const save = () => {
     //add , comments
@@ -369,7 +370,6 @@ export default function MaterialStepper() {
     );
   };
   React.useEffect(() => {
-    //get all Materials from db setMaterials
     console.log("materialstepper - saved: ", saved);
     if (saved) history.push("/profile");
   }, [saved, history]);
@@ -422,6 +422,13 @@ export default function MaterialStepper() {
 
   return (
     <div className={classes.root}>
+      <SetAutocompletes
+        setDynamicLevels={setDynamicLevels}
+        setDynamicLanguageFocus={setDynamicLanguageFocus}
+        setDynamicActivityUse={setDynamicActivityUse}
+        setDynamicPupilTask={setDynamicPupilTask}
+        setDynamicCategory={setDynamicCategory}
+      />
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
@@ -468,7 +475,7 @@ export default function MaterialStepper() {
                 <br />
               </div>
             ) : null}
-            {title.length > 3 && localFiles.length > 0 ? (
+            {title.length > 3 && (localFiles.length > 0 ||files.length> 0) ? (
               <div>
                 <Button
                   disabled={activeStep === 0}
@@ -493,13 +500,19 @@ export default function MaterialStepper() {
                   color="primary"
                   onClick={handleNext}
                   className={classes.button}
-                  disabled={(localFiles.length === 0 || title === "") && !files}
+                  disabled={
+                    (localFiles.length === 0 && files.length === 0) ||
+                    title === ""
+                  }
                 >
                   {activeStep === steps.length - 1 ? "Finish" : "Next"}
                 </Button>
 
                 <Button
-                  disabled={(localFiles.length === 0 || title === "") && !files}
+                  disabled={
+                    (localFiles.length === 0 && files.length === 0) ||
+                    title === ""
+                  }
                   variant="contained"
                   color="secondary"
                   onClick={save}

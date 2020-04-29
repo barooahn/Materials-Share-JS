@@ -16,7 +16,6 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import useScrollTrigger from "@material-ui/core/useScrollTrigger";
 import Slide from "@material-ui/core/Slide";
-import Search from "./Search";
 import AccountBoxIcon from "@material-ui/icons/AccountBoxRounded";
 import Assignment from "@material-ui/icons/AssignmentRounded";
 import ListItem from "@material-ui/core/ListItem";
@@ -28,6 +27,10 @@ import Eject from "@material-ui/icons/EjectRounded";
 import { deepOrange } from "@material-ui/core/colors";
 import { logOut } from "../../auth/helpers";
 import { NavLink, useLocation } from "react-router-dom";
+import Search from "./Search";
+import Filter from "./Filter";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import clsx from "clsx";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -63,11 +66,25 @@ const useStyles = makeStyles(theme => ({
     right: 10
     // margin: "0 auto"
   },
+  filter: {
+    width: "100%"
+  },
+  expand: {
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
+  },
+  expandOpen: {
+    transform: "rotate(180deg)"
+  },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500]
   },
-  profile: { display: "flex", justifyContent: "flex-end" }
+  profile: { display: "flex", justifyContent: "flex-end" },
+  search: { display: "flex ", width: "100%" }
 }));
 
 export default function LabelBottomNavigation({ routePaths }) {
@@ -80,6 +97,12 @@ export default function LabelBottomNavigation({ routePaths }) {
   let location = useLocation();
 
   let history = useHistory();
+
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
 
   const handleLoginClick = () => {
     handleMenuClose();
@@ -126,6 +149,7 @@ export default function LabelBottomNavigation({ routePaths }) {
     const trigger = useScrollTrigger();
     return <Slide in={!trigger}>{children}</Slide>;
   }
+
   const menuOptions = () => {
     if (!localStorage.getItem("JWT_TOKEN")) {
       return (
@@ -187,7 +211,19 @@ export default function LabelBottomNavigation({ routePaths }) {
             {"/" === location.pathname ||
             "/materials" === location.pathname ||
             "/search" === location.pathname ? (
-              <Search />
+              <div className={classes.search}>
+                <Search />
+                <IconButton
+                  className={clsx(classes.expand, {
+                    [classes.expandOpen]: expanded
+                  })}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </div>
             ) : null}
             {/* <div className={classes.grow} /> */}
             <IconButton
@@ -207,6 +243,13 @@ export default function LabelBottomNavigation({ routePaths }) {
           </Toolbar>
         </AppBar>
       </HideOnScroll>
+      {"/" === location.pathname ||
+      "/materials" === location.pathname ||
+      "/search" === location.pathname ? (
+        // <HideOnScroll>
+          <Filter expanded={expanded} className={classes.filter} />
+        // </HideOnScroll>
+      ) : null}
       <Menu
         anchorEl={anchorEl}
         id={menuId}

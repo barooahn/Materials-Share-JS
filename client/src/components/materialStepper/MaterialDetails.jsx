@@ -149,7 +149,7 @@ export default ({
             fullWidth
           />
         )}
-      />{" "}
+      />
       <Autocomplete
         id="combo-box-demo2"
         multiple
@@ -169,7 +169,7 @@ export default ({
             fullWidth
           />
         )}
-      />{" "}
+      />
       <FormControlLabel
         control={
           <Switch

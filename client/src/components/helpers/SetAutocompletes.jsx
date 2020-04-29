@@ -1,0 +1,105 @@
+import React from "react";
+
+export default ({
+  setDynamicLevels,
+  setDynamicLanguageFocus,
+  setDynamicActivityUse,
+  setDynamicPupilTask,
+  setDynamicCategory
+}) => {
+  const compareValues = (key, order = "asc") => {
+    return function innerSort(a, b) {
+      if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+        // property doesn't exist on either object
+        return 0;
+      }
+
+      const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
+      const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+
+      let comparison = 0;
+      if (varA > varB) {
+        comparison = 1;
+      } else if (varA < varB) {
+        comparison = -1;
+      }
+      return order === "desc" ? comparison * -1 : comparison;
+    };
+  };
+
+  const IsInObject = (value, resultArray) => {
+    for (let i = 0; i < resultArray.length; i++) {
+      if (resultArray[i]["value"] === value) {
+        return true;
+      }
+    }
+    return false;
+  };
+
+  React.useEffect(() => {
+    // do stuff here...
+    //get allValues from db
+    fetch(`/api/materials`, {
+      method: "GET"
+    })
+      .then(response => response.json())
+
+      .then(resultData => {
+        //loop through each of the colums
+        //loop through each material
+        //see if the column is in the key of the material
+        //if so add the key and value of the material to the resultsArray
+        // add the results array to to the state
+
+        const columns = [
+          "level",
+          "languageFocus",
+          "activityUse",
+          "pupilTask",
+          "category"
+        ];
+        let resultArray = [];
+        columns.forEach(column => {
+          resultData.forEach(node => {
+            if (node[column] !== null) {
+              node[column].forEach(item => {
+                if (!IsInObject(item.value, resultArray))
+                  resultArray.push({
+                    label: item.label,
+                    value: item.value
+                  });
+              });
+            }
+          });
+          resultArray.sort(compareValues("label"));
+          //set state
+          switch (column) {
+            case "level":
+              setDynamicLevels(resultArray);
+              resultArray = [];
+              break;
+            case "languageFocus":
+              setDynamicLanguageFocus(resultArray);
+              resultArray = [];
+              break;
+            case "activityUse":
+              setDynamicActivityUse(resultArray);
+              resultArray = [];
+              break;
+            case "pupilTask":
+              setDynamicPupilTask(resultArray);
+              resultArray = [];
+              break;
+            case "category":
+              setDynamicCategory(resultArray);
+              resultArray = [];
+              break;
+            default:
+              break;
+          }
+        });
+      });
+  }, []); // <-- empty dependency array
+
+  return null;
+};
