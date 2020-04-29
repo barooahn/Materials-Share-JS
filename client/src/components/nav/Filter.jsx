@@ -20,20 +20,29 @@ const useStyles = makeStyles(theme => ({
   autoComplete: { marginBottom: 5 }
 }));
 
-export default ({ expanded }) => {
+export default ({
+  expanded,
+  timeInClassValue,
+  setTimeInClassValue,
+  timePrepValue,
+  setTimePrepValue,
+  levelValue,
+  setLevelValue,
+  categoryValue,
+  setCategoryValue,
+  languageFocusValue,
+  setLanguageFocusValue,
+  pupilTaskValue,
+  setPupilTaskValue,
+  activityUseValue,
+  setActivityUseValue
+}) => {
   const classes = useStyles();
-  const [timeInClassValue, setTimeInClassValue] = React.useState([20, 37]);
-  const [timePrepValue, setTimePrepValue] = React.useState([20, 37]);
 
-  const [levelValue, setLevelValue] = React.useState([]);
-  const [dynamicLevels, setDynamicLevels] = React.useState([]);
-  const [categoryValue, setCategoryValue] = React.useState([]);
   const [dynamicCategory, setDynamicCategory] = React.useState([]);
-  const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
+  const [dynamicLevels, setDynamicLevels] = React.useState([]);
   const [dynamicPupilTask, setDynamicPupilTask] = React.useState([]);
-  const [activityUseValue, setActivityUseValue] = React.useState([]);
   const [dynamicActivityUse, setDynamicActivityUse] = React.useState([]);
-  const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
   const [dynamicLanguageFocus, setDynamicLanguageFocus] = React.useState([]);
 
   const handleTimeInClassValueChange = (event, newValue) => {

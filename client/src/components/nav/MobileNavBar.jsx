@@ -89,16 +89,23 @@ const useStyles = makeStyles(theme => ({
 
 export default function LabelBottomNavigation({ routePaths }) {
   const classes = useStyles();
-  const [value, setValue] = React.useState("recents");
-  // const [searchResults, setSearchResults] = React.useState({});
+  const [bottomNavValue, setBottomNavValue] = React.useState("recents");
+  //  const [searchResults, setSearchResults] = React.useState({});
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
+  const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
+  const [levelValue, setLevelValue] = React.useState([]);
+  const [categoryValue, setCategoryValue] = React.useState([]);
+  const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
+  const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
+  const [activityUseValue, setActivityUseValue] = React.useState([]);
+
+  const [expanded, setExpanded] = React.useState(false);
   const isMenuOpen = Boolean(anchorEl);
   const menuId = "primary-search-account-menu";
   let location = useLocation();
 
   let history = useHistory();
-
-  const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -127,8 +134,8 @@ export default function LabelBottomNavigation({ routePaths }) {
     setAnchorEl(null);
   };
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const handleBottomNavChange = (event, newValue) => {
+    setBottomNavValue(newValue);
   };
 
   const handleHomeClick = () => {
@@ -247,9 +254,26 @@ export default function LabelBottomNavigation({ routePaths }) {
       "/materials" === location.pathname ||
       "/search" === location.pathname ? (
         // <HideOnScroll>
-          <Filter expanded={expanded} className={classes.filter} />
-        // </HideOnScroll>
-      ) : null}
+        <Filter
+          expanded={expanded}
+          timeInClassValue={timeInClassValue}
+          setTimeInClassValue={setTimeInClassValue}
+          timePrepValue={timePrepValue}
+          setTimePrepValue={setTimePrepValue}
+          levelValue={levelValue}
+          setLevelValue={setLevelValue}
+          categoryValue={categoryValue}
+          setCategoryValue={setCategoryValue}
+          languageFocusValue={languageFocusValue}
+          setLanguageFocusValue={setLanguageFocusValue}
+          pupilTaskValue={pupilTaskValue}
+          setPupilTaskValue={setPupilTaskValue}
+          activityUseValue={activityUseValue}
+          setActivityUseValue={setActivityUseValue}
+          className={classes.filter}
+        />
+      ) : // </HideOnScroll>
+      null}
       <Menu
         anchorEl={anchorEl}
         id={menuId}
@@ -261,8 +285,8 @@ export default function LabelBottomNavigation({ routePaths }) {
       </Menu>
       <main>{routePaths}</main>
       <BottomNavigation
-        value={value}
-        onChange={handleChange}
+        bottomNavValue={bottomNavValue}
+        onChange={handleBottomNavChange}
         className={classes.root}
         position="fixed"
       >

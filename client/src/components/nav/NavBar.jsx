@@ -130,6 +130,14 @@ export default function MiniDrawer({ routePaths }) {
 
   const [expanded, setExpanded] = React.useState(false);
 
+  const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
+  const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
+  const [levelValue, setLevelValue] = React.useState([]);
+  const [categoryValue, setCategoryValue] = React.useState([]);
+  const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
+  const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
+  const [activityUseValue, setActivityUseValue] = React.useState([]);
+
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
@@ -376,7 +384,24 @@ export default function MiniDrawer({ routePaths }) {
         {"/" === location.pathname ||
         "/materials" === location.pathname ||
         "/search" === location.pathname ? (
-          <Filter expanded={expanded} className={classes.filter} />
+          <Filter
+            expanded={expanded}
+            timeInClassValue={timeInClassValue}
+            setTimeInClassValue={setTimeInClassValue}
+            timePrepValue={timePrepValue}
+            setTimePrepValue={setTimePrepValue}
+            levelValue={levelValue}
+            setLevelValue={setLevelValue}
+            categoryValue={categoryValue}
+            setCategoryValue={setCategoryValue}
+            languageFocusValue={languageFocusValue}
+            setLanguageFocusValue={setLanguageFocusValue}
+            pupilTaskValue={pupilTaskValue}
+            setPupilTaskValue={setPupilTaskValue}
+            activityUseValue={activityUseValue}
+            setActivityUseValue={setActivityUseValue}
+            className={classes.filter}
+          />
         ) : null}
         {routePaths}
       </main>

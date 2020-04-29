@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +21,8 @@ export default function Search() {
   const classes = useStyles();
   const [searchResults, setSearchResults] = React.useState([]);
   const [autoCompleteOptions, setAutoCompleteOptions] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const loading = open && autoCompleteOptions.length === 0;
   let history = useHistory();
 
   const goToResults = e => {
@@ -32,25 +35,55 @@ export default function Search() {
     }
   };
 
-  React.useEffect(
-    () => {
-      fetch(`/api/titles`, {
+  React.useEffect(() => {
+    let active = true;
+
+    if (!loading) {
+      return undefined;
+    }
+
+    (async () => {
+      const response = await fetch(`/api/getSearchResults`, {
         method: "GET"
+      });
+      const resultData = await response.json();
+
+      if (active) {
+        setAutoCompleteOptions(
+          resultData.map(searchItem => {
+            return { title: searchItem.search };
+          })
+        );
+      }
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setAutoCompleteOptions([]);
+    }
+  }, [open]);
+
+  const saveSearchResult = search => {
+    fetch("/api/saveSearchResults", {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ search: search })
+    })
+      .then(function(response) {
+        return response.json();
       })
-        .then(response => response.json())
+  };
 
-        .then(resultData => {
-          setAutoCompleteOptions(resultData);
-        });
-    },
-    error => {
-      console.log("Search - error in titles ", error);
-    },
-    []
-  );
-
-  const handleSearchChange = (e, values) => {
-    let searchQuery = values ? values.title : e.target.value;
+  const handleSearchChange = (e, value) => {
+    let searchQuery = value ? value.title : e.target.value;
     if (searchQuery && searchQuery.length > 0) {
       fetch(`api/search/${searchQuery}`, {
         method: "GET"
@@ -58,8 +91,10 @@ export default function Search() {
         .then(response => response.json())
 
         .then(resultData => {
-          console.log("Search - resultData", resultData);
-          setSearchResults(resultData);
+          if (resultData.length > 0) {
+            setSearchResults(resultData);
+            saveSearchResult(searchQuery);
+          }
         });
     }
   };
@@ -72,21 +107,39 @@ export default function Search() {
           getOptionLabel={option => option.title}
           freeSolo
           fullWidth
+          open={open}
+          onOpen={() => {
+            setOpen(true);
+          }}
+          onClose={() => {
+            setOpen(false);
+          }}
+          loading={loading}
           id="Materialss share search"
-          onChange={handleSearchChange}
-          getOptionLabel={option => option.title}
           onKeyPress={goToResults}
           autoSelect={true}
           clearOnEscape={true}
+          onChange={handleSearchChange}
           size="small"
           renderInput={params => (
             <TextField
               {...params}
               label="Search Materials..."
-              // className={classes.search}
               variant="outlined"
               color="secondary"
               fullWidth={true}
+              onChange={handleSearchChange}
+              InputProps={{
+                ...params.InputProps,
+                endAdornment: (
+                  <React.Fragment>
+                    {loading ? (
+                      <CircularProgress color="inherit" size={20} />
+                    ) : null}
+                    {params.InputProps.endAdornment}
+                  </React.Fragment>
+                )
+              }}
             />
           )}
         />
