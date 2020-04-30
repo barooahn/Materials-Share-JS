@@ -15,7 +15,6 @@ const Materials = () => {
   const [materials, setMaterials] = React.useState([]);
 
   React.useEffect(() => {
-    // do stuff here...
     //get all Materials from db setMaterials
     fetch(`/api/materials`, {
       method: "GET"

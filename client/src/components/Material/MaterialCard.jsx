@@ -81,12 +81,12 @@ export default function MaterialCard({ material, setMaterials, materials }) {
     ) : null;
   };
 
-  console.log(
-    "Material card - athor ",
-    author,
-    "file creator ",
-    material.author_id
-  );
+  // console.log(
+  //   "Material card - athor ",
+  //   author,
+  //   "file creator ",
+  //   material.author_id
+  // );
   return (
     <React.Fragment>
       <Card className={classes.root}>

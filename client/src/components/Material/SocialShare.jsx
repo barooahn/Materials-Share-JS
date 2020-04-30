@@ -84,7 +84,7 @@ export default ({ handleClose, open }) => {
   // };
 
   //this plus slug -- need to make slug ---
-  console.log("current location ", window.location.href);
+  // console.log("current location ", window.location.href);
   ///////////////////*********** change for live */
   const shareUrl = "https://materials-share.herokuapp.com/";
   ///////////////////*********** change for live */

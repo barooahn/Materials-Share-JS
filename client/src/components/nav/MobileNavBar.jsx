@@ -62,12 +62,11 @@ const useStyles = makeStyles(theme => ({
     position: "absolute",
     zIndex: 1,
     bottom: 70,
-
     right: 10
-    // margin: "0 auto"
   },
   filter: {
-    width: "100%"
+    // width: "100%"
+    marginTop: 100
   },
   expand: {
     transform: "rotate(0deg)",
@@ -90,7 +89,6 @@ const useStyles = makeStyles(theme => ({
 export default function LabelBottomNavigation({ routePaths }) {
   const classes = useStyles();
   const [bottomNavValue, setBottomNavValue] = React.useState("recents");
-  //  const [searchResults, setSearchResults] = React.useState({});
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
   const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
@@ -100,6 +98,10 @@ export default function LabelBottomNavigation({ routePaths }) {
   const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
   const [activityUseValue, setActivityUseValue] = React.useState([]);
 
+  console.log("MobileNavBar - timeInClassValue", timeInClassValue);
+  console.log("MobileNavBar - levelValue", levelValue);
+  console.log("MobileNavBar - anchorEl", anchorEl);
+
   const [expanded, setExpanded] = React.useState(false);
   const isMenuOpen = Boolean(anchorEl);
   const menuId = "primary-search-account-menu";
@@ -107,7 +109,7 @@ export default function LabelBottomNavigation({ routePaths }) {
 
   let history = useHistory();
 
-  const handleExpandClick = () => {
+  const handleExpandClick = e => {
     setExpanded(!expanded);
   };
 
@@ -154,7 +156,11 @@ export default function LabelBottomNavigation({ routePaths }) {
   function HideOnScroll(props) {
     const { children } = props;
     const trigger = useScrollTrigger();
-    return <Slide in={!trigger}>{children}</Slide>;
+    return (
+      <Slide appear={false} direction="down" in={!trigger}>
+        {children}
+      </Slide>
+    );
   }
 
   const menuOptions = () => {
@@ -248,32 +254,32 @@ export default function LabelBottomNavigation({ routePaths }) {
               />
             </IconButton>
           </Toolbar>
+          {"/" === location.pathname ||
+          "/materials" === location.pathname ||
+          "/search" === location.pathname ? (
+            // <HideOnScroll>
+            <Filter
+              expanded={expanded}
+              timeInClassValue={timeInClassValue}
+              setTimeInClassValue={setTimeInClassValue}
+              timePrepValue={timePrepValue}
+              setTimePrepValue={setTimePrepValue}
+              levelValue={levelValue}
+              setLevelValue={setLevelValue}
+              categoryValue={categoryValue}
+              setCategoryValue={setCategoryValue}
+              languageFocusValue={languageFocusValue}
+              setLanguageFocusValue={setLanguageFocusValue}
+              pupilTaskValue={pupilTaskValue}
+              setPupilTaskValue={setPupilTaskValue}
+              activityUseValue={activityUseValue}
+              setActivityUseValue={setActivityUseValue}
+              className={classes.filter}
+            />
+          ) : // </HideOnScroll>
+          null}
         </AppBar>
       </HideOnScroll>
-      {"/" === location.pathname ||
-      "/materials" === location.pathname ||
-      "/search" === location.pathname ? (
-        // <HideOnScroll>
-        <Filter
-          expanded={expanded}
-          timeInClassValue={timeInClassValue}
-          setTimeInClassValue={setTimeInClassValue}
-          timePrepValue={timePrepValue}
-          setTimePrepValue={setTimePrepValue}
-          levelValue={levelValue}
-          setLevelValue={setLevelValue}
-          categoryValue={categoryValue}
-          setCategoryValue={setCategoryValue}
-          languageFocusValue={languageFocusValue}
-          setLanguageFocusValue={setLanguageFocusValue}
-          pupilTaskValue={pupilTaskValue}
-          setPupilTaskValue={setPupilTaskValue}
-          activityUseValue={activityUseValue}
-          setActivityUseValue={setActivityUseValue}
-          className={classes.filter}
-        />
-      ) : // </HideOnScroll>
-      null}
       <Menu
         anchorEl={anchorEl}
         id={menuId}

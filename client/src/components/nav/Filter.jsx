@@ -115,133 +115,127 @@ export default ({
         setDynamicPupilTask={setDynamicPupilTask}
         setDynamicCategory={setDynamicCategory}
       />
-      <Paper className={classes.paper}>
-        {/* <Typography variant="h4" align="center">
+
+      {/* <Typography variant="h4" align="center">
           Filter
         </Typography> */}
-        <div className={classes.slider}>
-          <Typography id="range-slider" gutterBottom>
-            Time in Class
-          </Typography>
-          <Slider
-            value={timeInClassValue}
-            onChange={handleTimeInClassValueChange}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            getAriaValueText={timeInClassValueText}
-          />
-        </div>
-        <div className={classes.slider}>
-          <Typography id="range-slider" gutterBottom>
-            Time for preperation
-          </Typography>
-          <Slider
-            value={timePrepValue}
-            onChange={handleTimePrepValueChange}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            getAriaValueText={timePrepValueText}
-          />
-        </div>
-        <div>
-          <Autocomplete
-            id="combo-box-demo1"
-            className={classes.autoComplete}
-            multiple
-            value={pupilTaskValue}
-            onChange={changePupilTask}
-            options={dynamicPupilTask}
-            getOptionLabel={option => option.label}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="What work will pupils do?"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div>
-          <Autocomplete
-            id="combo-box-demo2"
-            multiple
-            value={levelValue}
-            className={classes.autoComplete}
-            onChange={changeLevel}
-            options={dynamicLevels}
-            getOptionLabel={option => option.label}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Level"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div>
-          <Autocomplete
-            className={classes.autoComplete}
-            id="category"
-            multiple
-            value={categoryValue}
-            onChange={changeCategory}
-            options={dynamicCategory}
-            getOptionLabel={option => option.label}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Institue"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div>
-          <Autocomplete
-            className={classes.autoComplete}
-            id="language-focus"
-            multiple
-            value={languageFocusValue}
-            onChange={changeLanguageFocus}
-            options={dynamicLanguageFocus}
-            getOptionLabel={option => option.label}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Language focus"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div>
-          <Autocomplete
-            className={classes.autoComplete}
-            id="activity-use"
-            multiple
-            value={activityUseValue}
-            onChange={changeActivityUse}
-            options={dynamicActivityUse}
-            getOptionLabel={option => option.label}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Activity use"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <Button variant="outlined" fullWidth>
-          Filter
-        </Button>
-      </Paper>
+      <div className={classes.slider}>
+        <Typography id="range-slider" gutterBottom>
+          Time in Class
+        </Typography>
+        <Slider
+          value={timeInClassValue}
+          onChange={handleTimeInClassValueChange}
+          valueLabelDisplay="auto"
+          aria-labelledby="range-slider"
+          getAriaValueText={timeInClassValueText}
+        />
+      </div>
+      <div className={classes.slider}>
+        <Typography id="range-slider" gutterBottom>
+          Time for preperation
+        </Typography>
+        <Slider
+          value={timePrepValue}
+          onChange={handleTimePrepValueChange}
+          valueLabelDisplay="auto"
+          aria-labelledby="range-slider"
+          getAriaValueText={timePrepValueText}
+        />
+      </div>
+      <div>
+        <Autocomplete
+          id="combo-box-demo1"
+          className={classes.autoComplete}
+          multiple
+          value={pupilTaskValue}
+          onChange={changePupilTask}
+          options={dynamicPupilTask}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="What work will pupils do?"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <div>
+        <Autocomplete
+          id="combo-box-demo2"
+          multiple
+          value={levelValue}
+          className={classes.autoComplete}
+          onChange={changeLevel}
+          options={dynamicLevels}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
+            <TextField {...params} label="Level" variant="outlined" fullWidth />
+          )}
+        />
+      </div>
+      <div>
+        <Autocomplete
+          className={classes.autoComplete}
+          id="category"
+          multiple
+          value={categoryValue}
+          onChange={changeCategory}
+          options={dynamicCategory}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Institue"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <div>
+        <Autocomplete
+          className={classes.autoComplete}
+          id="language-focus"
+          multiple
+          value={languageFocusValue}
+          onChange={changeLanguageFocus}
+          options={dynamicLanguageFocus}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Language focus"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <div>
+        <Autocomplete
+          className={classes.autoComplete}
+          id="activity-use"
+          multiple
+          value={activityUseValue}
+          onChange={changeActivityUse}
+          options={dynamicActivityUse}
+          getOptionLabel={option => option.label}
+          renderInput={params => (
+            <TextField
+              {...params}
+              label="Activity use"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <Button variant="outlined" fullWidth>
+        Filter
+      </Button>
     </Collapse>
   );
 };
