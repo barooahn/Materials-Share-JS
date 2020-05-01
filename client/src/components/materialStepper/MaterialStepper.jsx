@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Stepper from "@material-ui/core/Stepper";
 import Step from "@material-ui/core/Step";
@@ -16,6 +16,7 @@ import {
 } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import SetAutocompletes from "../helpers/SetAutocompletes";
+import { getMaterial } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -102,8 +103,8 @@ export default function MaterialStepper() {
   const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
   const [dynamicPupilTask, setDynamicPupilTask] = React.useState([]);
   const [objective, setObjective] = React.useState("");
-  const [timePrep, setTimePrep] = React.useState([20, 40]);
-  const [timeInClass, setTimeInClass] = React.useState([20, 40]);
+  const [timePrep, setTimePrep] = React.useState(20);
+  const [timeInClass, setTimeInClass] = React.useState(20);
   const [procedureBefore, setProcedureBefore] = React.useState("");
   const [procedureIn, setProcedureIn] = React.useState("");
   const [book, setBook] = React.useState("");
@@ -121,38 +122,44 @@ export default function MaterialStepper() {
   const [share, setShare] = React.useState(true);
   const [type, setType] = React.useState("Create");
 
-  React.useEffect(() => {
+  React.useEffect(async () => {
     //get all Materials from db setMaterials
     if (id !== undefined) {
       console.log("edit material - ", id);
-      fetch(`/api/material/${id}`, {
-        method: "GET"
-      })
-        .then(response => response.json())
+      // fetch(`/api/material/${id}`, {
+      //   method: "GET"
+      // })
+      //   .then(response => response.json())
 
-        .then(resultData => {
-          setFiles(resultData.files);
-          setTitle(resultData.title);
-          setLevelValue(resultData.level);
-          setCategoryValue(resultData.category);
-          setPupilTaskValue(resultData.pupilTask);
-          setObjective(resultData.objective);
-          setProcedureBefore(resultData.procedureBefore);
-          setProcedureIn(resultData.procedureIn);
-          setBook(resultData.book);
-          setPage(resultData.page);
-          setFollowUp(resultData.followUp);
-          setVariations(resultData.variations);
-          setMaterials(resultData.materials);
-          setTips(resultData.tips);
-          setNotes(resultData.notes);
-          setActivityUseValue(resultData.activityUse);
-          setLanguageFocusValue(resultData.languageFocus);
-          setTargetLanguage(resultData.targetLanguage);
-          setTimeInClass(resultData.timeInClass);
-          setTimePrep(resultData.timePrep);
-          setType("Edit");
-        });
+      //   .then(resultData => {
+
+      async function fetchData(id) {
+        return await getMaterial(id);
+      }
+
+      const resultData = fetchData(id);
+      setFiles(resultData.files);
+      setTitle(resultData.title);
+      setLevelValue(resultData.level);
+      setCategoryValue(resultData.category);
+      setPupilTaskValue(resultData.pupilTask);
+      setObjective(resultData.objective);
+      setProcedureBefore(resultData.procedureBefore);
+      setProcedureIn(resultData.procedureIn);
+      setBook(resultData.book);
+      setPage(resultData.page);
+      setFollowUp(resultData.followUp);
+      setVariations(resultData.variations);
+      setMaterials(resultData.materials);
+      setTips(resultData.tips);
+      setNotes(resultData.notes);
+      setActivityUseValue(resultData.activityUse);
+      setLanguageFocusValue(resultData.languageFocus);
+      setTargetLanguage(resultData.targetLanguage);
+      setTimeInClass(resultData.timeInClass);
+      setTimePrep(resultData.timePrep);
+      setType("Edit");
+      // });
     }
   }, [id]);
 
@@ -237,100 +244,6 @@ export default function MaterialStepper() {
         return "Unknown step";
     }
   }
-
-  // const compareValues = (key, order = "asc") => {
-  //   return function innerSort(a, b) {
-  //     if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
-  //       // property doesn't exist on either object
-  //       return 0;
-  //     }
-
-  //     const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
-  //     const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
-
-  //     let comparison = 0;
-  //     if (varA > varB) {
-  //       comparison = 1;
-  //     } else if (varA < varB) {
-  //       comparison = -1;
-  //     }
-  //     return order === "desc" ? comparison * -1 : comparison;
-  //   };
-  // };
-
-  // const IsInObject = (value, resultArray) => {
-  //   for (let i = 0; i < resultArray.length; i++) {
-  //     if (resultArray[i]["value"] === value) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // };
-
-  // useEffect(() => {
-  //   // do stuff here...
-  //   //get allValues from db
-  //   fetch(`/api/materials`, {
-  //     method: "GET"
-  //   })
-  //     .then(response => response.json())
-
-  //     .then(resultData => {
-  //       //loop through each of the colums
-  //       //loop through each material
-  //       //see if the column is in the key of the material
-  //       //if so add the key and value of the material to the resultsArray
-  //       // add the results array to to the state
-
-  //       const columns = [
-  //         "level",
-  //         "languageFocus",
-  //         "activityUse",
-  //         "pupilTask",
-  //         "category"
-  //       ];
-  //       let resultArray = [];
-  //       columns.forEach(column => {
-  //         resultData.forEach(node => {
-  //           if (node[column] !== null) {
-  //             node[column].forEach(item => {
-  //               if (!IsInObject(item.value, resultArray))
-  //                 resultArray.push({
-  //                   label: item.label,
-  //                   value: item.value
-  //                 });
-  //             });
-  //           }
-  //         });
-  //         resultArray.sort(compareValues("label"));
-  //         //set state
-  //         switch (column) {
-  //           case "level":
-  //             setDynamicLevels(resultArray);
-  //             resultArray = [];
-  //             break;
-  //           case "languageFocus":
-  //             setDynamicLanguageFocus(resultArray);
-  //             resultArray = [];
-  //             break;
-  //           case "activityUse":
-  //             setDynamicActivityUse(resultArray);
-  //             resultArray = [];
-  //             break;
-  //           case "pupilTask":
-  //             setDynamicPupilTask(resultArray);
-  //             resultArray = [];
-  //             break;
-  //           case "category":
-  //             setDynamicCategory(resultArray);
-  //             resultArray = [];
-  //             break;
-  //           default:
-  //             break;
-  //         }
-  //       });
-  //     });
-  // }, []); // <-- empty dependency array
 
   const save = () => {
     //add , comments
@@ -475,7 +388,7 @@ export default function MaterialStepper() {
                 <br />
               </div>
             ) : null}
-            {title.length > 3 && (localFiles.length > 0 ||files.length> 0) ? (
+            {title.length > 3 && (localFiles.length > 0 || files.length > 0) ? (
               <div>
                 <Button
                   disabled={activeStep === 0}

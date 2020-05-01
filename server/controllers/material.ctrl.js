@@ -86,10 +86,10 @@ module.exports = {
     console.log("deleting...", req.body.file);
     const result = await deleteAws(req.body.file);
     if (result) {
-      res.json({ deleted: req.body.file });
+      return res.json({ deleted: req.body.file });
     } else {
       console.log("err file not deleted");
-      res.err;
+      return res.err;
     }
   },
 
@@ -212,9 +212,12 @@ module.exports = {
   // need to test delete
   deleteMaterial: (req, res, next) => {
     Material.findOneAndDelete({ _id: req.params.id }, function(err) {
-      if (err) console.log("there was an error deleteing the material", err);
+      if (err) {console.log("there was an error deleteing the material", err);
+      return res.err;
+    } 
       console.log("material deleted ");
-    });
+      return res;
+  })
   },
 
   getDistinct: (req, res, next) => {

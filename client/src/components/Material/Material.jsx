@@ -9,6 +9,7 @@ import ListItemText from "@material-ui/core/ListItemText";
 import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
+import { getMaterial } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -27,18 +28,14 @@ export default () => {
   const [material, setMaterial] = React.useState([]);
 
   React.useEffect(() => {
-    // do stuff here...
     //get all Materials from db setMaterials
     if (id !== undefined) {
-      console.log("edit material - ", id);
-      fetch(`/api/material/${id}`, {
-        method: "GET"
-      })
-        .then(response => response.json())
-
-        .then(resultData => {
-          setMaterial(resultData);
-        });
+      async function fetchData(id) {
+        const resultData = await getMaterial(id);
+        setMaterial(resultData);
+      }
+      fetchData(id);
+      // });
     }
   }, [id]);
 

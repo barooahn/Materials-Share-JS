@@ -3,6 +3,7 @@ import MaterialCard from "./MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
 import { makeStyles } from "@material-ui/core/styles";
+import { getAllMaterials } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -13,23 +14,20 @@ const useStyles = makeStyles(theme => ({
 const Materials = () => {
   const classes = useStyles();
   const [materials, setMaterials] = React.useState([]);
+  console.log(" Materials, ", materials);
 
   React.useEffect(() => {
-    //get all Materials from db setMaterials
-    fetch(`/api/materials`, {
-      method: "GET"
-    })
-      .then(response => response.json())
-
-      .then(resultData => {
-        resultData.forEach(material => {
-          material.files = Array.isArray(material.files)
-            ? [material.files[0]]
-            : [material.files];
-        });
-
-        setMaterials(resultData);
+    async function fetchData() {
+      let resultData = await getAllMaterials();
+      resultData.forEach(material => {
+        material.files = Array.isArray(material.files)
+          ? [material.files[0]]
+          : [material.files];
       });
+      setMaterials(resultData);
+    }
+
+    fetchData();
   }, []);
 
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;

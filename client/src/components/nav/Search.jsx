@@ -4,6 +4,10 @@ import { useHistory } from "react-router-dom";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import {
+  saveSearchResult,
+  getSearchResults
+} from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,82 +29,87 @@ export default function Search() {
   const loading = open && autoCompleteOptions.length === 0;
   let history = useHistory();
 
-  
   React.useEffect(() => {
     let active = true;
-    
+
     if (!loading) {
       return undefined;
     }
-    
+
     (async () => {
       const response = await fetch(`/api/getSearchResults`, {
         method: "GET"
       });
       const resultData = await response.json();
-      
+
       if (active) {
         setAutoCompleteOptions(
           resultData.map(searchItem => {
             return { title: searchItem.search };
           })
-          );
-        }
-      })();
-      
-      return () => {
-        active = false;
-      };
-    }, [loading]);
-    
-    React.useEffect(() => {
-      if (!open) {
-        setAutoCompleteOptions([]);
+        );
       }
-    }, [open]);
-    
-    const saveSearchResult = search => {
-      fetch("/api/saveSearchResults", {
-        method: "post",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ search: search })
-      }).then(function(response) {
-        return response.json();
+    })();
+
+    return () => {
+      active = false;
+    };
+  }, [loading]);
+
+  React.useEffect(() => {
+    if (!open) {
+      setAutoCompleteOptions([]);
+    }
+  }, [open]);
+
+  // const saveSearchResult = search => {
+  //   fetch("/api/saveSearchResults", {
+  //     method: "post",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({ search: search })
+  //   }).then(function(response) {
+  //     return response.json();
+  //   });
+  // };
+
+  const goToResults = e => {
+    if (e.key === "Enter" && searchResults.length > 0) {
+      console.log("search - enter key pressed");
+      history.push({
+        pathname: "/search",
+        state: { searchResults: searchResults }
       });
-    };
-    
-    const goToResults = e => {
-      if (e.key === "Enter" && searchResults.length > 0) {
-        console.log("search - enter key pressed");
-        history.push({
-          pathname: "/search",
-          state: { searchResults: searchResults }
-        });
+    }
+  };
+
+  const handleSearchChange = async (e, value) => {
+    let searchQuery = value ? value.title : e.target.value;
+    if (searchQuery && searchQuery.length > 2) {
+      // fetch(`api/search/${searchQuery}`, {
+      //   method: "GET"
+      // })
+      //   .then(response => response.json())
+
+      //   .then(resultData => {
+      //     if (resultData.length > 0) {
+      //       setSearchResults(resultData);
+      //       saveSearchResult(searchQuery);
+      //     }
+      //   });
+
+      const result = await getSearchResults(searchQuery);
+      if (result.length > 0) {
+        setSearchResults(result);
+        saveSearchResult(searchQuery);
       }
-    };
-    
-    const handleSearchChange = (e, value) => {
-      let searchQuery = value ? value.title : e.target.value;
-      if (searchQuery && searchQuery.length > 2) {
-        fetch(`api/search/${searchQuery}`, {
-          method: "GET"
-        })
-        .then(response => response.json())
-        
-        .then(resultData => {
-          if (resultData.length > 0) {
-            setSearchResults(resultData);
-            saveSearchResult(searchQuery);
-          }
-        });
-      }
-    };
-    
-    return (
-      <div className={classes.root}>
+    }
+  };
+
+  return (
+    <div className={classes.root}>
       <div className={classes.search}>
         <Autocomplete
           options={autoCompleteOptions}
@@ -115,7 +124,7 @@ export default function Search() {
             setOpen(false);
           }}
           loading={loading}
-          id="Materialss share search"
+          id="materials share search"
           onKeyPress={goToResults}
           autoSelect={true}
           clearOnEscape={true}

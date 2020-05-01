@@ -42,11 +42,7 @@ const StyledMenuItem = withStyles(theme => ({
   }
 }))(MenuItem);
 
-export default function CustomizedMenus({
-  material,
-  setMaterials,
-  materials
-}) {
+export default function CustomizedMenus({ material, setMaterials, materials }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = event => {
@@ -80,7 +76,7 @@ export default function CustomizedMenus({
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <NavLink to={{ pathname: "/edit/" + material._id }}>
+        <NavLink className="link" to={{ pathname: "/edit/" + material._id }}>
           <StyledMenuItem>
             <ListItemIcon>
               <EditIcon fontSize="small" />

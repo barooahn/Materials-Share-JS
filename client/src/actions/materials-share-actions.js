@@ -3,44 +3,25 @@ const axios = require("axios").default;
 export const SaveData = (payload, type, setCompleted = "", setSaved = "") => {
   console.log("ms-share-actions- save ", payload);
 
-  //get local files
-  //save to AWS
-
-  // if payload.files === null
-  //delete payload.files;
-  console.log(
-    "ms-share-actions localfiles: ",
-    Array.isArray(payload.localFiles)
-  );
   if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
-    handleUpload(payload.localFiles, payload, setCompleted, setSaved);
+    handleFileUpload(type, payload.localFiles, payload, setCompleted, setSaved);
+  } else {
+    //save data to db
+    if (type === "Create") {
+      console.log("ms-share-actions - Error - Should have files", payload);
+    } else if (type === "Edit") {
+      console.log("ms-share-actions -Saving edit material", payload);
+      editMaterial(payload);
+    }
   }
-  console.log("ms-share-actions type: ", type);
-  console.log("ms-share-actions type === Edit: ", type === "Edit");
-
-  //save data to db
-  if (type === "Create") {
-    console.log("ms-share-actions -Saving create material", payload);
-    createMaterial(payload);
-  } else if (type === "Edit") {
-    console.log("ms-share-actions -Saving edit material", payload);
-    editMaterial(payload);
-  }
-
-  console.log("Materials-share.actions -finished saving ");
   return true;
-  //route to my materials
 };
 
 const editMaterial = material => {
-  console.log(
-    "Material-share-actions - sending edit material to db...",
-    material
-  );
   axios
     .put(`/api/material/update/${material.id}`, material, {})
     .then(res => {
-      console.log("saved to db", res.data);
+      console.log("saved edit to db", res.data);
     })
     .catch(function(err) {
       throw err;
@@ -52,14 +33,14 @@ const createMaterial = material => {
   axios
     .post(`/api/material`, material, {})
     .then(res => {
-      console.log("saved to db", res.data);
+      console.log("saved new material to db", res.data);
     })
     .catch(function(err) {
       throw err;
     });
 };
 
-const handleUpload = (files, payload, setCompleted, setSaved) => {
+const handleFileUpload = (type, files, payload, setCompleted, setSaved) => {
   console.log("files in handle upload ", files);
   const data = new FormData();
   data.append("saveType", "awsUpload");
@@ -81,31 +62,93 @@ const handleUpload = (files, payload, setCompleted, setSaved) => {
     })
     .then(res => {
       res.data.forEach(file => {
-        // console.log("adding file to payload: ", file.path);
         payload.files.push(file.path);
         setSaved(true);
       });
       //remove from material
       delete payload.localFiles;
 
-      if (payload.type === "Create") {
-        delete payload.type;
-        createMaterial(payload);
-      }
-      //if type is Create
-      // api materials add
-
-      //if type is Edit
-
-      //save data to db
-      if (payload.type === "Edit") {
-        delete payload.type;
-        // console.log("full payload", payload);
-
-        editMaterial(payload);
-      }
+      if (type === "Create") createMaterial(payload);
+      if (type === "Edit") editMaterial(payload);
     })
     .catch(function(err) {
       console.log(err);
     });
+};
+
+export const getAllMaterials = async () => {
+  let response = await fetch(`/api/materials`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
+  });
+  return response.json();
+};
+
+export const getMaterial = async id => {
+  let response = await fetch(`/api/material/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    }
+  });
+  return response.json();
+};
+
+export const deleteRemoteFile = async file => {
+  let response = await fetch(`/api/material/file/delete`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    method: "DELETE",
+    body: JSON.stringify({ file: file })
+  });
+  return response.json();
+};
+
+export const deleteMaterial = async id => {
+  let response = await fetch(`/api/material/delete/${id}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
+    method: "DELETE"
+  });
+  return response.json();
+};
+
+export const saveSearchResult = async search => {
+  let response = await fetch("/api/saveSearchResults", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ search: search })
+  });
+  return response.json();
+};
+
+export const getSearchResults = async search => {
+  let response = await fetch(`api/search/${search}`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+  return response.json();
+};
+
+export const getUserLikes = async id => {
+  let response = await fetch("/api/materials/user/likes/" + id, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json"
+    }
+  });
+  return response.json();
 };

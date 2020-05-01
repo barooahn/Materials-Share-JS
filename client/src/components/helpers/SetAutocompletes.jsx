@@ -1,4 +1,5 @@
 import React from "react";
+import { getAllMaterials } from "../../actions/materials-share-actions";
 
 export default ({
   setDynamicLevels,
@@ -36,69 +37,55 @@ export default ({
     return false;
   };
 
-  React.useEffect(() => {
-    // do stuff here...
-    //get allValues from db
-    fetch(`/api/materials`, {
-      method: "GET"
-    })
-      .then(response => response.json())
-
-      .then(resultData => {
-        //loop through each of the colums
-        //loop through each material
-        //see if the column is in the key of the material
-        //if so add the key and value of the material to the resultsArray
-        // add the results array to to the state
-
-        const columns = [
-          "level",
-          "languageFocus",
-          "activityUse",
-          "pupilTask",
-          "category"
-        ];
-        let resultArray = [];
-        columns.forEach(column => {
-          resultData.forEach(node => {
-            if (node[column] !== null) {
-              node[column].forEach(item => {
-                if (!IsInObject(item.value, resultArray))
-                  resultArray.push({
-                    label: item.label,
-                    value: item.value
-                  });
+  React.useEffect(async () => {
+    const resultData = await getAllMaterials();
+    const columns = [
+      "level",
+      "languageFocus",
+      "activityUse",
+      "pupilTask",
+      "category"
+    ];
+    let resultArray = [];
+    columns.forEach(column => {
+      resultData.forEach(node => {
+        if (node[column] !== null) {
+          node[column].forEach(item => {
+            if (!IsInObject(item.value, resultArray))
+              resultArray.push({
+                label: item.label,
+                value: item.value
               });
-            }
           });
-          resultArray.sort(compareValues("label"));
-          //set state
-          switch (column) {
-            case "level":
-              setDynamicLevels(resultArray);
-              resultArray = [];
-              break;
-            case "languageFocus":
-              setDynamicLanguageFocus(resultArray);
-              resultArray = [];
-              break;
-            case "activityUse":
-              setDynamicActivityUse(resultArray);
-              resultArray = [];
-              break;
-            case "pupilTask":
-              setDynamicPupilTask(resultArray);
-              resultArray = [];
-              break;
-            case "category":
-              setDynamicCategory(resultArray);
-              resultArray = [];
-              break;
-            default:
-              break;
-          }
-        });
+        }
       });
+      resultArray.sort(compareValues("label"));
+      //set state
+      switch (column) {
+        case "level":
+          setDynamicLevels(resultArray);
+          resultArray = [];
+          break;
+        case "languageFocus":
+          setDynamicLanguageFocus(resultArray);
+          resultArray = [];
+          break;
+        case "activityUse":
+          setDynamicActivityUse(resultArray);
+          resultArray = [];
+          break;
+        case "pupilTask":
+          setDynamicPupilTask(resultArray);
+          resultArray = [];
+          break;
+        case "category":
+          setDynamicCategory(resultArray);
+          resultArray = [];
+          break;
+        default:
+          break;
+      }
+    });
   }, []); // <-- empty dependency array
 
   return null;

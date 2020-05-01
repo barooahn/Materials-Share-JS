@@ -9,6 +9,10 @@ import { deepOrange } from "@material-ui/core/colors";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Button from "@material-ui/core/Button";
+import {
+  getAllMaterials,
+  getUserLikes
+} from "../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -32,20 +36,18 @@ export default () => {
   const [showLikes, setshowLikes] = useState([false]);
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
-  useEffect(() => {
-    //get all Materials where author id === user id
-    if (id !== undefined) {
-      //console.log("edit material - ", id);
-      fetch("/api/materials/" + id, {
-        method: "GET"
-      })
-        .then(response => response.json())
-
-        .then(resultData => {
-          //console.log("resultData", resultData);
-          setUserMaterials(resultData);
-        });
+  React.useEffect(() => {
+    async function fetchData() {
+      let resultData = await getAllMaterials();
+      resultData.forEach(material => {
+        material.files = Array.isArray(material.files)
+          ? [material.files[0]]
+          : [material.files];
+      });
+      setUserMaterials(resultData);
     }
+
+    fetchData();
   }, []);
 
   const handleMyMaterials = () => {
@@ -56,15 +58,8 @@ export default () => {
   const handleMyLikes = () => {
     console.log("Likes");
     setshowLikes(false);
-    fetch("/api/materials/user/likes/" + id, {
-      method: "GET"
-    })
-      .then(response => response.json())
-
-      .then(resultData => {
-        console.log("resultData", resultData);
-        setUserLikes(resultData);
-      });
+    const resultData = getUserLikes(id);
+    setUserLikes(resultData);
   };
 
   const showTabs = () => {
@@ -83,7 +78,7 @@ export default () => {
         </div>
       );
     } else {
-      console.log("Profilepage- userlikes ", userLikes);
+      // console.log("Profilepage- userlikes ", userLikes);
       return (
         <div>
           <Typography gutterBottom variant="h5" component="h5">

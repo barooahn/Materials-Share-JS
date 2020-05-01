@@ -2,8 +2,8 @@
 const mongoose = require("mongoose");
 let MaterialSchema = new mongoose.Schema({
   title: String,
-  timeInClass: [Number],
-  timpPrep: [Number],
+  timeInClass: Number,
+  timePrep: Number,
   procedureBefore: String,
   procedureIn: String,
   book: String,

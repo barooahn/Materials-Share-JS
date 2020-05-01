@@ -90,16 +90,16 @@ export default function LabelBottomNavigation({ routePaths }) {
   const classes = useStyles();
   const [bottomNavValue, setBottomNavValue] = React.useState("recents");
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
-  const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
-  const [levelValue, setLevelValue] = React.useState([]);
-  const [categoryValue, setCategoryValue] = React.useState([]);
-  const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
-  const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
-  const [activityUseValue, setActivityUseValue] = React.useState([]);
+  // const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
+  // const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
+  // const [levelValue, setLevelValue] = React.useState([]);
+  // const [categoryValue, setCategoryValue] = React.useState([]);
+  // const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
+  // const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
+  // const [activityUseValue, setActivityUseValue] = React.useState([]);
 
-  console.log("MobileNavBar - timeInClassValue", timeInClassValue);
-  console.log("MobileNavBar - levelValue", levelValue);
+  // console.log("MobileNavBar - timeInClassValue", timeInClassValue);
+  // console.log("MobileNavBar - levelValue", levelValue);
   console.log("MobileNavBar - anchorEl", anchorEl);
 
   const [expanded, setExpanded] = React.useState(false);
@@ -260,20 +260,20 @@ export default function LabelBottomNavigation({ routePaths }) {
             // <HideOnScroll>
             <Filter
               expanded={expanded}
-              timeInClassValue={timeInClassValue}
-              setTimeInClassValue={setTimeInClassValue}
-              timePrepValue={timePrepValue}
-              setTimePrepValue={setTimePrepValue}
-              levelValue={levelValue}
-              setLevelValue={setLevelValue}
-              categoryValue={categoryValue}
-              setCategoryValue={setCategoryValue}
-              languageFocusValue={languageFocusValue}
-              setLanguageFocusValue={setLanguageFocusValue}
-              pupilTaskValue={pupilTaskValue}
-              setPupilTaskValue={setPupilTaskValue}
-              activityUseValue={activityUseValue}
-              setActivityUseValue={setActivityUseValue}
+              // timeInClassValue={timeInClassValue}
+              // setTimeInClassValue={setTimeInClassValue}
+              // timePrepValue={timePrepValue}
+              // setTimePrepValue={setTimePrepValue}
+              // levelValue={levelValue}
+              // setLevelValue={setLevelValue}
+              // categoryValue={categoryValue}
+              // setCategoryValue={setCategoryValue}
+              // languageFocusValue={languageFocusValue}
+              // setLanguageFocusValue={setLanguageFocusValue}
+              // pupilTaskValue={pupilTaskValue}
+              // setPupilTaskValue={setPupilTaskValue}
+              // activityUseValue={activityUseValue}
+              // setActivityUseValue={setActivityUseValue}
               className={classes.filter}
             />
           ) : // </HideOnScroll>

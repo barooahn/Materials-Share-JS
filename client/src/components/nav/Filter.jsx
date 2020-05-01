@@ -5,11 +5,12 @@ import { Slider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import Button from "@material-ui/core/Button";
+import { useHistory, useLocation } from "react-router-dom";
 
-import Paper from "@material-ui/core/Paper";
 import Collapse from "@material-ui/core/Collapse";
 
 import SetAutocompletes from "../helpers/SetAutocompletes";
+import { getAllMaterials } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -21,29 +22,37 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default ({
-  expanded,
-  timeInClassValue,
-  setTimeInClassValue,
-  timePrepValue,
-  setTimePrepValue,
-  levelValue,
-  setLevelValue,
-  categoryValue,
-  setCategoryValue,
-  languageFocusValue,
-  setLanguageFocusValue,
-  pupilTaskValue,
-  setPupilTaskValue,
-  activityUseValue,
-  setActivityUseValue
+  expanded
 }) => {
   const classes = useStyles();
+
+  const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
+  const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
+  const [levelValue, setLevelValue] = React.useState([]);
+  const [categoryValue, setCategoryValue] = React.useState([]);
+  const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
+  const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
+  const [activityUseValue, setActivityUseValue] = React.useState([]);
 
   const [dynamicCategory, setDynamicCategory] = React.useState([]);
   const [dynamicLevels, setDynamicLevels] = React.useState([]);
   const [dynamicPupilTask, setDynamicPupilTask] = React.useState([]);
   const [dynamicActivityUse, setDynamicActivityUse] = React.useState([]);
   const [dynamicLanguageFocus, setDynamicLanguageFocus] = React.useState([]);
+
+  // const [searchResults, setSearchResults] = React.useState([]);
+
+
+//  /api/materials?start10&end=20&title
+
+  let history = useHistory();
+  let location = useLocation();
+
+  let materials;
+  materials = location.state !== null ? location.state.searchResults : getAllMaterials();
+
+  console.log("filter, materials", materials);
+  let filterResults = materials;
 
   const handleTimeInClassValueChange = (event, newValue) => {
     setTimeInClassValue(newValue);
@@ -68,6 +77,8 @@ export default ({
   };
 
   const optionChange = value => {
+
+    
     //Check if value passed is object with title i.e. from db or a new item
     if (value && !value[value.length - 1].hasOwnProperty("label")) {
       const lastValue = value.pop(value[value.length]);
@@ -104,6 +115,29 @@ export default ({
   const changeActivityUse = (e, value) => {
     optionChange(value);
     setActivityUseValue(value);
+  };
+
+  const timeFilter = (key, values) => {
+    filterResults.filter(material => {
+      return material[key] > values[0] && material[key] < values[1];
+    });
+  };
+
+  const goToResults = e => {
+    console.log("filter - filterResults before", filterResults);
+    if (materials.length > 0) {
+      if (timeInClassValue !== [0, 100]) {
+        filterResults = timeFilter("timeInClass", timeInClassValue);
+      }
+
+      console.log("filter - filterResults after", filterResults);
+      // console.log("search - enter key pressed");
+      // console.log("filter - levelValue", levelValue);
+      // history.push({
+      //   pathname: "/search",
+      //   state: { searchResults: materials }
+      // });
+    }
   };
 
   return (
@@ -233,7 +267,7 @@ export default ({
           )}
         />
       </div>
-      <Button variant="outlined" fullWidth>
+      <Button variant="outlined" onClick={goToResults}>
         Filter
       </Button>
     </Collapse>
