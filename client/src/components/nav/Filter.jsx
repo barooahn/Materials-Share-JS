@@ -46,19 +46,32 @@ export default ({ expanded }) => {
   let location = useLocation();
 
   React.useEffect(() => {
-    setDynamicLevels(SetAutocompletes("level"));
-    setDynamicLanguageFocus(SetAutocompletes("languageFocus"));
-    setDynamicActivityUse(SetAutocompletes("activityUse"));
-    setDynamicPupilTask(SetAutocompletes("pupilTask"));
-    setDynamicCategory(SetAutocompletes("category"));
+    async function fetchData() {
+      const level = await SetAutocompletes("level");
+      setDynamicLevels(level);
+      const languageFocus = await SetAutocompletes("languageFocus");
+      setDynamicLanguageFocus(languageFocus);
+      const activityUse = await SetAutocompletes("activityUse");
+      setDynamicActivityUse(activityUse);
+      const pupilTask = await SetAutocompletes("pupilTask");
+      setDynamicPupilTask(pupilTask);
+      const category = await SetAutocompletes("category");
+      setDynamicCategory(category);
+    }
+    fetchData();
   }, []);
 
-  console.log("filter, location.state", location.state);
-  let materials = location.state
-    ? location.state.searchResults
-    : getAllMaterials();
+  let materials;
+  let filterResults;
+  React.useEffect(() => {
+    console.log("filter, location.state", location.state);
+    materials = location.state
+      ? location.state.searchResults
+      : getAllMaterials();
 
-  let filterResults = materials;
+    console.log("filter, materials", materials);
+    filterResults = materials;
+  }, [location.state]);
 
   const handleTimeInClassValueChange = (event, newValue) => {
     setTimeInClassValue(newValue);
@@ -121,18 +134,18 @@ export default ({ expanded }) => {
     setActivityUseValue(value);
   };
 
-  const timeFilter = (key, values) => {
-    filterResults.filter(material => {
-      return material[key] > values[0] && material[key] < values[1];
-    });
-  };
+  // const timeFilter = (key, values) => {
+  //   filterResults.filter(material => {
+  //     return material[key] > values[0] && material[key] < values[1];
+  //   });
+  // };
 
   const goToResults = e => {
     console.log("filter - filterResults before", filterResults);
     if (materials.length > 0) {
-      if (timeInClassValue !== [0, 100]) {
-        filterResults = timeFilter("timeInClass", timeInClassValue);
-      }
+      // if (timeInClassValue !== [0, 100]) {
+      //   filterResults = timeFilter("timeInClass", timeInClassValue);
+      // }
 
       console.log("filter - filterResults after", filterResults);
       // console.log("search - enter key pressed");
@@ -146,17 +159,6 @@ export default ({ expanded }) => {
 
   return (
     <Collapse in={expanded} timeout="auto" unmountOnExit>
-      {/* <SetAutocompletes
-        setDynamicLevels={setDynamicLevels}
-        setDynamicLanguageFocus={setDynamicLanguageFocus}
-        setDynamicActivityUse={setDynamicActivityUse}
-        setDynamicPupilTask={setDynamicPupilTask}
-        setDynamicCategory={setDynamicCategory}
-      /> */}
-
-      {/* <Typography variant="h4" align="center">
-          Filter
-        </Typography> */}
       <div className={classes.slider}>
         <Typography id="range-slider" gutterBottom>
           Time in Class

@@ -2,6 +2,7 @@
 import { getAllMaterials } from "../../actions/materials-share-actions";
 
 export const SetAutocompletes = async column => {
+  // console.log("SetAutocompletes column", column);
   const compareValues = (key, order = "asc") => {
     return function innerSort(a, b) {
       if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
@@ -32,15 +33,11 @@ export const SetAutocompletes = async column => {
   };
 
   const resultData = await getAllMaterials();
-  // const columns = [
-  //   "level",
-  //   "languageFocus",
-  //   "activityUse",
-  //   "pupilTask",
-  //   "category"
-  // ];
+
   let resultArray = [];
   // columns.forEach(column => {
+
+  // console.log("SetAutocompletes column", column);
   resultData.forEach(node => {
     if (node[column] !== null) {
       node[column].forEach(item => {
@@ -52,92 +49,6 @@ export const SetAutocompletes = async column => {
       });
     }
   });
-  return resultArray.sort(compareValues("label"));
-  //set state
-  // switch (column) {
-  //   case "level":
-  //     return (resultArray);
-  //     break;
-  //   case "languageFocus":
-  //     setDynamicLanguageFocus(resultArray);
-  //     resultArray = [];
-  //     break;
-  //   case "activityUse":
-  //     setDynamicActivityUse(resultArray);
-  //     resultArray = [];
-  //     break;
-  //   case "pupilTask":
-  //     setDynamicPupilTask(resultArray);
-  //     resultArray = [];
-  //     break;
-  //   case "category":
-  //     setDynamicCategory(resultArray);
-  //     resultArray = [];
-  //     break;
-  //   default:
-  //     break;
-  // }
-  // });
+  const result = resultArray.sort(compareValues("label"));
+  return result;
 };
-
-// export default ({
-//   setDynamicLevels,
-//   setDynamicLanguageFocus,
-//   setDynamicActivityUse,
-//   setDynamicPupilTask,
-//   setDynamicCategory
-// }) => {
-
-//   React.useEffect(async () => {
-//     const resultData = await getAllMaterials();
-//     const columns = [
-//       "level",
-//       "languageFocus",
-//       "activityUse",
-//       "pupilTask",
-//       "category"
-//     ];
-//     let resultArray = [];
-//     columns.forEach(column => {
-//       resultData.forEach(node => {
-//         if (node[column] !== null) {
-//           node[column].forEach(item => {
-//             if (!IsInObject(item.value, resultArray))
-//               resultArray.push({
-//                 label: item.label,
-//                 value: item.value
-//               });
-//           });
-//         }
-//       });
-//       resultArray.sort(compareValues("label"));
-//       //set state
-//       switch (column) {
-//         case "level":
-//           setDynamicLevels(resultArray);
-//           resultArray = [];
-//           break;
-//         case "languageFocus":
-//           setDynamicLanguageFocus(resultArray);
-//           resultArray = [];
-//           break;
-//         case "activityUse":
-//           setDynamicActivityUse(resultArray);
-//           resultArray = [];
-//           break;
-//         case "pupilTask":
-//           setDynamicPupilTask(resultArray);
-//           resultArray = [];
-//           break;
-//         case "category":
-//           setDynamicCategory(resultArray);
-//           resultArray = [];
-//           break;
-//         default:
-//           break;
-//       }
-//     });
-//   }, []); // <-- empty dependency array
-
-//   return null;
-// };

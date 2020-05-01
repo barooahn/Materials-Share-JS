@@ -126,12 +126,6 @@ export default function MaterialStepper() {
     //get all Materials from db setMaterials
     if (id !== undefined) {
       console.log("edit material - ", id);
-      // fetch(`/api/material/${id}`, {
-      //   method: "GET"
-      // })
-      //   .then(response => response.json())
-
-      //   .then(resultData => {
 
       async function fetchData(id) {
         return await getMaterial(id);
@@ -161,14 +155,23 @@ export default function MaterialStepper() {
       setType("Edit");
       // });
     }
-    setDynamicLevels(SetAutocompletes("level"));
-    setDynamicLanguageFocus(SetAutocompletes("languageFocus"));
-    setDynamicActivityUse(SetAutocompletes("activityUse"));
-    setDynamicPupilTask(SetAutocompletes("pupilTask"));
-    setDynamicCategory(SetAutocompletes("category"));
   }, [id]);
 
-
+  React.useEffect(() => {
+    async function fetchData() {
+      const level = await SetAutocompletes("level");
+      setDynamicLevels(level);
+      const languageFocus = await SetAutocompletes("languageFocus");
+      setDynamicLanguageFocus(languageFocus);
+      const activityUse = await SetAutocompletes("activityUse");
+      setDynamicActivityUse(activityUse);
+      const pupilTask = await SetAutocompletes("pupilTask");
+      setDynamicPupilTask(pupilTask);
+      const category = await SetAutocompletes("category");
+      setDynamicCategory(category);
+    }
+    fetchData();
+  }, []);
 
   function getSteps() {
     return ["Add Media and Title", "Add details", "Complete material"];
