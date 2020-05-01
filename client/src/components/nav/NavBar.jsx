@@ -386,7 +386,7 @@ export default function MiniDrawer({ routePaths }) {
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {/* {"/" === location.pathname ||
+        {"/" === location.pathname ||
         "/materials" === location.pathname ||
         "/search" === location.pathname ? (
           <Filter
@@ -394,7 +394,7 @@ export default function MiniDrawer({ routePaths }) {
             className={classes.filter}
             onFilter={filterMaterials}
           />
-        ) : null} */}
+        ) : null}
         {routePaths}
       </main>
     </div>

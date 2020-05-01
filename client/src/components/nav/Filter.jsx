@@ -9,7 +9,7 @@ import { useHistory, useLocation } from "react-router-dom";
 
 import Collapse from "@material-ui/core/Collapse";
 
-import SetAutocompletes from "../helpers/SetAutocompletes";
+import { SetAutocompletes } from "../helpers/SetAutocompletes";
 import { getAllMaterials } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
@@ -21,9 +21,7 @@ const useStyles = makeStyles(theme => ({
   autoComplete: { marginBottom: 5 }
 }));
 
-export default ({
-  expanded
-}) => {
+export default ({ expanded }) => {
   const classes = useStyles();
 
   const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
@@ -40,16 +38,24 @@ export default ({
   const [dynamicActivityUse, setDynamicActivityUse] = React.useState([]);
   const [dynamicLanguageFocus, setDynamicLanguageFocus] = React.useState([]);
 
+
   // const [searchResults, setSearchResults] = React.useState([]);
 
-
-//  /api/materials?start10&end=20&title
+  //  /api/materials?start10&end=20&title
 
   let history = useHistory();
   let location = useLocation();
 
-  let materials;
-  materials = location.state !== null ? location.state.searchResults : getAllMaterials();
+  React.useEffect(() => {
+    setDynamicLevels(SetAutocompletes("level"));
+    setDynamicLanguageFocus(SetAutocompletes("languageFocus"));
+    setDynamicActivityUse(SetAutocompletes("activityUse"));
+    setDynamicPupilTask(SetAutocompletes("pupilTask"));
+    setDynamicCategory(SetAutocompletes("category"));
+  }, []);
+
+  let materials =
+    location.state !== null ? location.state.searchResults : getAllMaterials();
 
   console.log("filter, materials", materials);
   let filterResults = materials;
@@ -77,8 +83,6 @@ export default ({
   };
 
   const optionChange = value => {
-
-    
     //Check if value passed is object with title i.e. from db or a new item
     if (value && !value[value.length - 1].hasOwnProperty("label")) {
       const lastValue = value.pop(value[value.length]);
@@ -142,13 +146,13 @@ export default ({
 
   return (
     <Collapse in={expanded} timeout="auto" unmountOnExit>
-      <SetAutocompletes
+      {/* <SetAutocompletes
         setDynamicLevels={setDynamicLevels}
         setDynamicLanguageFocus={setDynamicLanguageFocus}
         setDynamicActivityUse={setDynamicActivityUse}
         setDynamicPupilTask={setDynamicPupilTask}
         setDynamicCategory={setDynamicCategory}
-      />
+      /> */}
 
       {/* <Typography variant="h4" align="center">
           Filter

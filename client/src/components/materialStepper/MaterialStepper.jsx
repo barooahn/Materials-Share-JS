@@ -15,7 +15,7 @@ import {
   useHistory
 } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import SetAutocompletes from "../helpers/SetAutocompletes";
+import { SetAutocompletes } from "../helpers/SetAutocompletes";
 import { getMaterial } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles(theme => ({
@@ -122,7 +122,7 @@ export default function MaterialStepper() {
   const [share, setShare] = React.useState(true);
   const [type, setType] = React.useState("Create");
 
-  React.useEffect(async () => {
+  React.useEffect(() => {
     //get all Materials from db setMaterials
     if (id !== undefined) {
       console.log("edit material - ", id);
@@ -161,7 +161,14 @@ export default function MaterialStepper() {
       setType("Edit");
       // });
     }
+    setDynamicLevels(SetAutocompletes("level"));
+    setDynamicLanguageFocus(SetAutocompletes("languageFocus"));
+    setDynamicActivityUse(SetAutocompletes("activityUse"));
+    setDynamicPupilTask(SetAutocompletes("pupilTask"));
+    setDynamicCategory(SetAutocompletes("category"));
   }, [id]);
+
+
 
   function getSteps() {
     return ["Add Media and Title", "Add details", "Complete material"];
@@ -335,13 +342,6 @@ export default function MaterialStepper() {
 
   return (
     <div className={classes.root}>
-      <SetAutocompletes
-        setDynamicLevels={setDynamicLevels}
-        setDynamicLanguageFocus={setDynamicLanguageFocus}
-        setDynamicActivityUse={setDynamicActivityUse}
-        setDynamicPupilTask={setDynamicPupilTask}
-        setDynamicCategory={setDynamicCategory}
-      />
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {};
