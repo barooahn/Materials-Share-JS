@@ -38,7 +38,6 @@ export default ({ expanded }) => {
   const [dynamicActivityUse, setDynamicActivityUse] = React.useState([]);
   const [dynamicLanguageFocus, setDynamicLanguageFocus] = React.useState([]);
 
-
   // const [searchResults, setSearchResults] = React.useState([]);
 
   //  /api/materials?start10&end=20&title
@@ -54,10 +53,11 @@ export default ({ expanded }) => {
     setDynamicCategory(SetAutocompletes("category"));
   }, []);
 
-  let materials =
-    location.state !== null ? location.state.searchResults : getAllMaterials();
+  console.log("filter, location.state", location.state);
+  let materials = location.state
+    ? location.state.searchResults
+    : getAllMaterials();
 
-  console.log("filter, materials", materials);
   let filterResults = materials;
 
   const handleTimeInClassValueChange = (event, newValue) => {
