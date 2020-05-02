@@ -12,30 +12,30 @@ import MaterialDetailsFull from "./MaterialDetailsFull";
 import {
   BrowserRouter as Router,
   useParams,
-  useHistory
+  useHistory,
 } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { SetAutocompletes } from "../helpers/SetAutocompletes";
 import { getMaterial } from "../../actions/materials-share-actions";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    marginBottom: 70
+    marginBottom: 70,
   },
   button: {
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   linearProgress: {
     width: "100%",
     "& > * + *": {
-      marginTop: theme.spacing(2)
-    }
-  }
+      marginTop: theme.spacing(2),
+    },
+  },
 }));
 
 export default function MaterialStepper() {
@@ -50,11 +50,11 @@ export default function MaterialStepper() {
 
   const steps = getSteps();
 
-  const isStepOptional = step => {
+  const isStepOptional = (step) => {
     return step === 1;
   };
 
-  const isStepSkipped = step => {
+  const isStepSkipped = (step) => {
     return skipped.has(step);
   };
 
@@ -65,12 +65,12 @@ export default function MaterialStepper() {
       newSkipped.delete(activeStep);
     }
 
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
     setSkipped(newSkipped);
   };
 
   const handleBack = () => {
-    setActiveStep(prevActiveStep => prevActiveStep - 1);
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
   const handleSkip = () => {
@@ -80,8 +80,8 @@ export default function MaterialStepper() {
       throw new Error("You can't skip a step that isn't optional.");
     }
 
-    setActiveStep(prevActiveStep => prevActiveStep + 1);
-    setSkipped(prevSkipped => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
       const newSkipped = new Set(prevSkipped.values());
       newSkipped.add(activeStep);
       return newSkipped;
@@ -123,37 +123,31 @@ export default function MaterialStepper() {
   const [type, setType] = React.useState("Create");
 
   React.useEffect(() => {
-    //get all Materials from db setMaterials
     if (id !== undefined) {
-      console.log("edit material - ", id);
-
-      async function fetchData(id) {
-        return await getMaterial(id);
-      }
-
-      const resultData = fetchData(id);
-      setFiles(resultData.files);
-      setTitle(resultData.title);
-      setLevelValue(resultData.level);
-      setCategoryValue(resultData.category);
-      setPupilTaskValue(resultData.pupilTask);
-      setObjective(resultData.objective);
-      setProcedureBefore(resultData.procedureBefore);
-      setProcedureIn(resultData.procedureIn);
-      setBook(resultData.book);
-      setPage(resultData.page);
-      setFollowUp(resultData.followUp);
-      setVariations(resultData.variations);
-      setMaterials(resultData.materials);
-      setTips(resultData.tips);
-      setNotes(resultData.notes);
-      setActivityUseValue(resultData.activityUse);
-      setLanguageFocusValue(resultData.languageFocus);
-      setTargetLanguage(resultData.targetLanguage);
-      setTimeInClass(resultData.timeInClass);
-      setTimePrep(resultData.timePrep);
-      setType("Edit");
-      // });
+      // console.log("edit material - ", id);
+      getMaterial(id).then((resultData) => {
+        setFiles(resultData.files);
+        setTitle(resultData.title);
+        setLevelValue(resultData.level);
+        setCategoryValue(resultData.category);
+        setPupilTaskValue(resultData.pupilTask);
+        setObjective(resultData.objective);
+        setProcedureBefore(resultData.procedureBefore);
+        setProcedureIn(resultData.procedureIn);
+        setBook(resultData.book);
+        setPage(resultData.page);
+        setFollowUp(resultData.followUp);
+        setVariations(resultData.variations);
+        setMaterials(resultData.materials);
+        setTips(resultData.tips);
+        setNotes(resultData.notes);
+        setActivityUseValue(resultData.activityUse);
+        setLanguageFocusValue(resultData.languageFocus);
+        setTargetLanguage(resultData.targetLanguage);
+        setTimeInClass(resultData.timeInClass);
+        setTimePrep(resultData.timePrep);
+        setType("Edit");
+      });
     }
   }, [id]);
 
@@ -285,7 +279,7 @@ export default function MaterialStepper() {
         materials,
         shared: share,
         id: id,
-        dateModified: Date.now()
+        dateModified: Date.now(),
       },
       type,
       setCompleted,
@@ -297,21 +291,18 @@ export default function MaterialStepper() {
     if (saved) history.push("/profile");
   }, [saved, history]);
 
-  const convertValue = value => {
-    return value
-      .replace(/\W/gi, "")
-      .trim()
-      .toLowerCase();
+  const convertValue = (value) => {
+    return value.replace(/\W/gi, "").trim().toLowerCase();
   };
 
-  const optionChange = value => {
+  const optionChange = (value) => {
     //Check if value passed is object with title i.e. from db or a new item
     if (value && !value[value.length - 1].hasOwnProperty("label")) {
       const lastValue = value.pop(value[value.length]);
       const sanatisedValue = convertValue(lastValue);
       const lastValueItem = {
         label: lastValue,
-        value: convertValue(sanatisedValue)
+        value: convertValue(sanatisedValue),
       };
       value.push(lastValueItem);
     }
@@ -342,6 +333,8 @@ export default function MaterialStepper() {
     optionChange(value);
     setActivityUseValue(value);
   };
+
+  // console.log("material stepper title - ", title);
 
   return (
     <div className={classes.root}>

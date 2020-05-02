@@ -6,24 +6,25 @@ import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {
   saveSearchResult,
-  getSearchResults
+  getSearchResults,
 } from "../../actions/materials-share-actions";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     display: "flex",
     height: 40,
-    marginTop: 5
+    marginTop: 5,
   },
   search: {
-    width: "100%"
-  }
+    width: "100%",
+  },
 }));
 
 export default function Search() {
   const classes = useStyles();
   const [searchResults, setSearchResults] = React.useState([]);
+  const [searchQuery, setSearchQuery] = React.useState([]);
   const [autoCompleteOptions, setAutoCompleteOptions] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const loading = open && autoCompleteOptions.length === 0;
@@ -38,13 +39,13 @@ export default function Search() {
 
     (async () => {
       const response = await fetch(`/api/getSearchResults`, {
-        method: "GET"
+        method: "GET",
       });
       const resultData = await response.json();
 
       if (active) {
         setAutoCompleteOptions(
-          resultData.map(searchItem => {
+          resultData.map((searchItem) => {
             return { title: searchItem.search };
           })
         );
@@ -62,48 +63,24 @@ export default function Search() {
     }
   }, [open]);
 
-  // const saveSearchResult = search => {
-  //   fetch("/api/saveSearchResults", {
-  //     method: "post",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({ search: search })
-  //   }).then(function(response) {
-  //     return response.json();
-  //   });
-  // };
-
-  const goToResults = e => {
+  const goToResults = (e) => {
     if (e.key === "Enter" && searchResults.length > 0) {
       console.log("search - enter key pressed");
+      saveSearchResult(searchQuery);
       history.push({
         pathname: "/search",
-        state: { searchResults: searchResults }
+        state: { searchResults: searchResults, searchQuery: searchQuery },
       });
     }
   };
 
   const handleSearchChange = async (e, value) => {
-    let searchQuery = value ? value.title : e.target.value;
-    if (searchQuery && searchQuery.length > 2) {
-      // fetch(`api/search/${searchQuery}`, {
-      //   method: "GET"
-      // })
-      //   .then(response => response.json())
-
-      //   .then(resultData => {
-      //     if (resultData.length > 0) {
-      //       setSearchResults(resultData);
-      //       saveSearchResult(searchQuery);
-      //     }
-      //   });
-
-      const result = await getSearchResults(searchQuery);
+    let searchQ = value ? value.title : e.target.value;
+    if (searchQ && searchQ.length > 2) {
+      const result = await getSearchResults(searchQ);
       if (result.length > 0) {
         setSearchResults(result);
-        saveSearchResult(searchQuery);
+        setSearchQuery(searchQ);
       }
     }
   };
@@ -113,7 +90,7 @@ export default function Search() {
       <div className={classes.search}>
         <Autocomplete
           options={autoCompleteOptions}
-          getOptionLabel={option => option.title}
+          getOptionLabel={(option) => option.title}
           freeSolo
           fullWidth
           open={open}
@@ -130,7 +107,7 @@ export default function Search() {
           clearOnEscape={true}
           onChange={handleSearchChange}
           size="small"
-          renderInput={params => (
+          renderInput={(params) => (
             <TextField
               {...params}
               label="Search Materials..."
@@ -147,7 +124,7 @@ export default function Search() {
                     ) : null}
                     {params.InputProps.endAdornment}
                   </React.Fragment>
-                )
+                ),
               }}
             />
           )}

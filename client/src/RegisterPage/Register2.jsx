@@ -16,7 +16,7 @@ import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import { withRouter, useLocation, useHistory } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     width: "auto",
     display: "block", // Fix IE 11 issue.
@@ -25,29 +25,30 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: "auto",
-      marginRight: "auto"
+      marginRight: "auto",
     },
-    paddingBottom: 70
+    paddingBottom: 70,
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
+      theme.spacing.unit * 3
+    }px`,
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing.unit
+    marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 3
-  }
+    marginTop: theme.spacing.unit * 3,
+  },
 }));
 
 export default () => {
@@ -58,13 +59,13 @@ export default () => {
     email: "",
     password1: "",
     password: "",
-    formErrors: ""
+    formErrors: "",
   });
 
   let location = useLocation();
   let history = useHistory();
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     let password;
     password = state.password === state.password1 ? state.password1 : null;
@@ -72,7 +73,7 @@ export default () => {
     const user = {
       name: state.name,
       email: state.email,
-      password: password
+      password: password,
     };
 
     await register(user);
@@ -81,41 +82,41 @@ export default () => {
     }
   };
 
-  const responseGoogle = async res => {
+  const responseGoogle = (res) => {
     const user = {
       method: "google",
       name: res.profileObj.name,
       id: res.profileObj.googleId,
       img: res.profileObj.imageUrl,
-      email: res.profileObj.email
+      email: res.profileObj.email,
     };
 
-    const response = await signUser(user);
+    signUser(user);
 
     if (!state.errorMessage) {
       setReturnPath();
     }
   };
 
-  const responseFacebook = async res => {
+  const responseFacebook = async (res) => {
     const user = {
       method: "facebook",
       name: res.name,
       id: res.id,
       img: res.picture.data.url,
-      email: res.email
+      email: res.email,
     };
     const response = await signUser(user);
 
-    console.log("got facebook response ", response);
+    // console.log("got facebook response ", response);
 
     if (!state.errorMessage) {
       setReturnPath();
     }
   };
 
-  const handleChange = e => {
-    console.log("here", e.target.value);
+  const handleChange = (e) => {
+    // console.log("here", e.target.value);
     setState({ [e.target.name]: e.target.value });
   };
 

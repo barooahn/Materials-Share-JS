@@ -18,8 +18,8 @@ module.exports = {
       method: "local",
       local: {
         email: email,
-        password: password
-      }
+        password: password,
+      },
     });
 
     await newUser.save();
@@ -33,30 +33,31 @@ module.exports = {
   deleteUser: (req, res, next) => {
     User.remove({ _id: req.params.userId })
       .exec()
-      .then(result => {
+      .then((result) => {
         res.status(200).json({
-          message: "User deleted"
+          message: "User deleted",
         });
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
         res.status(500).json({
-          error: err
+          error: err,
         });
       });
   },
 
-  login: async (req, res, next) => {
+  login: (req, res, next) => {
     // Generate token
-    const token = await signUser.signUser(req.user);
-    res
-      .status(200)
-      .json({ message: "User logged In", token, id: req.user._id });
+    signUser.signUser(req.user);
+    // res
+    //   .status(200)
+    //   .json({ message: "User logged In", token, id: req.user._id });
   },
 
   signUser: async (req, res, next) => {
     // Generate token
     const user = req.body.user;
+    console.log("user ctrl- signUser - user", user);
     const token = signUser.signUser(user);
 
     const userEmail = user.method + ".email";
@@ -74,53 +75,31 @@ module.exports = {
         token,
         id: eUser.id,
         name: eUser.name,
-        img: user.img
+        img: user.img,
       });
-    }
+    } else {
+      const newUser = new User({
+        method: user.method,
+        [user.method]: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          img: user.img,
+        },
+      });
 
-    const newUser = new User({
-      method: user.method,
-      [user.method]: {
+      await newUser.save();
+
+      res.status(200).json({
+        message: "User logged In with " + user.method,
+        token,
         id: user.id,
         email: user.email,
         name: user.name,
-        img: user.img
-      }
-    });
-
-    await newUser.save();
-
-    res.status(200).json({
-      message: "User logged In with " + user.method,
-      token,
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      img: user.img
-    });
+        img: user.img,
+      });
+    }
   },
-
-  // googleOAuth: async (req, res, next) => {
-  //   // Generate token
-  //   console.log("google user", req);
-  //   const token = signUser.signUser(req.profileObj);
-  //   res.status(200).json({
-  //     message: "User logged In With Google",
-  //     token,
-  //     id: req.profileObj
-  //   });
-  // },
-
-  // facebookOAuth: async (req, res, next) => {
-  //   // Generate token
-  //   console.log("facebook user", req.user);
-  //   const token = signUser.signUser(req.user);
-  //   res.status(200).json({
-  //     message: "User logged In With Facebook",
-  //     token,
-  //     id: req.user._id
-  //   });
-  // },
 
   addUser: (req, res, next) => {
     new User(req.body).save((err, newUser) => {
@@ -146,7 +125,7 @@ module.exports = {
    */
   followUser: (req, res, next) => {
     User.findById(req.body.id)
-      .then(user => {
+      .then((user) => {
         return user.follow(req.body.user_id).then(() => {
           return res.json({ msg: "followed" });
         });
@@ -155,16 +134,16 @@ module.exports = {
   },
   getUserProfile: (req, res, next) => {
     User.findById(req.params.id)
-      .then(_user => {
-        return User.find({ following: req.params.id }).then(_users => {
-          _users.forEach(user_ => {
+      .then((_user) => {
+        return User.find({ following: req.params.id }).then((_users) => {
+          _users.forEach((user_) => {
             _user.addFollower(user_);
           });
-          return Material.find({ author: req.params.id }).then(_materials => {
+          return Material.find({ author: req.params.id }).then((_materials) => {
             return res.json({ user: _user, materials: _materials });
           });
         });
       })
-      .catch(err => console.log(err));
-  }
+      .catch((err) => console.log(err));
+  },
 }; // end

@@ -14,7 +14,6 @@ const useStyles = makeStyles(theme => ({
 const Materials = () => {
   const classes = useStyles();
   const [materials, setMaterials] = React.useState([]);
-  console.log(" Materials, ", materials);
 
   React.useEffect(() => {
     async function fetchData() {

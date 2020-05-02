@@ -174,18 +174,18 @@ export default function MiniDrawer({ routePaths }) {
     history.push("/");
   };
 
-  const filterMaterials = filter => {
-    console.log("filter me ", filter);
+  // const filterMaterials = filter => {
+  //   console.log("filter me ", filter);
 
-    fetch(`/api/materials`, {
-      method: "GET"
-    })
-      .then(response => response.json())
+  //   fetch(`/api/materials`, {
+  //     method: "GET"
+  //   })
+  //     .then(response => response.json())
 
-      .then(resultData => {
-        return resultData;
-      });
-  };
+  //     .then(resultData => {
+  //       return resultData;
+  //     });
+  // };
 
   //console.log("Navbar - location.pathname ", location.pathname);
 
@@ -392,7 +392,7 @@ export default function MiniDrawer({ routePaths }) {
           <Filter
             expanded={expanded}
             className={classes.filter}
-            onFilter={filterMaterials}
+            // onFilter={filterMaterials}
           />
         ) : null}
         {routePaths}

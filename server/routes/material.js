@@ -3,7 +3,7 @@ const materialcontroller = require("./../controllers/material.ctrl");
 const multipart = require("connect-multiparty");
 const multipartWare = multipart();
 
-module.exports = router => {
+module.exports = (router) => {
   /**
    * get files
    */
@@ -23,19 +23,23 @@ module.exports = router => {
    * get all materials
    */
   router.route("/materials").get(materialcontroller.getMaterials);
-  /**
-   * get all liveMaterials
-   */
-  router.route("/getLiveMaterials").post(materialcontroller.getLiveMaterials);
 
+  /**
+   * get a particlular material to view
+   */
+  router.route("/material/:id").get(materialcontroller.getMaterial);
   /**
    * add a material
    */
   router.route("/material").post(multipartWare, materialcontroller.addMaterial);
   /**
-   * get distinct values from a field
+   * get search results
    */
   router.route("/search/:q").get(materialcontroller.getSearchResults);
+  /**
+   * get filter and search results
+   */
+  router.route("/search").get(materialcontroller.getFilterResults);
   /**
    * get all titles
    */
@@ -44,7 +48,7 @@ module.exports = router => {
    * get author
    */
   router
-    .route("/materials/:author_id")
+    .route("/getUserMaterials/:author_id")
     .get(materialcontroller.getUserMaterials);
 
   /**
@@ -58,14 +62,6 @@ module.exports = router => {
    * update a particlular material
    */
   router.route("/material/update/:id").put(materialcontroller.updateMaterial);
-  /**
-   * comment on a material
-   */
-  // router.route("/material/comment").post(materialcontroller.commentMaterial);
-  /**
-   * get a particlular material to view
-   */
-  router.route("/material/:id").get(materialcontroller.getMaterial);
   /**
    * get distinct values from a field
    */

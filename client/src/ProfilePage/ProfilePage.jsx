@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 // import { getSecret } from "../auth/helpers";
 import MaterialCard2 from "../components/Material/MaterialCard";
@@ -10,27 +10,27 @@ import Avatar from "@material-ui/core/Avatar";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Button from "@material-ui/core/Button";
 import {
-  getAllMaterials,
-  getUserLikes
+  getUserMaterials,
+  getUserLikes,
 } from "../actions/materials-share-actions";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    marginBottom: "70px"
+    marginBottom: "70px",
   },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500]
+    backgroundColor: deepOrange[500],
   },
   small: {
     width: theme.spacing(3),
-    height: theme.spacing(3)
-  }
+    height: theme.spacing(3),
+  },
 }));
 
 export default () => {
   const classes = useStyles();
-  var id = localStorage.getItem("USER_ID");
+  const id = localStorage.getItem("USER_ID");
   const [userMaterials, setUserMaterials] = useState([]);
   const [userLikes, setUserLikes] = useState([]);
   const [showLikes, setshowLikes] = useState([false]);
@@ -38,25 +38,27 @@ export default () => {
 
   React.useEffect(() => {
     async function fetchData() {
-      let resultData = await getAllMaterials();
-      resultData.forEach(material => {
-        material.files = Array.isArray(material.files)
-          ? [material.files[0]]
-          : [material.files];
-      });
-      setUserMaterials(resultData);
+      let resultData = await getUserMaterials(id);
+      if (resultData) {
+        resultData.forEach((material) => {
+          material.files = Array.isArray(material.files)
+            ? [material.files[0]]
+            : [material.files];
+        });
+        setUserMaterials(resultData);
+      }
     }
 
     fetchData();
   }, []);
 
   const handleMyMaterials = () => {
-    console.log("herer");
+    // console.log("herer");
     setshowLikes(true);
   };
 
   const handleMyLikes = () => {
-    console.log("Likes");
+    // console.log("Likes");
     setshowLikes(false);
     const resultData = getUserLikes(id);
     setUserLikes(resultData);
@@ -157,18 +159,18 @@ const styles = {
   paperCenter: {
     width: "91%",
     margin: "10px auto",
-    padding: "10px"
+    padding: "10px",
   },
   button: {
-    margin: 15
+    margin: 15,
   },
   p_wrap: {
-    whiteSpace: "pre-line"
+    whiteSpace: "pre-line",
   },
   selectSpans: {
-    display: "block"
+    display: "block",
   },
   card: {
-    margin: "10px auto"
-  }
+    margin: "10px auto",
+  },
 };

@@ -12,7 +12,7 @@ module.exports = {
   },
 
   saveSearchResults: (req, res) => {
-    console.log("saving search backend... ", res.body);
+    console.log("saving search backend... ", res.body.search);
     Search.findOneAndUpdate(
       { search: req.body.search },
       { $set: { search: req.body.search } },
@@ -20,7 +20,7 @@ module.exports = {
       function(err, search) {
         if (search) return res.send(search);
         else if (err) return res.send(err);
-        else return res.send(404);
+        else return res.sendStatus(404);
       }
     );
   }

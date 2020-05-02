@@ -104,7 +104,7 @@ export default () => {
   };
 
   const responseFacebook = async res => {
-    console.log("got facebook response ", res.id);
+    // console.log("got facebook response ", res.id);
     const user = {
       method: "facebook",
       name: res.name,

@@ -8,27 +8,27 @@ const { uploadAws, deleteAws } = require("../file-upload/aws-file-services");
 const filepath = `${__dirname}..\\..\\..\\public\\`;
 // const filepath = "";
 
-const moveFile = file => {
+const moveFile = (file) => {
   file.name = file.name.replace(/\s/g, "_").toLowerCase();
-  return new Promise(function(resolve, reject) {
+  return new Promise(function (resolve, reject) {
     const oldPath = file.path;
-    console.log("path " + filepath);
+    // console.log("path " + filepath);
     const newPath = filepath + file.name;
-    fs.rename(oldPath, newPath, function(err) {
+    fs.rename(oldPath, newPath, function (err) {
       if (err) reject(new Error("Could not upload file " + err));
       return resolve(file.name);
     });
   });
 };
 
-const escapeRegex = text => {
+const escapeRegex = (text) => {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
 
-getFileFromPath = filePath => {
+getFileFromPath = (filePath) => {
   return fs.readFileSync(
     `${__dirname}..\\..\\..\\public\\${filePath}`,
-    function(err, data) {
+    function (err, data) {
       if (!err) {
         // console.log("received data: " + data);
         return data;
@@ -41,8 +41,8 @@ getFileFromPath = filePath => {
 
 module.exports = {
   getFiles: (req, res) => {
-    console.log("get files data", req.body);
-    req.body.map(file => {
+    // console.log("get files data", req.body);
+    req.body.map((file) => {
       fs.readFile(file, (err, data) => {
         if (!err) {
           //	console.log("received data: " + data);
@@ -59,19 +59,21 @@ module.exports = {
   fileUpload: async (req, res) => {
     if (req.query.saveType === "localUpload") {
       console.log("uploading local file ...");
-      Promise.all(req.files.files.map(file => moveFile(file))).then(result => {
-        // console.log("local file storage back end", result);
-        return res.json(result);
-        //save to DB
-      });
+      Promise.all(req.files.files.map((file) => moveFile(file))).then(
+        (result) => {
+          // console.log("local file storage back end", result);
+          return res.json(result);
+          //save to DB
+        }
+      );
     } else {
       console.log("uploading aws file ...");
       if (req.files.files) {
         Promise.all(
-          req.files.files.map(file => {
+          req.files.files.map((file) => {
             return uploadAws(file);
           })
-        ).then(result => {
+        ).then((result) => {
           // console.log("AWS storage back end", result);
           //save to DB
           return res.json(result);
@@ -96,25 +98,11 @@ module.exports = {
   addMaterial: (req, res, next) => {
     console.log("saving material backend... ", res.body);
 
-    // filterProperties = obj => {
-    // 	for (var key in obj) {
-    // 		if (obj[key] !== null && obj[key] != "" && obj[key] != []) {
-    // 		} else {
-    // 			delete obj[key];
-    // 		}
-    // 		return obj;
-    // 	}
-    // };
-
-    //console.log("req.body ", req.body);
-    // const filteredMaterial = filterProperties(req.body);
-    // console.log("filteredMaterial ", filteredMaterial);
-
     new Material(req.body).save((err, material) => {
       if (err) res.send(err);
       else if (!material) res.send(400);
       else {
-        return material.addAuthor(material.author_id).then(_material => {
+        return material.addAuthor(material.author_id).then((_material) => {
           return res.send(_material);
         });
       }
@@ -141,49 +129,7 @@ module.exports = {
         else return res.send(404);
       });
   },
-  getLiveMaterials: async (req, res, next) => {
-    startDate = new Date(req.body.latestMaterialModifiyDate);
-    await Material.find({
-      dateModified: { $gt: startDate }
-    }).exec((err, materials) => {
-      console.log("res.materials", JSON.stringify(materials));
-      if (materials) return res.send(materials);
-      else if (err) return res.send(err);
-      else return res.send(404);
-    });
-  },
-  /**
-   * material_id
-   */
-  // clapMaterial: (req, res, next) => {
-  //   Material.findById(req.body.material_id)
-  //     .then(material => {
-  //       return material.clap().then(() => {
-  //         return res.json({ msg: "Done" });
-  //       });
-  //     })
-  //     .catch(next);
-  // },
-  // /**
-  //  * comment, author_id, material_id
-  //  */
-  // commentMaterial: (req, res, next) => {
-  //   Material.findById(req.body.material_id)
-  //     .then(material => {
-  //       return material
-  //         .comment({
-  //           author: req.body.author_id,
-  //           text: req.body.comment
-  //         })
-  //         .then(() => {
-  //           return res.json({ msg: "Done" });
-  //         });
-  //     })
-  //     .catch(next);
-  // },
-  /**
-   * material_id
-   */
+
   getMaterial: (req, res, next) => {
     Material.findById(req.params.id)
       .populate("author")
@@ -201,7 +147,7 @@ module.exports = {
       { _id: req.params.id },
       { $set: req.body },
       { upsert: true },
-      function(err, material) {
+      function (err, material) {
         if (err) return next(err);
         // res.send("material udpated.");
         // console.log("material updated ", material);
@@ -209,25 +155,26 @@ module.exports = {
       }
     );
   },
-  // need to test delete
+
   deleteMaterial: (req, res, next) => {
-    Material.findOneAndDelete({ _id: req.params.id }, function(err) {
-      if (err) {console.log("there was an error deleteing the material", err);
-      return res.err;
-    } 
+    Material.findOneAndDelete({ _id: req.params.id }, function (err) {
+      if (err) {
+        console.log("there was an error deleteing the material", err);
+        return res.err;
+      }
       console.log("material deleted ");
       return res;
-  })
+    });
   },
 
   getDistinct: (req, res, next) => {
-    Material.distinct(req.params.field, function(err, values) {
+    Material.distinct(req.params.field, function (err, values) {
       // ids is an array of all ObjectIds
       if (err) throw err;
 
       let distinct = [];
 
-      values.forEach(x => {
+      values.forEach((x) => {
         //console.log("x.label ===", x.label);
         distinct.includes(x.label) ? null : distinct.push(x.label);
       });
@@ -238,10 +185,58 @@ module.exports = {
 
   getSearchResults: (req, res, next) => {
     const regex = new RegExp(escapeRegex(req.params.q), "gi");
-    Material.find({ $text: { $search: regex } }, function(err, materials) {
+    Material.find({ $text: { $search: regex } }, function (err, materials) {
       if (err) console.log("there was a search error", err);
       res.send(materials);
     });
+  },
+
+  getFilterResults: async (req, res, next) => {
+    // console.log("material.ctrl.js-filter query: ", req.query);
+    let {
+      search,
+      timeInClass,
+      timePrep,
+      level,
+      languageFocus,
+      activityUse,
+      category,
+    } = req.query;
+    queryCond = {
+      ...(search && { search: new RegExp(escapeRegex(search), "gi") }),
+      ...(level && { "level.value": level }),
+      ...(activityUse && { "activityUse.value": activityUse }),
+      ...(category && { "category.value": category }),
+      ...(languageFocus && { "languageFocus.value": languageFocus }),
+      ...(timeInClass && {
+        timeInClass: {
+          $gte: timeInClass.split(",")[0],
+          $lte: timeInClass.split(",")[1],
+        },
+      }),
+      ...(timePrep && {
+        timePrep: {
+          $gte: timePrep.split(",")[0],
+          $lte: timePrep.split(",")[1],
+        },
+      }),
+    };
+
+    // let regex = {};
+    // if (search !== "") {
+    //   regex = new RegExp(escapeRegex(search), "gi");
+    // }
+    console.log("material.ctrl.js-filter queryCond: ", queryCond);
+
+    const searchResults = await Material.find(queryCond);
+    if (searchResults) {
+      return res.json(searchResults);
+    } else {
+      console.log("err cannot filter", err);
+      return res.err;
+    }
+    // console.log("material.ctrl.js-filter searchResults: ", searchResults);
+    // res.send(searchResults);
   },
 
   getTitles: async (req, res, next) => {
@@ -264,5 +259,5 @@ module.exports = {
         else if (err) return res.send(err);
         else return res.send(404);
       });
-  }
+  },
 };
