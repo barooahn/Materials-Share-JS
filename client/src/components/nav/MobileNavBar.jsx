@@ -31,75 +31,75 @@ import Search from "./Search";
 import Filter from "./Filter";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: "fixed",
     bottom: 0,
     width: "100%",
-    zIndex: 10
+    zIndex: 10,
   },
   text: {
-    padding: theme.spacing(2, 2, 0)
+    padding: theme.spacing(2, 2, 0),
   },
   paper: {
-    paddingBottom: 50
+    paddingBottom: 50,
   },
   list: {
-    marginBottom: theme.spacing(2)
+    marginBottom: theme.spacing(2),
   },
   subheader: {
-    backgroundColor: theme.palette.background.paper
+    backgroundColor: theme.palette.background.paper,
   },
   appBar: {
     top: "auto",
-    top: 0
+    top: 0,
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   fabButton: {
     position: "absolute",
     zIndex: 1,
     bottom: 70,
-    right: 10
+    right: 10,
   },
   filter: {
     // width: "100%"
-    marginTop: 100
+    marginTop: 100,
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: "rotate(180deg)",
   },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500]
+    backgroundColor: deepOrange[500],
   },
   profile: { display: "flex", justifyContent: "flex-end" },
-  search: { display: "flex ", width: "100%" }
+  search: { display: "flex ", width: "100%" },
+  circularProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "47%",
+    zIndex: 50,
+  },
 }));
 
 export default function LabelBottomNavigation({ routePaths }) {
   const classes = useStyles();
   const [bottomNavValue, setBottomNavValue] = React.useState("recents");
   const [anchorEl, setAnchorEl] = React.useState(null);
-  // const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
-  // const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
-  // const [levelValue, setLevelValue] = React.useState([]);
-  // const [categoryValue, setCategoryValue] = React.useState([]);
-  // const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
-  // const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
-  // const [activityUseValue, setActivityUseValue] = React.useState([]);
 
-  // console.log("MobileNavBar - timeInClassValue", timeInClassValue);
-  // console.log("MobileNavBar - levelValue", levelValue);
+  const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
+
   console.log("MobileNavBar - anchorEl", anchorEl);
 
   const [expanded, setExpanded] = React.useState(false);
@@ -109,7 +109,7 @@ export default function LabelBottomNavigation({ routePaths }) {
 
   let history = useHistory();
 
-  const handleExpandClick = e => {
+  const handleExpandClick = (e) => {
     setExpanded(!expanded);
   };
 
@@ -128,7 +128,7 @@ export default function LabelBottomNavigation({ routePaths }) {
     history.push("/");
   };
 
-  const handleProfileMenuOpen = event => {
+  const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
@@ -225,10 +225,10 @@ export default function LabelBottomNavigation({ routePaths }) {
             "/materials" === location.pathname ||
             "/search" === location.pathname ? (
               <div className={classes.search}>
-                <Search />
+                <Search setGettingSearchResults={setGettingSearchResults} />
                 <IconButton
                   className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded
+                    [classes.expandOpen]: expanded,
                   })}
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
@@ -257,29 +257,15 @@ export default function LabelBottomNavigation({ routePaths }) {
           {"/" === location.pathname ||
           "/materials" === location.pathname ||
           "/search" === location.pathname ? (
-            // <HideOnScroll>
-            <Filter
-              expanded={expanded}
-              // timeInClassValue={timeInClassValue}
-              // setTimeInClassValue={setTimeInClassValue}
-              // timePrepValue={timePrepValue}
-              // setTimePrepValue={setTimePrepValue}
-              // levelValue={levelValue}
-              // setLevelValue={setLevelValue}
-              // categoryValue={categoryValue}
-              // setCategoryValue={setCategoryValue}
-              // languageFocusValue={languageFocusValue}
-              // setLanguageFocusValue={setLanguageFocusValue}
-              // pupilTaskValue={pupilTaskValue}
-              // setPupilTaskValue={setPupilTaskValue}
-              // activityUseValue={activityUseValue}
-              // setActivityUseValue={setActivityUseValue}
-              className={classes.filter}
-            />
-          ) : // </HideOnScroll>
-          null}
+            <Filter expanded={expanded} className={classes.filter} />
+          ) : null}
         </AppBar>
       </HideOnScroll>
+      {gettingSearchResults ? (
+        <div className={classes.circularProgress}>
+          <CircularProgress size={40} color="secondary" />
+        </div>
+      ) : null}
       <Menu
         anchorEl={anchorEl}
         id={menuId}

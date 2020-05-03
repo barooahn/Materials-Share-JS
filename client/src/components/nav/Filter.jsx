@@ -81,8 +81,8 @@ export default ({ expanded }) => {
     fetchData();
   }, [location.state]);
 
-  console.log("filter searchQuery", searchQuery);
-  console.log("filter location.state", location.state);
+  // console.log("filter searchQuery", searchQuery);
+  // console.log("filter location.state", location.state);
 
   const handleTimeInClassValueChange = (event, newValue) => {
     setTimeInClassValue(newValue);

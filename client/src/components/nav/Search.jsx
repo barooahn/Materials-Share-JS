@@ -5,8 +5,9 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import TextField from "@material-ui/core/TextField";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import {
-  saveSearchResult,
+  saveSearchQuery,
   getSearchResults,
+  getSearchQueries,
 } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles((theme) => ({
@@ -21,9 +22,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Search() {
+export default function Search({ setGettingSearchResults }) {
   const classes = useStyles();
-  const [searchResults, setSearchResults] = React.useState([]);
   const [searchQuery, setSearchQuery] = React.useState([]);
   const [autoCompleteOptions, setAutoCompleteOptions] = React.useState([]);
   const [open, setOpen] = React.useState(false);
@@ -38,10 +38,7 @@ export default function Search() {
     }
 
     (async () => {
-      const response = await fetch(`/api/getSearchResults`, {
-        method: "GET",
-      });
-      const resultData = await response.json();
+      const resultData = await getSearchQueries();
 
       if (active) {
         setAutoCompleteOptions(
@@ -63,25 +60,29 @@ export default function Search() {
     }
   }, [open]);
 
-  const goToResults = (e) => {
-    if (e.key === "Enter" && searchResults.length > 0) {
-      console.log("search - enter key pressed");
-      saveSearchResult(searchQuery);
-      history.push({
-        pathname: "/search",
-        state: { searchResults: searchResults, searchQuery: searchQuery },
-      });
+  const goToResults = async (e) => {
+    if (e.key === "Enter" && searchQuery.length > 0) {
+      setGettingSearchResults(true);
+      const result = await getSearchResults(searchQuery);
+      if (result.length > 0) {
+        setGettingSearchResults(false);
+        const queryResult = saveSearchQuery(searchQuery);
+
+        console.log("search - searchQuery", searchQuery);
+        console.log("search - queryResult", queryResult);
+        history.push({
+          pathname: "/search",
+          state: { searchResults: result, searchQuery: searchQuery },
+        });
+      }
     }
   };
 
-  const handleSearchChange = async (e, value) => {
+  const handleSearchChange = (e, value) => {
     let searchQ = value ? value.title : e.target.value;
+    // console.log("Search searchQ", searchQ);
     if (searchQ && searchQ.length > 2) {
-      const result = await getSearchResults(searchQ);
-      if (result.length > 0) {
-        setSearchResults(result);
-        setSearchQuery(searchQ);
-      }
+      setSearchQuery(searchQ);
     }
   };
 

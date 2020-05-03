@@ -13,6 +13,7 @@ import {
   getUserMaterials,
   getUserLikes,
 } from "../actions/materials-share-actions";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
     width: theme.spacing(3),
     height: theme.spacing(3),
   },
+  circularProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "47%",
+    zIndex: 50,
+  },
 }));
 
 export default () => {
@@ -35,9 +42,11 @@ export default () => {
   const [userLikes, setUserLikes] = useState([]);
   const [showLikes, setshowLikes] = useState([false]);
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
+  const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
 
   React.useEffect(() => {
     async function fetchData() {
+      setGettingSearchResults(true);
       let resultData = await getUserMaterials(id);
       if (resultData) {
         resultData.forEach((material) => {
@@ -46,6 +55,7 @@ export default () => {
             : [material.files];
         });
         setUserMaterials(resultData);
+        setGettingSearchResults(false);
       }
     }
 
@@ -57,17 +67,26 @@ export default () => {
     setshowLikes(true);
   };
 
-  const handleMyLikes = () => {
+  const handleMyLikes = async () => {
     // console.log("Likes");
     setshowLikes(false);
-    const resultData = getUserLikes(id);
-    setUserLikes(resultData);
+    setGettingSearchResults(true);
+    const resultData = await getUserLikes(id);
+    if (resultData) {
+      setUserLikes(resultData);
+      setGettingSearchResults(false);
+    }
   };
 
   const showTabs = () => {
     if (!showLikes) {
       return (
         <div>
+          {gettingSearchResults ? (
+            <div className={classes.circularProgress}>
+              <CircularProgress size={40} color="secondary" />
+            </div>
+          ) : null}
           <Typography gutterBottom variant="h5" component="h5">
             Materials I Like
           </Typography>
@@ -83,6 +102,11 @@ export default () => {
       // console.log("Profilepage- userlikes ", userLikes);
       return (
         <div>
+          {gettingSearchResults ? (
+            <div className={classes.circularProgress}>
+              <CircularProgress size={40} color="secondary" />
+            </div>
+          ) : null}
           <Typography gutterBottom variant="h5" component="h5">
             Materials I Have Made
           </Typography>

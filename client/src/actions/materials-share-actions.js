@@ -145,14 +145,27 @@ export const deleteMaterial = async (id) => {
   return response.json();
 };
 
-export const saveSearchResult = async (search) => {
-  let response = await fetch("/api/saveSearchResults", {
+export const getSearchQueries = async () => {
+  let response = await fetch(`/api/getSearchQueries`, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+
+  return response.json();
+};
+// console.log("materials-share-actions - saveSearchResult search", searchQuery);
+
+export const saveSearchQuery = async (searchQuery) => {
+  let response = await fetch("/api/saveSearchQuery", {
     method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ search: search }),
+    body: JSON.stringify({ search: searchQuery }),
   });
   return response.json();
 };

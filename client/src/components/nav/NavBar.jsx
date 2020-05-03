@@ -32,59 +32,60 @@ import Button from "@material-ui/core/Button";
 import Search from "./Search";
 import Filter from "./Filter";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const drawerWidth = 240;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    display: "flex"
+    display: "flex",
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
+      duration: theme.transitions.duration.leavingScreen,
+    }),
   },
   appBarShift: {
     marginLeft: drawerWidth,
     width: `calc(100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(["width", "margin"], {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   menuButton: {
-    marginRight: 36
+    marginRight: 36,
   },
   hide: {
-    display: "none"
+    display: "none",
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
-    whiteSpace: "nowrap"
+    whiteSpace: "nowrap",
   },
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   drawerOpen: {
     width: drawerWidth,
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
+      duration: theme.transitions.duration.enteringScreen,
+    }),
   },
   drawerClose: {
     transition: theme.transitions.create("width", {
       easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
+      duration: theme.transitions.duration.leavingScreen,
     }),
     overflowX: "hidden",
     width: theme.spacing(7) + 1,
     [theme.breakpoints.up("sm")]: {
-      width: theme.spacing(9) + 1
-    }
+      width: theme.spacing(9) + 1,
+    },
   },
   toolbar: {
     display: "flex",
@@ -92,34 +93,40 @@ const useStyles = makeStyles(theme => ({
     justifyContent: "flex-end",
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
-    ...theme.mixins.toolbar
+    ...theme.mixins.toolbar,
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
   },
   grow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   logo: {
     marginRight: 20,
-    width: 170
+    width: 170,
   },
   filter: {
-    width: "100%"
+    width: "100%",
   },
   expand: {
     transform: "rotate(0deg)",
     marginLeft: "auto",
     transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest
-    })
+      duration: theme.transitions.duration.shortest,
+    }),
   },
   expandOpen: {
-    transform: "rotate(180deg)"
+    transform: "rotate(180deg)",
   },
   profile: { display: "flex", justifyContent: "flex-end" },
-  search: { display: "flex ", width: "100%" }
+  search: { display: "flex ", width: "100%" },
+  circularProgress: {
+    position: "absolute",
+    top: "50%",
+    left: "47%",
+    zIndex: 50,
+  },
 }));
 
 export default function MiniDrawer({ routePaths }) {
@@ -129,6 +136,8 @@ export default function MiniDrawer({ routePaths }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const [expanded, setExpanded] = React.useState(false);
+
+  const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
@@ -142,7 +151,7 @@ export default function MiniDrawer({ routePaths }) {
   let location = useLocation();
   let history = useHistory();
 
-  const handleProfileMenuOpen = event => {
+  const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleMenuClose = () => {
@@ -173,21 +182,6 @@ export default function MiniDrawer({ routePaths }) {
     handleMenuClose();
     history.push("/");
   };
-
-  // const filterMaterials = filter => {
-  //   console.log("filter me ", filter);
-
-  //   fetch(`/api/materials`, {
-  //     method: "GET"
-  //   })
-  //     .then(response => response.json())
-
-  //     .then(resultData => {
-  //       return resultData;
-  //     });
-  // };
-
-  //console.log("Navbar - location.pathname ", location.pathname);
 
   const menuProfile = () => {
     if (!localStorage.getItem("JWT_TOKEN")) {
@@ -240,7 +234,7 @@ export default function MiniDrawer({ routePaths }) {
         position="fixed"
         color="default"
         className={clsx(classes.appBar, {
-          [classes.appBarShift]: open
+          [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
@@ -250,7 +244,7 @@ export default function MiniDrawer({ routePaths }) {
             onClick={handleDrawerOpen}
             edge="start"
             className={clsx(classes.menuButton, {
-              [classes.hide]: open
+              [classes.hide]: open,
             })}
           >
             <MenuIcon />
@@ -264,10 +258,10 @@ export default function MiniDrawer({ routePaths }) {
           "/materials" === location.pathname ||
           "/search" === location.pathname ? (
             <div className={classes.search}>
-              <Search />
+              <Search setGettingSearchResults={setGettingSearchResults} />
               <IconButton
                 className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded
+                  [classes.expandOpen]: expanded,
                 })}
                 onClick={handleExpandClick}
                 aria-expanded={expanded}
@@ -315,13 +309,13 @@ export default function MiniDrawer({ routePaths }) {
         variant="permanent"
         className={clsx(classes.drawer, {
           [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open
+          [classes.drawerClose]: !open,
         })}
         classes={{
           paper: clsx({
             [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open
-          })
+            [classes.drawerClose]: !open,
+          }),
         }}
       >
         <div className={classes.toolbar}>
@@ -394,6 +388,11 @@ export default function MiniDrawer({ routePaths }) {
             className={classes.filter}
             // onFilter={filterMaterials}
           />
+        ) : null}
+        {gettingSearchResults ? (
+          <div className={classes.circularProgress}>
+            <CircularProgress size={40} color="secondary" />
+          </div>
         ) : null}
         {routePaths}
       </main>

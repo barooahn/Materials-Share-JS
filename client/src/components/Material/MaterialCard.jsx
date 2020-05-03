@@ -18,23 +18,23 @@ import Badge from "@material-ui/core/Badge";
 import ToggleLikes from "../helpers/ToggleLikes";
 import red from "@material-ui/core/colors/red";
 
-const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
+const cardWidth = document.documentElement.clientWidth < 600 ? "98%" : 250;
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: cardWidth
+    maxWidth: cardWidth,
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   media: {
     // paddingTop: "56.25%", // 16:9
-    height: 150,
+    height: 200,
     overflow: "hidden",
-    marginLeft: -16,
-    marginRight: -16,
-    paddingBottom: 5
+    paddingBottom: 5,
   },
   avatar: {
-    backgroundColor: red[500]
-  }
+    backgroundColor: red[500],
+  },
 }));
 
 export default function MaterialCard({ material, setMaterials, materials }) {
@@ -47,7 +47,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
 
   const setLikesColour = () => {
     let color = "default";
-    likes.forEach(like => {
+    likes.forEach((like) => {
       if (like === author) {
         color = "secondary";
       }
@@ -80,37 +80,31 @@ export default function MaterialCard({ material, setMaterials, materials }) {
       ></CardMenu>
     ) : null;
   };
-
-  // console.log(
-  //   "Material card - athor ",
-  //   author,
-  //   "file creator ",
-  //   material.author_id
-  // );
   return (
     <React.Fragment>
       <Card className={classes.root}>
-        <CardHeader
-          avatar={
-            <Avatar aria-label="material" className={classes.avatar}>
-              M
-            </Avatar>
-          }
-          action={owner()}
-          title={material.title}
-          subheader={dateMod}
-        />
         <CardActionArea>
+          <div className={classes.media}>
+            <Viewer file={material.files[0]} key={material.files[0]} />
+          </div>
+          <br />
           <NavLink
             to={{ pathname: "/material/" + material._id }}
             className="link"
             key="ma"
           >
             <CardContent>
-              <div className={classes.media}>
-                <Viewer file={material.files[0]} key={material.files[0]} />
-              </div>
-              <br />
+              <CardHeader
+                avatar={
+                  <Avatar aria-label="material" className={classes.avatar}>
+                    M
+                  </Avatar>
+                }
+                action={owner()}
+                title={material.title}
+                subheader={dateMod}
+              />
+
               {material.objective ? (
                 <Typography variant="body2" color="textSecondary" component="p">
                   {material.objective}

@@ -11,15 +11,20 @@ import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 import { getMaterial } from "../../actions/materials-share-actions";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: "100%"
+    maxWidth: "100%",
+    display: "flex",
+  },
+  papperCenter: {
+    marginBottom: 50,
   },
   media: {
     // paddingTop: "56.25%", // 16:9
     width: "100%",
-    paddingBottom: 5
-  }
+    maxWidth: 1000,
+    paddingBottom: 5,
+  },
 }));
 
 export default () => {
@@ -49,7 +54,9 @@ export default () => {
           <ListItem>
             <div className={classes.media}>
               {material.files
-                ? material.files.map(file => <Viewer key={file} file={file} />)
+                ? material.files.map((file) => (
+                    <Viewer key={file} file={file} />
+                  ))
                 : null}
             </div>
           </ListItem>

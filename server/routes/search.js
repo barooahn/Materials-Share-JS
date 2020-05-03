@@ -1,12 +1,12 @@
 const searchcontroller = require("./../controllers/search.ctrl");
 
-module.exports = router => {
+module.exports = (router) => {
   /**
    * get search results
    */
-  router.route("/getSearchResults").get(searchcontroller.getSearchResults);
-    /**
+  router.route("/getSearchQueries").get(searchcontroller.getSearchQueries);
+  /**
    * save search results
    */
-  router.route("/saveSearchResults").post(searchcontroller.saveSearchResults);
+  router.route("/saveSearchQuery").post(searchcontroller.saveSearchQuery);
 };
