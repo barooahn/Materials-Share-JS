@@ -22,6 +22,9 @@ const UserSchema = new Schema({
   img: {
     type: String,
   },
+  password: {
+    type: String,
+  },
 });
 
 UserSchema.methods.follow = function (user_id) {
@@ -36,7 +39,7 @@ UserSchema.methods.addFollower = function (fs) {
 
 UserSchema.pre("save", async function (next) {
   try {
-    console.log("entered");
+    console.log("Server/ Models/ user  pre save entered", this.password);
     if (this.method !== "local") {
       next();
     }
@@ -44,9 +47,9 @@ UserSchema.pre("save", async function (next) {
     // Generate a salt
     const salt = await bcrypt.genSalt(10);
     // Generate a password hash (salt + hash)
-    const passwordHash = await bcrypt.hash(this.local.password, salt);
+    const passwordHash = await bcrypt.hash(this.password, salt);
     // Re-assign hashed version over original, plain text password
-    this.local.password = passwordHash;
+    this.password = passwordHash;
     console.log("exited");
     next();
   } catch (error) {

@@ -1,12 +1,12 @@
 import axios from "axios";
 
-export const signUser = async user => {
+export const signUser = async (user) => {
   console.log("In helpers.jsx sign user");
   const res = await axios
     .post("/api/users/signUser", {
-      user: user
+      user: user,
     })
-    .catch(function(error) {
+    .catch(function (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
@@ -33,15 +33,12 @@ export const signUser = async user => {
   axios.defaults.headers.common["Authorization"] = res.data.token || "";
 };
 
-export const register = async data => {
-  try {
-    const res = await axios.post("/api/users/register", data);
-    localStorage.setItem("JWT_TOKEN", res.data.token);
-    localStorage.setItem("USER_ID", res.data.id);
-    axios.defaults.headers.common["Authorization"] = res.data.token;
-  } catch (err) {
-    console.log(err);
-  }
+export const register = async (data) => {
+  const res = await axios.post("/api/users/register", data);
+  console.log("helpers register", res);
+  localStorage.setItem("JWT_TOKEN", res.data.token);
+  localStorage.setItem("USER_ID", res.data.id);
+  axios.defaults.headers.common["Authorization"] = res.data.token;
 };
 
 export const logOut = () => {
@@ -53,7 +50,7 @@ export const logOut = () => {
   console.log("logged out");
 };
 
-export const logIn = async data => {
+export const logIn = async (data) => {
   try {
     const res = await axios.post("/api/users/login", data);
     localStorage.setItem("JWT_TOKEN", res.data.token || "");

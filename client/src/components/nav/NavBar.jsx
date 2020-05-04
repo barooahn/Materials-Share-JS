@@ -104,7 +104,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logo: {
     marginRight: 20,
-    width: 170,
+    minWidth: 255,
   },
   filter: {
     width: "100%",
@@ -126,6 +126,11 @@ const useStyles = makeStyles((theme) => ({
     top: "50%",
     left: "47%",
     zIndex: 50,
+  },
+  loginRegisterButtons: {
+    display: "inline",
+    minWidth: 265,
+    textAlign: "right",
   },
 }));
 
@@ -186,7 +191,7 @@ export default function MiniDrawer({ routePaths }) {
   const menuProfile = () => {
     if (!localStorage.getItem("JWT_TOKEN")) {
       return (
-        <div>
+        <React.Fragment>
           <Button
             variant="contained"
             color="secondary"
@@ -205,7 +210,7 @@ export default function MiniDrawer({ routePaths }) {
           >
             Register
           </Button>
-        </div>
+        </React.Fragment>
       );
     } else {
       return (
@@ -273,7 +278,7 @@ export default function MiniDrawer({ routePaths }) {
           ) : null}
 
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>{menuProfile()}</div>
+          <div className={classes.loginRegisterButtons}>{menuProfile()}</div>
         </Toolbar>
       </AppBar>
       <Menu

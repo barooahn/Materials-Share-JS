@@ -5,10 +5,11 @@ const signUser = require("../signUser");
 
 module.exports = {
   registerUser: async (req, res, next) => {
-    const { email, password } = req.body;
+    const { email, password, name } = req.body;
 
     // Check if there is a user with the same email
-    const foundUser = await User.findOne({ "local.email": email });
+    console.log("user.ctrl - register user request", req.body);
+    const foundUser = await User.findOne({ email: email });
     if (foundUser) {
       return res.status(403).json({ error: "Email is already in use" });
     }
@@ -16,12 +17,11 @@ module.exports = {
     // Create a new user
     const newUser = new User({
       method: "local",
-      local: {
-        email: email,
-        password: password,
-      },
+      name: name,
+      email: email,
+      password: password,
     });
-
+    console.log("user.ctrl - register usernew user", newUser);
     await newUser.save();
 
     // Generate the token
