@@ -59,6 +59,9 @@ let MaterialSchema = new mongoose.Schema({
   author_id: {
     type: String,
   },
+  author_img: {
+    type: String,
+  },
 
   comments: [
     {

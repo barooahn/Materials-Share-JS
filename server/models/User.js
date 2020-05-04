@@ -7,73 +7,34 @@ const UserSchema = new Schema({
   method: {
     type: String,
     enum: ["local", "google", "facebook"],
-    required: true
+    required: true,
   },
-  local: {
-    email: {
-      type: String,
-      lowercase: true,
-      match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
-      followers: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User"
-        }
-      ],
-      following: [
-        {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User"
-        }
-      ]
-    },
-    password: {
-      type: String
-    }
+  id: {
+    type: String,
   },
-  google: {
-    id: {
-      type: String
-    },
-    email: {
-      type: String,
-      lowercase: true
-    },
-    name: {
-      type: String
-    },
-    img: {
-      type: String
-    }
+  email: {
+    type: String,
+    lowercase: true,
   },
-  facebook: {
-    id: {
-      type: String
-    },
-    email: {
-      type: String,
-      lowercase: true
-    },
-    name: {
-      type: String
-    },
-    img: {
-      type: String
-    }
-  }
+  name: {
+    type: String,
+  },
+  img: {
+    type: String,
+  },
 });
 
-UserSchema.methods.follow = function(user_id) {
+UserSchema.methods.follow = function (user_id) {
   if (this.following.indexOf(user_id) === -1) {
     this.following.push(user_id);
   }
   return this.save();
 };
-UserSchema.methods.addFollower = function(fs) {
+UserSchema.methods.addFollower = function (fs) {
   this.followers.push(fs);
 };
 
-UserSchema.pre("save", async function(next) {
+UserSchema.pre("save", async function (next) {
   try {
     console.log("entered");
     if (this.method !== "local") {
@@ -93,7 +54,7 @@ UserSchema.pre("save", async function(next) {
   }
 });
 
-UserSchema.methods.isValidPassword = async function(newPassword) {
+UserSchema.methods.isValidPassword = async function (newPassword) {
   try {
     return await bcrypt.compare(newPassword, this.local.password);
   } catch (error) {

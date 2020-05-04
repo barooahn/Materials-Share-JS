@@ -104,9 +104,7 @@ export default ({ setMaterials, materials }) => {
       {author === material.author_id ? (
         <React.Fragment>
           <IconButton component={Link} to={"/edit/" + material._id}>
-            {/* <NavLink className="link" to={{ pathname: "/edit/" + material._id }}> */}
             <EditIcon />
-            {/* </NavLink> */}
           </IconButton>
           <IconButton onClick={(event) => handleDeleteMaterial(event)}>
             <DeleteForeverIcon />

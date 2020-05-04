@@ -31,6 +31,7 @@ const editMaterial = (material, setSaved) => {
 
 const createMaterial = (material) => {
   material.author_id = localStorage.getItem("USER_ID");
+  material.author_img = localStorage.getItem("USER_IMG");
   axios
     .post(`/api/material`, material, {})
     .then((res) => {
@@ -192,6 +193,17 @@ export const getFilterResults = async (
 
 export const getUserLikes = async (id) => {
   let response = await fetch("/api/materials/user/likes/" + id, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
+  return response.json();
+};
+
+export const getAvatar = async (id) => {
+  let response = await fetch("/api/avatar/" + id, {
     method: "GET",
     headers: {
       Accept: "application/json",

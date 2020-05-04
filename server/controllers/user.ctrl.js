@@ -60,32 +60,33 @@ module.exports = {
     console.log("user ctrl- signUser - user", user);
     const token = signUser.signUser(user);
 
-    const userEmail = user.method + ".email";
-    const existingUser = await User.findOne({ [userEmail]: user.email });
-    let eUser = {};
+    // const userEmail = user.method + ".email";
+    // const existingUser = await User.findOne({ [userEmail]: user.email });
+    const existingUser = await User.findOne({ email: user.email });
+    // let eUser = {};
     if (existingUser) {
-      if (existingUser.method === "facebook") {
-        eUser = existingUser.facebook;
-      }
-      if (existingUser.method === "google") {
-        eUser = existingUser.google;
-      }
+      // if (existingUser.method === "facebook") {
+      //   eUser = existingUser.facebook;
+      // }
+      // if (existingUser.method === "google") {
+      //   eUser = existingUser.google;
+      // }
       res.status(200).json({
-        message: `User ${eUser.name} logged In with ${existingUser.method}`,
+        message: `User ${existingUser.name} logged In with ${existingUser.method}`,
         token,
-        id: eUser.id,
-        name: eUser.name,
-        img: user.img,
+        id: existingUser.id,
+        name: existingUser.name,
+        img: existingUser.img,
       });
     } else {
       const newUser = new User({
         method: user.method,
-        [user.method]: {
-          id: user.id,
-          email: user.email,
-          name: user.name,
-          img: user.img,
-        },
+        // [user.method]: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        img: user.img,
+        // },
       });
 
       await newUser.save();
@@ -110,15 +111,25 @@ module.exports = {
     });
   },
 
-  getUser: (req, res, next) => {
-    User.findById(req.params.id).then(
-      /*populate('following').exec*/ (err, user) => {
-        if (err) res.send(err);
-        else if (!user) res.send(404);
-        else res.send(user);
-        next();
-      }
-    );
+  getUser: async (req, res, next) => {
+    console.log("user.ctrl - getuser req.params.id", req.params.id);
+    await User.find({ id: req.params.id }).exec((err, user) => {
+      console.log("user.ctrl - getuser", user);
+      if (user) return res.send(user);
+      else if (err) return res.send(err);
+      else return res.send(404);
+    });
+  },
+  getAvatar: async (req, res, next) => {
+    console.log("user.ctrl - getuser req.params.id", req.params.id);
+    await User.find({ id: req.params.id })
+      .select({ img: 1, _id: 0 })
+      .exec((err, user) => {
+        console.log("user.ctrl - getuser", user);
+        if (user) return res.send(user);
+        else if (err) return res.send(err);
+        else return res.send(404);
+      });
   },
   /**
    * user_to_follow_id, user_id

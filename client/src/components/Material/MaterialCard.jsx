@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -13,10 +12,13 @@ import Typography from "@material-ui/core/Typography";
 import Viewer from "../Viewer/Viewer";
 import SocialShare from "./SocialShare";
 import { NavLink } from "react-router-dom";
-import CardMenu from "./CardMenu";
 import Badge from "@material-ui/core/Badge";
 import ToggleLikes from "../helpers/ToggleLikes";
 import red from "@material-ui/core/colors/red";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { Link } from "react-router-dom";
+import DeleteMaterial from "../helpers/DeleteMaterial";
 
 const cardWidth = document.documentElement.clientWidth < 600 ? "98%" : 250;
 
@@ -34,17 +36,27 @@ const useStyles = makeStyles((theme) => ({
   },
   avatar: {
     backgroundColor: red[500],
+    position: "absolute",
+    top: 10,
+    right: 10,
+    zIndex: 4,
   },
 }));
 
 export default function MaterialCard({ material, setMaterials, materials }) {
   const classes = useStyles();
   const [likes, setLikes] = React.useState(material.likes || []);
+
   const author = localStorage.getItem("USER_ID");
   const toggleLikes = () => {
     ToggleLikes(author, likes, setLikes, material._id);
   };
 
+  const handleDeleteMaterial = () => {
+    console.log("in card menu delte", material);
+    DeleteMaterial(material._id);
+    setMaterials(materials.filter((m) => m._id !== material._id));
+  };
   const setLikesColour = () => {
     let color = "default";
     likes.forEach((like) => {
@@ -70,21 +82,17 @@ export default function MaterialCard({ material, setMaterials, materials }) {
   const dateOptions = { year: "numeric", month: "long", day: "numeric" };
   const dateMod = date.toLocaleDateString(undefined, dateOptions);
 
-  const owner = () => {
-    return author === material.author_id ? (
-      <CardMenu
-        material={material}
-        square={true}
-        setMaterials={setMaterials}
-        materials={materials}
-      ></CardMenu>
-    ) : null;
-  };
   return (
     <React.Fragment>
       <Card className={classes.root}>
         <CardActionArea>
           <div className={classes.media}>
+            <Avatar
+              aria-label="material"
+              alt={material.title}
+              src={material.author_img}
+              className={classes.avatar}
+            ></Avatar>
             <Viewer file={material.files[0]} key={material.files[0]} />
           </div>
           <br />
@@ -94,17 +102,17 @@ export default function MaterialCard({ material, setMaterials, materials }) {
             key="ma"
           >
             <CardContent>
-              <CardHeader
-                avatar={
-                  <Avatar aria-label="material" className={classes.avatar}>
-                    M
-                  </Avatar>
-                }
-                action={owner()}
-                title={material.title}
-                subheader={dateMod}
-              />
-
+              <Typography variant="h6" component="h6">
+                {material.title}
+              </Typography>
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                component="p"
+                gutterBottom
+              >
+                {dateMod}
+              </Typography>
               {material.objective ? (
                 <Typography variant="body2" color="textSecondary" component="p">
                   {material.objective}
@@ -126,6 +134,16 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           <IconButton aria-label="share" onClick={handleOpen}>
             <ShareIcon />
           </IconButton>
+          {author === material.author_id ? (
+            <React.Fragment>
+              <IconButton component={Link} to={"/edit/" + material._id}>
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={(event) => handleDeleteMaterial(event)}>
+                <DeleteForeverIcon />
+              </IconButton>
+            </React.Fragment>
+          ) : null}
         </CardActions>
       </Card>
       <SocialShare handleClose={handleClose} open={open} />

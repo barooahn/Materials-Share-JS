@@ -2,12 +2,15 @@ const usercontroller = require("./../controllers/user.ctrl");
 const passportConf = require("../../config/passport");
 const passport = require("passport");
 
-module.exports = router => {
+module.exports = (router) => {
   /**
    * get a user
    */
   router.route("/user/:id").get(usercontroller.getUser);
-
+  /**
+   * get a Avatar
+   */
+  router.route("/avatar/:id").get(usercontroller.getAvatar);
   /**
    * get a user profile
    */
@@ -29,10 +32,10 @@ module.exports = router => {
     usercontroller.login
   );
 
-  router.get("/logout", function(req, res) {
+  router.get("/logout", function (req, res) {
     req.logout();
     res.status(200).json({
-      message: "Logout successful"
+      message: "Logout successful",
     });
   });
 
@@ -97,7 +100,7 @@ module.exports = router => {
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
       res.status(200).json({
-        message: "User authenticated"
+        message: "User authenticated",
       });
     }
   );
