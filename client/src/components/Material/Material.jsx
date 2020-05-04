@@ -10,6 +10,16 @@ import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 import { getMaterial } from "../../actions/materials-share-actions";
+import SocialShare from "./SocialShare";
+import ToggleLikes from "../helpers/ToggleLikes";
+import Badge from "@material-ui/core/Badge";
+import IconButton from "@material-ui/core/IconButton";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import ShareIcon from "@material-ui/icons/Share";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import { Link } from "react-router-dom";
+import DeleteMaterial from "../helpers/DeleteMaterial";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,10 +37,33 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default () => {
+export default ({ setMaterials, materials }) => {
   const classes = useStyles();
   const { id } = useParams();
   const [material, setMaterial] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [likes, setLikes] = React.useState(material.likes || []);
+  const author = localStorage.getItem("USER_ID");
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const toggleLikes = () => {
+    ToggleLikes(author, likes, setLikes, material._id);
+  };
+
+  const setLikesColour = () => {
+    let color = "default";
+    likes.forEach((like) => {
+      if (like === author) {
+        color = "secondary";
+      }
+    });
+    return color;
+  };
 
   React.useEffect(() => {
     //get all Materials from db setMaterials
@@ -44,11 +77,43 @@ export default () => {
     }
   }, [id]);
 
+  const handleDeleteMaterial = () => {
+    console.log("in card menu delte", material);
+    DeleteMaterial(material._id);
+    setMaterials(materials.filter((m) => m._id !== material._id));
+  };
+
   return (
     <Paper className="paperCenter" elevation={1}>
       <Typography gutterBottom variant="h2" component="h2" align="center">
         {material.title}
       </Typography>
+      <IconButton
+        aria-label="add to favorites"
+        onClick={toggleLikes}
+        color={setLikesColour()}
+      >
+        <Badge color="default" badgeContent={likes.length}>
+          <FavoriteIcon />
+        </Badge>
+      </IconButton>
+      <IconButton aria-label="share" onClick={handleOpen}>
+        <ShareIcon />
+      </IconButton>
+      <SocialShare handleClose={handleClose} open={open} />
+      {author === material.author_id ? (
+        <React.Fragment>
+          <IconButton component={Link} to={"/edit/" + material._id}>
+            {/* <NavLink className="link" to={{ pathname: "/edit/" + material._id }}> */}
+            <EditIcon />
+            {/* </NavLink> */}
+          </IconButton>
+          <IconButton onClick={(event) => handleDeleteMaterial(event)}>
+            <DeleteForeverIcon />
+          </IconButton>
+        </React.Fragment>
+      ) : null}
+
       <Grid container spacing={1}>
         <List>
           <ListItem>

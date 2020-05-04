@@ -16,72 +16,73 @@ let MaterialSchema = new mongoose.Schema({
   category: [
     {
       label: String,
-      value: String
-    }
+      value: String,
+    },
   ],
   objective: String,
   level: [
     {
       label: String,
-      value: String
-    }
+      value: String,
+    },
   ],
   likes: [String],
   languageFocus: [
     {
       label: String,
-      value: String
-    }
+      value: String,
+    },
   ],
   activityUse: [
     {
       label: String,
-      value: String
-    }
+      value: String,
+    },
   ],
   pupilTask: [
     {
       label: String,
-      value: String
-    }
+      value: String,
+    },
   ],
   targetLanguage: String,
   institute: [
     {
       label: String,
-      value: String
-    }
+      value: String,
+    },
   ],
   materials: String,
   shared: Boolean,
   dateCreated: Date,
   dateModified: Date,
   author_id: {
-    type: String
+    type: String,
   },
+
   comments: [
     {
       author_id: {
-        type: String
+        type: String,
       },
-      text: String
-    }
-  ]
+      text: String,
+    },
+  ],
 });
-MaterialSchema.methods.addClap = function() {
+MaterialSchema.methods.addClap = function () {
   this.claps++;
   return this.save();
 };
-MaterialSchema.methods.comment = function(c) {
+MaterialSchema.methods.comment = function (c) {
   this.comments.push(c);
   return this.save();
 };
-MaterialSchema.methods.addAuthor = function(author_id) {
+MaterialSchema.methods.addAuthor = function (author_id) {
   this.author = author_id;
   return this.save();
 };
-MaterialSchema.methods.getUserMaterial = function(_id) {
-  Material.find({ author: _id }).then(material => {
+MaterialSchema.methods.getUserMaterial = function (_id) {
+  Material.find({ author: _id }).then((material) => {
     return material;
   });
 };

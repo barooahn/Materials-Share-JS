@@ -132,12 +132,11 @@ module.exports = {
 
   getMaterial: (req, res, next) => {
     Material.findById(req.params.id)
-      .populate("author")
+      // .populate("author")
       .exec((err, material) => {
-        if (err) res.send(err);
-        else if (!material) res.send(404);
-        else res.send(material);
-        next();
+        if (material) return res.send(material);
+        else if (err) return res.send(err);
+        else return res.send(404);
       });
   },
 

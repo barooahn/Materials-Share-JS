@@ -7,9 +7,9 @@ import CardActions from "@material-ui/core/CardActions";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
+import Typography from "@material-ui/core/Typography";
 import Viewer from "../Viewer/Viewer";
 import SocialShare from "./SocialShare";
 import { NavLink } from "react-router-dom";
@@ -110,24 +110,6 @@ export default function MaterialCard({ material, setMaterials, materials }) {
                   {material.objective}
                 </Typography>
               ) : null}
-              {/* {material.timpPrep.length > 0 ? (
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Preparation Time (mins): {material.timpPrep}
-                </Typography>
-              ) : null}
-              {material.timeInClass.length > 0 ? (
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Class Time (mins): {material.timeInClass}
-                </Typography>
-              ) : null}
-              {material.level.length > 0 ? (
-                <Typography variant="body2" color="textSecondary" component="p">
-                  Level:
-                  {material.level.map(level => (
-                    <span key={level.label}>{level.label} </span>
-                  ))}
-                </Typography>
-              ) : null} */}
             </CardContent>
           </NavLink>
         </CardActionArea>

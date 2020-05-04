@@ -1,11 +1,6 @@
 const axios = require("axios").default;
 
-export const SaveData = (
-  payload,
-  type,
-  setCompleted = "",
-  setSaved = false
-) => {
+export const SaveData = (payload, type, setCompleted = 0, setSaved = false) => {
   console.log("ms-share-actions- save ", payload);
 
   if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
@@ -16,28 +11,18 @@ export const SaveData = (
       console.log("ms-share-actions - Error - Should have files", payload);
     } else if (type === "Edit") {
       console.log("ms-share-actions -Saving edit material", payload);
-      editMaterial(payload, setSaved, setCompleted);
+      editMaterial(payload, setSaved);
     }
   }
   return true;
 };
 
-const editMaterial = (material, setSaved, setCompleted) => {
+const editMaterial = (material, setSaved) => {
   axios
-    .put(`/api/material/update/${material.id}`, material, {
-      onUploadProgress: (ProgressEvent) => {
-        setCompleted((oldCompleted) => {
-          if (oldCompleted === 100) {
-            return 0;
-          }
-          const diff = (ProgressEvent.loaded / ProgressEvent.total) * 100;
-          return Math.min(oldCompleted + diff, 100);
-        });
-      },
-    })
+    .put(`/api/material/update/${material.id}`, material, {})
     .then((res) => {
       console.log("saved edit to db", res.data);
-      setSaved(true);
+      setSaved = true;
     })
     .catch(function (err) {
       throw err;
@@ -191,13 +176,6 @@ export const getFilterResults = async (
   pupilTask,
   category
 ) => {
-  console.log("filter query search - ", search);
-  console.log("filter query timeInClass - ", timeInClass);
-  console.log("filter query timePrep - ", timePrep);
-  console.log("filter query level - ", level);
-  console.log("filter query languageFocus - ", languageFocus);
-  console.log("filter query activityUse - ", activityUse);
-  console.log("filter query category - ", category);
   let response = await fetch(
     `api/search?search=${search}&timeInClass=${timeInClass}&timePrep=${timePrep}&level=${level}&languageFocus=${languageFocus}&activityUse=${activityUse}&pupilTask=${pupilTask}&category=${category}`,
     {

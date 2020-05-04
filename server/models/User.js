@@ -63,32 +63,6 @@ const UserSchema = new Schema({
   }
 });
 
-// let UserSchema = new mongoose.Schema({
-//   name: String,
-//   email: {
-//     type: String,
-//     required: true,
-//     unique: true,
-//     match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/
-//   },
-//   password: { type: String, required: true },
-//   provider: String,
-//   provider_id: String,
-//   token: String,
-//   provider_pic: String,
-//   followers: [
-//     {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "User"
-//     }
-//   ],
-//   following: [
-//     {
-//       type: mongoose.Schema.Types.ObjectId,
-//       ref: "User"
-//     }
-//   ]
-// });
 UserSchema.methods.follow = function(user_id) {
   if (this.following.indexOf(user_id) === -1) {
     this.following.push(user_id);
