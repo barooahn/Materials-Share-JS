@@ -39,11 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
 export default ({ setMaterials, materials }) => {
   const classes = useStyles();
-  const { id } = useParams();
+  const { slug } = useParams();
   const [material, setMaterial] = React.useState([]);
   const [open, setOpen] = React.useState(false);
   const [likes, setLikes] = React.useState(material.likes || []);
   const author = localStorage.getItem("USER_ID");
+
   const handleOpen = () => {
     setOpen(true);
   };
@@ -67,16 +68,14 @@ export default ({ setMaterials, materials }) => {
 
   React.useEffect(() => {
     //get all Materials from db setMaterials
-    if (id !== undefined) {
-      async function fetchData(id) {
-        const resultData = await getMaterial(id);
-        setMaterial(resultData);
-      }
-      fetchData(id);
-      // });
+    if (slug !== undefined) {
+      getMaterial(slug).then((resultData) => {
+        setMaterial(resultData[0]);
+      });
     }
-  }, [id]);
+  }, [slug]);
 
+  console.log("Material material", material);
   const handleDeleteMaterial = () => {
     console.log("in card menu delte", material);
     DeleteMaterial(material._id);

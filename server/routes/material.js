@@ -23,11 +23,14 @@ module.exports = (router) => {
    * get all materials
    */
   router.route("/materials").get(materialcontroller.getMaterials);
-
   /**
    * get a particlular material to view
    */
-  router.route("/material/:id").get(materialcontroller.getMaterial);
+  router.route("/material/:slug").get(materialcontroller.getMaterialSlug);
+  // /**
+  //  * get a particlular material to view
+  //  */
+  // router.route("/material/:id").get(materialcontroller.getMaterial);
   /**
    * add a material
    */

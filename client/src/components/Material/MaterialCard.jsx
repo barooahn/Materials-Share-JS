@@ -97,7 +97,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           </div>
           <br />
           <NavLink
-            to={{ pathname: "/material/" + material._id }}
+            to={{ pathname: "/material/" + material.slug }}
             className="link"
             key="ma"
           >

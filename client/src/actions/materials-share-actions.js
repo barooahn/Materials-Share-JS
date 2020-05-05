@@ -88,8 +88,8 @@ export const getAllMaterials = async () => {
   return response.json();
 };
 
-export const getMaterial = async (id) => {
-  let response = await fetch(`/api/material/${id}`, {
+export const getMaterial = async (slug) => {
+  let response = await fetch(`/api/material/${slug}`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

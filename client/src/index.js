@@ -18,7 +18,8 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect
+  Redirect,
+  useParams,
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import ProfilePage from "./ProfilePage/ProfilePage";
@@ -43,14 +44,14 @@ Axios.defaults.headers.common["Authorization"] = jwtToken;
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
     {...rest}
-    render={props =>
+    render={(props) =>
       localStorage.getItem("JWT_TOKEN") ? (
         <Component {...props} />
       ) : (
         <Redirect
           to={{
             pathname: "/login",
-            state: { prevPath: rest.name }
+            state: { prevPath: rest.name },
           }}
         />
       )
@@ -59,9 +60,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 );
 
 function withProps(Component, props) {
-  return function(matchProps) {
+  return function (matchProps) {
     return <Component {...props} {...matchProps} />;
   };
+}
+
+function OneMaterial({ match }) {
+  let { slug } = useParams();
 }
 
 const routePaths = () => {
@@ -71,7 +76,10 @@ const routePaths = () => {
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/materials" component={Materials} />
-        <Route path="/material/:id" component={Material} />
+        <Route path="/material/:slug" component={Material}>
+          {/* <OneMaterial /> */}
+        </Route>
+        />
         <PrivateRoute
           path="/create"
           name="create"

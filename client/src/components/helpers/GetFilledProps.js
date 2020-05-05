@@ -16,16 +16,18 @@ const titles = [
   { activityUse: "Activity Use" },
   { materials: "Materials needed" },
   { preparation: "Time Needed For Preperation (mins)" },
-  { likes: "Likes" }
+  { likes: "Likes" },
+  { author_img: "author_img" },
+  { slug: "slug" },
 ];
 
-const getLabel = name => {
-  const label = titles.filter(x => name in x);
+const getLabel = (name) => {
+  const label = titles.filter((x) => name in x);
   //   console.log("label ", label[0][name]);
   return label[0][name];
 };
 
-const GetFilledProps = props => {
+const GetFilledProps = (props) => {
   let filled = [];
 
   for (var item in props) {
@@ -47,7 +49,8 @@ const GetFilledProps = props => {
       item !== "selectedFiles" &&
       item !== "showUpload" &&
       item !== "loaded" &&
-      item !== "comments"
+      item !== "author_img" &&
+      item !== "slug"
     ) {
       const label = getLabel(item);
       filled.push({ label: [label], name: item, value: props[item] });

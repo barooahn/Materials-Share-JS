@@ -140,6 +140,16 @@ module.exports = {
       });
   },
 
+  getMaterialSlug: (req, res, next) => {
+    Material.find({ slug: req.params.slug })
+      // .populate("author")
+      .exec((err, material) => {
+        if (material) return res.send(material);
+        else if (err) return res.send(err);
+        else return res.send(404);
+      });
+  },
+
   updateMaterial: (req, res, next) => {
     console.log("in update material body = ", req.body);
     Material.findOneAndUpdate(

@@ -1,7 +1,11 @@
 // server/models/Material.js
 const mongoose = require("mongoose");
+var slug = require("mongoose-slug-generator");
+mongoose.plugin(slug);
+
 let MaterialSchema = new mongoose.Schema({
   title: String,
+  slug: { type: String, slug: "title" },
   timeInClass: Number,
   timePrep: Number,
   procedureBefore: String,
