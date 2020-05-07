@@ -49,9 +49,9 @@ module.exports = {
   login: (req, res, next) => {
     // Generate token
     signUser.signUser(req.user);
-    // res
-    //   .status(200)
-    //   .json({ message: "User logged In", token, id: req.user._id });
+    res
+      .status(200)
+      .json({ message: "User logged In", token, id: req.user._id });
   },
 
   signUser: async (req, res, next) => {

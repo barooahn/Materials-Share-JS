@@ -50,7 +50,7 @@ UserSchema.pre("save", async function (next) {
     const passwordHash = await bcrypt.hash(this.password, salt);
     // Re-assign hashed version over original, plain text password
     this.password = passwordHash;
-    console.log("exited");
+    console.log("Server/ Models/ user  pre save exited");
     next();
   } catch (error) {
     next(error);
