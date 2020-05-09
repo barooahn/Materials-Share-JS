@@ -60,7 +60,7 @@ export default () => {
     }
 
     fetchData();
-  }, []);
+  }, [id]);
 
   const handleMyMaterials = () => {
     // console.log("herer");
@@ -178,23 +178,3 @@ export default () => {
 //     await console.log(data);
 //     await this.setState({ data: data });
 //   };
-
-const styles = {
-  paperCenter: {
-    width: "91%",
-    margin: "10px auto",
-    padding: "10px",
-  },
-  button: {
-    margin: 15,
-  },
-  p_wrap: {
-    whiteSpace: "pre-line",
-  },
-  selectSpans: {
-    display: "block",
-  },
-  card: {
-    margin: "10px auto",
-  },
-};

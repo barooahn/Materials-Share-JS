@@ -163,16 +163,17 @@ export default ({
       <br />
       {files || localFiles.length > 0 ? (
         <div>
-          <Typography variant="h6" component={"span"}>
+          {/* <Typography variant="h6" component={"span"}>
             Give your resource a title
-          </Typography>
+          </Typography> */}
           <TextField
             key="Give your resource a title"
             label="Give your resource a title"
             value={title}
             onChange={changeTitle}
             margin="normal"
-            style={{ width: "100%" }}
+            variant="outlined"
+            fullWidth
           />
         </div>
       ) : null}

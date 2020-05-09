@@ -25,6 +25,12 @@ const UserSchema = new Schema({
   password: {
     type: String,
   },
+  resetPasswordToken: {
+    type: String,
+  },
+  resetPasswordExpires: {
+    type: Date,
+  },
 });
 
 UserSchema.methods.follow = function (user_id) {

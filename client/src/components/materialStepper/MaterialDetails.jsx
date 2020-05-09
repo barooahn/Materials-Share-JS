@@ -8,17 +8,26 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Switch from "@material-ui/core/Switch";
 import Paper from "@material-ui/core/Paper";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   inputWrapper: {
     display: "flex",
     flexDirection: "column",
-    padding: 20
+    padding: 20,
   },
   paper: {
     width: "95%",
     margin: "20px auto",
-    padding: "15px"
-  }
+    padding: "15px",
+  },
+  inputText: {
+    marginBottom: 10,
+  },
+  inputSlider: {
+    marginBottom: 10,
+  },
+  inputAutocomplete: {
+    marginBottom: 10,
+  },
 }));
 
 export default ({
@@ -37,16 +46,16 @@ export default ({
   timeInClass,
   setTimeInClass,
   share,
-  setShare,
+  changeShare,
   targetLanguage,
-  setTargetLanguage
+  setTargetLanguage,
 }) => {
   const classes = useStyles();
-  const changeTitle = e => {
+  const changeTitle = (e) => {
     setTitle(e.target.value);
   };
 
-  const changeObjective = e => {
+  const changeObjective = (e) => {
     setObjective(e.target.value);
   };
 
@@ -67,35 +76,34 @@ export default ({
       label: "Title",
       multi: true,
       value: title,
-      onChange: changeTitle
+      onChange: changeTitle,
     },
     {
       type: "text",
       label: "Objective",
       multi: true,
       value: objective,
-      onChange: changeObjective
+      onChange: changeObjective,
     },
     {
       type: "text",
       label: "Target Language",
       multi: true,
       value: targetLanguage,
-      onChange: changeTargetLanguage
+      onChange: changeTargetLanguage,
     },
     {
       type: "slider",
-      label:
-        "Time needed for preparation (slide bar or type - number of minutes)",
+      label: "Time needed for preparation (minutes)",
       value: timePrep,
-      onChange: changeTimePrep
+      onChange: changeTimePrep,
     },
     {
       type: "slider",
-      label: "Time needed in class (slide bar or type - number of minutes)",
+      label: "Time needed in class (minutes)",
       value: timeInClass,
-      onChange: changeTimeInClass
-    }
+      onChange: changeTimeInClass,
+    },
   ];
 
   return (
@@ -108,6 +116,9 @@ export default ({
               label={input.label}
               value={input.value}
               onChange={input.onChange}
+              fullWidth
+              variant="outlined"
+              className={classes.inputText}
             />
           );
         } else if (input.type === "slider") {
@@ -117,12 +128,14 @@ export default ({
               <Typography gutterBottom> {input.label} </Typography>
               <Slider
                 key={index}
-                getAriaLabel={index =>
+                getAriaLabel={(index) =>
                   index === 0 ? "Minimum Minutes" : "Maximum Minutes"
                 }
                 value={input.value}
                 valueLabelDisplay="on"
+                className={classes.inputSlider}
                 onChange={input.onChange}
+                fullWidth
               />
             </div>
           );
@@ -137,14 +150,17 @@ export default ({
         onChange={setPupilTaskValue}
         options={pupilTasks}
         freeSolo={true}
-        getOptionLabel={option => option.label}
-        style={{
-          width: 600
-        }}
-        renderInput={params => (
+        className={classes.inputAutocomplete}
+        getOptionLabel={(option) => option.label}
+        // style={{
+        //   width: 600
+        // }}
+        fullWidth
+        renderInput={(params) => (
           <TextField
             {...params}
-            label="What type of work do the pupils do? - Pair, group individual etc."
+            label="How will the pupils work?"
+            placeholder="Pair, group, individual etc."
             variant="outlined"
             fullWidth
           />
@@ -157,14 +173,17 @@ export default ({
         onChange={setLevelValue}
         options={levels}
         freeSolo={true}
-        getOptionLabel={option => option.label}
-        style={{
-          width: 600
-        }}
-        renderInput={params => (
+        getOptionLabel={(option) => option.label}
+        className={classes.inputAutocomplete}
+        // style={{
+        //   width: 600
+        // }}
+        fullWidth
+        renderInput={(params) => (
           <TextField
             {...params}
-            label="What level is the materials based on? - Level 1, intermediate, first year etc."
+            label="What level?"
+            placeholder="Level 1, intermediate, first year etc."
             variant="outlined"
             fullWidth
           />
@@ -172,12 +191,7 @@ export default ({
       />
       <FormControlLabel
         control={
-          <Switch
-            checked={true}
-            onChange={setShare}
-            value={share}
-            color="primary"
-          />
+          <Switch checked={share} onChange={changeShare} color="primary" />
         }
         label="Share your resource"
       />

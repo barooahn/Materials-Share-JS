@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   appBar: {
-    top: "auto",
+    // top: "auto",
     top: 0,
   },
   grow: {

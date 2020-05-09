@@ -19,13 +19,14 @@ import {
   Route,
   Switch,
   Redirect,
-  useParams,
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import ProfilePage from "./ProfilePage/ProfilePage";
 import Axios from "axios";
 import MaterialStepper from "./components/materialStepper/MaterialStepper";
 import SearchResults from "./components/nav/SearchResults";
+import ResetPassword from "./LoginPage/ResetPassword";
+import ForgotPassword from "./LoginPage/ForgotPassword";
 
 //routes
 
@@ -65,10 +66,6 @@ function withProps(Component, props) {
   };
 }
 
-function OneMaterial({ match }) {
-  let { slug } = useParams();
-}
-
 const routePaths = () => {
   return (
     <main>
@@ -76,9 +73,7 @@ const routePaths = () => {
         <Route exact path="/" component={App} />
         <Route path="/users" component={Users} />
         <Route path="/materials" component={Materials} />
-        <Route path="/material/:slug" component={Material}>
-          {/* <OneMaterial /> */}
-        </Route>
+        <Route path="/material/:slug" component={Material}></Route>
         />
         <PrivateRoute
           path="/create"
@@ -91,6 +86,8 @@ const routePaths = () => {
           path="/login"
           component={withProps(Login, { state: { prevPath: "login" } })}
         />
+        <Route path="/resetPassword" component={ResetPassword} />
+        <Route path="/forgotPassword" component={ForgotPassword} />
         <Route
           path="/register"
           component={withProps(Register, { state: { prevPath: "register" } })}

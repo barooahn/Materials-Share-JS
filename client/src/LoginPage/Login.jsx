@@ -15,8 +15,9 @@ import FacebookLogin from "react-facebook-login";
 import GoogleLogin from "react-google-login";
 import { useLocation, useHistory } from "react-router-dom";
 import { signUser, logIn } from "../auth/helpers";
+import { NavLink } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   main: {
     width: "auto",
     display: "block", // Fix IE 11 issue.
@@ -25,29 +26,30 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 400,
       marginLeft: "auto",
-      marginRight: "auto"
+      marginRight: "auto",
     },
-    paddingBottom: 70
+    paddingBottom: 70,
   },
   paper: {
     marginTop: theme.spacing.unit * 8,
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme
-      .spacing.unit * 3}px`
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
+      theme.spacing.unit * 3
+    }px`,
   },
   avatar: {
     margin: theme.spacing.unit,
-    backgroundColor: theme.palette.secondary.main
+    backgroundColor: theme.palette.secondary.main,
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing.unit
+    marginTop: theme.spacing.unit,
   },
   submit: {
-    marginTop: theme.spacing.unit * 3
-  }
+    marginTop: theme.spacing.unit * 3,
+  },
 }));
 
 export default () => {
@@ -56,13 +58,14 @@ export default () => {
     cardAnimaton: "cardHidden",
     email: "",
     password: "",
-    formErrors: ""
+    formErrors: "",
   });
 
+  // const preventDefault = (event) => event.preventDefault();
   let location = useLocation();
   let history = useHistory();
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setState({ [e.target.name]: e.target.value });
   };
 
@@ -74,11 +77,11 @@ export default () => {
     history.push(to);
   };
 
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     const user = {
       email: state.email,
-      password: state.password
+      password: state.password,
     };
 
     await logIn(user);
@@ -87,13 +90,13 @@ export default () => {
     }
   };
 
-  const responseGoogle = async res => {
+  const responseGoogle = async (res) => {
     const user = {
       method: "google",
       name: res.profileObj.name,
       id: res.profileObj.googleId,
       img: res.profileObj.imageUrl,
-      email: res.profileObj.email
+      email: res.profileObj.email,
     };
 
     const response = await signUser(user);
@@ -103,14 +106,14 @@ export default () => {
     }
   };
 
-  const responseFacebook = async res => {
+  const responseFacebook = async (res) => {
     // console.log("got facebook response ", res.id);
     const user = {
       method: "facebook",
       name: res.name,
       id: res.id,
       img: res.picture.data.url,
-      email: res.email
+      email: res.email,
     };
     const response = await signUser(user);
 
@@ -184,6 +187,11 @@ export default () => {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
+          <Typography className={classes.root}>
+            <NavLink to="/forgotPassword" className="link" key="profile">
+              Forgotten Password
+            </NavLink>
+          </Typography>
           <Button
             type="submit"
             fullWidth

@@ -58,7 +58,7 @@ app.use((req, res, next) => {
   next();
 });
 
-//app.use(helmet());
+app.use(helmet());
 //app.use('/static',express.static(path.join(__dirname,'static')))
 
 /** set up routes {API Endpoints} */

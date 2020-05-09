@@ -205,7 +205,7 @@ export default function MaterialStepper() {
             pupilTaskValue={pupilTaskValue}
             setPupilTaskValue={changePupilTask}
             share={share}
-            setShare={setShare}
+            changeShare={changeShare}
             type={type}
           />
         );
@@ -332,6 +332,10 @@ export default function MaterialStepper() {
   const changeActivityUse = (e, value) => {
     optionChange(value);
     setActivityUseValue(value);
+  };
+
+  const changeShare = (e) => {
+    setShare(e.target.checked);
   };
 
   // console.log("material stepper title - ", title);

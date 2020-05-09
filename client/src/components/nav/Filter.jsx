@@ -11,7 +11,6 @@ import Collapse from "@material-ui/core/Collapse";
 
 import { SetAutocompletes } from "../helpers/SetAutocompletes";
 import {
-  getAllMaterials,
   getFilterResults,
 } from "../../actions/materials-share-actions";
 

@@ -2,6 +2,8 @@
 const User = require("../models/User");
 const Material = require("../models/Material");
 const signUser = require("../signUser");
+const nodemailer = require("nodemailer");
+const crypto = require("crypto");
 
 module.exports = {
   registerUser: async (req, res, next) => {
@@ -156,5 +158,98 @@ module.exports = {
         });
       })
       .catch((err) => console.log(err));
+  },
+
+  forgotPassword: (req, res, next) => {
+    if (req.body.email === "") {
+      res.status(400).send("email required");
+    }
+    console.error(req.body.email);
+    User.findOne({
+      email: req.body.email,
+    }).then((user) => {
+      if (user === null) {
+        console.error("email not in database");
+        res.status(403).send("email not in db");
+      } else {
+        const token = crypto.randomBytes(20).toString("hex");
+        user.update({
+          resetPasswordToken: token,
+          resetPasswordExpires: Date.now() + 3600000,
+        });
+
+        const transporter = nodemailer.createTransport({
+          service: "gmail",
+          auth: {
+            user: `${process.env.EMAIL_ADDRESS}`,
+            pass: `${process.env.EMAIL_PASSWORD}`,
+          },
+        });
+
+        const mailOptions = {
+          from: "materialsshare@gmail.com",
+          to: `${user.email}`,
+          subject: "Link To Reset Password",
+          text:
+            "You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
+            "Please click on the following link, or paste this into your browser to complete the process within one hour of receiving it:\n\n" +
+            `http://localhost:5000/reset/${token}\n\n` +
+            "If you did not request this, please ignore this email and your password will remain unchanged.\n",
+        };
+
+        console.log("sending mail");
+
+        transporter.sendMail(mailOptions, (err, response) => {
+          if (err) {
+            console.error("there was an error: ", err);
+          } else {
+            console.log("here is the res: ", response);
+            res.status(200).json("recovery email sent");
+          }
+        });
+      }
+    });
+  },
+
+  updatePasswordViaEmail: async (req, res, next) => {
+    const filter = {
+      name: req.body.name,
+      resetPasswordToken: req.body.resetPasswordToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    };
+    const update = { password: eq.body.password };
+
+    let updatedUser = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
+
+    if (updatedUser == null) {
+      console.error("password reset link is invalid or has expired");
+      res.status(403).send("password reset link is invalid or has expired");
+    } else if (updatedUser != null) {
+      console.log("user exists in db");
+      console.log("password updated");
+      res.status(200).send({ message: "password updated" });
+    } else {
+      console.error("no user exists in db to update");
+      res.status(401).json("no user exists in db to update");
+    }
+  },
+
+  resetPassword: async (req, res, next) => {
+    User.findOne({
+      resetPasswordToken: req.query.resetPasswordToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    }).then((user) => {
+      if (user == null) {
+        console.error("password reset link is invalid or has expired");
+        res.status(403).send("password reset link is invalid or has expired");
+      } else {
+        res.status(200).send({
+          name: user.name,
+          message: "password reset link a-ok",
+        });
+      }
+    });
   },
 }; // end

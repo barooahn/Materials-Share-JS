@@ -32,6 +32,12 @@ module.exports = (router) => {
     usercontroller.login
   );
 
+  router.route("/users/forgotPassword").post(usercontroller.forgotPassword);
+  router.route("/users/reset").post(usercontroller.resetPassword);
+  router
+    .route("/users/updatePasswordViaEmail")
+    .post(usercontroller.updatePasswordViaEmail);
+
   router.get("/logout", function (req, res) {
     req.logout();
     res.status(200).json({
