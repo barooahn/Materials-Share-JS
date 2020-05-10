@@ -1,17 +1,19 @@
 import React, { Component } from "react";
 import "./App.css";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import theme from './theme'
 import Home from "./components/Home";
-// import { library } from "@fortawesome/fontawesome-svg-core";
-// import { fab } from "@fortawesome/free-brands-svg-icons";
-
-// library.add(fab);
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <Home />
-      </div>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <div className="App">
+          <Home />
+        </div>
+      </ThemeProvider>
     );
   }
 }

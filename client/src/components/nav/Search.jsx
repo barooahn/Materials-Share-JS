@@ -121,7 +121,7 @@ export default function Search({ setGettingSearchResults }) {
                 endAdornment: (
                   <React.Fragment>
                     {loading ? (
-                      <CircularProgress color="inherit" size={20} />
+                      <CircularProgress color="secondary" size={20} />
                     ) : null}
                     {params.InputProps.endAdornment}
                   </React.Fragment>

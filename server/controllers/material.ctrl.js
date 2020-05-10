@@ -3,10 +3,8 @@ const Material = require("../models/Material");
 const fs = require("fs");
 const { uploadAws, deleteAws } = require("../file-upload/aws-file-services");
 
-// const filepath = `${__dirname}../../../client/public/files/`;
-// const filepath = "localhost:5000/server/tempFileUpload/";
 const filepath = `${__dirname}..\\..\\..\\public\\`;
-// const filepath = "";
+
 
 const moveFile = (file) => {
   file.name = file.name.replace(/\s/g, "_").toLowerCase();

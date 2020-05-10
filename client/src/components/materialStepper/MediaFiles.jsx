@@ -21,21 +21,21 @@ const allowedMimeTypes = [
   "image/png",
   "video/mp4",
   "video/webm",
-  "video/ogg"
+  "video/ogg",
 ];
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   button: {
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   instructions: {
     marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   paper: {
     width: "95%",
     margin: "20px auto",
-    padding: "15px"
-  }
+    padding: "15px",
+  },
 }));
 
 export default ({
@@ -45,26 +45,26 @@ export default ({
   setFiles,
   localFiles,
   setLocalFiles,
-  type
+  type,
 }) => {
   const [errorMsg, setErrorMsg] = useState("");
   const classes = useStyles();
-  const changeTitle = e => {
+  const changeTitle = (e) => {
     setTitle(e.target.value);
   };
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     //   //validate mime type
     // DisplayFiles(e.target.files);
     const reExtension = /(?:\.([^.]+))?$/;
     let files = Array.from(e.target.files);
-    files.forEach(file => {
+    files.forEach((file) => {
       const ext = file.name.match(reExtension)[1].toLowerCase();
       if (ext === "docx" || allowedMimeTypes.includes(file.type)) {
         setErrorMsg("");
-        setLocalFiles(media => [
+        setLocalFiles((media) => [
           ...media,
-          { preview: URL.createObjectURL(file), raw: file }
+          { preview: URL.createObjectURL(file), raw: file },
         ]);
       } else {
         setErrorMsg("This file type is not currently supported");
@@ -72,34 +72,34 @@ export default ({
     });
   };
 
-
-  //to do refactor using action 
-  const handleDelete = file => {
+  //to do refactor using action
+  const handleDelete = (file) => {
     var fileNoPath = file.substring(
       "https://matshre-assets.s3.eu-west-2.amazonaws.com/".length
     );
     axios
       .delete("/api/material/file/delete", {
-        data: { file: fileNoPath }
+        data: { file: fileNoPath },
       })
-      .then(res => {
-        const removed = [...files].filter(x => x !== file);
+      .then((res) => {
+        const removed = [...files].filter((x) => x !== file);
         setFiles(removed);
       })
-      .catch(function(err) {
+      .catch(function (err) {
         console.log(err);
       });
   };
 
-  const handleDeleteLocal = file => {
-    setLocalFiles(localFiles.filter(item => item.raw.name !== file.raw.name));
+  const handleDeleteLocal = (file) => {
+    setLocalFiles(localFiles.filter((item) => item.raw.name !== file.raw.name));
   };
 
   return (
     <Paper className={classes.paper}>
-      <Typography variant="h5" component={"span"}>
+      <Typography variant="h5" component={"span"} color="secondary">
         {errorMsg}
       </Typography>
+      <br />
       <Typography variant="h5" component={"span"}>
         Step 1: Upload Media
       </Typography>
@@ -114,7 +114,7 @@ export default ({
         onChange={handleChange}
       />
       {/* ----------for new files------------------  */}
-      {localFiles.map(file => {
+      {localFiles.map((file) => {
         const reExtension = /(?:\.([^.]+))?$/;
         const ext = file.raw.name.match(reExtension)[1].toLowerCase();
         return (
@@ -135,7 +135,7 @@ export default ({
       {
         (type =
           "Edit" &&
-          files.map(file => {
+          files.map((file) => {
             const reExtension = /(?:\.([^.]+))?$/;
             const ext = file.match(reExtension)[1].toLowerCase();
             return (

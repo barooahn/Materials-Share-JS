@@ -13,6 +13,9 @@ import Login from "./LoginPage/Login";
 import Register from "./RegisterPage/Register2";
 import Material from "./components/Material/Material";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import { ThemeProvider } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import theme from "./theme";
 
 import {
   BrowserRouter as Router,
@@ -114,9 +117,12 @@ const nav =
   );
 
 const routing = (
-  <Router>
-    <React.Fragment>{nav}</React.Fragment>
-  </Router>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Router>
+      <React.Fragment>{nav}</React.Fragment>
+    </Router>
+  </ThemeProvider>
 );
 
 ReactDOM.render(routing, document.getElementById("root"));

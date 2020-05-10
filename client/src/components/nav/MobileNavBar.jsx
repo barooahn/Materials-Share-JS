@@ -32,6 +32,7 @@ import Filter from "./Filter";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -83,18 +84,27 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.getContrastText(deepOrange[500]),
     backgroundColor: deepOrange[500],
   },
-  profile: { display: "flex", justifyContent: "flex-end" },
+  toolbar: {
+    display: "flex",
+    flexDirection: "row",
+  },
+  profile: { alignSelf: "flex-end" },
+  logo: {
+    cursor: "pointer",
+    flexGrow: 1,
+    display: "flex",
+    justifyContent: "flex-start",
+  },
   search: { display: "flex ", width: "100%" },
+  upDownArrow: {
+    marginLeft: -10,
+    marginRight: -10,
+  },
   circularProgress: {
     position: "absolute",
     top: "50%",
     left: "47%",
     zIndex: 50,
-  },
-  logo: {
-    height: 20,
-    paddingRight: 20,
-    cursor: "pointer",
   },
 }));
 
@@ -224,13 +234,10 @@ export default function LabelBottomNavigation({ routePaths }) {
       <CssBaseline />
       <HideOnScroll>
         <AppBar position="sticky" color="default" className={classes.appBar}>
-          <Toolbar className={classes.profile}>
-            <img
-              src={"/img/SVG/MaterialsshareLogoMobile.svg"}
-              alt="Materialsshare Logo"
-              className={classes.logo}
-              onClick={handleHomeClick}
-            />
+          <Toolbar className={classes.toolbar} disableGutters>
+            <IconButton className={classes.logo} onClick={handleHomeClick}>
+              <LocalLibraryIcon color="secondary" fontSize="large" />
+            </IconButton>
             {/* <div className={classes.grow} /> */}
             {"/" === location.pathname ||
             "/materials" === location.pathname ||
@@ -244,19 +251,19 @@ export default function LabelBottomNavigation({ routePaths }) {
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
                   aria-label="show more"
+                  className={classes.upDownArrow}
+                  fontSize="large"
                 >
                   <ExpandMoreIcon />
                 </IconButton>
               </div>
             ) : null}
-            {/* <div className={classes.grow} /> */}
             <IconButton
-              edge="end"
+              className={classes.profile}
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
-              color="inherit"
             >
               <Avatar
                 alt={localStorage.getItem("USER_NAME")}
