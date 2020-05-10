@@ -403,7 +403,7 @@ export default function MiniDrawer({ routePaths }) {
           <Filter
             expanded={expanded}
             className={classes.filter}
-            // onFilter={filterMaterials}
+            setExpanded={setExpanded}
           />
         ) : null}
         {gettingSearchResults ? (

@@ -76,6 +76,8 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
+    marginLeft: -10,
+    marginRight: -10,
   },
   expandOpen: {
     transform: "rotate(180deg)",
@@ -96,10 +98,6 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "flex-start",
   },
   search: { display: "flex ", width: "100%" },
-  upDownArrow: {
-    marginLeft: -10,
-    marginRight: -10,
-  },
   circularProgress: {
     position: "absolute",
     top: "50%",
@@ -170,7 +168,8 @@ export default function LabelBottomNavigation({ routePaths }) {
 
   function HideOnScroll(props) {
     const { children } = props;
-    const trigger = useScrollTrigger();
+    let thresh = expanded ? 1000000 : 100;
+    const trigger = useScrollTrigger({ threshold: thresh });
     return (
       <Slide appear={false} direction="down" in={!trigger}>
         {children}
@@ -251,7 +250,6 @@ export default function LabelBottomNavigation({ routePaths }) {
                   onClick={handleExpandClick}
                   aria-expanded={expanded}
                   aria-label="show more"
-                  className={classes.upDownArrow}
                   fontSize="large"
                 >
                   <ExpandMoreIcon />
@@ -277,7 +275,11 @@ export default function LabelBottomNavigation({ routePaths }) {
       {"/" === location.pathname ||
       "/materials" === location.pathname ||
       "/search" === location.pathname ? (
-        <Filter expanded={expanded} className={classes.filter} />
+        <Filter
+          expanded={expanded}
+          className={classes.filter}
+          setExpanded={setExpanded}
+        />
       ) : null}
       {gettingSearchResults ? (
         <div className={classes.circularProgress}>
