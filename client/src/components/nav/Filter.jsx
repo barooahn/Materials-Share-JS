@@ -10,9 +10,11 @@ import { useHistory, useLocation } from "react-router-dom";
 import Collapse from "@material-ui/core/Collapse";
 
 import { SetAutocompletes } from "../helpers/SetAutocompletes";
-import {
-  getFilterResults,
-} from "../../actions/materials-share-actions";
+import { getFilterResults } from "../../actions/materials-share-actions";
+
+const filterHeight =
+  document.documentElement.clientWidth < 600 ? "100vh" : "auto";
+console.log("filter filterheight", filterHeight);
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
@@ -20,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: 2,
     maxWidth: "100%",
+    height: filterHeight + "!important",
+    marginTop: 10,
   },
   filterItem: {
     marginBottom: 5,

@@ -132,6 +132,11 @@ const useStyles = makeStyles((theme) => ({
     minWidth: 265,
     textAlign: "right",
   },
+  logo: {
+    height: 20,
+    paddingRight: 20,
+    cursor: "pointer",
+  },
 }));
 
 export default function MiniDrawer({ routePaths }) {
@@ -185,6 +190,9 @@ export default function MiniDrawer({ routePaths }) {
     logOut();
     // setIsAuthenticated("");
     handleMenuClose();
+    history.push("/");
+  };
+  const handleHomeClick = () => {
     history.push("/");
   };
 
@@ -254,11 +262,12 @@ export default function MiniDrawer({ routePaths }) {
           >
             <MenuIcon />
           </IconButton>
-
-          <Typography variant="h6" noWrap className={classes.logo}>
-            Materials Share
-          </Typography>
-
+          <img
+            src={"/img/SVG/MaterialsshareLogo.svg"}
+            alt="Materialsshare Logo"
+            className={classes.logo}
+            onClick={handleHomeClick}
+          />
           {"/" === location.pathname ||
           "/materials" === location.pathname ||
           "/search" === location.pathname ? (
@@ -334,14 +343,17 @@ export default function MiniDrawer({ routePaths }) {
         </div>
         <Divider />
         <List>
-          <NavLink to="/" className="link">
-            <ListItem button key={"Home"} selected={"/" === location.pathname}>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="Home" />
-            </ListItem>
-          </NavLink>
+          <ListItem
+            button
+            key={"Home"}
+            onClick={handleHomeClick}
+            selected={"/" === location.pathname}
+          >
+            <ListItemIcon>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary="Home" />
+          </ListItem>
 
           <NavLink to="/materials" className="link">
             <ListItem

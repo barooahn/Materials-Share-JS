@@ -91,6 +91,11 @@ const useStyles = makeStyles((theme) => ({
     left: "47%",
     zIndex: 50,
   },
+  logo: {
+    height: 20,
+    paddingRight: 20,
+    cursor: "pointer",
+  },
 }));
 
 export default function LabelBottomNavigation({ routePaths }) {
@@ -220,6 +225,12 @@ export default function LabelBottomNavigation({ routePaths }) {
       <HideOnScroll>
         <AppBar position="sticky" color="default" className={classes.appBar}>
           <Toolbar className={classes.profile}>
+            <img
+              src={"/img/SVG/MaterialsshareLogoMobile.svg"}
+              alt="Materialsshare Logo"
+              className={classes.logo}
+              onClick={handleHomeClick}
+            />
             {/* <div className={classes.grow} /> */}
             {"/" === location.pathname ||
             "/materials" === location.pathname ||
@@ -254,13 +265,13 @@ export default function LabelBottomNavigation({ routePaths }) {
               />
             </IconButton>
           </Toolbar>
-          {"/" === location.pathname ||
-          "/materials" === location.pathname ||
-          "/search" === location.pathname ? (
-            <Filter expanded={expanded} className={classes.filter} />
-          ) : null}
         </AppBar>
       </HideOnScroll>
+      {"/" === location.pathname ||
+      "/materials" === location.pathname ||
+      "/search" === location.pathname ? (
+        <Filter expanded={expanded} className={classes.filter} />
+      ) : null}
       {gettingSearchResults ? (
         <div className={classes.circularProgress}>
           <CircularProgress size={40} color="secondary" />
