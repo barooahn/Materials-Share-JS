@@ -31,6 +31,7 @@ export const signUser = async (user) => {
   localStorage.setItem("USER_IMG", res.data.img || "");
   localStorage.setItem("USER_NAME", res.data.name || "");
   axios.defaults.headers.common["Authorization"] = res.data.token || "";
+  return res;
 };
 
 export const register = async (data) => {
@@ -51,13 +52,16 @@ export const logOut = () => {
 };
 
 export const logIn = async (data) => {
+  console.log(" helpers login data", data);
   try {
     const res = await axios.post("/api/users/login", data);
     localStorage.setItem("JWT_TOKEN", res.data.token || "");
-    localStorage.setItem("USER_ID", res.data.id || "");
-    localStorage.setItem("USER_IMG", res.data.img || "");
-    localStorage.setItem("USER_NAME", res.data.name || "");
+    localStorage.setItem("USER_ID", res.data.user._id || "");
+    localStorage.setItem("USER_IMG", res.data.user.img || "");
+    localStorage.setItem("USER_NAME", res.data.user.name || "");
     axios.defaults.headers.common["Authorization"] = res.data.token || "";
+    console.log(" helpers login result", res);
+    return res;
   } catch (err) {
     console.log(err);
   }

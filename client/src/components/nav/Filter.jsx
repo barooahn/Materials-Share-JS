@@ -23,10 +23,8 @@ const useStyles = makeStyles((theme) => ({
     padding: 2,
     maxWidth: "100%",
     top: 60,
-    paddingTop: 25,
     position: "sticky",
     zIndex: 3,
-    // backgroundColor: "white",
   },
   paper: {
     paddingTop: 25,

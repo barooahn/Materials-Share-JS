@@ -6,7 +6,6 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
@@ -301,7 +300,7 @@ export default function MiniDrawer({ routePaths }) {
       >
         <MenuItem onClick={handleMenuClose}>
           <NavLink to="/profile" className="link" key="profile">
-            <ListItem>
+            <ListItem component="div">
               <ListItemIcon>
                 <Assignment />
               </ListItemIcon>
@@ -311,7 +310,7 @@ export default function MiniDrawer({ routePaths }) {
         </MenuItem>
 
         <MenuItem onClick={handleSignOutClick}>
-          <ListItem>
+          <ListItem component="div">
             <ListItemIcon>
               <Eject />
             </ListItemIcon>
@@ -343,7 +342,7 @@ export default function MiniDrawer({ routePaths }) {
         </div>
         <Divider />
         <List>
-          <ListItem
+          <ListItem 
             button
             key={"Home"}
             onClick={handleHomeClick}

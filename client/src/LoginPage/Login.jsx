@@ -3,11 +3,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import Input from "@material-ui/core/Input";
-import InputLabel from "@material-ui/core/InputLabel";
+import TextField from "@material-ui/core/TextField";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
@@ -50,28 +48,33 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     marginTop: theme.spacing.unit * 3,
   },
+  input: {
+    marginBottom: 12,
+  },
 }));
 
 export default () => {
   const classes = useStyles();
-  const [state, setState] = React.useState({
-    cardAnimaton: "cardHidden",
-    email: "",
-    password: "",
-    formErrors: "",
-  });
+
+  // const [cardAnimaton, setCardAnimaton] = React.useState("cardHidden");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [formErrors, setFormErrors] = React.useState("");
 
   // const preventDefault = (event) => event.preventDefault();
   let location = useLocation();
   let history = useHistory();
 
-  const handleChange = (e) => {
-    setState({ [e.target.name]: e.target.value });
+  const handleEmailChange = (e) => {
+    setEmail(e.target.value);
+  };
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   const setReturnPath = () => {
     const to =
-      location.state !== undefined && location.state.prevPath === "create"
+      location.state !== undefined && location.prevPath === "create"
         ? "/create"
         : "/profile";
     history.push(to);
@@ -80,12 +83,13 @@ export default () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const user = {
-      email: state.email,
-      password: state.password,
+      email,
+      password,
     };
 
-    await logIn(user);
-    if (!state.errorMessage) {
+    const response = await logIn(user);
+    console.log(" Login response", response);
+    if (response) {
       setReturnPath();
     }
   };
@@ -101,7 +105,7 @@ export default () => {
 
     const response = await signUser(user);
 
-    if (!state.errorMessage) {
+    if (response) {
       setReturnPath();
     }
   };
@@ -117,7 +121,7 @@ export default () => {
     };
     const response = await signUser(user);
 
-    if (!state.errorMessage) {
+    if (response) {
       setReturnPath();
     }
   };
@@ -139,7 +143,7 @@ export default () => {
           component="h6"
           variant="h6"
         >
-          {state.formErrors}
+          {formErrors}
         </Typography>
 
         <FacebookLogin
@@ -161,28 +165,29 @@ export default () => {
         />
 
         <form className={classes.form}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="email">Email Address</InputLabel>
-            <Input
-              id="email"
-              name="email"
-              autoComplete="email"
-              autoFocus
-              onChange={handleChange}
-              value={state.email}
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input
-              name="password"
-              type="password"
-              id="password"
-              autoComplete="new-password"
-              onChange={handleChange}
-              value={state.password}
-            />
-          </FormControl>
+          <TextField
+            className={classes.input}
+            label="Email *"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            onChange={handleEmailChange}
+            value={email}
+            fullWidth
+            variant="outlined"
+          />
+          <TextField
+            className={classes.input}
+            label="Password *"
+            name="password"
+            type="password"
+            id="password"
+            autoComplete="new-password"
+            onChange={handlePasswordChange}
+            value={password}
+            fullWidth
+            variant="outlined"
+          />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"

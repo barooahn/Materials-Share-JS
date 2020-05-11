@@ -56,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     // top: "auto",
     top: 0,
+    marginBottom: 20,
   },
   grow: {
     flexGrow: 1,
@@ -72,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
   },
   expand: {
     transform: "rotate(0deg)",
-    marginLeft: "auto",
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),

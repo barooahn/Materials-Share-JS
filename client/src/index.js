@@ -30,6 +30,7 @@ import MaterialStepper from "./components/materialStepper/MaterialStepper";
 import SearchResults from "./components/nav/SearchResults";
 import ResetPassword from "./LoginPage/ResetPassword";
 import ForgotPassword from "./LoginPage/ForgotPassword";
+import UpdatePassword from "./LoginPage/UpdatePassword";
 
 //routes
 
@@ -89,8 +90,9 @@ const routePaths = () => {
           path="/login"
           component={withProps(Login, { state: { prevPath: "login" } })}
         />
-        <Route path="/resetPassword" component={ResetPassword} />
         <Route path="/forgotPassword" component={ForgotPassword} />
+        <Route path="/reset/:token" component={ResetPassword} />
+        <Route exact path="/updatePassword/:id" component={UpdatePassword} />
         <Route
           path="/register"
           component={withProps(Register, { state: { prevPath: "register" } })}

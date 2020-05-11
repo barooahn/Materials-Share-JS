@@ -6,14 +6,10 @@ const LocalStrategy = require("passport-local");
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
 const User = require("../server/models/User");
-// const GooglePlusTokenStrategy = require("passport-google-plus-token");
-
-// const GoogleStrategy = require("passport-google-oauth").OAuth2Strategy;
-// const FacebookTokenStrategy = require("passport-facebook-token");
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromHeader("authorization"),
-  secretOrKey: process.env.JWT_KEY
+  secretOrKey: process.env.JWT_KEY,
 };
 
 passport.use(
@@ -31,26 +27,30 @@ passport.use(
 passport.use(
   new LocalStrategy(
     {
-      usernameField: "email"
+      usernameField: "email",
     },
     async (email, password, done) => {
       try {
         // Find the user given the email
-        const user = await User.findOne({ "local.email": email });
+        const user = await User.findOne({ email: email });
 
         // If not, handle it
         if (!user) {
+          console.log("passport local no user found");
           return done(null, false);
         }
 
         // Check if the password is correct
+        console.log("passport local user found", user);
         const isMatch = await user.isValidPassword(password);
 
         // If not, handle it
         if (!isMatch) {
+          console.log("passport local password fail");
           return done(null, false);
         }
 
+        console.log("passport local password accepted continue");
         // Otherwise, return the user
         done(null, user);
       } catch (error) {
@@ -59,4 +59,3 @@ passport.use(
     }
   )
 );
-
