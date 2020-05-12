@@ -53,7 +53,8 @@ export default function MaterialCard({ material, setMaterials, materials }) {
   };
 
   const handleDeleteMaterial = () => {
-    console.log("in card menu delte", material);
+    // console.log("in card menu delete", material);
+    // console.log("MaterialCArd handleDeleteMaterial- materials", materials);
     DeleteMaterial(material._id);
     setMaterials(materials.filter((m) => m._id !== material._id));
   };

@@ -1,16 +1,29 @@
 const axios = require("axios").default;
 
 export const SaveData = (payload, type, setCompleted = 0, setSaved = false) => {
-  console.log("ms-share-actions- save ", payload);
+  // console.log("ms-share-actions- save ", payload);
+  function isFileImage(file) {
+    return file && file["type"].split("/")[0] === "image";
+  }
 
   if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
+    if (isFileImage(payload.localFiles[0].raw)) {
+      //make a thumbnail
+      makeThumb(payload.localFiles[0].raw).then((thumb) => {
+        //save the thumb
+        handleThumbUpload(thumb).then((result) => {
+          payload.thumb = result.path;
+          // save the file
+        });
+      });
+    }
     handleFileUpload(type, payload.localFiles, payload, setCompleted, setSaved);
   } else {
     //save data to db
     if (type === "Create") {
       console.log("ms-share-actions - Error - Should have files", payload);
     } else if (type === "Edit") {
-      console.log("ms-share-actions -Saving edit material", payload);
+      // console.log("ms-share-actions -Saving edit material", payload);
       editMaterial(payload, setSaved);
     }
   }
@@ -42,8 +55,26 @@ const createMaterial = (material) => {
     });
 };
 
-const handleFileUpload = (type, files, payload, setCompleted, setSaved) => {
-  console.log("files in handle upload ", files);
+const handleThumbUpload = async (thumbFile) => {
+  let response = await fetch("/api/material/thumbUpload", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+    body: JSON.stringify({ file: thumbFile }),
+  });
+  console.log("materials-share-actions handleThumbUpload response", response);
+  return response.json();
+};
+
+const handleFileUpload = async (
+  type,
+  files,
+  payload,
+  setCompleted,
+  setSaved
+) => {
   const data = new FormData();
   data.append("saveType", "awsUpload");
   files.forEach((file, index) => {
@@ -78,6 +109,30 @@ const handleFileUpload = (type, files, payload, setCompleted, setSaved) => {
     });
 };
 
+// const getFileFromPath = async (path) => {
+//   console.log("materials-share-actions getFileFromPath path", path);
+//   let response = await fetch(`/api/material/getFileFromPath`, {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//       Accept: "application/json",
+//     },
+//     body: JSON.stringify({ path: path }),
+//   });
+//   return response.json();
+// };
+
+export const makeThumb = async (file) => {
+  const formData = new FormData();
+  formData.append("file", file);
+  // console.log("materials-share-actions makeThumb file", file);
+  let response = await fetch("/api/material/makeThumb", {
+    method: "POST",
+    body: formData,
+  });
+  return response.json();
+};
+
 export const getAllMaterials = async () => {
   let response = await fetch(`/api/materials`, {
     headers: {
@@ -90,6 +145,15 @@ export const getAllMaterials = async () => {
 
 export const getMaterial = async (slug) => {
   let response = await fetch(`/api/material/${slug}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  return response.json();
+};
+export const getMaterialId = async (id) => {
+  let response = await fetch(`/api/materialId/${id}`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

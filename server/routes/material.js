@@ -8,6 +8,12 @@ module.exports = (router) => {
    * get files
    */
   router.route("/material/file/").post(materialcontroller.getFiles);
+  // /**
+  //  * get file from path
+  //  */
+  // router
+  //   .route("/material/getFileFromPath/")
+  //   .post(materialcontroller.getFileFromPath);
 
   /**
    * upload file
@@ -24,9 +30,13 @@ module.exports = (router) => {
    */
   router.route("/materials").get(materialcontroller.getMaterials);
   /**
-   * get a particlular material to view
+   * get a particlular material to view from slug
    */
   router.route("/material/:slug").get(materialcontroller.getMaterialSlug);
+  /**
+   * get a particlular material to viewfrom id
+   */
+  router.route("/materialId/:id").get(materialcontroller.getMaterialId);
   // /**
   //  * get a particlular material to view
   //  */
@@ -76,4 +86,15 @@ module.exports = (router) => {
   router
     .route("/materials/user/likes/:author_id")
     .get(materialcontroller.getUserLikes);
+
+  /**
+   * get thumb from image
+   */
+  router
+    .route("/material/makeThumb")
+    .post(multipartWare, materialcontroller.makeThumb);
+  /**
+   * thumb upload
+   */
+  router.route("/material/thumbUpload").post(materialcontroller.thumbUpload);
 };

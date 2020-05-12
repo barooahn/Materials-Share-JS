@@ -17,6 +17,7 @@ let MaterialSchema = new mongoose.Schema({
   tips: String,
   notes: String,
   files: [String],
+  thumb: String,
   category: [
     {
       label: String,

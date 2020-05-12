@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import MediaFiles from "./MediaFiles";
 import MaterialDetails from "./MaterialDetails";
-import { SaveData } from "../../actions/materials-share-actions";
+import { SaveData, getMaterial } from "../../actions/materials-share-actions";
 import MaterialDetailsFull from "./MaterialDetailsFull";
 import {
   BrowserRouter as Router,
@@ -16,7 +16,6 @@ import {
 } from "react-router-dom";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { SetAutocompletes } from "../helpers/SetAutocompletes";
-import { getMaterial } from "../../actions/materials-share-actions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -251,7 +250,6 @@ export default function MaterialStepper() {
 
   const save = () => {
     //add , comments
-
     SaveData(
       {
         type,

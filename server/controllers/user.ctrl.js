@@ -186,8 +186,12 @@ module.exports = {
           pass: `${process.env.EMAIL_PASSWORD}`,
         },
       });
-      // var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
-      // console.log("user.ctrl - forgot password - url", fullUrl);
+      var fullUrl = req.protocol + "://" + req.get("host") + req.originalUrl;
+      var UrlProtocol = req.protocol;
+      var UrlHost = "://" + req.get("host");
+      console.log("user.ctrl - forgot password - url", fullUrl);
+      console.log("user.ctrl - forgot password - UrlProtocol", UrlProtocol);
+      console.log("user.ctrl - forgot password - UrlHost", UrlHost);
 
       const mailOptions = {
         from: "materialsshare@gmail.com",

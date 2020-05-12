@@ -2,39 +2,25 @@
 const Material = require("../models/Material");
 const fs = require("fs");
 const { uploadAws, deleteAws } = require("../file-upload/aws-file-services");
+const sharp = require("sharp");
 
 const filepath = `${__dirname}..\\..\\..\\public\\`;
 
-
-const moveFile = (file) => {
-  file.name = file.name.replace(/\s/g, "_").toLowerCase();
-  return new Promise(function (resolve, reject) {
-    const oldPath = file.path;
-    // console.log("path " + filepath);
-    const newPath = filepath + file.name;
-    fs.rename(oldPath, newPath, function (err) {
-      if (err) reject(new Error("Could not upload file " + err));
-      return resolve(file.name);
-    });
-  });
-};
+// const moveFile = (file) => {
+//   file.name = file.name.replace(/\s/g, "_").toLowerCase();
+//   return new Promise(function (resolve, reject) {
+//     const oldPath = file.path;
+//     // console.log("path " + filepath);
+//     const newPath = filepath + file.name;
+//     fs.rename(oldPath, newPath, function (err) {
+//       if (err) reject(new Error("Could not upload file " + err));
+//       return resolve(file.name);
+//     });
+//   });
+// };
 
 const escapeRegex = (text) => {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
-};
-
-getFileFromPath = (filePath) => {
-  return fs.readFileSync(
-    `${__dirname}..\\..\\..\\public\\${filePath}`,
-    function (err, data) {
-      if (!err) {
-        // console.log("received data: " + data);
-        return data;
-      } else {
-        console.log(err);
-      }
-    }
-  );
 };
 
 module.exports = {
@@ -55,31 +41,59 @@ module.exports = {
   },
 
   fileUpload: async (req, res) => {
-    if (req.query.saveType === "localUpload") {
-      console.log("uploading local file ...");
-      Promise.all(req.files.files.map((file) => moveFile(file))).then(
-        (result) => {
-          // console.log("local file storage back end", result);
-          return res.json(result);
-          //save to DB
-        }
-      );
-    } else {
-      console.log("uploading aws file ...");
-      if (req.files.files) {
-        Promise.all(
-          req.files.files.map((file) => {
-            return uploadAws(file);
-          })
-        ).then((result) => {
-          // console.log("AWS storage back end", result);
-          //save to DB
-          return res.json(result);
-        });
-      }
+    console.log("uploading aws file ...", req.files.files);
+    if (req.files.files) {
+      Promise.all(
+        req.files.files.map((file) => {
+          return uploadAws(file);
+        })
+      ).then((result) => {
+        // console.log("AWS storage back end", result);
+        //save to DB
+        return res.json(result);
+      });
     }
 
     //node-schedule remove old files (after certain date)
+  },
+
+  thumbUpload: async (req, res) => {
+    uploadAws(req.body.file).then((result) => {
+      console.log("material.ctrl - thumbUpload - results", result);
+      return res.json(result);
+    });
+  },
+
+  // getFileFromPath: async (req, res) => {
+  //   console.log("material.ctrl - getFileFromPath - path", req.body.path);
+  //   const path = req.body.path;
+  //   fs.readFile(path, "utf8", (err, data) => {
+  //     // console.log("material.ctrl - getFileFromPath - received data: " + data);
+  //     if (err) res.send(err);
+  //     else if (!data) res.send(400);
+  //     else {
+  //       return res.json(data);
+  //     }
+  //   });
+  // },
+
+  makeThumb: async (req, res, next) => {
+    // console.log("making thumb from files...", req);
+    const file = req.files.file;
+    // console.log("material.ctrl -making thumb from files...", req.files.file);
+    sharp(file.path)
+      .resize(300, 200)
+      .toFile(`/tmp/thumb_${file.name}`)
+      .then((info) => {
+        const thumb = {
+          name: `thumb_${req.files.file.name}`,
+          path: `/tmp/thumb_${req.files.file.name}`,
+        };
+        return res.json(thumb);
+      })
+      .catch((err) => {
+        console.log("Material ctrl make thumb - err thumb not made ", err);
+      });
   },
 
   deleteFile: async (req, res, next) => {
@@ -128,14 +142,14 @@ module.exports = {
       });
   },
 
-  getMaterial: (req, res, next) => {
-    Material.findById(req.params.id)
-      // .populate("author")
-      .exec((err, material) => {
-        if (material) return res.send(material);
-        else if (err) return res.send(err);
-        else return res.send(404);
-      });
+  getMaterialId: (req, res, next) => {
+    console.log("Materials.ctrl getMaterialId id", req.params.id);
+    Material.findById(req.params.id).exec((err, material) => {
+      console.log("Materials.ctrl getMaterialId material", material);
+      if (material) return res.send(material);
+      else if (err) return res.send(err);
+      else return res.send(404);
+    });
   },
 
   getMaterialSlug: (req, res, next) => {

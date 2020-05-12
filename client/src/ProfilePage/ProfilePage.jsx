@@ -5,7 +5,6 @@ import MaterialCard2 from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { deepOrange } from "@material-ui/core/colors";
-// import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Button from "@material-ui/core/Button";
@@ -93,7 +92,11 @@ export default () => {
 
           <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
             {userLikes.map((material, index) => (
-              <MaterialCard2 material={material} index={index} />
+              <MaterialCard2
+                material={material}
+                setMaterials={setUserMaterials}
+                materials={userMaterials}
+              />
             ))}
           </StackGrid>
         </div>
@@ -113,7 +116,11 @@ export default () => {
 
           <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
             {userMaterials.map((material, index) => (
-              <MaterialCard2 material={material} index={index} key={index} />
+              <MaterialCard2
+                material={material}
+                setMaterials={setUserMaterials}
+                materials={userMaterials}
+              />
             ))}
           </StackGrid>
         </div>
