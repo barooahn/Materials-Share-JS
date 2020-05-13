@@ -22,9 +22,9 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: 2,
     maxWidth: "100%",
-    top: 60,
-    position: "sticky",
-    zIndex: 3,
+    // top: 60,
+    // position: "sticky",
+    // zIndex: 3,
   },
   paper: {
     paddingTop: 25,
