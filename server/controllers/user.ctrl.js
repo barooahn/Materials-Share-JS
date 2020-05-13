@@ -180,6 +180,10 @@ module.exports = {
       // user.save();
 
       const transporter = nodemailer.createTransport({
+        host: "smtp.gmail.com",
+        port: 465,
+        secure: true,
+        pool: true,
         service: "gmail",
         auth: {
           user: `${process.env.EMAIL_ADDRESS}`,
@@ -211,6 +215,7 @@ module.exports = {
           console.error("there was an error: ", err);
         } else {
           console.log("here is the res: ", response);
+          transporter.close();
           res.status(200).json("recovery email sent");
         }
       });

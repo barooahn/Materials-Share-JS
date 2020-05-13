@@ -2,25 +2,58 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
-import Link from "@material-ui/core/Link";
+import Avatar from "@material-ui/core/Avatar";
+import CssBaseline from "@material-ui/core/CssBaseline";
 import Button from "@material-ui/core/Button";
-import { useState } from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Paper from "@material-ui/core/Paper";
+import Typography from "@material-ui/core/Typography";
 
-const title = {
-  pageTitle: "Forgot Password Screen",
-};
+const useStyles = makeStyles((theme) => ({
+  main: {
+    width: "auto",
+    display: "block", // Fix IE 11 issue.
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3,
+    [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+      width: 400,
+      marginLeft: "auto",
+      marginRight: "auto",
+    },
+    paddingBottom: 70,
+  },
+  paper: {
+    marginTop: theme.spacing.unit * 8,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
+      theme.spacing.unit * 3
+    }px`,
+  },
+  avatar: {
+    margin: theme.spacing.unit,
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing.unit,
+  },
+  submit: {
+    marginTop: theme.spacing.unit * 3,
+  },
+  input: {
+    marginBottom: 12,
+  },
+}));
 
 export default function ForgotPassword() {
+  const classes = useStyles();
   const [email, setEmail] = React.useState("");
   const [showError, setShowError] = React.useState();
   const [messageFromServer, setMessageFromServer] = React.useState();
   const [showNullError, setShowNullError] = React.useState();
-
-  // handleChange = (name) => (event) => {
-  //   this.setState({
-  //     [name]: event.target.value,
-  //   });
-  // };
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -55,49 +88,73 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div>
-      {/* <HeaderBar title={title} /> */}
-      {/* <form className="profile-form" onSubmit={this.sendEmail}> */}
-      <form
-        // className={classes.root}
-        noValidate
-        autoComplete="off"
-        onClick={sendEmail}
-      >
-        <TextField
-          id="email"
-          label="email"
-          value={email}
-          onChange={handleEmailChange}
-          placeholder="Email Address"
-          variant="outlined"
-        />
+    <main className={classes.main}>
+      <CssBaseline />
+      <Paper className={classes.paper}>
+        <Avatar className={classes.avatar}>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5">
+          Forgotten password
+        </Typography>
+        <br />
+        <Typography
+          align={"center"}
+          color={"error"}
+          component="h6"
+          variant="h6"
+        ></Typography>
 
-        <Button variant="contained">Send Password Reset Email</Button>
-      </form>
-      {/* </form> */}
-      {showNullError && (
-        <div>
-          <p>The email address cannot be null.</p>
-        </div>
-      )}
-      {showError && (
-        <div>
-          <p>
-            That email address isn&apos;t recognized. Please try again or
-            register for a new account.
-          </p>
-          <Button variant="contained" color="primary" href="/register">
-            Register
+        <form
+          className={classes.form}
+          noValidate
+          autoComplete="off"
+          onClick={sendEmail}
+        >
+          <TextField
+            className={classes.input}
+            label="Email *"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            fullWidth
+            id="email"
+            value={email}
+            placeholder="Email Address"
+            variant="outlined"
+            onChange={handleEmailChange}
+          />
+          <Button color="primary" variant="contained">
+            Send Password Reset Email
           </Button>
-        </div>
-      )}
-      {messageFromServer === "recovery email sent" && (
-        <div>
-          <h3>Password Reset Email Successfully Sent!</h3>
-        </div>
-      )}
-      <Button href="/">Home</Button>
-    </div>
+          <br />
+          <br />
+          {showNullError && (
+            <div>
+              <p>The email address cannot be null.</p>
+            </div>
+          )}
+          {showError && (
+            <div>
+              <p>
+                That email address isn&apos;t recognized. Please try again or
+                register for a new account.
+              </p>
+              <Button variant="contained" color="primary" href="/register">
+                Register
+              </Button>
+            </div>
+          )}
+          {messageFromServer === "recovery email sent" && (
+            <div>
+              <h3>Password Reset Email Successfully Sent!</h3>
+            </div>
+          )}
+          <Button color="secondary" variant="contained" href="/">
+            Home
+          </Button>
+        </form>
+      </Paper>
+    </main>
   );
 }
