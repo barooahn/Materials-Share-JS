@@ -25,6 +25,11 @@ module.exports = (router) => {
    * delete file
    */
   router.route("/material/file/delete").delete(materialcontroller.deleteFile);
+  
+  /**
+   * get paginated materials
+   */
+  router.route("/materialsPaginated").get(materialcontroller.materialsPaginated);
   /**
    * get all materials
    */

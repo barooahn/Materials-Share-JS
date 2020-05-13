@@ -109,19 +109,6 @@ const handleFileUpload = async (
     });
 };
 
-// const getFileFromPath = async (path) => {
-//   console.log("materials-share-actions getFileFromPath path", path);
-//   let response = await fetch(`/api/material/getFileFromPath`, {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//       Accept: "application/json",
-//     },
-//     body: JSON.stringify({ path: path }),
-//   });
-//   return response.json();
-// };
-
 export const makeThumb = async (file) => {
   const formData = new FormData();
   formData.append("file", file);
@@ -135,6 +122,16 @@ export const makeThumb = async (file) => {
 
 export const getAllMaterials = async () => {
   let response = await fetch(`/api/materials`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  return response.json();
+};
+
+export const getPaginatedMaterials = async (page, limit) => {
+  let response = await fetch(`/api/materialsPaginated?page=${page}&limit=${limit}`, {
     headers: {
       "Content-Type": "application/json",
       Accept: "application/json",

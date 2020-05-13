@@ -53,7 +53,7 @@ export default function ForgotPassword() {
   const [email, setEmail] = React.useState("");
   const [showError, setShowError] = React.useState();
   const [messageFromServer, setMessageFromServer] = React.useState();
-  const [showNullError, setShowNullError] = React.useState();
+  const [showNullError, setShowNullError] = React.useState(false);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -97,6 +97,28 @@ export default function ForgotPassword() {
         <Typography component="h1" variant="h5">
           Forgotten password
         </Typography>
+        {showNullError && (
+          <Typography component="h5" color="secondary" variant="h6">
+            The email address cannot be empty.
+          </Typography>
+        )}
+        {showError && (
+          <div>
+            <Typography component="h5" color="secondary" variant="h6">
+              That email address isn&apos;t recognized. Please try again or
+              register for a new account.
+            </Typography>
+            <br />
+            <Button variant="contained" color="primary" href="/register">
+              Register
+            </Button>
+          </div>
+        )}
+        {messageFromServer === "recovery email sent" && (
+          <Typography component="h5" color="primary" variant="h6">
+            Password Reset Email Successfully Sent!
+          </Typography>
+        )}
         <br />
         <Typography
           align={"center"}
@@ -105,12 +127,7 @@ export default function ForgotPassword() {
           variant="h6"
         ></Typography>
 
-        <form
-          className={classes.form}
-          noValidate
-          autoComplete="off"
-          onClick={sendEmail}
-        >
+        <form className={classes.form} noValidate autoComplete="off">
           <TextField
             className={classes.input}
             label="Email *"
@@ -124,32 +141,11 @@ export default function ForgotPassword() {
             variant="outlined"
             onChange={handleEmailChange}
           />
-          <Button color="primary" variant="contained">
+          <Button color="primary" variant="contained" onClick={sendEmail}>
             Send Password Reset Email
           </Button>
           <br />
           <br />
-          {showNullError && (
-            <div>
-              <p>The email address cannot be null.</p>
-            </div>
-          )}
-          {showError && (
-            <div>
-              <p>
-                That email address isn&apos;t recognized. Please try again or
-                register for a new account.
-              </p>
-              <Button variant="contained" color="primary" href="/register">
-                Register
-              </Button>
-            </div>
-          )}
-          {messageFromServer === "recovery email sent" && (
-            <div>
-              <h3>Password Reset Email Successfully Sent!</h3>
-            </div>
-          )}
           <Button color="secondary" variant="contained" href="/">
             Home
           </Button>

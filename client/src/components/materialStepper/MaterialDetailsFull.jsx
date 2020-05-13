@@ -103,6 +103,7 @@ export default ({
       value: procedureBefore,
       onChange: changeProcedureBefore,
       // placeholder: "eg. Copy handout for each pupil."
+      autoFocus: true,
     },
     {
       type: "text",
@@ -173,6 +174,7 @@ export default ({
                 placeholder={input.placeholder}
                 fullWidth
                 variant="outlined"
+                autoFocus={input.autoFocus}
               />
             );
           } else {

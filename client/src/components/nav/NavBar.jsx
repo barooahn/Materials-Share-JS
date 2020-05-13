@@ -32,6 +32,7 @@ import Search from "./Search";
 import Filter from "./Filter";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import { deepOrange } from "@material-ui/core/colors";
 
 const drawerWidth = 240;
 
@@ -136,6 +137,10 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 20,
     cursor: "pointer",
   },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
 }));
 
 export default function MiniDrawer({ routePaths }) {
@@ -233,7 +238,9 @@ export default function MiniDrawer({ routePaths }) {
             alt={localStorage.getItem("USER_NAME")}
             src={localStorage.getItem("USER_IMG")}
             className={classes.orange}
-          />
+          >
+            {localStorage.getItem("USER_NAME").charAt(0)}
+          </Avatar>
         </IconButton>
       );
     }
@@ -342,7 +349,7 @@ export default function MiniDrawer({ routePaths }) {
         </div>
         <Divider />
         <List>
-          <ListItem 
+          <ListItem
             button
             key={"Home"}
             onClick={handleHomeClick}

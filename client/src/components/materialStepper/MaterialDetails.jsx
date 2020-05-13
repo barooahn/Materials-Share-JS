@@ -84,6 +84,7 @@ export default ({
       multi: true,
       value: objective,
       onChange: changeObjective,
+      autoFocus: true,
     },
     {
       type: "text",
@@ -135,6 +136,7 @@ export default ({
                 valueLabelDisplay="on"
                 className={classes.inputSlider}
                 onChange={input.onChange}
+                autoFocus={input.autoFocus}
                 fullWidth
               />
             </div>

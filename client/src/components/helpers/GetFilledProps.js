@@ -19,6 +19,7 @@ const titles = [
   { likes: "Likes" },
   { author_img: "author_img" },
   { slug: "slug" },
+  { thumb: "thumb" },
 ];
 
 const getLabel = (name) => {
@@ -50,7 +51,8 @@ const GetFilledProps = (props) => {
       item !== "showUpload" &&
       item !== "loaded" &&
       item !== "author_img" &&
-      item !== "slug"
+      item !== "slug" &&
+      item !== "thumb"
     ) {
       const label = getLabel(item);
       filled.push({ label: [label], name: item, value: props[item] });

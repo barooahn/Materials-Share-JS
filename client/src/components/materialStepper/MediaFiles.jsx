@@ -172,6 +172,7 @@ export default ({
             value={title}
             onChange={changeTitle}
             margin="normal"
+            autoFocus
             variant="outlined"
             fullWidth
           />

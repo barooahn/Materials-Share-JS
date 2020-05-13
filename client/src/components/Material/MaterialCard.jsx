@@ -83,6 +83,8 @@ export default function MaterialCard({ material, setMaterials, materials }) {
   const dateOptions = { year: "numeric", month: "long", day: "numeric" };
   const dateMod = date.toLocaleDateString(undefined, dateOptions);
 
+  const thumbOrFile = material.thumb ? material.thumb : material.files[0];
+
   return (
     <React.Fragment>
       <Card className={classes.root}>
@@ -94,7 +96,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
               src={material.author_img}
               className={classes.avatar}
             ></Avatar>
-            <Viewer file={material.files[0]} key={material.files[0]} />
+            <Viewer file={thumbOrFile} key={thumbOrFile} />
           </div>
           <br />
           <NavLink

@@ -162,6 +162,19 @@ export default function ResetPassword() {
           Reset Password
         </Typography>
 
+        {updated && (
+          <div>
+            <Typography component="h5" color="primary" variant="h6">
+              Your password has been successfully reset, please try logging in
+              again.
+            </Typography>
+            <br />
+            <Button variant="contained" color="primary" href="/login">
+              Login
+            </Button>
+          </div>
+        )}
+
         <Typography
           align={"center"}
           color={"error"}
