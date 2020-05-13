@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "100%",
     display: "flex",
   },
-  papperCenter: {
+  paperCenter: {
     marginBottom: 50,
   },
   media: {
@@ -83,7 +83,7 @@ export default ({ setMaterials, materials }) => {
   };
 
   return (
-    <Paper className="paperCenter" elevation={1}>
+    <Paper className={classes.paperCenter} elevation={1}>
       <Typography gutterBottom variant="h2" component="h2" align="center">
         {material.title}
       </Typography>

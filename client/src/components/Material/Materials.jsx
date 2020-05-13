@@ -17,6 +17,10 @@ const useStyles = makeStyles((theme) => ({
     left: "47%",
     zIndex: 50,
   },
+  info: {
+    textAlign: "center",
+    margin: 10,
+  },
 }));
 
 const Materials = () => {
@@ -100,9 +104,15 @@ const Materials = () => {
           />
         ))}
       </StackGrid>
-      {error && <div style={{ color: "#900" }}>{error}</div>}
-      {gettingSearchResults && <div>Loading...</div>}
-      {!hasMore && <div>You did it! You reached the end!</div>}
+      {error && (
+        <div className={classes.info} style={{ color: "#900" }}>
+          {error}
+        </div>
+      )}
+      {gettingSearchResults && <div className={classes.info}>Loading...</div>}
+      {!hasMore && (
+        <div className={classes.info}>You did it! You reached the end!</div>
+      )}
     </div>
   );
 };

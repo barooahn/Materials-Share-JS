@@ -98,7 +98,6 @@ export default function MaterialCard({ material, setMaterials, materials }) {
             ></Avatar>
             <Viewer file={thumbOrFile} key={thumbOrFile} />
           </div>
-          <br />
           <NavLink
             to={{ pathname: "/material/" + material.slug }}
             className="link"
@@ -112,7 +111,6 @@ export default function MaterialCard({ material, setMaterials, materials }) {
                 variant="body2"
                 color="textSecondary"
                 component="p"
-                gutterBottom
               >
                 {dateMod}
               </Typography>

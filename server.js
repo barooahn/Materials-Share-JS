@@ -10,9 +10,12 @@ const helmet = require("helmet");
 const morgan = require("morgan");
 const flash = require("connect-flash");
 const dotenv = require("dotenv").config();
+const compression = require("compression");
 
 const app = express();
 const router = express.Router();
+
+app.use(compression());
 
 // ... other imports
 const path = require("path");
@@ -27,14 +30,14 @@ mongoose
     useCreateIndex: true,
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   })
   .then(() => {
     console.log("db connected...");
     routes(app, db);
   })
 
-  .catch(err => console.log(err));
+  .catch((err) => console.log(err));
 
 /** set up middleware */
 app.use(cors());
@@ -86,8 +89,8 @@ app.use((error, req, res, next) => {
   res.status(error.status || 500);
   res.json({
     error: {
-      message: error.message
-    }
+      message: error.message,
+    },
   });
 });
 
