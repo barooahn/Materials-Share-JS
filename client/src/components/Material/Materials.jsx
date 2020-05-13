@@ -5,7 +5,7 @@ import StackGrid from "react-stack-grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { getPaginatedMaterials } from "../../actions/materials-share-actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import InfiniteScroll from "react-infinite-scroll-component";
+import debounce from "lodash.debounce";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -24,15 +24,35 @@ const Materials = () => {
   const [materials, setMaterials] = React.useState([]);
   const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
   const [page, setPage] = React.useState(0);
-  const [limit, setLimit] = React.useState(10);
-  const [noMaterials, setNoMaterials] = React.useState(0);
+  const [totalMaterials, setTotalMaterials] = React.useState(0);
+  const [hasMore, setHasMore] = React.useState(true);
+  const [error, setError] = React.useState(false);
+
+  const limit = 10;
+
+  window.onscroll = debounce(() => {
+    if (error || gettingSearchResults || !hasMore) return;
+    if (
+      window.innerHeight + document.documentElement.scrollTop ===
+      document.documentElement.offsetHeight
+    ) {
+      if (materials.length >= totalMaterials) {
+        setHasMore(false);
+        return;
+      } else {
+        let nextpage = page + 1;
+        setPage(nextpage);
+      }
+    }
+  }, 100);
 
   React.useEffect(() => {
     async function fetchData() {
       setGettingSearchResults(true);
+      console.log("MAterials useEffect - page number ", page);
       let resultData = await getPaginatedMaterials(page, limit);
       console.log(resultData);
-      setNoMaterials(resultData.total);
+      setTotalMaterials(resultData.total);
       await resultData.materials.forEach((material) => {
         material.files = Array.isArray(material.files)
           ? [material.files[0]]
@@ -45,13 +65,16 @@ const Materials = () => {
     fetchData();
   }, [page]);
 
-  const fetchMoreData = () => {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
-    let nextpage = page + 1;
-    setPage(nextpage);
-    console.log("Materials fetch more page", page);
-  };
+  // const fetchMoreData = () => {
+  //   if (materials.length >= materials.total) {
+  //     setHasMore(false);
+  //     return;
+  //   }
+  //   console.log("MAterials fetchMoreData - page number ", page);
+  //   let nextpage = page + 1;
+  //   setPage(nextpage);
+  //   console.log("Materials fetch more page", page);
+  // };
 
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
@@ -65,40 +88,21 @@ const Materials = () => {
       <Typography gutterBottom variant="h2" component="h2" align="center">
         Teaching Resorces
       </Typography>
+
       <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
-        <InfiniteScroll
-          dataLength={noMaterials} //This is important field to render the next data
-          next={fetchMoreData}
-          hasMore={true}
-          loader={<h4>Loading...</h4>}
-          endMessage={
-            <p style={{ textAlign: "center" }}>
-              <b>Yay! You have seen it all</b>
-            </p>
-          }
-          // below props only if you need pull down functionality
-          refreshFunction={fetchMoreData}
-          pullDownToRefresh
-          pullDownToRefreshContent={
-            <h3 style={{ textAlign: "center" }}>
-              &#8595; Pull down to refresh
-            </h3>
-          }
-          releaseToRefreshContent={
-            <h3 style={{ textAlign: "center" }}>&#8593; Release to refresh</h3>
-          }
-        >
-          {materials.map((material, index) => (
-            <MaterialCard
-              key={material._id}
-              material={material}
-              index={index}
-              setMaterials={setMaterials}
-              materials={materials}
-            />
-          ))}
-        </InfiniteScroll>
+        {materials.map((material, index) => (
+          <MaterialCard
+            key={material._id}
+            material={material}
+            index={index}
+            setMaterials={setMaterials}
+            materials={materials}
+          />
+        ))}
       </StackGrid>
+      {error && <div style={{ color: "#900" }}>{error}</div>}
+      {gettingSearchResults && <div>Loading...</div>}
+      {!hasMore && <div>You did it! You reached the end!</div>}
     </div>
   );
 };
