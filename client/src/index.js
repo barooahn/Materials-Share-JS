@@ -2,7 +2,6 @@ import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-// import UserForm from "./components/UserForm";
 import Notfound from "./components/NotFound";
 import NavBar from "./components/nav/NavBar";
 import MobileNavBar from "./components/nav/MobileNavBar";
@@ -19,19 +18,6 @@ import {
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import Axios from "axios";
-// import MaterialStepper from "./components/materialStepper/MaterialStepper";
-
-// import ProfilePage from "./ProfilePage/ProfilePage";
-// import Help from "./components/Help";
-// import Login from "./LoginPage/Login";
-// import Register from "./RegisterPage/Register2";
-// import Material from "./components/Material/Material";
-// import Materials from "./components/Material/Materials";
-// import Users from "./components/Users";
-// import SearchResults from "./components/nav/SearchResults";
-// import ResetPassword from "./LoginPage/ResetPassword";
-// import ForgotPassword from "./LoginPage/ForgotPassword";
-// import UpdatePassword from "./LoginPage/UpdatePassword";
 
 const MaterialStepper = lazy(() =>
   import("./components/materialStepper/MaterialStepper")
@@ -46,21 +32,9 @@ const Users = lazy(() => import("./components/Users"));
 const SearchResults = lazy(() => import("./components/nav/SearchResults"));
 const ResetPassword = lazy(() => import("./LoginPage/ResetPassword"));
 const ForgotPassword = lazy(() => import("./LoginPage/ForgotPassword"));
-const UpdatePassword = lazy(() => import("./LoginPage/UpdatePassword"));
-
-//routes
-
-//Home
-//login
-//register
-//material list
-//material/:id view
-//user/:id  - auth route
-//create  - auth route
 
 const jwtToken = localStorage.getItem("JWT_TOKEN");
 Axios.defaults.headers.common["Authorization"] = jwtToken;
-//Axios.defaults.baseURL = 'https://api.example.com';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -109,7 +83,6 @@ const routePaths = () => {
           />
           <Route path="/forgotPassword" component={ForgotPassword} />
           <Route path="/reset/:token" component={ResetPassword} />
-          <Route exact path="/updatePassword/:id" component={UpdatePassword} />
           <Route
             path="/register"
             component={withProps(Register, { state: { prevPath: "register" } })}

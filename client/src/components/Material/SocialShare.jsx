@@ -85,9 +85,9 @@ export default ({ handleClose, open, slug }) => {
 
   //this plus slug -- need to make slug ---
   ///////////////////*********** change for live */
-  const shareUrl = window.location.href + "/" + slug;
+  const shareUrl = `${window.location.protocol}//${window.location.hostname}/material/${slug} `;
   ///////////////////*********** change for live */
-  // console.log("current location ", shareUrl);
+  console.log("current location ", shareUrl);
 
   const title = "Materials share - Create and share teaching resources ";
 
