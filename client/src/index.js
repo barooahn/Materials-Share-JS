@@ -1,17 +1,11 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
-import Materials from "./components/Material/Materials";
-import Users from "./components/Users";
 // import UserForm from "./components/UserForm";
 import Notfound from "./components/NotFound";
 import NavBar from "./components/nav/NavBar";
 import MobileNavBar from "./components/nav/MobileNavBar";
-import Help from "./components/Help";
-import Login from "./LoginPage/Login";
-import Register from "./RegisterPage/Register2";
-import Material from "./components/Material/Material";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -24,13 +18,35 @@ import {
   Redirect,
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
-import ProfilePage from "./ProfilePage/ProfilePage";
 import Axios from "axios";
-import MaterialStepper from "./components/materialStepper/MaterialStepper";
-import SearchResults from "./components/nav/SearchResults";
-import ResetPassword from "./LoginPage/ResetPassword";
-import ForgotPassword from "./LoginPage/ForgotPassword";
-import UpdatePassword from "./LoginPage/UpdatePassword";
+// import MaterialStepper from "./components/materialStepper/MaterialStepper";
+
+// import ProfilePage from "./ProfilePage/ProfilePage";
+// import Help from "./components/Help";
+// import Login from "./LoginPage/Login";
+// import Register from "./RegisterPage/Register2";
+// import Material from "./components/Material/Material";
+// import Materials from "./components/Material/Materials";
+// import Users from "./components/Users";
+// import SearchResults from "./components/nav/SearchResults";
+// import ResetPassword from "./LoginPage/ResetPassword";
+// import ForgotPassword from "./LoginPage/ForgotPassword";
+// import UpdatePassword from "./LoginPage/UpdatePassword";
+
+const MaterialStepper = lazy(() =>
+  import("./components/materialStepper/MaterialStepper")
+);
+const ProfilePage = lazy(() => import("./ProfilePage/ProfilePage"));
+const Help = lazy(() => import("./components/Help"));
+const Login = lazy(() => import("./LoginPage/Login"));
+const Register = lazy(() => import("./RegisterPage/Register2"));
+const Material = lazy(() => import("./components/Material/Material"));
+const Materials = lazy(() => import("./components/Material/Materials"));
+const Users = lazy(() => import("./components/Users"));
+const SearchResults = lazy(() => import("./components/nav/SearchResults"));
+const ResetPassword = lazy(() => import("./LoginPage/ResetPassword"));
+const ForgotPassword = lazy(() => import("./LoginPage/ForgotPassword"));
+const UpdatePassword = lazy(() => import("./LoginPage/UpdatePassword"));
 
 //routes
 
@@ -73,40 +89,46 @@ function withProps(Component, props) {
 const routePaths = () => {
   return (
     <main>
-      <Switch>
-        <Route exact path="/" component={App} />
-        <Route path="/users" component={Users} />
-        <Route path="/materials" component={Materials} />
-        <Route path="/material/:slug" component={Material}></Route>
-        />
-        <PrivateRoute
-          path="/create"
-          name="create"
-          component={MaterialStepper}
-        />
-        <Route path="/help" component={Help} />
-        <Route path="/privacy" component={PrivacyPolicy} />
-        <Route
-          path="/login"
-          component={withProps(Login, { state: { prevPath: "login" } })}
-        />
-        <Route path="/forgotPassword" component={ForgotPassword} />
-        <Route path="/reset/:token" component={ResetPassword} />
-        <Route exact path="/updatePassword/:id" component={UpdatePassword} />
-        <Route
-          path="/register"
-          component={withProps(Register, { state: { prevPath: "register" } })}
-        />
-        <Route path="/search" component={SearchResults} />
-        <PrivateRoute path="/profile" name="profile" component={ProfilePage} />
-        <PrivateRoute
-          path="/edit/:id"
-          name="editMaterial"
-          type="edit"
-          component={MaterialStepper}
-        />
-        <Route component={Notfound} />
-      </Switch>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          <Route exact path="/" component={App} />
+          <Route path="/users" component={Users} />
+          <Route path="/materials" component={Materials} />
+          <Route path="/material/:slug" component={Material}></Route>
+          />
+          <PrivateRoute
+            path="/create"
+            name="create"
+            component={MaterialStepper}
+          />
+          <Route path="/help" component={Help} />
+          <Route path="/privacy" component={PrivacyPolicy} />
+          <Route
+            path="/login"
+            component={withProps(Login, { state: { prevPath: "login" } })}
+          />
+          <Route path="/forgotPassword" component={ForgotPassword} />
+          <Route path="/reset/:token" component={ResetPassword} />
+          <Route exact path="/updatePassword/:id" component={UpdatePassword} />
+          <Route
+            path="/register"
+            component={withProps(Register, { state: { prevPath: "register" } })}
+          />
+          <Route path="/search" component={SearchResults} />
+          <PrivateRoute
+            path="/profile"
+            name="profile"
+            component={ProfilePage}
+          />
+          <PrivateRoute
+            path="/edit/:id"
+            name="editMaterial"
+            type="edit"
+            component={MaterialStepper}
+          />
+          <Route component={Notfound} />
+        </Switch>
+      </Suspense>
     </main>
   );
 };

@@ -147,7 +147,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           ) : null}
         </CardActions>
       </Card>
-      <SocialShare handleClose={handleClose} open={open} />
+      <SocialShare handleClose={handleClose} slug={material.slug} open={open} />
     </React.Fragment>
   );
 }

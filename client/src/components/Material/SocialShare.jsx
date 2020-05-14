@@ -44,34 +44,34 @@ import {
   LineIcon,
   PocketIcon,
   InstapaperIcon,
-  WeiboIcon
+  WeiboIcon,
 } from "react-share";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   modal: {
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
     border: "1px solid #000",
     boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3)
+    padding: theme.spacing(2, 4, 3),
   },
   child: {
     verticalAlign: "top",
     display: "inline-block",
     marginRight: "10",
-    textAlign: "center"
+    textAlign: "center",
   },
   Demo__container: {
     width: "60",
-    height: "100%"
-  }
+    height: "100%",
+  },
 }));
 
-export default ({ handleClose, open }) => {
+export default ({ handleClose, open, slug }) => {
   const classes = useStyles();
 
   //settings for slider
@@ -84,10 +84,10 @@ export default ({ handleClose, open }) => {
   // };
 
   //this plus slug -- need to make slug ---
-  // console.log("current location ", window.location.href);
   ///////////////////*********** change for live */
-  const shareUrl = "https://materials-share.herokuapp.com/";
+  const shareUrl = window.location.href + "/" + slug;
   ///////////////////*********** change for live */
+  // console.log("current location ", shareUrl);
 
   const title = "Materials share - Create and share teaching resources ";
 
@@ -101,7 +101,7 @@ export default ({ handleClose, open }) => {
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
-        timeout: 500
+        timeout: 500,
       }}
     >
       <Fade in={open}>
