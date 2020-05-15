@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import Typography from "@material-ui/core/Typography";
 
 import {
   FacebookShareButton,
@@ -106,6 +107,9 @@ export default ({ handleClose, open, slug }) => {
     >
       <Fade in={open}>
         <div className={classes.paper}>
+          <Typography align={"center"} component="h6" variant="h6">
+            Share with...
+          </Typography>
           <div className="Demo__container">
             {/* <Slider {...settings}> */}
             <div className={classes.child}>

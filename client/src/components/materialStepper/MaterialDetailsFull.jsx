@@ -100,6 +100,7 @@ export default ({
       type: "text",
       label: "Procedure before class",
       multi: true,
+      rows: 4,
       value: procedureBefore,
       onChange: changeProcedureBefore,
       // placeholder: "eg. Copy handout for each pupil."
@@ -109,6 +110,7 @@ export default ({
       type: "text",
       label: "Procedure in class",
       multi: true,
+      rows: 4,
       value: procedureIn,
       onChange: changeProcedureIn,
     },
@@ -116,6 +118,7 @@ export default ({
       type: "text",
       label: "Is the resource based on a textbook?",
       value: book,
+      multi: false,
       onChange: changeBook,
     },
     {
@@ -128,12 +131,16 @@ export default ({
       type: "text",
       label: "Follow up activities",
       value: followUp,
+      multi: true,
+      rows: 4,
       onChange: changeFollowUp,
     },
     {
       type: "text",
       label: "Variations",
       value: variations,
+      multi: true,
+      rows: 4,
       onChange: changeVariations,
       placeholder: "eg. For weaker students...",
     },
@@ -141,12 +148,16 @@ export default ({
       type: "text",
       label: "What materials do I need?",
       value: materials,
+      multi: true,
+      rows: 4,
       onChange: changeMaterials,
       placeholder: "eg. Finger puppet template, colour pencils etc.",
     },
     {
       type: "text",
       label: "tips",
+      multi: true,
+      rows: 4,
       value: tips,
       onChange: changeTips,
       placeholder: "eg. Completed worksheets for classroom display ",
@@ -154,6 +165,8 @@ export default ({
     {
       type: "text",
       label: "notes",
+      multi: true,
+      rows: 4,
       value: notes,
       onChange: changeNotes,
     },
@@ -170,6 +183,8 @@ export default ({
                 key={input.label}
                 label={input.label}
                 value={input.value}
+                multiline={input.multi}
+                rows={input.rows}
                 onChange={input.onChange}
                 placeholder={input.placeholder}
                 fullWidth

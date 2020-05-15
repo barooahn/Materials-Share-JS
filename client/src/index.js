@@ -63,7 +63,9 @@ function withProps(Component, props) {
 const routePaths = () => {
   return (
     <main>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={<div style={{ textAlign: "center" }}>Loading...</div>}
+      >
         <Switch>
           <Route exact path="/" component={App} />
           <Route path="/users" component={Users} />

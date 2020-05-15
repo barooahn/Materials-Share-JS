@@ -48,6 +48,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
   const [likes, setLikes] = React.useState(material.likes || []);
 
   const author = localStorage.getItem("USER_ID");
+  console.log("MAterialcard - author", author);
   const toggleLikes = () => {
     ToggleLikes(author, likes, setLikes, material._id);
   };
@@ -107,11 +108,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
               <Typography variant="h6" component="h6">
                 {material.title}
               </Typography>
-              <Typography
-                variant="body2"
-                color="textSecondary"
-                component="p"
-              >
+              <Typography variant="body2" color="textSecondary" component="p">
                 {dateMod}
               </Typography>
               {material.objective ? (
@@ -132,9 +129,11 @@ export default function MaterialCard({ material, setMaterials, materials }) {
               <FavoriteIcon />
             </Badge>
           </IconButton>
-          <IconButton aria-label="share" onClick={handleOpen}>
-            <ShareIcon />
-          </IconButton>
+          {author ? (
+            <IconButton aria-label="share" onClick={handleOpen}>
+              <ShareIcon />
+            </IconButton>
+          ) : null}
           {author === material.author_id ? (
             <React.Fragment>
               <IconButton component={Link} to={"/edit/" + material._id}>
@@ -147,6 +146,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           ) : null}
         </CardActions>
       </Card>
+
       <SocialShare handleClose={handleClose} slug={material.slug} open={open} />
     </React.Fragment>
   );

@@ -69,17 +69,6 @@ const Materials = () => {
     fetchData();
   }, [page]);
 
-  // const fetchMoreData = () => {
-  //   if (materials.length >= materials.total) {
-  //     setHasMore(false);
-  //     return;
-  //   }
-  //   console.log("MAterials fetchMoreData - page number ", page);
-  //   let nextpage = page + 1;
-  //   setPage(nextpage);
-  //   console.log("Materials fetch more page", page);
-  // };
-
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
 
   return (

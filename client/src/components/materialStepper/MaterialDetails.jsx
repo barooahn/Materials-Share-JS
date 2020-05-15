@@ -77,6 +77,7 @@ export default ({
       multi: true,
       value: title,
       onChange: changeTitle,
+      rows: 1,
     },
     {
       type: "text",
@@ -85,6 +86,7 @@ export default ({
       value: objective,
       onChange: changeObjective,
       autoFocus: true,
+      rows: 2,
     },
     {
       type: "text",
@@ -92,6 +94,7 @@ export default ({
       multi: true,
       value: targetLanguage,
       onChange: changeTargetLanguage,
+      rows: 2,
     },
     {
       type: "slider",
@@ -116,6 +119,8 @@ export default ({
               key={index}
               label={input.label}
               value={input.value}
+              multiline={input.multi}
+              rows={input.rows}
               onChange={input.onChange}
               fullWidth
               variant="outlined"

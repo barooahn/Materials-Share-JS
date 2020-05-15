@@ -268,7 +268,9 @@ export default function LabelBottomNavigation({ routePaths }) {
                 src={localStorage.getItem("USER_IMG")}
                 className={classes.orange}
               >
-                {localStorage.getItem("USER_NAME").charAt(0)}
+                {localStorage.getItem("USER_NAME")
+                  ? localStorage.getItem("USER_NAME").charAt(0)
+                  : null}
               </Avatar>
             </IconButton>
           </Toolbar>
