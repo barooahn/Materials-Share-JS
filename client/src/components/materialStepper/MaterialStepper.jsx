@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import MediaFiles from "./MediaFiles";
 import MaterialDetails from "./MaterialDetails";
-import { SaveData, getMaterial } from "../../actions/materials-share-actions";
+import { SaveData, getMaterialId } from "../../actions/materials-share-actions";
 import MaterialDetailsFull from "./MaterialDetailsFull";
 import {
   BrowserRouter as Router,
@@ -123,8 +123,7 @@ export default function MaterialStepper() {
 
   React.useEffect(() => {
     if (id !== undefined) {
-      // console.log("edit material - ", id);
-      getMaterial(id).then((resultData) => {
+      getMaterialId(id).then((resultData) => {
         setFiles(resultData.files);
         setTitle(resultData.title);
         setLevelValue(resultData.level);

@@ -2,9 +2,10 @@ import React from "react";
 import VideoFile from "./VideoFile";
 import DocViewer from "./DocViewer";
 
-const Viewer = ({ file, ext = null }) => {
+const Viewer = ({ file, ext = null, thumb = null }) => {
   // console.log(" Viewer", file);
-  const getPlayer = file => {
+  file = thumb !== null ? thumb : file;
+  const getPlayer = (file) => {
     if (ext === null) {
       const reExtension = /(?:\.([^.]+))?$/;
 
@@ -24,11 +25,11 @@ const Viewer = ({ file, ext = null }) => {
     }
   };
 
-  const renderPlayer = filesInput => {
+  const renderPlayer = (filesInput) => {
     const file = getPlayer(filesInput);
     const mediaStyle = {
       width: "100%",
-      height: "auto"
+      height: "auto",
     };
 
     if (file.type === "media") {

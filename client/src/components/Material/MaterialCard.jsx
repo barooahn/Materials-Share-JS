@@ -68,8 +68,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
   const classes = useStyles();
   const [likes, setLikes] = React.useState(material.likes || []);
 
-  
-    //Delete model stuff
+  //Delete model stuff
 
   const [deleteOpen, setDeleteOpen] = React.useState(false);
 
@@ -124,26 +123,31 @@ export default function MaterialCard({ material, setMaterials, materials }) {
   const dateOptions = { year: "numeric", month: "long", day: "numeric" };
   const dateMod = date.toLocaleDateString(undefined, dateOptions);
 
-  const thumbOrFile = material.thumb ? material.thumb : material.files[0];
+  const thumb = material.thumb ? material.thumb : null;
 
   return (
     <React.Fragment>
       <Card className={classes.root}>
         <CardActionArea>
-            <NavLink
-              to={{ pathname: "/material/" + material.slug }}
-              className="link"
-              key="ma"
-            >
-          <div className={classes.media}>
-            <Avatar
-              aria-label="material"
-              alt={material.title}
-              src={material.author_img}
-              className={classes.avatar}
-            ></Avatar>
-            <Viewer file={thumbOrFile} key={thumbOrFile} />
-          </div>
+          <NavLink
+            to={{ pathname: "/material/" + material.slug }}
+            className="link"
+            key="ma"
+          >
+            
+            <div className={classes.media}>
+              <Avatar
+                aria-label="material"
+                alt={material.title}
+                src={material.author_img}
+                className={classes.avatar}
+              ></Avatar>
+              <Viewer
+                thumb={thumb}
+                file={material.files[0]}
+                key={material.files[0]}
+              />
+            </div>
             <CardContent>
               <Typography variant="h6" component="h6">
                 {material.title}

@@ -25,6 +25,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,8 +59,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({ setMaterials, materials }) => {
+export default () => {
   const classes = useStyles();
+  let history = useHistory();
   const { slug } = useParams();
   const [material, setMaterial] = React.useState([]);
   const [likes, setLikes] = React.useState(material.likes || []);
@@ -86,7 +88,7 @@ export default ({ setMaterials, materials }) => {
 
   const confirmDelete = () => {
     DeleteMaterial(material._id);
-    setMaterials(materials.filter((m) => m._id !== material._id));
+    history.push("/materials");
   };
 
   //Share model stuff
