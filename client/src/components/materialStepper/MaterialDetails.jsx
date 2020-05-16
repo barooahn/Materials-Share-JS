@@ -67,7 +67,7 @@ export default ({
     setTimeInClass(newValue);
   };
   const changeTargetLanguage = (e, newValue) => {
-    setTargetLanguage(newValue);
+    setTargetLanguage(e.target.value);
   };
 
   const inputs = [

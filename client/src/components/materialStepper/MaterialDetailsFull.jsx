@@ -77,22 +77,22 @@ export default ({
   };
 
   const changeFollowUp = (e, newValue) => {
-    setFollowUp(newValue);
+    setFollowUp(e.target.value);
   };
 
   const changeVariations = (e, newValue) => {
-    setVariations(newValue);
+    setVariations(e.target.value);
   };
 
   const changeMaterials = (e, newValue) => {
-    setMaterials(newValue);
+    setMaterials(e.target.value);
   };
 
   const changeTips = (e, newValue) => {
-    setTips(newValue);
+    setTips(e.target.value);
   };
   const changeNotes = (e, newValue) => {
-    setNotes(newValue);
+    setNotes(e.target.value);
   };
 
   const inputs = [

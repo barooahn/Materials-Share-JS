@@ -12,6 +12,7 @@ const titles = [
   { objective: "Objective" },
   { level: "Level" },
   { languageFocus: "Language Focus" },
+  { targetLanguage: "Target Language" },
   { pupilTask: "Tasks For Pupils" },
   { activityUse: "Activity Use" },
   { materials: "Materials needed" },
