@@ -10,10 +10,11 @@ import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { signUser, register } from "../auth/helpers";
-import FacebookLogin from "react-facebook-login";
+import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
 import { withRouter, useLocation, useHistory } from "react-router-dom";
 import TextField from "@material-ui/core/TextField";
+import SvgIcon from "@material-ui/core/SvgIcon";
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -49,8 +50,15 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing.unit * 3,
   },
   input: {
-    marginBottom: 12
-    ,
+    marginBottom: 12,
+  },
+  sbcontainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  socialButtons: {
+    margin: 12,
   },
 }));
 
@@ -134,6 +142,21 @@ export default () => {
     history.push(to);
   };
 
+  function FacebookIcon(props) {
+    return (
+      <SvgIcon {...props}>
+        <path d="M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z" />
+      </SvgIcon>
+    );
+  }
+  function GoogleIcon(props) {
+    return (
+      <SvgIcon {...props}>
+        <path d="M12.24 10.285V14.4h6.806c-.275 1.765-2.056 5.174-6.806 5.174-4.095 0-7.439-3.389-7.439-7.574s3.345-7.574 7.439-7.574c2.33 0 3.891.989 4.785 1.849l3.254-3.138C18.189 1.186 15.479 0 12.24 0c-6.635 0-12 5.365-12 12s5.365 12 12 12c6.926 0 11.52-4.869 11.52-11.726 0-.788-.085-1.39-.189-1.989H12.24z" />
+      </SvgIcon>
+    );
+  }
+
   return (
     <main className={classes.main}>
       <CssBaseline />
@@ -141,27 +164,51 @@ export default () => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon />
         </Avatar>
+
+        <Typography variant="body1">{formErrors}</Typography>
+        <div className={classes.sbcontainer}>
+          <div className={classes.socialButtons}>
+            <FacebookLogin
+              appId="1883125445347981"
+              autoLoad={false}
+              fields="name,email,picture"
+              callback={responseFacebook}
+              // icon="fa-facebook"
+              // textButton="Login"
+              disableMobileRedirect={true}
+              render={(renderProps) => (
+                <Button
+                  onClick={renderProps.onClick}
+                  startIcon={<FacebookIcon />}
+                  variant="outlined"
+                >
+                  Login
+                </Button>
+              )}
+            />
+          </div>
+          <div className={classes.socialButtons}>
+            <GoogleLogin
+              clientId="164931093808-jtgcj34sphhdtvt9j6vg488nm3uvmall.apps.googleusercontent.com"
+              buttonText="Login"
+              render={(renderProps) => (
+                <Button
+                  onClick={renderProps.onClick}
+                  startIcon={<GoogleIcon />}
+                  variant="outlined"
+                >
+                  Login
+                </Button>
+              )}
+              onSuccess={responseGoogle}
+              onFailure={responseGoogle}
+              className="my-google-button-class"
+            />
+          </div>
+        </div>
         <Typography component="h1" variant="h5">
           Register
         </Typography>
-        <Typography variant="body1">{formErrors}</Typography>
-        <FacebookLogin
-          appId="1883125445347981"
-          autoLoad={false}
-          fields="name,email,picture"
-          callback={responseFacebook}
-          // cssClass="my-facebook-button-class"
-          icon="fa-facebook"
-          textButton="Login"
-          disableMobileRedirect={true}
-        />
-        <GoogleLogin
-          clientId="164931093808-jtgcj34sphhdtvt9j6vg488nm3uvmall.apps.googleusercontent.com"
-          buttonText="Login"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          //className="my-google-button-class"
-        />
         <form className={classes.form}>
           <TextField
             className={classes.input}
