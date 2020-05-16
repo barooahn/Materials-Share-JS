@@ -184,6 +184,7 @@ export default () => {
                   onClick={renderProps.onClick}
                   startIcon={<FacebookIcon />}
                   variant="outlined"
+                  size="large"
                 >
                   Login
                 </Button>
@@ -199,6 +200,7 @@ export default () => {
                   onClick={renderProps.onClick}
                   startIcon={<GoogleIcon />}
                   variant="outlined"
+                  size="large"
                 >
                   Login
                 </Button>

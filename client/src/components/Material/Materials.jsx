@@ -53,9 +53,7 @@ const Materials = () => {
   React.useEffect(() => {
     async function fetchData() {
       setGettingSearchResults(true);
-      console.log("MAterials useEffect - page number ", page);
       let resultData = await getPaginatedMaterials(page, limit);
-      console.log(resultData);
       setTotalMaterials(resultData.total);
       await resultData.materials.forEach((material) => {
         material.files = Array.isArray(material.files)

@@ -19,6 +19,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link } from "react-router-dom";
 import DeleteMaterial from "../helpers/DeleteMaterial";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const cardWidth = document.documentElement.clientWidth < 600 ? "98%" : 250;
 
@@ -41,24 +46,59 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
     zIndex: 4,
   },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  modalDeleteButtons: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
 }));
 
 export default function MaterialCard({ material, setMaterials, materials }) {
   const classes = useStyles();
   const [likes, setLikes] = React.useState(material.likes || []);
 
+  
+    //Delete model stuff
+
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
+
+  const handleDeleteOpen = () => {
+    setDeleteOpen(true);
+  };
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
+  };
+
+  const handleDeleteMaterial = () => {
+    handleDeleteOpen();
+  };
+
+  const cancelDelete = () => {
+    setDeleteOpen(false);
+  };
+
+  const confirmDelete = () => {
+    DeleteMaterial(material._id);
+    setMaterials(materials.filter((m) => m._id !== material._id));
+  };
   const author = localStorage.getItem("USER_ID");
-  console.log("MAterialcard - author", author);
+
   const toggleLikes = () => {
     ToggleLikes(author, likes, setLikes, material._id);
   };
 
-  const handleDeleteMaterial = () => {
-    // console.log("in card menu delete", material);
-    // console.log("MaterialCArd handleDeleteMaterial- materials", materials);
-    DeleteMaterial(material._id);
-    setMaterials(materials.filter((m) => m._id !== material._id));
-  };
   const setLikesColour = () => {
     let color = "default";
     likes.forEach((like) => {
@@ -69,14 +109,14 @@ export default function MaterialCard({ material, setMaterials, materials }) {
     return color;
   };
 
-  //model stuff
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
+  //Share model stuff
+  const [shareOpen, setShareOpen] = React.useState(false);
+  const handleShareOpen = () => {
+    setShareOpen(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleShareClose = () => {
+    setShareOpen(false);
   };
 
   //set date
@@ -90,6 +130,11 @@ export default function MaterialCard({ material, setMaterials, materials }) {
     <React.Fragment>
       <Card className={classes.root}>
         <CardActionArea>
+            <NavLink
+              to={{ pathname: "/material/" + material.slug }}
+              className="link"
+              key="ma"
+            >
           <div className={classes.media}>
             <Avatar
               aria-label="material"
@@ -99,11 +144,6 @@ export default function MaterialCard({ material, setMaterials, materials }) {
             ></Avatar>
             <Viewer file={thumbOrFile} key={thumbOrFile} />
           </div>
-          <NavLink
-            to={{ pathname: "/material/" + material.slug }}
-            className="link"
-            key="ma"
-          >
             <CardContent>
               <Typography variant="h6" component="h6">
                 {material.title}
@@ -124,16 +164,17 @@ export default function MaterialCard({ material, setMaterials, materials }) {
             aria-label="add to favorites"
             onClick={toggleLikes}
             color={setLikesColour()}
+            disabled={!author}
           >
             <Badge color="default" badgeContent={likes.length}>
               <FavoriteIcon />
             </Badge>
           </IconButton>
-          {author ? (
-            <IconButton aria-label="share" onClick={handleOpen}>
-              <ShareIcon />
-            </IconButton>
-          ) : null}
+
+          <IconButton aria-label="share" onClick={handleShareOpen}>
+            <ShareIcon />
+          </IconButton>
+
           {author === material.author_id ? (
             <React.Fragment>
               <IconButton component={Link} to={"/edit/" + material._id}>
@@ -147,7 +188,53 @@ export default function MaterialCard({ material, setMaterials, materials }) {
         </CardActions>
       </Card>
 
-      <SocialShare handleClose={handleClose} slug={material.slug} open={open} />
+      <SocialShare
+        handleShareClose={handleShareClose}
+        shareOpen={shareOpen}
+        slug={material.slug}
+      />
+      <Modal
+        open={deleteOpen}
+        onClose={handleDeleteClose}
+        aria-labelledby="Delete Confirm"
+        aria-describedby="Confirmation of delete"
+        className={classes.modal}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={deleteOpen}>
+          <div className={classes.paper}>
+            <Typography variant="h6" color="secondary" component="p">
+              Are you sure you want to delete? This cannot be undone.
+            </Typography>
+            <br />
+            <div className={classes.modalDeleteButtons}>
+              <Button
+                color="secondary"
+                variant="contained"
+                size="large"
+                startIcon={<DeleteForeverIcon />}
+                onClick={confirmDelete}
+              >
+                Delete
+              </Button>
+              <br />
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                startIcon={<CancelIcon />}
+                onClick={cancelDelete}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </Fade>
+      </Modal>
     </React.Fragment>
   );
 }

@@ -59,36 +59,24 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+    maxWidth: "100%",
   },
   child: {
     verticalAlign: "top",
     display: "inline-block",
-    marginRight: "10",
+    margin: 5,
     textAlign: "center",
   },
-  Demo__container: {
-    width: "60",
-    height: "100%",
+  shareContainer: {
+    // display: "flex",
+    maxWidth: "95%",
   },
 }));
 
-export default ({ handleClose, open, slug }) => {
+export default ({ handleShareClose, shareOpen, slug }) => {
   const classes = useStyles();
 
-  //settings for slider
-  // var settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1
-  // };
-
-  //this plus slug -- need to make slug ---
-  ///////////////////*********** change for live */
   const shareUrl = `${window.location.protocol}//${window.location.hostname}/material/${slug} `;
-  ///////////////////*********** change for live */
-  console.log("current location ", shareUrl);
 
   const title = "Materials share - Create and share teaching resources ";
 
@@ -97,20 +85,21 @@ export default ({ handleClose, open, slug }) => {
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={classes.modal}
-      open={open}
-      onClose={handleClose}
+      open={shareOpen}
+      onClose={handleShareClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
         timeout: 500,
       }}
     >
-      <Fade in={open}>
+      <Fade in={shareOpen}>
         <div className={classes.paper}>
-          <Typography align={"center"} component="h6" variant="h6">
+          <Typography align={"center"} component="h5" variant="h5">
             Share with...
           </Typography>
-          <div className="Demo__container">
+          <br />
+          <div className={classes.shareContainer}>
             {/* <Slider {...settings}> */}
             <div className={classes.child}>
               <FacebookShareButton

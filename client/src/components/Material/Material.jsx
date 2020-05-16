@@ -20,6 +20,11 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link } from "react-router-dom";
 import DeleteMaterial from "../helpers/DeleteMaterial";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Button from "@material-ui/core/Button";
+import Fade from "@material-ui/core/Fade";
+import CancelIcon from "@material-ui/icons/Cancel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,21 +40,63 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1000,
     paddingBottom: 5,
   },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  modalDeleteButtons: {
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
 }));
 
 export default ({ setMaterials, materials }) => {
   const classes = useStyles();
   const { slug } = useParams();
   const [material, setMaterial] = React.useState([]);
-  const [open, setOpen] = React.useState(false);
   const [likes, setLikes] = React.useState(material.likes || []);
   const author = localStorage.getItem("USER_ID");
 
-  const handleOpen = () => {
-    setOpen(true);
+  //Delete model stuff
+  const [deleteOpen, setDeleteOpen] = React.useState(false);
+
+  const handleDeleteOpen = () => {
+    setDeleteOpen(true);
   };
-  const handleClose = () => {
-    setOpen(false);
+
+  const handleDeleteClose = () => {
+    setDeleteOpen(false);
+  };
+
+  const handleDeleteMaterial = () => {
+    handleDeleteOpen();
+  };
+
+  const cancelDelete = () => {
+    setDeleteOpen(false);
+  };
+
+  const confirmDelete = () => {
+    DeleteMaterial(material._id);
+    setMaterials(materials.filter((m) => m._id !== material._id));
+  };
+
+  //Share model stuff
+  const [shareOpen, setShareOpen] = React.useState(false);
+  const handleShareOpen = () => {
+    setShareOpen(true);
+  };
+
+  const handleShareClose = () => {
+    setShareOpen(false);
   };
 
   const toggleLikes = () => {
@@ -75,13 +122,6 @@ export default ({ setMaterials, materials }) => {
     }
   }, [slug]);
 
-  console.log("Material material", material);
-  const handleDeleteMaterial = () => {
-    console.log("in card menu delte", material);
-    DeleteMaterial(material._id);
-    setMaterials(materials.filter((m) => m._id !== material._id));
-  };
-
   return (
     <Paper className={classes.paperCenter} elevation={1}>
       <Typography gutterBottom variant="h2" component="h2" align="center">
@@ -91,15 +131,16 @@ export default ({ setMaterials, materials }) => {
         aria-label="add to favorites"
         onClick={toggleLikes}
         color={setLikesColour()}
+        disabled={!author}
       >
         <Badge color="default" badgeContent={likes.length}>
           <FavoriteIcon />
         </Badge>
       </IconButton>
-      <IconButton aria-label="share" onClick={handleOpen}>
+      <IconButton aria-label="share" onClick={handleShareOpen}>
         <ShareIcon />
       </IconButton>
-      <SocialShare handleClose={handleClose} open={open} />
+      <SocialShare handleShareClose={handleShareClose} shareOpen={shareOpen} />
       {author === material.author_id ? (
         <React.Fragment>
           <IconButton component={Link} to={"/edit/" + material._id}>
@@ -144,6 +185,48 @@ export default ({ setMaterials, materials }) => {
           </Grid>
         ) : null}
       </Grid>
+      <Modal
+        open={deleteOpen}
+        onClose={handleDeleteClose}
+        aria-labelledby="Delete Confirm"
+        aria-describedby="Confirmation of delete"
+        className={classes.modal}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={deleteOpen}>
+          <div className={classes.paper}>
+            <Typography variant="h6" color="secondary" component="p">
+              Are you sure you want to delete? This cannot be undone.
+            </Typography>
+            <br />
+            <div className={classes.modalDeleteButtons}>
+              <Button
+                color="secondary"
+                variant="contained"
+                size="large"
+                startIcon={<DeleteForeverIcon />}
+                onClick={confirmDelete}
+              >
+                Delete
+              </Button>
+              <br />
+              <Button
+                color="primary"
+                variant="contained"
+                size="large"
+                startIcon={<CancelIcon />}
+                onClick={cancelDelete}
+              >
+                Cancel
+              </Button>
+            </div>
+          </div>
+        </Fade>
+      </Modal>
     </Paper>
   );
 };
