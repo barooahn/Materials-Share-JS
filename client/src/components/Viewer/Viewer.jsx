@@ -3,7 +3,7 @@ import VideoFile from "./VideoFile";
 import DocViewer from "./DocViewer";
 
 const Viewer = ({ file, ext = null, thumb = null }) => {
-  // console.log(" Viewer", file);
+  // console.log(" Viewer- ext", ext);
   file = thumb !== null ? thumb : file;
   const getPlayer = (file) => {
     if (ext === null) {
@@ -43,9 +43,16 @@ const Viewer = ({ file, ext = null, thumb = null }) => {
           src={file.name}
         />
       );
-    } else {
-      return <DocViewer key={file.name} file={file.name} ext={file.ext} />;
-    }
+    } else if (file.type === "doc") {
+      // console.log(" Viewer- got a doc", file);
+      return (
+        <DocViewer
+          key={file.name + Date.now()}
+          file={file.name}
+          ext={file.ext}
+        />
+      );
+    } else return null;
   };
   return renderPlayer(file);
 };

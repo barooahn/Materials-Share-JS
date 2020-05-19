@@ -93,7 +93,7 @@ export default function Search({ setGettingSearchResults }) {
           options={autoCompleteOptions}
           getOptionLabel={(option) => option.title}
           freeSolo
-          fullWidth
+          fullwidth="true"
           open={open}
           onOpen={() => {
             setOpen(true);

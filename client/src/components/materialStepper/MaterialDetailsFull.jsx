@@ -110,7 +110,7 @@ export default ({
       type: "text",
       label: "Procedure in class",
       multi: true,
-      rows: 4,
+      rows: 6,
       value: procedureIn,
       onChange: changeProcedureIn,
     },
@@ -155,7 +155,7 @@ export default ({
     },
     {
       type: "text",
-      label: "tips",
+      label: "Tips",
       multi: true,
       rows: 4,
       value: tips,
@@ -164,7 +164,7 @@ export default ({
     },
     {
       type: "text",
-      label: "notes",
+      label: "Notes",
       multi: true,
       rows: 4,
       value: notes,

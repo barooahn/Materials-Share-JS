@@ -134,7 +134,6 @@ export default function MaterialCard({ material, setMaterials, materials }) {
             className="link"
             key="ma"
           >
-            
             <div className={classes.media}>
               <Avatar
                 aria-label="material"
@@ -145,7 +144,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
               <Viewer
                 thumb={thumb}
                 file={material.files[0]}
-                key={material.files[0]}
+                key={material.files[0] + Date.now()}
               />
             </div>
             <CardContent>

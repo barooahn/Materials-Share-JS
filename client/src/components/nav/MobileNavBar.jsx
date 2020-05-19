@@ -206,7 +206,7 @@ export default function LabelBottomNavigation({ routePaths }) {
         <div>
           <MenuItem onClick={handleMenuClose}>
             <NavLink to="/profile" className="link" key="profile">
-              <ListItem>
+              <ListItem component="div">
                 <ListItemIcon>
                   <Assignment />
                 </ListItemIcon>
@@ -216,7 +216,7 @@ export default function LabelBottomNavigation({ routePaths }) {
           </MenuItem>
 
           <MenuItem onClick={handleSignOutClick}>
-            <ListItem>
+            <ListItem component="div">
               <ListItemIcon>
                 <Eject />
               </ListItemIcon>
@@ -301,7 +301,7 @@ export default function LabelBottomNavigation({ routePaths }) {
       </Menu>
       <main>{routePaths}</main>
       <BottomNavigation
-        bottomNavValue={bottomNavValue}
+        bottomnavvalue={bottomNavValue}
         onChange={handleBottomNavChange}
         className={classes.root}
         position="fixed"

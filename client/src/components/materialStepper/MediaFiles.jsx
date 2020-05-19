@@ -119,6 +119,7 @@ export default ({
       {localFiles.map((file) => {
         const reExtension = /(?:\.([^.]+))?$/;
         const ext = file.raw.name.match(reExtension)[1].toLowerCase();
+        console.log("Mediafiles localfiles ext", ext);
         return (
           <div className="attachement" key={file.preview}>
             <Viewer file={file.preview} ext={ext} key={file.preview} />

@@ -1,9 +1,7 @@
 /* eslint-disable no-console */
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
-import Link from "@material-ui/core/Link";
 import Button from "@material-ui/core/Button";
 import { useParams } from "react-router-dom";
 import Avatar from "@material-ui/core/Avatar";
@@ -50,15 +48,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 12,
   },
 }));
-
-const loading = {
-  margin: "1em",
-  fontSize: "24px",
-};
-
-const title = {
-  pageTitle: "Password Reset Screen",
-};
 
 export default function ResetPassword() {
   const classes = useStyles();
