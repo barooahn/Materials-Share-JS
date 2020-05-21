@@ -74,7 +74,7 @@ export default ({ file, ext, randId }) => {
             className={classes.page}
             onLoadSuccess={onDocumentLoadSuccess}
           >
-            <Page pageNumber={pageNumber} />
+            <Page size="A4" pageNumber={pageNumber}></Page>
           </Document>
           {numPages > 1 ? (
             <Pagination count={numPages} onChange={onChangePDFpage} />
