@@ -225,7 +225,6 @@ export default () => {
               name="email"
               autoComplete="email"
               autoFocus
-              className={classes.googleLogin}
               onChange={handleEmailChange}
               value={email}
               fullWidth

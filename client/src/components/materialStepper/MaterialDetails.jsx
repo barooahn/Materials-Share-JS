@@ -1,6 +1,6 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Autocomplete } from "@material-ui/lab";
 import Typography from "@material-ui/core/Typography";
 import { Slider } from "@material-ui/core";
@@ -139,6 +139,7 @@ export default ({
                 }
                 value={input.value}
                 valueLabelDisplay="on"
+                step={5}
                 className={classes.inputSlider}
                 onChange={input.onChange}
                 autoFocus={input.autoFocus}

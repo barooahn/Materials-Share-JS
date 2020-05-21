@@ -210,6 +210,7 @@ export default function MiniDrawer({ routePaths }) {
             className={classes.button}
             startIcon={<AccountBoxIcon />}
             onClick={handleLoginClick}
+            aria-label="Login"
           >
             Login
           </Button>
@@ -219,6 +220,7 @@ export default function MiniDrawer({ routePaths }) {
             className={classes.button}
             startIcon={<Assignment />}
             onClick={handleRegisterClick}
+            aria-label="Register"
           >
             Register
           </Button>
@@ -339,7 +341,7 @@ export default function MiniDrawer({ routePaths }) {
         }}
       >
         <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose}>
+          <IconButton onClick={handleDrawerClose} aria-label="Close drawer">
             {theme.direction === "rtl" ? (
               <ChevronRightIcon />
             ) : (
@@ -354,6 +356,7 @@ export default function MiniDrawer({ routePaths }) {
             key={"Home"}
             onClick={handleHomeClick}
             selected={"/" === location.pathname}
+            aria-label="Home"
           >
             <ListItemIcon>
               <HomeIcon />
@@ -365,6 +368,7 @@ export default function MiniDrawer({ routePaths }) {
             <ListItem
               button
               key={"Materials"}
+              aria-label="Materials"
               selected={"/materials" === location.pathname}
             >
               <ListItemIcon>
@@ -377,6 +381,7 @@ export default function MiniDrawer({ routePaths }) {
           <NavLink to="/create" className="link">
             <ListItem
               button
+              aria-label="Create Material"
               key={"NewMaterial"}
               selected={"/create" === location.pathname}
             >
@@ -390,6 +395,7 @@ export default function MiniDrawer({ routePaths }) {
           <NavLink to="/help" className="link">
             <ListItem
               button
+              aria-label="help"
               key={"help"}
               selected={"/help" === location.pathname}
             >

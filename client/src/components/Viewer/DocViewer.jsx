@@ -1,9 +1,8 @@
 import React from "react";
 import { useEffect } from "react";
-import { Document, Page } from "react-pdf";
+import { Document, Page, pdfjs } from "react-pdf";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
-import { pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 const mammoth = require("mammoth");
 
@@ -15,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
 
     canvas: {
       maxWidth: "100%",
+      width: "auto !important",
+      height: "auto !important",
     },
   },
 }));

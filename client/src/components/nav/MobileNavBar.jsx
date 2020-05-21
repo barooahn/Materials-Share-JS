@@ -234,7 +234,11 @@ export default function LabelBottomNavigation({ routePaths }) {
       <HideOnScroll>
         <AppBar position="sticky" color="default" className={classes.appBar}>
           <Toolbar className={classes.toolbar} disableGutters>
-            <IconButton className={classes.logo} onClick={handleHomeClick}>
+            <IconButton
+              className={classes.logo}
+              onClick={handleHomeClick}
+              aria-label="Home"
+            >
               <LocalLibraryIcon color="secondary" fontSize="large" />
             </IconButton>
             {/* <div className={classes.grow} /> */}
@@ -335,7 +339,12 @@ export default function LabelBottomNavigation({ routePaths }) {
           onClick={handleHelpClick}
         />
         <HideOnScroll>
-          <Fab color="secondary" aria-label="add" className={classes.fabButton}>
+          <Fab
+            color="secondary"
+            aria-label="add"
+            className={classes.fabButton}
+            aria-label="Create Material"
+          >
             <AddIcon onClick={handleNewClick} />
           </Fab>
         </HideOnScroll>
