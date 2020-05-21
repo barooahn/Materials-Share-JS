@@ -72,7 +72,23 @@ app.use("/api", router);
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
   // Set static folder
-  app.use(express.static("client/build"));
+  app.use(
+    express.static("client/build", {
+      etag: true, // Just being explicit about the default.
+      lastModified: true, // Just being explicit about the default.
+      setHeaders: (res, path) => {
+        const hashRegExp = new RegExp("\\.[0-9a-f]{8}\\.");
+
+        if (path.endsWith(".html")) {
+          // All of the project's HTML files end in .html
+          res.setHeader("Cache-Control", "no-cache");
+        } else if (hashRegExp.test(path)) {
+          // If the RegExp matched, then we have a versioned URL.
+          res.setHeader("Cache-Control", "max-age=31536000");
+        }
+      },
+    })
+  );
 
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));

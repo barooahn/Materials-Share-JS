@@ -81,6 +81,10 @@ export default () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setFormError([]);
+    setNameError(false);
+    setEmailError(false);
+    setPassword1Error(false);
+    setPasswordError(false);
     if (password !== password1) {
       setPasswordError(true);
       setPassword1Error(true);
@@ -197,11 +201,6 @@ export default () => {
           <LockOutlinedIcon />
         </Avatar>
 
-        {formError.map((error) => (
-          <Typography variant="body1" color="secondary">
-            {error}
-          </Typography>
-        ))}
         <div className={classes.sbcontainer}>
           <div className={classes.socialButtons}>
             <FacebookLogin
@@ -247,6 +246,11 @@ export default () => {
         <Typography component="h1" variant="h5">
           Register
         </Typography>
+        {formError.map((error) => (
+          <Typography variant="body1" color="secondary">
+            {error}
+          </Typography>
+        ))}
         <form className={classes.form}>
           <TextField
             className={classes.input}
