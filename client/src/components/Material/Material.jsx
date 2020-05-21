@@ -160,7 +160,7 @@ export default () => {
             <div className={classes.media}>
               {material.files
                 ? material.files.map((file) => (
-                    <Viewer key={file} file={file} />
+                    <Viewer key={file + Date.now()} file={file} />
                   ))
                 : null}
             </div>

@@ -202,7 +202,7 @@ export default ({
           id="category"
           multiple
           className={classes.inputAutocomplete}
-          fullWidth
+          fullwidth="true"
           value={categoryValue}
           onChange={setCategoryValue}
           options={category}
@@ -223,7 +223,7 @@ export default ({
           id="language-focus"
           multiple
           className={classes.inputAutocomplete}
-          fullWidth
+          fullwidth="true"
           value={languageFocusValue}
           onChange={setLanguageFocusValue}
           options={languageFocus}
@@ -244,7 +244,7 @@ export default ({
           id="activity-use"
           multiple
           className={classes.inputAutocomplete}
-          fullWidth
+          fullwidth="true"
           value={activityUseValue}
           onChange={setActivityUseValue}
           options={activityUse}

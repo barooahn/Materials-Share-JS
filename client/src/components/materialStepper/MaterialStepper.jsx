@@ -59,6 +59,8 @@ export default function MaterialStepper() {
 
   const handleNext = () => {
     let newSkipped = skipped;
+    if (activeStep === 0) getDetailsAutoComplete();
+    if (activeStep === 1) getFullDetailsAutoComplete();
     if (isStepSkipped(activeStep)) {
       newSkipped = new Set(newSkipped.values());
       newSkipped.delete(activeStep);
@@ -102,8 +104,8 @@ export default function MaterialStepper() {
   const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
   const [dynamicPupilTask, setDynamicPupilTask] = React.useState([]);
   const [objective, setObjective] = React.useState("");
-  const [timePrep, setTimePrep] = React.useState(20);
-  const [timeInClass, setTimeInClass] = React.useState(20);
+  const [timePrep, setTimePrep] = React.useState(0);
+  const [timeInClass, setTimeInClass] = React.useState(0);
   const [procedureBefore, setProcedureBefore] = React.useState("");
   const [procedureIn, setProcedureIn] = React.useState("");
   const [book, setBook] = React.useState("");
@@ -149,21 +151,21 @@ export default function MaterialStepper() {
     }
   }, [id]);
 
-  React.useEffect(() => {
-    async function fetchData() {
-      const level = await SetAutocompletes("level");
-      setDynamicLevels(level);
-      const languageFocus = await SetAutocompletes("languageFocus");
-      setDynamicLanguageFocus(languageFocus);
-      const activityUse = await SetAutocompletes("activityUse");
-      setDynamicActivityUse(activityUse);
-      const pupilTask = await SetAutocompletes("pupilTask");
-      setDynamicPupilTask(pupilTask);
-      const category = await SetAutocompletes("category");
-      setDynamicCategory(category);
-    }
-    fetchData();
-  }, []);
+  const getDetailsAutoComplete = async () => {
+    const level = await SetAutocompletes("level");
+    setDynamicLevels(level);
+    const pupilTask = await SetAutocompletes("pupilTask");
+    setDynamicPupilTask(pupilTask);
+  };
+
+  const getFullDetailsAutoComplete = async () => {
+    const languageFocus = await SetAutocompletes("languageFocus");
+    setDynamicLanguageFocus(languageFocus);
+    const activityUse = await SetAutocompletes("activityUse");
+    setDynamicActivityUse(activityUse);
+    const category = await SetAutocompletes("category");
+    setDynamicCategory(category);
+  };
 
   function getSteps() {
     return ["Add Media and Title", "Add details", "Complete material"];
@@ -172,6 +174,7 @@ export default function MaterialStepper() {
   function getStepContent(step) {
     switch (step) {
       case 0:
+        console.log("stepper calling mediaFiles...");
         return (
           <MediaFiles
             files={files}
@@ -184,6 +187,7 @@ export default function MaterialStepper() {
           />
         );
       case 1:
+        // console.log("stepper calling MaterialDetails...");
         return (
           <MaterialDetails
             title={title}
@@ -208,6 +212,7 @@ export default function MaterialStepper() {
           />
         );
       case 2:
+        // console.log("stepper calling MaterialDetailsFull...");
         return (
           <MaterialDetailsFull
             procedureIn={procedureIn}

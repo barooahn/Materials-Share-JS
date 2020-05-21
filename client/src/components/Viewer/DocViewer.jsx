@@ -1,5 +1,7 @@
 import React from "react";
+import { useEffect } from "react";
 import { Document, Page } from "react-pdf";
+import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
 import { pdfjs } from "react-pdf";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
@@ -13,22 +15,26 @@ const useStyles = makeStyles((theme) => ({
 
     canvas: {
       maxWidth: "100%",
-    }
+    },
   },
 }));
 
-const DocViewer = ({ file, ext }) => {
+export default ({ file, ext, randId }) => {
   const classes = useStyles();
-  const [doc, setDoc] = React.useState(<div>Loading...</div>);
+  const [numPages, setNumPages] = React.useState(null);
+  const [pageNumber, setPageNumber] = React.useState(1);
 
-  const randId =
-    "wordDoc" +
-    Math.random()
-      .toString(36)
-      .replace(/[^a-z]+/g, "")
-      .substr(0, 12);
+  const onDocumentLoadSuccess = ({ numPages }) => {
+    setNumPages(numPages);
+  };
 
-  React.useEffect(() => {
+  const onChangePDFpage = (e, page) => {
+    console.log("Docviewer - onChangePDFpage", page);
+    setPageNumber(page);
+  };
+
+  useEffect(() => {
+    // console.log("DocViewer: in Useeffect file", file);
     if (ext === "docx") {
       const jsonFile = new XMLHttpRequest();
       jsonFile.open("GET", file, true);
@@ -43,10 +49,10 @@ const DocViewer = ({ file, ext }) => {
             )
             .then((result) => {
               const docEl = document.createElement("div");
-              docEl.className = "document-container";
               docEl.innerHTML = result.value;
-              console.log("DocViewer: key", randId);
-              document.getElementById(randId).innerHTML = docEl.outerHTML;
+              // console.log("DocViewer: key", randId);
+              if (document.getElementById(randId))
+                document.getElementById(randId).innerHTML = docEl.outerHTML;
               // setDoc("");
             })
             .catch((err) => {
@@ -55,20 +61,23 @@ const DocViewer = ({ file, ext }) => {
             .done();
         }
       };
-    } else if (ext === "pdf") {
-      setDoc(
-        <Document file={file} className={classes.page}>
-          <Page pageNumber={1} />
-        </Document>
-      );
-    } else setDoc(null);
+    }
   }, []);
 
   return (
     <div className={classes.doc} id={randId}>
-      {doc}
+      {ext === "pdf" ? (
+        <React.Fragment>
+          <Document
+            file={file}
+            className={classes.page}
+            onLoadSuccess={onDocumentLoadSuccess}
+          >
+            <Page pageNumber={pageNumber} />
+          </Document>
+          <Pagination count={numPages} onChange={onChangePDFpage} />
+        </React.Fragment>
+      ) : null}
     </div>
   );
 };
-
-export default DocViewer;

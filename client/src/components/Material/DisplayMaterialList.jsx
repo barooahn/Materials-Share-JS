@@ -21,14 +21,14 @@ const DisplayMaterialList = props => {
           <ListItem>
             <ListItemText
               style={styles.p_wrap}
-              key={label}
+              key={label+Date.now()}
               primary={label}
               secondary={
                 <React.Fragment>
                   {Array.isArray(value) &&
                     value.map(x => {
                       return (
-                        <span style={styles.selectSpans} key={x.label}>
+                        <span style={styles.selectSpans} key={x.label+Date.now()}>
                           {x.label}
                         </span>
                       );

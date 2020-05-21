@@ -19,6 +19,7 @@ const Viewer = ({ file, ext = null, thumb = null }) => {
       ext === "svg" ||
       ext === "png"
     ) {
+      console.log(" Viewer- got a img", file);
       return { type: "image", name: file };
     } else {
       return { type: "media", file: file };
@@ -44,12 +45,21 @@ const Viewer = ({ file, ext = null, thumb = null }) => {
         />
       );
     } else if (file.type === "doc") {
-      // console.log(" Viewer- got a doc", file);
+      console.log(" Viewer- got a doc", file);
+
+      const randId =
+        "wordDoc" +
+        Math.random()
+          .toString(36)
+          .replace(/[^a-z]+/g, "")
+          .substr(0, 12);
+
       return (
         <DocViewer
           key={file.name + Date.now()}
           file={file.name}
           ext={file.ext}
+          randId={randId}
         />
       );
     } else return null;

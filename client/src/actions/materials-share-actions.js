@@ -19,13 +19,14 @@ export const SaveData = (payload, type, setCompleted = 0, setSaved = false) => {
     }
     handleFileUpload(type, payload.localFiles, payload, setCompleted, setSaved);
   } else {
-    //save data to db
-    if (type === "Create") {
-      console.log("ms-share-actions - Error - Should have files", payload);
-    } else if (type === "Edit") {
-      // console.log("ms-share-actions -Saving edit material", payload);
-      editMaterial(payload, setSaved);
-    }
+    // //save data to db
+    // if (type === "Create") {
+    //   console.log("ms-share-actions - Error - Should have files", payload);
+    // } else if (type === "Edit") {
+    //   // console.log("ms-share-actions -Saving edit material", payload);
+    //   editMaterial(payload, setSaved);
+    // }
+    return false;
   }
   return true;
 };
@@ -34,7 +35,7 @@ const editMaterial = (material, setSaved) => {
   axios
     .put(`/api/material/update/${material.id}`, material, {})
     .then((res) => {
-      console.log("saved edit to db", res.data);
+      // console.log("saved edit to db", res.data);
       setSaved = true;
     })
     .catch(function (err) {
@@ -45,10 +46,12 @@ const editMaterial = (material, setSaved) => {
 const createMaterial = (material) => {
   material.author_id = localStorage.getItem("USER_ID");
   material.author_img = localStorage.getItem("USER_IMG");
+  // console.log("materials-share-actions creatematerial - material", material);
+
   axios
     .post(`/api/material`, material, {})
     .then((res) => {
-      console.log("saved new material to db", res.data);
+      // console.log("saved new material to db", res.data);
     })
     .catch(function (err) {
       throw err;
@@ -64,12 +67,12 @@ const handleThumbUpload = async (thumbFile) => {
     },
     body: JSON.stringify({ file: thumbFile }),
   });
-  console.log("materials-share-actions handleThumbUpload response", response);
+  // console.log("materials-share-actions handleThumbUpload response", response);
   return response.json();
 };
 
 const handleFileUpload = async (
-  type,
+  type = "Create",
   files,
   payload,
   setCompleted,
@@ -131,12 +134,15 @@ export const getAllMaterials = async () => {
 };
 
 export const getPaginatedMaterials = async (page, limit) => {
-  let response = await fetch(`/api/materialsPaginated?page=${page}&limit=${limit}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
+  let response = await fetch(
+    `/api/materialsPaginated?page=${page}&limit=${limit}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  );
   return response.json();
 };
 

@@ -117,6 +117,7 @@ export default () => {
           <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
             {userMaterials.map((material, index) => (
               <MaterialCard2
+                key={material.title + Date.now()}
                 material={material}
                 setMaterials={setUserMaterials}
                 materials={userMaterials}

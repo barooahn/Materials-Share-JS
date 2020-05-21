@@ -142,7 +142,7 @@ export default ({
                 className={classes.inputSlider}
                 onChange={input.onChange}
                 autoFocus={input.autoFocus}
-                fullWidth
+                fullwidth="true"
               />
             </div>
           );
@@ -162,11 +162,11 @@ export default ({
         // style={{
         //   width: 600
         // }}
-        fullWidth
+        fullwidth="true"
         renderInput={(params) => (
           <TextField
             {...params}
-            label="How will the pupils work?"
+            label="Pupil Task"
             placeholder="Pair, group, individual etc."
             variant="outlined"
             fullWidth
@@ -185,11 +185,11 @@ export default ({
         // style={{
         //   width: 600
         // }}
-        fullWidth
+        fullwidth="true"
         renderInput={(params) => (
           <TextField
             {...params}
-            label="What level?"
+            label="Level"
             placeholder="Level 1, intermediate, first year etc."
             variant="outlined"
             fullWidth

@@ -62,10 +62,10 @@ let MaterialSchema = new mongoose.Schema({
   dateCreated: Date,
   dateModified: Date,
   author_id: {
-    type: { type: String, trim: true },
+    type: String,
   },
   author_img: {
-    type: { type: String, trim: true },
+    type: String,
   },
 
   comments: [
@@ -85,10 +85,10 @@ MaterialSchema.methods.comment = function (c) {
   this.comments.push(c);
   return this.save();
 };
-MaterialSchema.methods.addAuthor = function (author_id) {
-  this.author = author_id;
-  return this.save();
-};
+// MaterialSchema.methods.addAuthor = function (author_id) {
+//   this.author = author_id;
+//   return this.save();
+// };
 MaterialSchema.methods.getUserMaterial = function (_id) {
   Material.find({ author: _id }).then((material) => {
     return material;

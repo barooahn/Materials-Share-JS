@@ -108,15 +108,17 @@ module.exports = {
   },
 
   addMaterial: (req, res, next) => {
-    console.log("saving material backend... ", res.body);
+    // console.log("Material.ctrl - save - saving material backend... ", req.body);
 
     new Material(req.body).save((err, material) => {
       if (err) res.send(err);
       else if (!material) res.send(400);
       else {
-        return material.addAuthor(material.author_id).then((_material) => {
-          return res.send(_material);
-        });
+        // return material.addAuthor(material.author_id).then((_material) => {
+        // return res.send(_material);
+        console.log("Material.ctrl - save - saved ... ", material);
+        return res.send(material);
+        // });
       }
       next();
     });
