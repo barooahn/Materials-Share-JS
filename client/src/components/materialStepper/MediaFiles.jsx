@@ -52,14 +52,12 @@ export default ({
   console.log("MediaFiles running...");
 
   const changeTitle = (e) => {
-    e.preventDefault();
     setTitle(e.target.value);
   };
 
   // console.log("MediaFiles files", files);
   // console.log("MediaFiles localFiles", localFiles);
   const handleChange = (e) => {
-    e.preventDefault();
     //   //validate mime type
     // DisplayFiles(e.target.files);
     const reExtension = /(?:\.([^.]+))?$/;
@@ -101,7 +99,7 @@ export default ({
     setLocalFiles(localFiles.filter((item) => item.raw.name !== file.raw.name));
   };
 
-  const localFilesRender = React.useCallback(() => {
+  const localFilesRender = () => {
     return localFiles.map((file) => {
       const reExtension = /(?:\.([^.]+))?$/;
       const ext = file.raw.name.match(reExtension)[1].toLowerCase();
@@ -120,9 +118,9 @@ export default ({
         </div>
       );
     });
-  }, [localFiles]);
+  };
 
-  const existingFilesRender = React.useCallback(() => {
+  const existingFilesRender = () => {
     return files.map((file) => {
       console.log("Mediafiles localfiles mapping existing files", file);
       console.log("Mediafiles localfiles files.length", files.length);
@@ -142,7 +140,7 @@ export default ({
         </div>
       );
     });
-  }, [files]);
+  };
 
   const renderMediaInput = () => {
     return (
@@ -151,7 +149,7 @@ export default ({
           Step 2: Upload files
         </Typography>
         <br />
-      <br />
+        <br />
         <input
           accept="image/*, audio/*, video/*, .pdf, .docx, application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
           id="contained-button-file"
@@ -198,6 +196,7 @@ export default ({
       <br />
       {title.length > 3 ? renderMediaInput() : null}
 
+      <br />
       <br />
       {files.length > 0 || (localFiles.length > 0 && title.length > 3) ? (
         <Typography variant="h6" component={"span"}>

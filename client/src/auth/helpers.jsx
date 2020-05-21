@@ -64,6 +64,10 @@ export const logIn = async (data) => {
     return res;
   } catch (err) {
     console.log(err);
+    return {
+      err: err,
+      message: "Please check email and password",
+    };
   }
 };
 

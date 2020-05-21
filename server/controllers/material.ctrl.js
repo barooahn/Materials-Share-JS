@@ -59,7 +59,7 @@ module.exports = {
 
   thumbUpload: async (req, res) => {
     uploadAws(req.body.file).then((result) => {
-      console.log("material.ctrl - thumbUpload - results", result);
+      // console.log("material.ctrl - thumbUpload - results", result);
       return res.json(result);
     });
   },
@@ -160,7 +160,7 @@ module.exports = {
           if (err) {
             return res.json(count_error);
           }
-          console.log("materials.ctrl - materialsPaginaged doc", doc);
+          // console.log("materials.ctrl - materialsPaginaged doc", doc);
           return res.json({
             total: count,
             page: page,
@@ -172,9 +172,9 @@ module.exports = {
   },
 
   getMaterialId: (req, res, next) => {
-    console.log("Materials.ctrl getMaterialId id", req.params.id);
+    // console.log("Materials.ctrl getMaterialId id", req.params.id);
     Material.findById(req.params.id).exec((err, material) => {
-      console.log("Materials.ctrl getMaterialId material", material);
+      // console.log("Materials.ctrl getMaterialId material", material);
       if (material) return res.send(material);
       else if (err) return res.send(err);
       else return res.send(404);
@@ -192,7 +192,7 @@ module.exports = {
   },
 
   updateMaterial: (req, res, next) => {
-    console.log("in update material body = ", req.body);
+    // console.log("in update material body = ", req.body);
     Material.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },
@@ -276,7 +276,7 @@ module.exports = {
     // if (search !== "") {
     //   regex = new RegExp(escapeRegex(search), "gi");
     // }
-    console.log("material.ctrl.js-filter queryCond: ", queryCond);
+    // console.log("material.ctrl.js-filter queryCond: ", queryCond);
 
     const searchResults = await Material.find(queryCond);
     if (searchResults) {
@@ -301,7 +301,7 @@ module.exports = {
   },
 
   getUserLikes: async (req, res, next) => {
-    console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
+    // console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
     await Material.find({ likes: req.params.author_id })
       .sort({ dateModified: -1 })
       .exec((err, materials) => {

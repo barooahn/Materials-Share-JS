@@ -69,24 +69,56 @@ export default () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [password1, setPassword1] = React.useState("");
-  const [formErrors, setFormErrors] = React.useState("");
+  const [nameError, setNameError] = React.useState(false);
+  const [emailError, setEmailError] = React.useState(false);
+  const [passwordError, setPasswordError] = React.useState(false);
+  const [password1Error, setPassword1Error] = React.useState(false);
+  const [formError, setFormError] = React.useState([]);
 
   let location = useLocation();
   let history = useHistory();
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    let matchedPassword = password === password1 ? password : null;
+    setFormError([]);
+    if (password !== password1) {
+      setPasswordError(true);
+      setPassword1Error(true);
+      setFormError((formError) => [...formError, "Passwords don't match"]);
+    }
 
-    const user = {
-      name: name,
-      email: email,
-      password: matchedPassword,
-    };
+    if (name === "") {
+      setNameError(true);
+      setFormError((formError) => [...formError, "Please enter your name"]);
+    }
+    if (email === "") {
+      setEmailError(true);
+      setFormError((formError) => [...formError, "Please enter your email"]);
+    }
+    if (password.length < 8) {
+      setPasswordError(true);
+      setFormError((formError) => [
+        ...formError,
+        "Password must be more than 8 characters ",
+      ]);
+    }
+    if (password1 === "") {
+      setPassword1Error(true);
+      setFormError((formError) => [...formError, "Please repeat the password"]);
+    }
 
-    await register(user);
-    if (user) {
-      history.push("/login");
+    if (formError === []) {
+      const user = {
+        name: name,
+        email: email,
+        password: password,
+      };
+      await register(user);
+      if (user) {
+        history.push("/login");
+      }
+    } else {
+      return;
     }
   };
 
@@ -101,9 +133,9 @@ export default () => {
 
     signUser(user);
 
-    if (!formErrors) {
-      setReturnPath();
-    }
+    // if (!formErrors) {
+    //   setReturnPath();
+    // }
   };
 
   const responseFacebook = async (res) => {
@@ -165,7 +197,11 @@ export default () => {
           <LockOutlinedIcon />
         </Avatar>
 
-        <Typography variant="body1">{formErrors}</Typography>
+        {formError.map((error) => (
+          <Typography variant="body1" color="secondary">
+            {error}
+          </Typography>
+        ))}
         <div className={classes.sbcontainer}>
           <div className={classes.socialButtons}>
             <FacebookLogin
@@ -221,6 +257,7 @@ export default () => {
             value={name}
             fullWidth
             variant="outlined"
+            error={nameError}
           />
           <TextField
             className={classes.input}
@@ -232,6 +269,7 @@ export default () => {
             value={email}
             fullWidth
             variant="outlined"
+            error={emailError}
           />
           <TextField
             className={classes.input}
@@ -244,6 +282,7 @@ export default () => {
             value={password}
             fullWidth
             variant="outlined"
+            error={passwordError}
           />
           <TextField
             className={classes.input}
@@ -256,6 +295,7 @@ export default () => {
             value={password1}
             fullWidth
             variant="outlined"
+            error={password1Error}
           />
           <FormControlLabel
             control={<Checkbox name="checkedB" color="primary" />}

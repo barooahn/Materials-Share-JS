@@ -101,7 +101,10 @@ export default () => {
 
     const response = await logIn(user);
     console.log(" Login response", response);
-    if (response) {
+
+    if (response.err) {
+      setFormErrors(response.message);
+    } else {
       setReturnPath();
     }
   };

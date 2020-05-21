@@ -198,7 +198,6 @@ export default ({
         })}
 
         <Autocomplete
-          className={classes.autoComplete}
           id="category"
           multiple
           className={classes.inputAutocomplete}
@@ -219,7 +218,6 @@ export default ({
           )}
         />
         <Autocomplete
-          className={classes.autoComplete}
           id="language-focus"
           multiple
           className={classes.inputAutocomplete}
@@ -240,7 +238,6 @@ export default ({
           )}
         />
         <Autocomplete
-          className={classes.autoComplete}
           id="activity-use"
           multiple
           className={classes.inputAutocomplete}

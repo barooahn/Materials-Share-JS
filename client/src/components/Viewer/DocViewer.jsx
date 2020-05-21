@@ -62,7 +62,7 @@ export default ({ file, ext, randId }) => {
         }
       };
     }
-  }, []);
+  }, [randId, ext, file]);
 
   return (
     <div className={classes.doc} id={randId}>
@@ -75,7 +75,9 @@ export default ({ file, ext, randId }) => {
           >
             <Page pageNumber={pageNumber} />
           </Document>
-          <Pagination count={numPages} onChange={onChangePDFpage} />
+          {numPages > 1 ? (
+            <Pagination count={numPages} onChange={onChangePDFpage} />
+          ) : null}
         </React.Fragment>
       ) : null}
     </div>
