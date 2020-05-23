@@ -19,12 +19,12 @@ body {
 .paperCenter {
   margin: 5px;
 }
-.react-pdf__Page__textContent {
+/* .react-pdf__Page__textContent {
   max-width: 100% !important;
 }
 .react-pdf__Page__textContent > span {
   display: none;
-}
+} */
 
 /* #card {
   align-self: auto;

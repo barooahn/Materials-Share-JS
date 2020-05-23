@@ -154,7 +154,7 @@ export default () => {
         </React.Fragment>
       ) : null}
 
-      <Grid container spacing={1}>
+      <Grid container spacing={0}>
         <List>
           <ListItem>
             <div className={classes.media}>
@@ -165,9 +165,12 @@ export default () => {
                 : null}
             </div>
           </ListItem>
+          <hr />
+          <Typography gutterBottom variant="h5" component="h5" align="center">
+            Teacher Notes
+          </Typography>
         </List>
 
-        {DisplayMaterialList(material)}
 
         {typeof variable !== "undefined" && material.book.title !== "" ? (
           <Grid item xs={12} md={6}>
@@ -181,12 +184,13 @@ export default () => {
                       {" - Page " + material.book.page}
                     </React.Fragment>
                   }
-                />
+                  />
               </ListItem>
             </List>
           </Grid>
         ) : null}
       </Grid>
+        {DisplayMaterialList(material)}
       <Modal
         open={deleteOpen}
         onClose={handleDeleteClose}

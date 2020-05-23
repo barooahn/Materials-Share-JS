@@ -19,6 +19,8 @@ import {
 import * as serviceWorker from "./serviceWorker";
 import Axios from "axios";
 
+const mobile = document.documentElement.clientWidth < 600 ? true : false;
+
 const MaterialStepper = lazy(() =>
   import("./components/materialStepper/MaterialStepper")
 );
@@ -108,12 +110,11 @@ const routePaths = () => {
   );
 };
 
-const nav =
-  document.documentElement.clientWidth < 600 ? (
-    <MobileNavBar routePaths={routePaths()} />
-  ) : (
-    <NavBar routePaths={routePaths()} />
-  );
+const nav = mobile ? (
+  <MobileNavBar routePaths={routePaths()} />
+) : (
+  <NavBar routePaths={routePaths()} />
+);
 
 const routing = (
   <ThemeProvider theme={theme}>
