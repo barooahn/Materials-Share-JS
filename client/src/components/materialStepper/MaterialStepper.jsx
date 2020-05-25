@@ -299,7 +299,11 @@ export default function MaterialStepper() {
 
   const optionChange = (value) => {
     //Check if value passed is object with title i.e. from db or a new item
-    if (value && !value[value.length - 1].hasOwnProperty("label")) {
+    if (
+      value &&
+      value.length > 0 &&
+      !value[value.length - 1].hasOwnProperty("label")
+    ) {
       const lastValue = value.pop(value[value.length]);
       const sanatisedValue = convertValue(lastValue);
       const lastValueItem = {

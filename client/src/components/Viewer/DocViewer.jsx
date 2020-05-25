@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: "100%",
       width: "auto !important",
       height: "auto !important",
+      overflow: "hidden",
     },
   },
 }));
@@ -24,6 +25,8 @@ export default ({ file, ext, randId }) => {
   const classes = useStyles();
   const [numPages, setNumPages] = React.useState(null);
   const [pageNumber, setPageNumber] = React.useState(1);
+
+  const pdfWidth = window.screen.width * 0.9;
 
   const onDocumentLoadSuccess = ({ numPages }) => {
     setNumPages(numPages);
@@ -73,8 +76,9 @@ export default ({ file, ext, randId }) => {
             file={file}
             className={classes.page}
             onLoadSuccess={onDocumentLoadSuccess}
+            // renderMode="svg"
           >
-            <Page size="A4" pageNumber={pageNumber}></Page>
+            <Page size="A4" pageNumber={pageNumber} width={pdfWidth}></Page>
           </Document>
           {numPages > 1 ? (
             <Pagination count={numPages} onChange={onChangePDFpage} />

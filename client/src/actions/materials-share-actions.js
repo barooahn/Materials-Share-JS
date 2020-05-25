@@ -224,13 +224,15 @@ export const saveSearchQuery = async (searchQuery) => {
 };
 
 export const getSearchResults = async (search) => {
-  let response = await fetch(`api/search/${search}`, {
-    method: "GET",
+  let response = await fetch(`api/search`, {
+    method: "POST",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
+    body: JSON.stringify({ search: search }),
   });
+  console.log(" material-share-actions - search response", response);
   return response.json();
 };
 

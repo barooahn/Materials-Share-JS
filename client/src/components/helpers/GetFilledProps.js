@@ -56,7 +56,7 @@ const GetFilledProps = (props) => {
       item !== "thumb"
     ) {
       const label = getLabel(item);
-      filled.push({ label: [label], name: item, value: props[item] });
+      filled.push({ label: label, value: props[item] });
     }
   }
 

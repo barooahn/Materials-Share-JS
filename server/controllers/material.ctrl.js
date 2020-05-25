@@ -4,21 +4,6 @@ const fs = require("fs");
 const { uploadAws, deleteAws } = require("../file-upload/aws-file-services");
 const sharp = require("sharp");
 
-const filepath = `${__dirname}..\\..\\..\\public\\`;
-
-// const moveFile = (file) => {
-//   file.name = file.name.replace(/\s/g, "_").toLowerCase();
-//   return new Promise(function (resolve, reject) {
-//     const oldPath = file.path;
-//     // console.log("path " + filepath);
-//     const newPath = filepath + file.name;
-//     fs.rename(oldPath, newPath, function (err) {
-//       if (err) reject(new Error("Could not upload file " + err));
-//       return resolve(file.name);
-//     });
-//   });
-// };
-
 const escapeRegex = (text) => {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 };
@@ -63,19 +48,6 @@ module.exports = {
       return res.json(result);
     });
   },
-
-  // getFileFromPath: async (req, res) => {
-  //   console.log("material.ctrl - getFileFromPath - path", req.body.path);
-  //   const path = req.body.path;
-  //   fs.readFile(path, "utf8", (err, data) => {
-  //     // console.log("material.ctrl - getFileFromPath - received data: " + data);
-  //     if (err) res.send(err);
-  //     else if (!data) res.send(400);
-  //     else {
-  //       return res.json(data);
-  //     }
-  //   });
-  // },
 
   makeThumb: async (req, res, next) => {
     // console.log("making thumb from files...", req);
@@ -234,9 +206,10 @@ module.exports = {
   },
 
   getSearchResults: (req, res, next) => {
-    const regex = new RegExp(escapeRegex(req.params.q), "gi");
+    const regex = new RegExp(escapeRegex(req.body.search), "gi");
     Material.find({ $text: { $search: regex } }, function (err, materials) {
       if (err) console.log("there was a search error", err);
+      console.log("material.ctrl.js-filter Search Materials: ", materials.count);
       res.send(materials);
     });
   },
