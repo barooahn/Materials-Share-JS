@@ -70,7 +70,7 @@ export default function ForgotPassword() {
         const response = await axios.post("/api/users/forgotPassword", {
           email,
         });
-        console.log(response.data);
+        // console.log(response.data);
         if (response.data === "recovery email sent") {
           setShowError(false);
           setShowNullError(false);

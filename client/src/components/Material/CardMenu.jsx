@@ -54,7 +54,7 @@ export default function CustomizedMenus({ material, setMaterials, materials }) {
   };
 
   const handleDeleteMaterial = () => {
-    console.log("in card menu delte", material);
+    // console.log("in card menu delte", material);
     DeleteMaterial(material._id);
     setMaterials(materials.filter(m => m._id !== material._id));
   };

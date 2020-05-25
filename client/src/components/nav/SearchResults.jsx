@@ -23,7 +23,7 @@ export default () => {
   
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
   
-  console.log("searchResults - materials", materials.length);
+  // console.log("searchResults - materials", materials.length);
   return (
     <React.Fragment>
       <Typography gutterBottom variant="h2" component="h2" align="center">

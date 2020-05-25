@@ -8,7 +8,7 @@ const DisplayMaterialList = (props) => {
 
   console.log(" props ", props);
   let filledValues = GetFilledProps(props);
-  console.log("DispalyMaterialList filledValues ", filledValues);
+  // console.log("DispalyMaterialList filledValues ", filledValues);
 
   return (
     <StackGrid columnWidth={colWid}>

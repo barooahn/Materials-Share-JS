@@ -232,7 +232,6 @@ export const getSearchResults = async (search) => {
     },
     body: JSON.stringify({ search: search }),
   });
-  console.log(" material-share-actions - search response", response);
   return response.json();
 };
 
@@ -267,7 +266,6 @@ export const getFilterResults = async (
       }),
     }
   );
-  console.log(" material-share-actions - getFilterResults results", response);
   return response.json();
 };
 

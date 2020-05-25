@@ -100,7 +100,7 @@ export default () => {
     };
 
     const response = await logIn(user);
-    console.log(" Login response", response);
+    // console.log(" Login response", response);
 
     if (response.err) {
       setFormErrors(response.message);
