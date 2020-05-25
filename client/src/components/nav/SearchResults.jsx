@@ -11,24 +11,25 @@ export default () => {
 
   React.useEffect(() => {
     let resultData = location.state.searchResults;
-
+    
     resultData.forEach((material) => {
       material.files = Array.isArray(material.files)
-        ? [material.files[0]]
-        : [material.files];
+      ? [material.files[0]]
+      : [material.files];
     });
-
+    
     setMaterials(resultData);
   }, [location.state.searchResults]);
-
+  
   const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
-
+  
+  console.log("searchResults - materials", materials.length);
   return (
     <React.Fragment>
       <Typography gutterBottom variant="h2" component="h2" align="center">
         Teaching Resorces
       </Typography>
-      {materials.count > 0 ? (
+      {materials.length > 0 ? (
         <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
           {materials.map((material, index) => (
             <MaterialCard
@@ -41,7 +42,7 @@ export default () => {
           ))}
         </StackGrid>
       ) : (
-        <Typography gutterBottom variant="body" component="body" align="center">
+        <Typography gutterBottom variant="body1" component="p" align="center">
           Sorry there are no results
         </Typography>
       )}

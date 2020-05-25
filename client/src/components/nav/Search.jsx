@@ -67,9 +67,6 @@ export default function Search({ setGettingSearchResults }) {
       if (result.length > 0) {
         setGettingSearchResults(false);
         const queryResult = saveSearchQuery(searchQuery);
-
-        console.log("search - searchQuery", searchQuery);
-        console.log("search - queryResult", queryResult);
         history.push({
           pathname: "/search",
           state: { searchResults: result, searchQuery: searchQuery },
@@ -90,8 +87,8 @@ export default function Search({ setGettingSearchResults }) {
     <div className={classes.root}>
       <div className={classes.search}>
         <Autocomplete
-          options={autoCompleteOptions}
-          getOptionLabel={(option) => option.title}
+          options={autoCompleteOptions.map((option) => option.title)}
+          // getOptionLabel={(option) => option.title}
           freeSolo
           fullwidth="true"
           open={open}

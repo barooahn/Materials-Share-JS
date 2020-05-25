@@ -14,7 +14,7 @@ const DisplayMaterialList = (props) => {
     <StackGrid columnWidth={colWid}>
       {filledValues.map((item) => {
         return (
-          <React.Fragment>
+          <React.Fragment key={item.label + Date.now()}>
             <Typography variant="h6" style={{ paddingLeft: 10 }} component="h6">
               {item.label}
             </Typography>
@@ -26,7 +26,12 @@ const DisplayMaterialList = (props) => {
             >
               {Array.isArray(item.value) &&
                 item.value.map((x) => {
-                  return <span key={x.label + Date.now()}>{x.label}<br /></span>;
+                  return (
+                    <span key={x.label + Date.now()}>
+                      {x.label}
+                      <br />
+                    </span>
+                  );
                 })}
               {!Array.isArray(item.value) && item.value}
             </Typography>

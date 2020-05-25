@@ -25,11 +25,13 @@ module.exports = (router) => {
    * delete file
    */
   router.route("/material/file/delete").delete(materialcontroller.deleteFile);
-  
+
   /**
    * get paginated materials
    */
-  router.route("/materialsPaginated").get(materialcontroller.materialsPaginated);
+  router
+    .route("/materialsPaginated")
+    .get(materialcontroller.materialsPaginated);
   /**
    * get all materials
    */
@@ -53,11 +55,11 @@ module.exports = (router) => {
   /**
    * get search results
    */
-  router.route("/search").post(materialcontroller.getSearchResults);
+  router.route("/searchResults").post(materialcontroller.getSearchResults);
   /**
    * get filter and search results
    */
-  router.route("/search").get(materialcontroller.getFilterResults);
+  router.route("/filterResults").post(materialcontroller.getFilterResults);
   /**
    * get all titles
    */

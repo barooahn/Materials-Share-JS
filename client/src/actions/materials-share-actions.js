@@ -224,7 +224,7 @@ export const saveSearchQuery = async (searchQuery) => {
 };
 
 export const getSearchResults = async (search) => {
-  let response = await fetch(`api/search`, {
+  let response = await fetch(`api/searchResults`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -247,13 +247,24 @@ export const getFilterResults = async (
   category
 ) => {
   let response = await fetch(
-    `api/search?search=${search}&timeInClass=${timeInClass}&timePrep=${timePrep}&level=${level}&languageFocus=${languageFocus}&activityUse=${activityUse}&pupilTask=${pupilTask}&category=${category}`,
+    // `api/search?search=${search}&timeInClass=${timeInClass}&timePrep=${timePrep}&level=${level}&languageFocus=${languageFocus}&activityUse=${activityUse}&pupilTask=${pupilTask}&category=${category}`,
+    `api/filterResults`,
     {
-      method: "GET",
+      method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
+      body: JSON.stringify({
+        search: search,
+        timeInClass: timeInClass,
+        timePrep: timePrep,
+        level: level,
+        languageFocus: languageFocus,
+        activityUse: activityUse,
+        pupilTask: pupilTask,
+        category: category,
+      }),
     }
   );
   console.log(" material-share-actions - getFilterResults results", response);

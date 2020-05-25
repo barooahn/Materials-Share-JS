@@ -124,7 +124,11 @@ export default ({ expanded, setExpanded }) => {
 
   const optionChange = (value) => {
     //Check if value passed is object with title i.e. from db or a new item
-    if (value && value.length > 0 && !value[value.length - 1]?.hasOwnProperty("label")) {
+    if (
+      value &&
+      value.length > 0 &&
+      !value[value.length - 1].hasOwnProperty("label")
+    ) {
       const lastValue = value.pop(value[value.length]);
       const sanatisedValue = convertValue(lastValue);
       const lastValueItem = {
@@ -187,7 +191,6 @@ export default ({ expanded, setExpanded }) => {
     if (results) {
       setGettingSearchResults(false);
       setExpanded(!expanded);
-      console.log(" filter returned results ", results);
       history.push({
         pathname: "/search",
         state: { searchResults: results, searchQuery: searchQuery },

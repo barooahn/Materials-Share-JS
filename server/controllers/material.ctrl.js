@@ -207,10 +207,14 @@ module.exports = {
 
   getSearchResults: (req, res, next) => {
     const regex = new RegExp(escapeRegex(req.body.search), "gi");
+    console.log("material.ctrl.js-getSearchResults regex", regex);
     Material.find({ $text: { $search: regex } }, function (err, materials) {
+      console.log(
+        "material.ctrl.js-getSearchResults Search Materials: ",
+        materials
+      );
+      if (materials) return res.send(materials);
       if (err) console.log("there was a search error", err);
-      console.log("material.ctrl.js-filter Search Materials: ", materials.count);
-      res.send(materials);
     });
   },
 
@@ -223,35 +227,47 @@ module.exports = {
       level,
       languageFocus,
       activityUse,
+      pupilTask,
       category,
-    } = req.query;
+    } = req.body;
+    // search = search ? seach : {};
+    console.log(
+      "material.ctrl - getFilterResults",
+      pupilTask,
+      timeInClass,
+      level
+    );
     queryCond = {
       ...(search && { search: new RegExp(escapeRegex(search), "gi") }),
-      ...(level && { "level.value": level }),
-      ...(activityUse && { "activityUse.value": activityUse }),
-      ...(category && { "category.value": category }),
-      ...(languageFocus && { "languageFocus.value": languageFocus }),
+      ...(level.length > 0 && { "level.value": level }),
+      ...(activityUse.length > 0 && { "activityUse.value": activityUse }),
+      ...(category.length > 0 && { "category.value": category }),
+      ...(pupilTask.length > 0 && { "pupilTask.value": pupilTask }),
+      ...(languageFocus.length > 0 && { "languageFocus.value": languageFocus }),
       ...(timeInClass && {
         timeInClass: {
-          $gte: timeInClass.split(",")[0],
-          $lte: timeInClass.split(",")[1],
+          $gte: timeInClass[0],
+          $lte: timeInClass[1],
         },
       }),
       ...(timePrep && {
         timePrep: {
-          $gte: timePrep.split(",")[0],
-          $lte: timePrep.split(",")[1],
+          $gte: timePrep[0],
+          $lte: timePrep[1],
         },
       }),
     };
 
-    // let regex = {};
-    // if (search !== "") {
-    //   regex = new RegExp(escapeRegex(search), "gi");
-    // }
-    // console.log("material.ctrl.js-filter queryCond: ", queryCond);
+    if (search !== "") {
+      search = new RegExp(escapeRegex(search), "gi");
+    }
 
+    console.log("material.ctrl.js-filter queryCond: ", queryCond);
     const searchResults = await Material.find(queryCond);
+    console.log(
+      "material.ctrl.js-filter searchResults: ",
+      searchResults.length
+    );
     if (searchResults) {
       return res.json(searchResults);
     } else {
