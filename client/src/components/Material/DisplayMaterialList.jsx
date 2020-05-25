@@ -15,7 +15,7 @@ const DisplayMaterialList = (props) => {
       {filledValues.map((item) => {
         return (
           <React.Fragment>
-            <Typography variant="h6" style={{ padding: 10 }} component="h6">
+            <Typography variant="h6" style={{ paddingLeft: 10 }} component="h6">
               {item.label}
             </Typography>
             <Typography
@@ -26,7 +26,7 @@ const DisplayMaterialList = (props) => {
             >
               {Array.isArray(item.value) &&
                 item.value.map((x) => {
-                  return <span key={x.label + Date.now()}>{x.label}</span>;
+                  return <span key={x.label + Date.now()}>{x.label}<br /></span>;
                 })}
               {!Array.isArray(item.value) && item.value}
             </Typography>

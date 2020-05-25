@@ -53,7 +53,7 @@ module.exports = (router) => {
   /**
    * get search results
    */
-  router.route("/search/:q").get(materialcontroller.getSearchResults);
+  router.route("/search").post(materialcontroller.getSearchResults);
   /**
    * get filter and search results
    */

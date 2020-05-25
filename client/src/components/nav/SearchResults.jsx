@@ -12,7 +12,7 @@ export default () => {
   React.useEffect(() => {
     let resultData = location.state.searchResults;
 
-    resultData.forEach(material => {
+    resultData.forEach((material) => {
       material.files = Array.isArray(material.files)
         ? [material.files[0]]
         : [material.files];
@@ -28,17 +28,23 @@ export default () => {
       <Typography gutterBottom variant="h2" component="h2" align="center">
         Teaching Resorces
       </Typography>
-      <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
-        {materials.map((material, index) => (
-          <MaterialCard
-            key={material._id}
-            material={material}
-            index={index}
-            setMaterials={setMaterials}
-            materials={materials}
-          />
-        ))}
-      </StackGrid>
+      {materials.count > 0 ? (
+        <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
+          {materials.map((material, index) => (
+            <MaterialCard
+              key={material._id}
+              material={material}
+              index={index}
+              setMaterials={setMaterials}
+              materials={materials}
+            />
+          ))}
+        </StackGrid>
+      ) : (
+        <Typography gutterBottom variant="body" component="body" align="center">
+          Sorry there are no results
+        </Typography>
+      )}
     </React.Fragment>
   );
 };

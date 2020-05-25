@@ -19,7 +19,7 @@ const Viewer = ({ file, ext = null, thumb = null }) => {
       ext === "svg" ||
       ext === "png"
     ) {
-      console.log(" Viewer- got a img", file);
+      // console.log(" Viewer- got a img", file);
       return { type: "image", name: file };
     } else {
       return { type: "media", file: file };
@@ -45,7 +45,7 @@ const Viewer = ({ file, ext = null, thumb = null }) => {
         />
       );
     } else if (file.type === "doc") {
-      console.log(" Viewer- got a doc", file);
+      // console.log(" Viewer- got a doc", file);
 
       const randId =
         "wordDoc" +

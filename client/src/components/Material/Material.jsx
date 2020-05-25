@@ -166,7 +166,7 @@ export default () => {
             </div>
           </ListItem>
           <hr />
-          <Typography gutterBottom variant="h5" component="h5" align="center">
+          <Typography gutterBottom variant="h4" component="h4" align="center">
             Teacher Notes
           </Typography>
         </List>
