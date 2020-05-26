@@ -4,13 +4,12 @@ import Typography from "@material-ui/core/Typography";
 import { Slider, Paper } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import Button from "@material-ui/core/Button";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import Collapse from "@material-ui/core/Collapse";
 
 import { SetAutocompletes } from "../helpers/SetAutocompletes";
-import { getFilterResults } from "../../actions/materials-share-actions";
+import { getAllMaterials } from "../../actions/materials-share-actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
 const filterHeight =
@@ -22,12 +21,10 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: 2,
     maxWidth: "100%",
-    // top: 60,
-    // position: "sticky",
-    // zIndex: 3,
   },
   paper: {
     paddingTop: 25,
+    paddingBottom: 25,
     width: "97%",
     marginLeft: "auto",
     marginRight: "auto",
@@ -70,12 +67,16 @@ export default ({ expanded, setExpanded }) => {
 
   const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
 
-  const [searchQuery, setSearchQuery] = React.useState("");
-
-  //  /api/materials?start10&end=20&title
+  const [totalMaterials, setTotalMaterials] = React.useState([]);
 
   let history = useHistory();
-  let location = useLocation();
+
+  React.useEffect(() => {
+    async function fetchData() {
+      setTotalMaterials(await getAllMaterials());
+    }
+    fetchData();
+  }, []);
 
   React.useEffect(() => {
     async function fetchData() {
@@ -92,16 +93,6 @@ export default ({ expanded, setExpanded }) => {
     }
     fetchData();
   }, []);
-
-  React.useEffect(() => {
-    async function fetchData() {
-      setSearchQuery(location.state ? location.state.searchQuery : "");
-    }
-    fetchData();
-  }, [location.state]);
-
-  // console.log("filter searchQuery", searchQuery);
-  // console.log("filter location.state", location.state);
 
   const handleTimeInClassValueChange = (event, newValue) => {
     setTimeInClassValue(newValue);
@@ -123,7 +114,6 @@ export default ({ expanded, setExpanded }) => {
   };
 
   const optionChange = (value) => {
-    //Check if value passed is object with title i.e. from db or a new item
     if (
       value &&
       value.length > 0 &&
@@ -139,6 +129,16 @@ export default ({ expanded, setExpanded }) => {
     }
     return value;
   };
+
+  React.useEffect(() => {
+    filterMaterials();
+  }, [
+    levelValue,
+    languageFocusValue,
+    activityUseValue,
+    pupilTaskValue,
+    categoryValue,
+  ]);
 
   const changeLevel = (e, value) => {
     optionChange(value);
@@ -161,8 +161,13 @@ export default ({ expanded, setExpanded }) => {
   };
 
   const changeActivityUse = (e, value) => {
+    console.log("filter filterMaterials value ", value);
     optionChange(value);
     setActivityUseValue(value);
+    console.log(
+      "filter filterMaterials setActivityUseValue ",
+      activityUseValue
+    );
   };
 
   const getValuesFromObjects = (item) => {
@@ -171,31 +176,47 @@ export default ({ expanded, setExpanded }) => {
     });
   };
 
-  const goToResults = async (e) => {
+  const filterMaterials = () => {
     setGettingSearchResults(true);
-    const level = getValuesFromObjects(levelValue);
-    const languageFocus = getValuesFromObjects(languageFocusValue);
+    let materials = totalMaterials;
+
     const activityUse = getValuesFromObjects(activityUseValue);
-    const pupilTask = getValuesFromObjects(pupilTaskValue);
+    const languageFocus = getValuesFromObjects(languageFocusValue);
     const category = getValuesFromObjects(categoryValue);
-    const results = await getFilterResults(
-      searchQuery,
-      timeInClassValue,
-      timePrepValue,
-      level,
-      languageFocus,
-      activityUse,
-      pupilTask,
-      category
-    );
-    if (results) {
-      setGettingSearchResults(false);
-      setExpanded(!expanded);
-      history.push({
-        pathname: "/search",
-        state: { searchResults: results, searchQuery: searchQuery },
+    const pupilTask = getValuesFromObjects(pupilTaskValue);
+    const level = getValuesFromObjects(levelValue);
+
+    const filterBy = (filterValue, values) => {
+      return materials.filter((material) => {
+        var inIndex = material[filterValue].map((allFiltervalues) => {
+          return values.indexOf(allFiltervalues.value) !== -1;
+        });
+        // return inIndex.includes(true);
+        return inIndex.every((v) => v === true);
       });
+    };
+
+    if (activityUse.length > 0) {
+      materials = filterBy("activityUse", activityUse);
     }
+    if (languageFocus.length > 0) {
+      materials = filterBy("languageFocus", languageFocus);
+    }
+    if (category.length > 0) {
+      materials = filterBy("category", category);
+    }
+    if (pupilTask.length > 0) {
+      materials = filterBy("pupilTask", pupilTask);
+    }
+    if (level.length > 0) {
+      materials = filterBy("level", level);
+    }
+
+    setGettingSearchResults(false);
+    history.push({
+      pathname: "/search",
+      state: { searchResults: materials },
+    });
   };
 
   return (
@@ -238,7 +259,7 @@ export default ({ expanded, setExpanded }) => {
         </div>
         <div className={classes.filterItem}>
           <Autocomplete
-            id="combo-box-demo1"
+            id="pupilTask"
             multiple
             value={pupilTaskValue}
             onChange={changePupilTask}
@@ -256,7 +277,7 @@ export default ({ expanded, setExpanded }) => {
         </div>
         <div className={classes.filterItem}>
           <Autocomplete
-            id="combo-box-demo2"
+            id="level"
             multiple
             value={levelValue}
             onChange={changeLevel}
@@ -326,13 +347,6 @@ export default ({ expanded, setExpanded }) => {
             )}
           />
         </div>
-        <Button
-          className={classes.filterButton}
-          variant="outlined"
-          onClick={goToResults}
-        >
-          Filter
-        </Button>
       </Paper>
     </Collapse>
   );

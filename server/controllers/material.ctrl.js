@@ -231,12 +231,12 @@ module.exports = {
       category,
     } = req.body;
     // search = search ? seach : {};
-    console.log(
-      "material.ctrl - getFilterResults",
-      pupilTask,
-      timeInClass,
-      level
-    );
+    // console.log(
+    //   "material.ctrl - getFilterResults",
+    //   pupilTask,
+    //   timeInClass,
+    //   level
+    // );
     queryCond = {
       ...(search && { search: new RegExp(escapeRegex(search), "gi") }),
       ...(level.length > 0 && { "level.value": level }),
@@ -263,7 +263,9 @@ module.exports = {
     }
 
     console.log("material.ctrl.js-filter queryCond: ", queryCond);
-    const searchResults = await Material.find(queryCond);
+    
+    const searchResults = await Material.find({ $text: { $search: regex }, queryCond});
+    // const searchResults = await Material.find(queryCond);
     console.log(
       "material.ctrl.js-filter searchResults: ",
       searchResults.length

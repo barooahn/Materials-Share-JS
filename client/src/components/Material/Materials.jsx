@@ -32,7 +32,7 @@ const Materials = () => {
   const [hasMore, setHasMore] = React.useState(true);
   const [error, setError] = React.useState(false);
 
-  const limit = 10;
+  const limit = document.documentElement.clientWidth < 600 ? 5 : 10;
 
   window.onscroll = debounce(() => {
     if (error || gettingSearchResults || !hasMore) return;

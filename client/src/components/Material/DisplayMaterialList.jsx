@@ -6,7 +6,7 @@ import Typography from "@material-ui/core/Typography";
 const DisplayMaterialList = (props) => {
   const colWid = document.documentElement.clientWidth < 600 ? "100%" : "50%";
 
-  console.log(" props ", props);
+  // console.log(" props ", props);
   let filledValues = GetFilledProps(props);
   // console.log("DispalyMaterialList filledValues ", filledValues);
 
