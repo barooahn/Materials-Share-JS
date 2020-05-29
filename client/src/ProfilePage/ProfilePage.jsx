@@ -13,6 +13,7 @@ import {
   getUserLikes,
 } from "../actions/materials-share-actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Mobile from "../components/helpers/mobile";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,7 +41,7 @@ export default () => {
   const [userMaterials, setUserMaterials] = useState([]);
   const [userLikes, setUserLikes] = useState([]);
   const [showLikes, setshowLikes] = useState([false]);
-  const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
+  const cardWidth = Mobile() ? "100%" : 250;
   const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
 
   React.useEffect(() => {
