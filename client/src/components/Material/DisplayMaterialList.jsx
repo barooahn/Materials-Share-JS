@@ -2,9 +2,10 @@ import React from "react";
 import GetFilledProps from "../helpers/GetFilledProps";
 import StackGrid from "react-stack-grid";
 import Typography from "@material-ui/core/Typography";
+import Mobile from "../helpers/mobile";
 
 const DisplayMaterialList = (props) => {
-  const colWid = document.documentElement.clientWidth < 600 ? "100%" : "50%";
+  const colWid = Mobile() ? "100%" : "50%";
 
   // console.log(" props ", props);
   let filledValues = GetFilledProps(props);

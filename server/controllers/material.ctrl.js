@@ -209,16 +209,17 @@ module.exports = {
     const regex = new RegExp(escapeRegex(req.body.search), "gi");
     console.log("material.ctrl.js-getSearchResults regex", regex);
     Material.find({ $text: { $search: regex } }, function (err, materials) {
-      console.log(
-        "material.ctrl.js-getSearchResults Search Materials: ",
-        materials
-      );
+      // console.log(
+      //   "material.ctrl.js-getSearchResults Search Materials: ",
+      //   materials
+      // );
       if (materials) return res.send(materials);
       if (err) console.log("there was a search error", err);
+      res.json({ message: "No results" });
     });
   },
 
-  getFilterResults: async (req, res, next) => {
+  getFilterResults: (req, res, next) => {
     // console.log("material.ctrl.js-filter query: ", req.query);
     let {
       search,
@@ -230,20 +231,22 @@ module.exports = {
       pupilTask,
       category,
     } = req.body;
-    // search = search ? seach : {};
-    // console.log(
-    //   "material.ctrl - getFilterResults",
-    //   pupilTask,
-    //   timeInClass,
-    //   level
-    // );
+    // search = search ? new RegExp(escapeRegex(search), "gi") : ".";
+    console.log("material.ctrl - getFilterResults", search);
     queryCond = {
-      ...(search && { search: new RegExp(escapeRegex(search), "gi") }),
-      ...(level.length > 0 && { "level.value": level }),
-      ...(activityUse.length > 0 && { "activityUse.value": activityUse }),
-      ...(category.length > 0 && { "category.value": category }),
-      ...(pupilTask.length > 0 && { "pupilTask.value": pupilTask }),
-      ...(languageFocus.length > 0 && { "languageFocus.value": languageFocus }),
+      ...(search && {
+        $text: {
+          $search: new RegExp(escapeRegex(search), "gi"),
+        },
+        //   search: new RegExp(escapeRegex(search), "gi"),
+      }),
+      ...(level.length > 0 && { "level.value": `${level}` }),
+      ...(activityUse.length > 0 && { "activityUse.value": `${activityUse}` }),
+      ...(category.length > 0 && { "category.value": `${category}` }),
+      ...(pupilTask.length > 0 && { "pupilTask.value": `${pupilTask}` }),
+      ...(languageFocus.length > 0 && {
+        "languageFocus.value": `${languageFocus}`,
+      }),
       ...(timeInClass && {
         timeInClass: {
           $gte: timeInClass[0],
@@ -258,26 +261,30 @@ module.exports = {
       }),
     };
 
-    if (search !== "") {
-      search = new RegExp(escapeRegex(search), "gi");
-    }
-
     console.log("material.ctrl.js-filter queryCond: ", queryCond);
-    
-    const searchResults = await Material.find({ $text: { $search: regex }, queryCond});
-    // const searchResults = await Material.find(queryCond);
-    console.log(
-      "material.ctrl.js-filter searchResults: ",
-      searchResults.length
+    Material.find(
+      // {
+        // $and: [
+        //   {
+        //     $text: {
+        //       $search: search,
+        //     },
+        //   },
+          queryCond,
+        // ],
+      // },
+      function (err, materials) {
+        // const searchResults = await Material.find(queryCond);
+        if (materials) {
+          console.log(
+            "material.ctrl.js-filter searchResults: ",
+            materials.length
+          );
+        }
+        if (materials) return res.send(materials);
+        if (err) console.log("there was a search error", err);
+      }
     );
-    if (searchResults) {
-      return res.json(searchResults);
-    } else {
-      console.log("err cannot filter", err);
-      return res.err;
-    }
-    // console.log("material.ctrl.js-filter searchResults: ", searchResults);
-    // res.send(searchResults);
   },
 
   getTitles: async (req, res, next) => {

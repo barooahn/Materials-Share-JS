@@ -1,19 +1,20 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import { Slider, Paper } from "@material-ui/core";
+import { Slider } from "@material-ui/core";
 import TextField from "@material-ui/core/TextField";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import { useHistory } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { useHistory, useLocation } from "react-router-dom";
+import Mobile from "../helpers/mobile";
 
 import Collapse from "@material-ui/core/Collapse";
 
 import { SetAutocompletes } from "../helpers/SetAutocompletes";
-import { getAllMaterials } from "../../actions/materials-share-actions";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import { getFilterResults } from "../../actions/materials-share-actions";
+import Link from "@material-ui/core/Link";
 
-const filterHeight =
-  document.documentElement.clientWidth < 600 ? "100vh" : "auto";
+const filterHeight = Mobile() ? "100vh" : "auto";
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
@@ -21,30 +22,18 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: 2,
     maxWidth: "100%",
+    height: filterHeight + "!important",
+    marginTop: 10,
   },
-  paper: {
-    paddingTop: 25,
-    paddingBottom: 25,
-    width: "97%",
-    marginLeft: "auto",
-    marginRight: "auto",
-  },
-
   filterItem: {
-    marginBottom: 8,
+    marginBottom: 5,
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
   },
   filterButton: {
-    marginBottom: 20,
+    marginBottom: 5,
     marginLeft: "5%",
-  },
-  circularProgress: {
-    position: "absolute",
-    top: "50%",
-    left: "47%",
-    zIndex: 50,
   },
 }));
 
@@ -65,18 +54,11 @@ export default ({ expanded, setExpanded }) => {
   const [dynamicActivityUse, setDynamicActivityUse] = React.useState([]);
   const [dynamicLanguageFocus, setDynamicLanguageFocus] = React.useState([]);
 
-  const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
+  const [searchQuery, setSearchQuery] = React.useState("");
 
-  const [totalMaterials, setTotalMaterials] = React.useState([]);
-
+  const closeFilter = () => setExpanded(false);
   let history = useHistory();
-
-  React.useEffect(() => {
-    async function fetchData() {
-      setTotalMaterials(await getAllMaterials());
-    }
-    fetchData();
-  }, []);
+  let location = useLocation();
 
   React.useEffect(() => {
     async function fetchData() {
@@ -93,6 +75,16 @@ export default ({ expanded, setExpanded }) => {
     }
     fetchData();
   }, []);
+
+  React.useEffect(() => {
+    async function fetchData() {
+      setSearchQuery(location.state ? location.state.searchQuery : "");
+    }
+    fetchData();
+  }, [location.state]);
+
+  // console.log("filter searchQuery", searchQuery);
+  // console.log("filter location.state", location.state);
 
   const handleTimeInClassValueChange = (event, newValue) => {
     setTimeInClassValue(newValue);
@@ -114,6 +106,7 @@ export default ({ expanded, setExpanded }) => {
   };
 
   const optionChange = (value) => {
+    //Check if value passed is object with title i.e. from db or a new item
     if (
       value &&
       value.length > 0 &&
@@ -129,16 +122,6 @@ export default ({ expanded, setExpanded }) => {
     }
     return value;
   };
-
-  React.useEffect(() => {
-    filterMaterials();
-  }, [
-    levelValue,
-    languageFocusValue,
-    activityUseValue,
-    pupilTaskValue,
-    categoryValue,
-  ]);
 
   const changeLevel = (e, value) => {
     optionChange(value);
@@ -161,14 +144,15 @@ export default ({ expanded, setExpanded }) => {
   };
 
   const changeActivityUse = (e, value) => {
-    console.log("filter filterMaterials value ", value);
     optionChange(value);
     setActivityUseValue(value);
-    console.log(
-      "filter filterMaterials setActivityUseValue ",
-      activityUseValue
-    );
   };
+
+  // const timeFilter = (key, values) => {
+  //   filterResults.filter(material => {
+  //     return material[key] > values[0] && material[key] < values[1];
+  //   });
+  // };
 
   const getValuesFromObjects = (item) => {
     return item.map((element) => {
@@ -176,47 +160,29 @@ export default ({ expanded, setExpanded }) => {
     });
   };
 
-  const filterMaterials = () => {
-    setGettingSearchResults(true);
-    let materials = totalMaterials;
-
-    const activityUse = getValuesFromObjects(activityUseValue);
-    const languageFocus = getValuesFromObjects(languageFocusValue);
-    const category = getValuesFromObjects(categoryValue);
-    const pupilTask = getValuesFromObjects(pupilTaskValue);
+  const goToResults = async (e) => {
     const level = getValuesFromObjects(levelValue);
-
-    const filterBy = (filterValue, values) => {
-      return materials.filter((material) => {
-        var inIndex = material[filterValue].map((allFiltervalues) => {
-          return values.indexOf(allFiltervalues.value) !== -1;
-        });
-        // return inIndex.includes(true);
-        return inIndex.every((v) => v === true);
+    const languageFocus = getValuesFromObjects(languageFocusValue);
+    const activityUse = getValuesFromObjects(activityUseValue);
+    const pupilTask = getValuesFromObjects(pupilTaskValue);
+    const category = getValuesFromObjects(categoryValue);
+    const results = await getFilterResults(
+      searchQuery,
+      timeInClassValue,
+      timePrepValue,
+      level,
+      languageFocus,
+      activityUse,
+      pupilTask,
+      category
+    );
+    if (results) {
+      // console.log(" filter returned results ", results);
+      history.push({
+        pathname: "/search",
+        state: { searchResults: results, searchQuery: searchQuery },
       });
-    };
-
-    if (activityUse.length > 0) {
-      materials = filterBy("activityUse", activityUse);
     }
-    if (languageFocus.length > 0) {
-      materials = filterBy("languageFocus", languageFocus);
-    }
-    if (category.length > 0) {
-      materials = filterBy("category", category);
-    }
-    if (pupilTask.length > 0) {
-      materials = filterBy("pupilTask", pupilTask);
-    }
-    if (level.length > 0) {
-      materials = filterBy("level", level);
-    }
-
-    setGettingSearchResults(false);
-    history.push({
-      pathname: "/search",
-      state: { searchResults: materials },
-    });
   };
 
   return (
@@ -225,129 +191,154 @@ export default ({ expanded, setExpanded }) => {
       timeout="auto"
       unmountOnExit
       className={classes.collapse}
-      collapsedHeight={filterHeight}
     >
-      {gettingSearchResults ? (
-        <div className={classes.circularProgress}>
-          <CircularProgress size={40} color="secondary" />
-        </div>
-      ) : null}
-      <Paper elevation={2} className={classes.paper}>
-        <div className={classes.filterItem}>
-          <Typography id="range-slider" gutterBottom>
-            Time in Class
-          </Typography>
-          <Slider
-            value={timeInClassValue}
-            onChange={handleTimeInClassValueChange}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            getAriaValueText={timeInClassValueText}
-          />
-        </div>
-        <div className={classes.filterItem}>
-          <Typography id="range-slider" gutterBottom>
-            Time for preperation
-          </Typography>
-          <Slider
-            value={timePrepValue}
-            onChange={handleTimePrepValueChange}
-            valueLabelDisplay="auto"
-            aria-labelledby="range-slider"
-            getAriaValueText={timePrepValueText}
-          />
-        </div>
-        <div className={classes.filterItem}>
-          <Autocomplete
-            id="pupilTask"
-            multiple
-            value={pupilTaskValue}
-            onChange={changePupilTask}
-            options={dynamicPupilTask}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Tasks For Pupils"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div className={classes.filterItem}>
-          <Autocomplete
-            id="level"
-            multiple
-            value={levelValue}
-            onChange={changeLevel}
-            options={dynamicLevels}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Level"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div className={classes.filterItem}>
-          <Autocomplete
-            id="category"
-            multiple
-            value={categoryValue}
-            onChange={changeCategory}
-            options={dynamicCategory}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Institue"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div className={classes.filterItem}>
-          <Autocomplete
-            id="language-focus"
-            multiple
-            value={languageFocusValue}
-            onChange={changeLanguageFocus}
-            options={dynamicLanguageFocus}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Language focus"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-        <div className={classes.filterItem}>
-          <Autocomplete
-            id="activity-use"
-            multiple
-            value={activityUseValue}
-            onChange={changeActivityUse}
-            options={dynamicActivityUse}
-            getOptionLabel={(option) => option.label}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Activity use"
-                variant="outlined"
-                fullWidth
-              />
-            )}
-          />
-        </div>
-      </Paper>
+      <div className={classes.filterItem}>
+        {searchQuery ? (
+          <div>
+            <Link href="#searchResults" onClick={closeFilter}>
+              <Typography
+                gutterBottom
+                variant="body1"
+                component="p"
+                align="center"
+              >
+                Search for... "{searchQuery}" Results found...
+                {location.state?.searchResults.length}
+              </Typography>
+            </Link>
+          </div>
+        ) : (
+          <div>
+            <Link href="#searchResults" onClick={closeFilter}>
+              <Typography
+                gutterBottom
+                variant="body1"
+                component="p"
+                align="center"
+              >
+                Results found...
+                {location.state?.searchResults.length}
+              </Typography>
+            </Link>
+          </div>
+        )}
+        <Typography id="range-slider" gutterBottom>
+          Time in Class
+        </Typography>
+        <Slider
+          value={timeInClassValue}
+          onChange={handleTimeInClassValueChange}
+          valueLabelDisplay="auto"
+          aria-labelledby="range-slider"
+          getAriaValueText={timeInClassValueText}
+          step={5}
+        />
+      </div>
+      <div className={classes.filterItem}>
+        <Typography id="range-slider" gutterBottom>
+          Time for preperation
+        </Typography>
+        <Slider
+          value={timePrepValue}
+          onChange={handleTimePrepValueChange}
+          valueLabelDisplay="auto"
+          aria-labelledby="range-slider"
+          getAriaValueText={timePrepValueText}
+          step={5}
+        />
+      </div>
+      <div className={classes.filterItem}>
+        <Autocomplete
+          id="combo-box-demo1"
+          multiple
+          value={pupilTaskValue}
+          onChange={changePupilTask}
+          options={dynamicPupilTask}
+          getOptionLabel={(option) => option.label}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="What work will pupils do?"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <div className={classes.filterItem}>
+        <Autocomplete
+          id="combo-box-demo2"
+          multiple
+          value={levelValue}
+          onChange={changeLevel}
+          options={dynamicLevels}
+          getOptionLabel={(option) => option.label}
+          renderInput={(params) => (
+            <TextField {...params} label="Level" variant="outlined" fullWidth />
+          )}
+        />
+      </div>
+      <div className={classes.filterItem}>
+        <Autocomplete
+          id="category"
+          multiple
+          value={categoryValue}
+          onChange={changeCategory}
+          options={dynamicCategory}
+          getOptionLabel={(option) => option.label}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Institue"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <div className={classes.filterItem}>
+        <Autocomplete
+          id="language-focus"
+          multiple
+          value={languageFocusValue}
+          onChange={changeLanguageFocus}
+          options={dynamicLanguageFocus}
+          getOptionLabel={(option) => option.label}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Language focus"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <div className={classes.filterItem}>
+        <Autocomplete
+          id="activity-use"
+          multiple
+          value={activityUseValue}
+          onChange={changeActivityUse}
+          options={dynamicActivityUse}
+          getOptionLabel={(option) => option.label}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Activity use"
+              variant="outlined"
+              fullWidth
+            />
+          )}
+        />
+      </div>
+      <Button
+        className={classes.filterButton}
+        variant="outlined"
+        onClick={goToResults}
+      >
+        Filter
+      </Button>
     </Collapse>
   );
 };

@@ -24,8 +24,9 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
+import Mobile from "../helpers/mobile";
 
-const cardWidth = document.documentElement.clientWidth < 600 ? "98%" : 250;
+const cardWidth = Mobile() ? "98%" : 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
