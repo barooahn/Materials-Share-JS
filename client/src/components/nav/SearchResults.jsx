@@ -4,6 +4,7 @@ import MaterialCard from "../Material/MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
 import Mobile from "../helpers/mobile";
+import Button from "@material-ui/core/Button";
 
 export default () => {
   let location = useLocation();
@@ -59,9 +60,30 @@ export default () => {
           </StackGrid>
         </React.Fragment>
       ) : (
-        <Typography gutterBottom variant="body1" component="p" align="center">
-          Sorry there are no results
-        </Typography>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography gutterBottom variant="body1" component="p" align="center">
+            Sorry there are no results
+          </Typography>
+          <Button
+            variant="contained"
+            href="/materials"
+            color="primary"
+            style={{
+              // width: 145,
+              marginTop: 15,
+            }}
+          >
+            All materials
+          </Button>
+        </div>
       )}
     </React.Fragment>
   );

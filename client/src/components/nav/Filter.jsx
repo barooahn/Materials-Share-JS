@@ -193,35 +193,6 @@ export default ({ expanded, setExpanded }) => {
       className={classes.collapse}
     >
       <div className={classes.filterItem}>
-        {searchQuery ? (
-          <div>
-            <Link href="#searchResults" onClick={closeFilter}>
-              <Typography
-                gutterBottom
-                variant="body1"
-                component="p"
-                align="center"
-              >
-                Search for... "{searchQuery}" Results found...
-                {location.state?.searchResults.length}
-              </Typography>
-            </Link>
-          </div>
-        ) : (
-          <div>
-            <Link href="#searchResults" onClick={closeFilter}>
-              <Typography
-                gutterBottom
-                variant="body1"
-                component="p"
-                align="center"
-              >
-                Results found...
-                {location.state?.searchResults.length}
-              </Typography>
-            </Link>
-          </div>
-        )}
         <Typography id="range-slider" gutterBottom>
           Time in Class
         </Typography>
@@ -339,6 +310,36 @@ export default ({ expanded, setExpanded }) => {
       >
         Filter
       </Button>
+      {searchQuery ? (
+        <div>
+          <Link href="#searchResults" onClick={closeFilter}>
+            <Typography
+              gutterBottom
+              variant="body1"
+              component="p"
+              align="center"
+            >
+              Search for... "{searchQuery}" Results found...
+              {location.state?.searchResults.length}
+            </Typography>
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <Link href="#searchResults" onClick={closeFilter}>
+            <Typography
+              gutterBottom
+              variant="body1"
+              component="p"
+              align="center"
+            >
+              {location.state?.searchResults.length > 0
+                ? " Results found..." + location.state?.searchResults.length
+                : null}
+            </Typography>
+          </Link>
+        </div>
+      )}
     </Collapse>
   );
 };
