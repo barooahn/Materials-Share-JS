@@ -146,7 +146,6 @@ export const getPaginatedMaterials = async (page, limit) => {
   return response.json();
 };
 
-
 export const getMaterial = async (slug) => {
   let response = await fetch(`/api/material/${slug}`, {
     headers: {
@@ -236,39 +235,39 @@ export const getSearchResults = async (search) => {
   return response.json();
 };
 
-// export const getFilterResults = async (
-//   search,
-//   timeInClass,
-//   timePrep,
-//   level,
-//   languageFocus,
-//   activityUse,
-//   pupilTask,
-//   category
-// ) => {
-//   let response = await fetch(
-//     // `api/search?search=${search}&timeInClass=${timeInClass}&timePrep=${timePrep}&level=${level}&languageFocus=${languageFocus}&activityUse=${activityUse}&pupilTask=${pupilTask}&category=${category}`,
-//     `api/filterResults`,
-//     {
-//       method: "POST",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         search: search,
-//         timeInClass: timeInClass,
-//         timePrep: timePrep,
-//         level: level,
-//         languageFocus: languageFocus,
-//         activityUse: activityUse,
-//         pupilTask: pupilTask,
-//         category: category,
-//       }),
-//     }
-//   );
-//   return response.json();
-// };
+export const getFilterResults = async (
+  search,
+  timeInClass,
+  timePrep,
+  level,
+  languageFocus,
+  activityUse,
+  pupilTask,
+  category
+) => {
+  let response = await fetch(
+    // `api/search?search=${search}&timeInClass=${timeInClass}&timePrep=${timePrep}&level=${level}&languageFocus=${languageFocus}&activityUse=${activityUse}&pupilTask=${pupilTask}&category=${category}`,
+    `api/filterResults`,
+    {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        search: search,
+        timeInClass: timeInClass,
+        timePrep: timePrep,
+        level: level,
+        languageFocus: languageFocus,
+        activityUse: activityUse,
+        pupilTask: pupilTask,
+        category: category,
+      }),
+    }
+  );
+  return response.json();
+};
 
 export const getUserLikes = async (id) => {
   let response = await fetch("/api/materials/user/likes/" + id, {

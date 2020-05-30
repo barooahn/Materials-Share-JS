@@ -64,14 +64,12 @@ export default function Search({ setGettingSearchResults }) {
     if (e.key === "Enter" && searchQuery.length > 0) {
       setGettingSearchResults(true);
       const result = await getSearchResults(searchQuery);
-      if (result.length > 0) {
-        setGettingSearchResults(false);
-        const queryResult = saveSearchQuery(searchQuery);
-        history.push({
-          pathname: "/search",
-          state: { searchResults: result, searchQuery: searchQuery },
-        });
-      }
+      setGettingSearchResults(false);
+      saveSearchQuery(searchQuery);
+      history.push({
+        pathname: "/search",
+        state: { searchResults: result, searchQuery: searchQuery },
+      });
     }
   };
 

@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import MaterialCard from "../Material/MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
+import Mobile from "../helpers/mobile";
+import Button from "@material-ui/core/Button";
 
 export default () => {
   let location = useLocation();
@@ -10,24 +12,35 @@ export default () => {
   const [materials, setMaterials] = React.useState([]);
 
   React.useEffect(() => {
-    let resultData = location.state.searchResults;
+    if (location.state?.searchResults.length > 0) {
+      console.log(
+        "searchResults - location.state.searchResults",
+        location.state.searchResults
+      );
+      let resultData = location.state.searchResults;
 
-    resultData.forEach((material) => {
-      material.files = Array.isArray(material.files)
-        ? [material.files[0]]
-        : [material.files];
-    });
+      resultData.forEach((material) => {
+        material.files = Array.isArray(material.files)
+          ? [material.files[0]]
+          : [material.files];
+      });
 
-    setMaterials(resultData);
-  }, [location.state.searchResults]);
+      setMaterials(resultData);
+    }
+  }, [location.state]);
 
-  const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
+  const cardWidth = Mobile() ? "100%" : 250;
 
-  // console.log("searchResults - materials", materials.length);
   return (
     <React.Fragment>
-      <Typography gutterBottom variant="h2" component="h2" align="center">
-        Teaching Resorces
+      <Typography
+        gutterBottom
+        variant="h3"
+        component="h3"
+        align="center"
+        name="searchResults"
+      >
+        Search Results
       </Typography>
       {materials.length > 0 ? (
         <React.Fragment>
@@ -47,9 +60,30 @@ export default () => {
           </StackGrid>
         </React.Fragment>
       ) : (
-        <Typography gutterBottom variant="body1" component="p" align="center">
-          Sorry there are no results
-        </Typography>
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Typography gutterBottom variant="body1" component="p" align="center">
+            Sorry there are no results
+          </Typography>
+          <Button
+            variant="contained"
+            href="/materials"
+            color="primary"
+            style={{
+              // width: 145,
+              marginTop: 15,
+            }}
+          >
+            All materials
+          </Button>
+        </div>
       )}
     </React.Fragment>
   );

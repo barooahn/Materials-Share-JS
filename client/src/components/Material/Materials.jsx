@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { getPaginatedMaterials } from "../../actions/materials-share-actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import debounce from "lodash.debounce";
+import Mobile from "../helpers/mobile";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,7 +33,7 @@ const Materials = () => {
   const [hasMore, setHasMore] = React.useState(true);
   const [error, setError] = React.useState(false);
 
-  const limit = document.documentElement.clientWidth < 600 ? 5 : 10;
+  const limit = Mobile() ? 5 : 10;
 
   window.onscroll = debounce(() => {
     if (error || gettingSearchResults || !hasMore) return;
@@ -67,7 +68,7 @@ const Materials = () => {
     fetchData();
   }, [page]);
 
-  const cardWidth = document.documentElement.clientWidth < 600 ? "100%" : 250;
+  const cardWidth = Mobile() ? "100%" : 250;
 
   return (
     <div className={classes.root}>

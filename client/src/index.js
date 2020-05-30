@@ -9,6 +9,7 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
+import Mobile from "./components/helpers/mobile";
 
 import {
   BrowserRouter as Router,
@@ -18,8 +19,6 @@ import {
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import Axios from "axios";
-
-const mobile = document.documentElement.clientWidth < 600 ? true : false;
 
 const MaterialStepper = lazy(() =>
   import("./components/materialStepper/MaterialStepper")
@@ -110,7 +109,7 @@ const routePaths = () => {
   );
 };
 
-const nav = mobile ? (
+const nav = Mobile() ? (
   <MobileNavBar routePaths={routePaths()} />
 ) : (
   <NavBar routePaths={routePaths()} />

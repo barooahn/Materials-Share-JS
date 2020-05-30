@@ -24,8 +24,10 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
+import Mobile from "../helpers/mobile";
+import Tooltip from "@material-ui/core/Tooltip";
 
-const cardWidth = document.documentElement.clientWidth < 600 ? "98%" : 250;
+const cardWidth = Mobile() ? "98%" : 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -163,29 +165,47 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           </NavLink>
         </CardActionArea>
         <CardActions disableSpacing>
-          <IconButton
-            aria-label="add to favorites"
-            onClick={toggleLikes}
-            color={setLikesColour()}
-            disabled={!author}
+          <Tooltip
+            title={!author ? "Login to add to likes" : "Add to likes"}
+            placement="top"
           >
-            <Badge color="default" badgeContent={likes.length}>
-              <FavoriteIcon />
-            </Badge>
-          </IconButton>
-
-          <IconButton aria-label="share" onClick={handleShareOpen}>
-            <ShareIcon />
-          </IconButton>
-
+            <span>
+              <IconButton
+                aria-label="add to favorites"
+                onClick={toggleLikes}
+                color={setLikesColour()}
+                disabled={!author}
+              >
+                <Badge color="default" badgeContent={likes.length}>
+                  <FavoriteIcon />
+                </Badge>
+              </IconButton>
+            </span>
+          </Tooltip>
+          <Tooltip title="Share on social media" placement="top">
+            <span>
+              <IconButton aria-label="share" onClick={handleShareOpen}>
+                <ShareIcon />
+              </IconButton>
+            </span>
+          </Tooltip>
           {author === material.author_id ? (
             <React.Fragment>
-              <IconButton component={Link} to={"/edit/" + material._id}>
-                <EditIcon />
-              </IconButton>
-              <IconButton onClick={(event) => handleDeleteMaterial(event)}>
-                <DeleteForeverIcon />
-              </IconButton>
+              {" "}
+              <Tooltip title="Edit your material" placement="top">
+                <span>
+                  <IconButton component={Link} to={"/edit/" + material._id}>
+                    <EditIcon />
+                  </IconButton>
+                </span>
+              </Tooltip>
+              <Tooltip title="Delete your material" placement="top">
+                <span>
+                  <IconButton onClick={(event) => handleDeleteMaterial(event)}>
+                    <DeleteForeverIcon />
+                  </IconButton>
+                </span>
+              </Tooltip>
             </React.Fragment>
           ) : null}
         </CardActions>
