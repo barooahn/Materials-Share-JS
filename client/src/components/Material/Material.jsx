@@ -25,7 +25,10 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
 import CancelIcon from "@material-ui/icons/Cancel";
+import PrintIcon from "@material-ui/icons/Print";
 import { useHistory } from "react-router-dom";
+import Tooltip from "@material-ui/core/Tooltip";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     maxWidth: 1000,
     paddingBottom: 5,
+    pageBreakBefore: "always",
   },
   modal: {
     display: "flex",
@@ -56,6 +60,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     flexDirection: "column",
+  },
+  pageBreak: {
+    pageBreakBefore: "always",
   },
 }));
 
@@ -115,6 +122,10 @@ export default () => {
     return color;
   };
 
+  const print = () => {
+    window.print();
+  };
+
   React.useEffect(() => {
     //get all Materials from db setMaterials
     if (slug !== undefined) {
@@ -129,30 +140,66 @@ export default () => {
       <Typography gutterBottom variant="h2" component="h2" align="center">
         {material.title}
       </Typography>
-      <IconButton
-        aria-label="add to favorites"
-        onClick={toggleLikes}
-        color={setLikesColour()}
-        disabled={!author}
-      >
-        <Badge color="default" badgeContent={likes.length}>
-          <FavoriteIcon />
-        </Badge>
-      </IconButton>
-      <IconButton aria-label="share" onClick={handleShareOpen}>
-        <ShareIcon />
-      </IconButton>
-      <SocialShare handleShareClose={handleShareClose} shareOpen={shareOpen} />
-      {author === material.author_id ? (
-        <React.Fragment>
-          <IconButton component={Link} to={"/edit/" + material._id}>
-            <EditIcon />
-          </IconButton>
-          <IconButton onClick={(event) => handleDeleteMaterial(event)}>
-            <DeleteForeverIcon />
-          </IconButton>
-        </React.Fragment>
-      ) : null}
+      <Box display="block" displayPrint="none">
+        <Tooltip
+          title={!author ? "Login to add to likes" : "Add to likes"}
+          placement="top"
+        >
+          <span>
+            <IconButton
+              aria-label="add to favorites"
+              onClick={toggleLikes}
+              color={setLikesColour()}
+              disabled={!author}
+            >
+              <Badge color="default" badgeContent={likes.length}>
+                <FavoriteIcon />
+              </Badge>
+            </IconButton>
+          </span>
+        </Tooltip>
+        <Tooltip title={!author ? "Login to print" : "Print"} placement="top">
+          <span>
+            <IconButton
+              aria-label="add to favorites"
+              onClick={print}
+              color={setLikesColour()}
+              disabled={!author}
+            >
+              <PrintIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
+        <Tooltip title="Share on social media" placement="top">
+          <span>
+            <IconButton aria-label="share" onClick={handleShareOpen}>
+              <ShareIcon />
+            </IconButton>
+          </span>
+        </Tooltip>
+        <SocialShare
+          handleShareClose={handleShareClose}
+          shareOpen={shareOpen}
+        />
+        {author === material.author_id ? (
+          <React.Fragment>
+            <Tooltip title="Edit your material" placement="top">
+              <span>
+                <IconButton component={Link} to={"/edit/" + material._id}>
+                  <EditIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+            <Tooltip title="Delete your material" placement="top">
+              <span>
+                <IconButton onClick={(event) => handleDeleteMaterial(event)}>
+                  <DeleteForeverIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+          </React.Fragment>
+        ) : null}
+      </Box>
 
       <Grid container spacing={0}>
         <List>
@@ -166,12 +213,13 @@ export default () => {
             </div>
           </ListItem>
           <hr />
-          <Typography gutterBottom variant="h4" component="h4" align="center">
-            Teacher Notes
-          </Typography>
         </List>
-
-
+      </Grid>
+      <div className={classes.pageBreak}>
+        <Typography gutterBottom variant="h4" component="h4" align="center">
+          Teacher Notes
+        </Typography>
+        {DisplayMaterialList(material)}
         {typeof variable !== "undefined" && material.book.title !== "" ? (
           <Grid item xs={12} md={6}>
             <List>
@@ -184,13 +232,12 @@ export default () => {
                       {" - Page " + material.book.page}
                     </React.Fragment>
                   }
-                  />
+                />
               </ListItem>
             </List>
           </Grid>
         ) : null}
-      </Grid>
-        {DisplayMaterialList(material)}
+      </div>
       <Modal
         open={deleteOpen}
         onClose={handleDeleteClose}
