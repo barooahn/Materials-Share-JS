@@ -33,11 +33,12 @@ import Filter from "./Filter";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { deepOrange } from "@material-ui/core/colors";
+import Box from "@material-ui/core/Box";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  navBar: {
     display: "flex",
   },
   appBar: {
@@ -249,55 +250,58 @@ export default function MiniDrawer({ routePaths }) {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.navBar}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        color="default"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <img
-            src={"/img/SVG/MaterialsshareLogo.svg"}
-            alt="Materialsshare Logo"
-            className={classes.logo}
-            onClick={handleHomeClick}
-          />
-          {"/" === location.pathname ||
-          "/materials" === location.pathname ||
-          "/search" === location.pathname ? (
-            <div className={classes.search}>
-              <Search setGettingSearchResults={setGettingSearchResults} />
-              <IconButton
-                className={clsx(classes.expand, {
-                  [classes.expandOpen]: expanded,
-                })}
-                onClick={handleExpandClick}
-                aria-expanded={expanded}
-                aria-label="show more"
-              >
-                <ExpandMoreIcon />
-              </IconButton>
-            </div>
-          ) : null}
+      <Box display="block" displayPrint="none">
+        <AppBar
+          position="fixed"
+          color="default"
+          className={clsx(classes.appBar, {
+            [classes.appBarShift]: open,
+          })}
+        >
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              className={clsx(classes.menuButton, {
+                [classes.hide]: open,
+              })}
+            >
+              <MenuIcon />
+            </IconButton>
+            <img
+              src={"/img/SVG/MaterialsshareLogo.svg"}
+              alt="Materialsshare Logo"
+              className={classes.logo}
+              onClick={handleHomeClick}
+            />
+            {"/" === location.pathname ||
+            "/materials" === location.pathname ||
+            "/search" === location.pathname ? (
+              <div className={classes.search}>
+                <Search setGettingSearchResults={setGettingSearchResults} />
+                <IconButton
+                  className={clsx(classes.expand, {
+                    [classes.expandOpen]: expanded,
+                  })}
+                  onClick={handleExpandClick}
+                  aria-expanded={expanded}
+                  aria-label="show more"
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+              </div>
+            ) : null}
 
-          <div className={classes.grow} />
-          <div className={classes.loginRegisterButtons}>{menuProfile()}</div>
-        </Toolbar>
-      </AppBar>
+            <div className={classes.grow} />
+            <div className={classes.loginRegisterButtons}>{menuProfile()}</div>
+          </Toolbar>
+        </AppBar>
+      </Box>
+
       <Menu
         anchorEl={anchorEl}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
@@ -327,86 +331,88 @@ export default function MiniDrawer({ routePaths }) {
           </ListItem>
         </MenuItem>
       </Menu>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
+      <Box display="block" displayPrint="none">
+        <Drawer
+          variant="permanent"
+          className={clsx(classes.drawer, {
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar}>
-          <IconButton onClick={handleDrawerClose} aria-label="Close drawer">
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <ListItem
-            button
-            key={"Home"}
-            onClick={handleHomeClick}
-            selected={"/" === location.pathname}
-            aria-label="Home"
-          >
-            <ListItemIcon>
-              <HomeIcon />
-            </ListItemIcon>
-            <ListItemText primary="Home" />
-          </ListItem>
-
-          <NavLink to="/materials" className="link">
+          })}
+          classes={{
+            paper: clsx({
+              [classes.drawerOpen]: open,
+              [classes.drawerClose]: !open,
+            }),
+          }}
+        >
+          <div className={classes.toolbar}>
+            <IconButton onClick={handleDrawerClose} aria-label="Close drawer">
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
             <ListItem
               button
-              key={"Materials"}
-              aria-label="Materials"
-              selected={"/materials" === location.pathname}
+              key={"Home"}
+              onClick={handleHomeClick}
+              selected={"/" === location.pathname}
+              aria-label="Home"
             >
               <ListItemIcon>
-                <ViewListIcon />
+                <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary="Browse Resources" />
+              <ListItemText primary="Home" />
             </ListItem>
-          </NavLink>
 
-          <NavLink to="/create" className="link">
-            <ListItem
-              button
-              aria-label="Create Material"
-              key={"NewMaterial"}
-              selected={"/create" === location.pathname}
-            >
-              <ListItemIcon>
-                <AddBoxIcon />
-              </ListItemIcon>
-              <ListItemText primary="New Material" />
-            </ListItem>
-          </NavLink>
+            <NavLink to="/materials" className="link">
+              <ListItem
+                button
+                key={"Materials"}
+                aria-label="Materials"
+                selected={"/materials" === location.pathname}
+              >
+                <ListItemIcon>
+                  <ViewListIcon />
+                </ListItemIcon>
+                <ListItemText primary="Browse Resources" />
+              </ListItem>
+            </NavLink>
 
-          <NavLink to="/help" className="link">
-            <ListItem
-              button
-              aria-label="help"
-              key={"help"}
-              selected={"/help" === location.pathname}
-            >
-              <ListItemIcon>
-                <HelpIcon />
-              </ListItemIcon>
-              <ListItemText primary="Help" />
-            </ListItem>
-          </NavLink>
-        </List>
-      </Drawer>
+            <NavLink to="/create" className="link">
+              <ListItem
+                button
+                aria-label="Create Material"
+                key={"NewMaterial"}
+                selected={"/create" === location.pathname}
+              >
+                <ListItemIcon>
+                  <AddBoxIcon />
+                </ListItemIcon>
+                <ListItemText primary="New Material" />
+              </ListItem>
+            </NavLink>
+
+            <NavLink to="/help" className="link">
+              <ListItem
+                button
+                aria-label="help"
+                key={"help"}
+                selected={"/help" === location.pathname}
+              >
+                <ListItemIcon>
+                  <HelpIcon />
+                </ListItemIcon>
+                <ListItemText primary="Help" />
+              </ListItem>
+            </NavLink>
+          </List>
+        </Drawer>
+      </Box>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {"/" === location.pathname ||
@@ -423,6 +429,7 @@ export default function MiniDrawer({ routePaths }) {
             <CircularProgress size={40} color="secondary" />
           </div>
         ) : null}
+
         {routePaths}
       </main>
     </div>

@@ -33,6 +33,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -232,54 +233,57 @@ export default function LabelBottomNavigation({ routePaths }) {
     <React.Fragment>
       <CssBaseline />
       <HideOnScroll>
-        <AppBar position="sticky" color="default" className={classes.appBar}>
-          <Toolbar className={classes.toolbar} disableGutters>
-            <IconButton
-              className={classes.logo}
-              onClick={handleHomeClick}
-              aria-label="Home"
-            >
-              <LocalLibraryIcon color="secondary" fontSize="large" />
-            </IconButton>
-            {/* <div className={classes.grow} /> */}
-            {"/" === location.pathname ||
-            "/materials" === location.pathname ||
-            "/search" === location.pathname ? (
-              <div className={classes.search}>
-                <Search setGettingSearchResults={setGettingSearchResults} />
-                <IconButton
-                  className={clsx(classes.expand, {
-                    [classes.expandOpen]: expanded,
-                  })}
-                  onClick={handleExpandClick}
-                  aria-expanded={expanded}
-                  aria-label="show more"
-                  fontSize="large"
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-              </div>
-            ) : null}
-            <IconButton
-              className={classes.profile}
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-            >
-              <Avatar
-                alt={localStorage.getItem("USER_NAME")}
-                src={localStorage.getItem("USER_IMG")}
-                className={classes.orange}
+        <Box display="block" displayPrint="none">
+          <AppBar position="sticky" color="default" className={classes.appBar}>
+            <Toolbar className={classes.toolbar} disableGutters>
+              <IconButton
+                className={classes.logo}
+                onClick={handleHomeClick}
+                aria-label="Home"
               >
-                {localStorage.getItem("USER_NAME")
-                  ? localStorage.getItem("USER_NAME").charAt(0)
-                  : null}
-              </Avatar>
-            </IconButton>
-          </Toolbar>
-        </AppBar>
+                <LocalLibraryIcon color="secondary" fontSize="large" />
+              </IconButton>
+              {/* <div className={classes.grow} /> */}
+              {"/" === location.pathname ||
+              "/materials" === location.pathname ||
+              "/search" === location.pathname ? (
+                <div className={classes.search}>
+                  <Search setGettingSearchResults={setGettingSearchResults} />
+                  <IconButton
+                    className={clsx(classes.expand, {
+                      [classes.expandOpen]: expanded,
+                    })}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                    fontSize="large"
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+                </div>
+              ) : null}
+              <IconButton
+                className={classes.profile}
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+              >
+                <Avatar
+                  alt={localStorage.getItem("USER_NAME")}
+                  src={localStorage.getItem("USER_IMG")}
+                  className={classes.orange}
+                >
+                  {localStorage.getItem("USER_NAME")
+                    ? localStorage.getItem("USER_NAME").charAt(0)
+                    : null}
+                </Avatar>
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+        </Box>
       </HideOnScroll>
+
       {"/" === location.pathname ||
       "/materials" === location.pathname ||
       "/search" === location.pathname ? (
@@ -294,61 +298,65 @@ export default function LabelBottomNavigation({ routePaths }) {
           <CircularProgress size={40} color="secondary" />
         </div>
       ) : null}
-      <Menu
-        anchorEl={anchorEl}
-        id={menuId}
-        keepMounted
-        open={isMenuOpen}
-        onClose={handleMenuClose}
-      >
-        <div>{menuOptions()}</div>
-      </Menu>
+      <Box display="block" displayPrint="none">
+        <Menu
+          anchorEl={anchorEl}
+          id={menuId}
+          keepMounted
+          open={isMenuOpen}
+          onClose={handleMenuClose}
+        >
+          <div>{menuOptions()}</div>
+        </Menu>
+      </Box>
       <main>{routePaths}</main>
-      <BottomNavigation
-        bottomnavvalue={bottomNavValue}
-        onChange={handleBottomNavChange}
-        className={classes.root}
-        position="fixed"
-      >
-        <BottomNavigationAction
-          label="Home"
-          value="home"
-          icon={<HomeIcon />}
-          showLabel={true}
-          onClick={handleHomeClick}
-        />
-        <BottomNavigationAction
-          label="Browse"
-          value="browse"
-          icon={<ViewListIcon />}
-          showLabel={true}
-          onClick={handleBrowseClick}
-        />
-        <BottomNavigationAction
-          label="New"
-          value="new"
-          icon={<AddBoxIcon />}
-          showLabel={true}
-          onClick={handleNewClick}
-        />
-        <BottomNavigationAction
-          label="Help"
-          value="help"
-          icon={<HelpIcon />}
-          showLabel={true}
-          onClick={handleHelpClick}
-        />
-        <HideOnScroll>
-          <Fab
-            color="secondary"
-            aria-label="add"
-            className={classes.fabButton}
-            aria-label="Create Material"
-          >
-            <AddIcon onClick={handleNewClick} />
-          </Fab>
-        </HideOnScroll>
-      </BottomNavigation>
+      <Box display="block" displayPrint="none">
+        <BottomNavigation
+          bottomnavvalue={bottomNavValue}
+          onChange={handleBottomNavChange}
+          className={classes.root}
+          position="fixed"
+        >
+          <BottomNavigationAction
+            label="Home"
+            value="home"
+            icon={<HomeIcon />}
+            showLabel={true}
+            onClick={handleHomeClick}
+          />
+          <BottomNavigationAction
+            label="Browse"
+            value="browse"
+            icon={<ViewListIcon />}
+            showLabel={true}
+            onClick={handleBrowseClick}
+          />
+          <BottomNavigationAction
+            label="New"
+            value="new"
+            icon={<AddBoxIcon />}
+            showLabel={true}
+            onClick={handleNewClick}
+          />
+          <BottomNavigationAction
+            label="Help"
+            value="help"
+            icon={<HelpIcon />}
+            showLabel={true}
+            onClick={handleHelpClick}
+          />
+          <HideOnScroll>
+            <Fab
+              color="secondary"
+              aria-label="add"
+              className={classes.fabButton}
+              aria-label="Create Material"
+            >
+              <AddIcon onClick={handleNewClick} />
+            </Fab>
+          </HideOnScroll>
+        </BottomNavigation>
+      </Box>
     </React.Fragment>
   );
 }
