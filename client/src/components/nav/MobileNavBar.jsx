@@ -232,9 +232,9 @@ export default function LabelBottomNavigation({ routePaths }) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <HideOnScroll>
-        <Box display="block" displayPrint="none">
-          <AppBar position="sticky" color="default" className={classes.appBar}>
+      <Box display="block" displayPrint="none">
+        <HideOnScroll>
+          <AppBar position="sticky" color="default" className={classes.root}>
             <Toolbar className={classes.toolbar} disableGutters>
               <IconButton
                 className={classes.logo}
@@ -281,8 +281,8 @@ export default function LabelBottomNavigation({ routePaths }) {
               </IconButton>
             </Toolbar>
           </AppBar>
-        </Box>
-      </HideOnScroll>
+        </HideOnScroll>
+      </Box>
 
       {"/" === location.pathname ||
       "/materials" === location.pathname ||
