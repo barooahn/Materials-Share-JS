@@ -37,9 +37,11 @@ import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   topNav: {
+    position: "fixed",
     bottom: 0,
     width: "100%",
     zIndex: 10,
+    height: 60,
   },
   bottomNav: {
     position: "fixed",
@@ -47,6 +49,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     zIndex: 10,
   },
+  content: { marginTop: 80 },
   text: {
     padding: theme.spacing(2, 2, 0),
   },
@@ -60,7 +63,6 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.background.paper,
   },
   appBar: {
-    // top: "auto",
     top: 0,
     marginBottom: 20,
   },
@@ -315,7 +317,7 @@ export default function LabelBottomNavigation({ routePaths }) {
           <div>{menuOptions()}</div>
         </Menu>
       </Box>
-      <main>{routePaths}</main>
+      <main className={classes.content}>{routePaths}</main>
       <Box display="block" displayPrint="none">
         <BottomNavigation
           bottomnavvalue={bottomNavValue}
