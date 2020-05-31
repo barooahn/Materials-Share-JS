@@ -38,7 +38,6 @@ const Materials = () => {
   window.onscroll = debounce(() => {
     if (error || gettingSearchResults || !hasMore) return;
 
-
     const height =
       window.innerHeight ||
       document.documentElement.clientHeight ||
@@ -51,13 +50,11 @@ const Materials = () => {
     let offsetH =
       document.body.offsetHeight || document.documentElement.offsetHeight;
 
-    if (height + top === offsetH) {
-
+    if (height + top >= offsetH) {
       if (materials.length >= totalMaterials) {
         setHasMore(false);
         return;
       } else {
-
         let nextpage = page + 1;
         setPage(nextpage);
       }
