@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     padding: 2,
     maxWidth: "100%",
     height: filterHeight + "!important",
-    marginTop: 10,
+    marginTop: 70,
   },
   filterItem: {
     marginBottom: 5,

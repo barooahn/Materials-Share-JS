@@ -55,6 +55,8 @@ export default ({
     setTitle(e.target.value);
   };
 
+  
+
   // console.log("MediaFiles files", files);
   // console.log("MediaFiles localFiles", localFiles);
   const handleChange = (e) => {
