@@ -78,7 +78,7 @@ const Materials = () => {
         </div>
       ) : null}
       <Typography gutterBottom variant="h2" component="h2" align="center">
-        Teaching Resorces
+        Teaching Resources
       </Typography>
 
       <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
