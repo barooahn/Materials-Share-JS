@@ -242,7 +242,9 @@ export default function MiniDrawer({ routePaths }) {
             src={localStorage.getItem("USER_IMG")}
             className={classes.orange}
           >
-            {localStorage.getItem("USER_NAME").charAt(0)}
+            {localStorage.getItem("USER_NAME")
+              ? localStorage.getItem("USER_NAME").charAt(0)
+              : "U"}
           </Avatar>
         </IconButton>
       );

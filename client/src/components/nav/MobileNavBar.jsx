@@ -115,6 +115,7 @@ export default function LabelBottomNavigation({ routePaths }) {
   const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
 
   console.log("MobileNavBar - anchorEl", anchorEl);
+  console.log("MobileNavBar - routePaths", routePaths);
 
   const [expanded, setExpanded] = React.useState(false);
   const isMenuOpen = Boolean(anchorEl);
@@ -348,7 +349,6 @@ export default function LabelBottomNavigation({ routePaths }) {
           <HideOnScroll>
             <Fab
               color="secondary"
-              aria-label="add"
               className={classes.fabButton}
               aria-label="Create Material"
             >
