@@ -244,7 +244,7 @@ export default function MiniDrawer({ routePaths }) {
           >
             {localStorage.getItem("USER_NAME")
               ? localStorage.getItem("USER_NAME").charAt(0)
-              : "U"}
+              : null}
           </Avatar>
         </IconButton>
       );

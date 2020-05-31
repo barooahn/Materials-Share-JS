@@ -36,7 +36,12 @@ import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  topNav: {
+    bottom: 0,
+    width: "100%",
+    zIndex: 10,
+  },
+  bottomNav: {
     position: "fixed",
     bottom: 0,
     width: "100%",
@@ -235,7 +240,7 @@ export default function LabelBottomNavigation({ routePaths }) {
       <CssBaseline />
       <Box display="block" displayPrint="none">
         <HideOnScroll>
-          <AppBar position="sticky" color="default" className={classes.root}>
+          <AppBar color="default" className={classes.topNav}>
             <Toolbar className={classes.toolbar} disableGutters>
               <IconButton
                 className={classes.logo}
@@ -315,7 +320,7 @@ export default function LabelBottomNavigation({ routePaths }) {
         <BottomNavigation
           bottomnavvalue={bottomNavValue}
           onChange={handleBottomNavChange}
-          className={classes.root}
+          className={classes.bottomNav}
           position="fixed"
         >
           <BottomNavigationAction
