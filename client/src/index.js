@@ -109,7 +109,6 @@ const routePaths = () => {
   );
 };
 
-console.log("Index Mobile()", Mobile());
 const nav = Mobile() ? (
   <MobileNavBar routePaths={routePaths()} />
 ) : (

@@ -37,14 +37,27 @@ const Materials = () => {
 
   window.onscroll = debounce(() => {
     if (error || gettingSearchResults || !hasMore) return;
-    if (
-      window.innerHeight + document.documentElement.scrollTop ===
-      document.documentElement.offsetHeight
-    ) {
+
+
+    const height =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight;
+
+    let top =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+
+    let offsetH =
+      document.body.offsetHeight || document.documentElement.offsetHeight;
+
+    if (height + top === offsetH) {
+
       if (materials.length >= totalMaterials) {
         setHasMore(false);
         return;
       } else {
+
         let nextpage = page + 1;
         setPage(nextpage);
       }
