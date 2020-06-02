@@ -253,7 +253,7 @@ export default function MaterialStepper() {
   }
 
   const save = () => {
-    //add , comments
+    
     SaveData(
       {
         type,
@@ -413,20 +413,20 @@ export default function MaterialStepper() {
                     Skip
                   </Button>
                 )}
-
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleNext}
-                  className={classes.button}
-                  disabled={
-                    (localFiles.length === 0 && files.length === 0) ||
-                    title === ""
-                  }
-                >
-                  {activeStep === steps.length - 1 ? "Finish" : "Next"}
-                </Button>
-
+                {activeStep !== steps.length - 1 ? (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={handleNext}
+                    className={classes.button}
+                    disabled={
+                      (localFiles.length === 0 && files.length === 0) ||
+                      title === ""
+                    }
+                  >
+                    Next
+                  </Button>
+                ) : null}
                 <Button
                   disabled={
                     (localFiles.length === 0 && files.length === 0) ||

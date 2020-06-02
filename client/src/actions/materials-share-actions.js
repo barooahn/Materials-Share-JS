@@ -1,7 +1,9 @@
 const axios = require("axios").default;
 
-export const SaveData = (payload, type, setCompleted = 0, setSaved = false) => {
-  // console.log("ms-share-actions- save ", payload);
+export const SaveData = (payload, type, setCompleted, setSaved) => {
+  setCompleted(0);
+  setSaved(false);
+  console.log("ms-share-actions- save ", payload);
   function isFileImage(file) {
     return file && file["type"].split("/")[0] === "image";
   }
@@ -19,13 +21,12 @@ export const SaveData = (payload, type, setCompleted = 0, setSaved = false) => {
     }
     handleFileUpload(type, payload.localFiles, payload, setCompleted, setSaved);
   } else {
-    // //save data to db
-    // if (type === "Create") {
-    //   console.log("ms-share-actions - Error - Should have files", payload);
-    // } else if (type === "Edit") {
-    //   // console.log("ms-share-actions -Saving edit material", payload);
-    //   editMaterial(payload, setSaved);
-    // }
+    //save data to db
+    if (type === "Edit") {
+      setCompleted(1);
+      editMaterial(payload, setSaved);
+      return true;
+    }
     return false;
   }
   return true;
@@ -35,8 +36,8 @@ const editMaterial = (material, setSaved) => {
   axios
     .put(`/api/material/update/${material.id}`, material, {})
     .then((res) => {
-      // console.log("saved edit to db", res.data);
-      setSaved = true;
+      console.log("saved edit to db", res.data);
+      setSaved(true);
     })
     .catch(function (err) {
       throw err;

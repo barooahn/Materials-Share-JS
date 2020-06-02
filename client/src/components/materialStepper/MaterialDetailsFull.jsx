@@ -117,14 +117,14 @@ export default ({
     {
       type: "text",
       label: "Is the resource based on a textbook?",
-      value: book,
+      value: book || "",
       multi: false,
       onChange: changeBook,
     },
     {
       type: "text",
       label: "What page of the textbook?",
-      value: page,
+      value: page || undefined,
       onChange: changePage,
     },
     {
