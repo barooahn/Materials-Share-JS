@@ -238,8 +238,8 @@ export default function MiniDrawer({ routePaths }) {
           color="inherit"
         >
           <Avatar
-            alt={localStorage.getItem("USER_NAME")}
             src={localStorage.getItem("USER_IMG")}
+            alt={localStorage.getItem("USER_NAME")}
             className={classes.orange}
           >
             {localStorage.getItem("USER_NAME")

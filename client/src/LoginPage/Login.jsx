@@ -126,12 +126,13 @@ export default () => {
   };
 
   const responseFacebook = async (res) => {
-    // console.log("got facebook response ", res.id);
+    console.log("got facebook res.picture.data.url ", res.picture.data.url);
     const user = {
       method: "facebook",
       name: res.name,
       id: res.id,
       img: res.picture.data.url,
+      // img:  `http://graph.facebook.com/${res.id}/picture?type=square`
       email: res.email,
     };
     const response = await signUser(user);
