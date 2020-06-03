@@ -1,8 +1,6 @@
 const axios = require("axios").default;
 
 export const SaveData = (payload, type, setCompleted, setSaved) => {
-  setCompleted(0);
-  setSaved(false);
   console.log("ms-share-actions- save ", payload);
   function isFileImage(file) {
     return file && file["type"].split("/")[0] === "image";
@@ -44,7 +42,7 @@ const editMaterial = (material, setSaved) => {
     });
 };
 
-const createMaterial = (material) => {
+const createMaterial = (material, setSaved) => {
   material.author_id = localStorage.getItem("USER_ID");
   material.author_img = localStorage.getItem("USER_IMG");
   // console.log("materials-share-actions creatematerial - material", material);
@@ -53,6 +51,7 @@ const createMaterial = (material) => {
     .post(`/api/material`, material, {})
     .then((res) => {
       // console.log("saved new material to db", res.data);
+      setSaved(true);
     })
     .catch(function (err) {
       throw err;
@@ -100,13 +99,12 @@ const handleFileUpload = async (
     .then((res) => {
       res.data.forEach((file) => {
         payload.files.push(file.path);
-        setSaved(true);
       });
       //remove from material
       delete payload.localFiles;
 
-      if (type === "Create") createMaterial(payload);
-      if (type === "Edit") editMaterial(payload);
+      if (type === "Create") createMaterial(payload, setSaved);
+      if (type === "Edit") editMaterial(payload, setSaved);
     })
     .catch(function (err) {
       console.log(err);

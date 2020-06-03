@@ -69,6 +69,8 @@ const useStyles = makeStyles((theme) => ({
 export default function MaterialCard({ material, setMaterials, materials }) {
   const classes = useStyles();
   const [likes, setLikes] = React.useState(material.likes || []);
+  const [completed, setCompleted] = React.useState(0);
+  const [saved, setSaved] = React.useState(false);
 
   //Delete model stuff
 
@@ -97,7 +99,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
   const author = localStorage.getItem("USER_ID");
 
   const toggleLikes = () => {
-    ToggleLikes(author, likes, setLikes, material._id);
+    ToggleLikes(author, likes, setLikes, material._id, setSaved, setCompleted);
   };
 
   const setLikesColour = () => {

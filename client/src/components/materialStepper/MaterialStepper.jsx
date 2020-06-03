@@ -253,7 +253,6 @@ export default function MaterialStepper() {
   }
 
   const save = () => {
-    
     SaveData(
       {
         type,
@@ -393,7 +392,9 @@ export default function MaterialStepper() {
                 <LinearProgress color="secondary" />
                 <br />
               </div>
-            ) : null}
+            ) : (
+              <div></div>
+            )}
             {title.length > 3 && (localFiles.length > 0 || files.length > 0) ? (
               <div>
                 <Button
