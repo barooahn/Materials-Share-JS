@@ -164,13 +164,29 @@ export const getMaterialId = async (id) => {
   return response.json();
 };
 
-export const getUserMaterials = async (id) => {
-  let response = await fetch(`/api/getUserMaterials/${id}`, {
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    },
-  });
+export const getPaginatedUserMaterials = async (id, page, limit) => {
+  let response = await fetch(
+    `/api/getUserMaterialsPaginated?id=${id}&page=${page}&limit=${limit}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  );
+  return response.json();
+};
+
+export const getUserLikes = async (id, page, limit) => {
+  let response = await fetch(
+    `/api/getlikedMaterialsPaginated/?id=${id}&page=${page}&limit=${limit}`,
+    {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    }
+  );
   return response.json();
 };
 
@@ -265,17 +281,6 @@ export const getFilterResults = async (
       }),
     }
   );
-  return response.json();
-};
-
-export const getUserLikes = async (id) => {
-  let response = await fetch("/api/materials/user/likes/" + id, {
-    method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-  });
   return response.json();
 };
 

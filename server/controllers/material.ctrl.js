@@ -96,8 +96,8 @@ module.exports = {
     });
   },
 
-  getUserMaterials: async (req, res, next) => {
-    await Material.find({ author_id: req.params.author_id })
+  getMaterials: async (req, res, next) => {
+    await Material.find()
       .sort({ dateModified: -1 })
       .exec((err, materials) => {
         if (materials) return res.send(materials);
@@ -106,13 +106,59 @@ module.exports = {
       });
   },
 
-  getMaterials: async (req, res, next) => {
-    await Material.find()
+  getUserMaterials: async (req, res, next) => {
+    var page = parseInt(req.query.page) || 0; //for next page pass 1 here
+    var limit = parseInt(req.query.limit) || 3;
+    var query = { author_id: req.query.id };
+    await Material.find(query)
       .sort({ dateModified: -1 })
-      .exec((err, materials) => {
-        if (materials) return res.send(materials);
-        else if (err) return res.send(err);
-        else return res.send(404);
+      .skip(page * limit) //Notice here
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.json(err);
+        }
+        Material.countDocuments(query).exec((count_error, count) => {
+          if (err) {
+            return res.json(count_error);
+          }
+          // console.log("materials.ctrl - materialsPaginaged doc", doc);
+          return res.json({
+            total: count,
+            page: page,
+            pageSize: doc.length,
+            materials: doc,
+          });
+        });
+      });
+  },
+
+  getUserLikes: async (req, res, next) => {
+    // console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
+    var page = parseInt(req.query.page) || 0; //for next page pass 1 here
+    var limit = parseInt(req.query.limit) || 3;
+    var query = { likes: req.query.id };
+    // console.log("materials.ctrl - getUserLikes req.query.id ", req.query.id);
+    await Material.find(query)
+      .sort({ dateModified: -1 })
+      .skip(page * limit) //Notice here
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.json(err);
+        }
+        // console.log("materials.ctrl - getUserLikes ", doc);
+        Material.countDocuments(query).exec((count_error, count) => {
+          if (err) {
+            return res.json(count_error);
+          }
+          return res.json({
+            total: count,
+            page: page,
+            pageSize: doc.length,
+            materials: doc,
+          });
+        });
       });
   },
 
@@ -262,29 +308,17 @@ module.exports = {
     };
 
     console.log("material.ctrl.js-filter queryCond: ", queryCond);
-    Material.find(
-      // {
-        // $and: [
-        //   {
-        //     $text: {
-        //       $search: search,
-        //     },
-        //   },
-          queryCond,
-        // ],
-      // },
-      function (err, materials) {
-        // const searchResults = await Material.find(queryCond);
-        if (materials) {
-          console.log(
-            "material.ctrl.js-filter searchResults: ",
-            materials.length
-          );
-        }
-        if (materials) return res.send(materials);
-        if (err) console.log("there was a search error", err);
+    Material.find(queryCond, function (err, materials) {
+      // const searchResults = await Material.find(queryCond);
+      if (materials) {
+        console.log(
+          "material.ctrl.js-filter searchResults: ",
+          materials.length
+        );
       }
-    );
+      if (materials) return res.send(materials);
+      if (err) console.log("there was a search error", err);
+    });
   },
 
   getTitles: async (req, res, next) => {
@@ -293,17 +327,6 @@ module.exports = {
       .sort({ dateModified: -1 })
       .exec((err, titles) => {
         if (titles) return res.send(titles);
-        else if (err) return res.send(err);
-        else return res.send(404);
-      });
-  },
-
-  getUserLikes: async (req, res, next) => {
-    // console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
-    await Material.find({ likes: req.params.author_id })
-      .sort({ dateModified: -1 })
-      .exec((err, materials) => {
-        if (materials) return res.send(materials);
         else if (err) return res.send(err);
         else return res.send(404);
       });

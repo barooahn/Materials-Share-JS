@@ -68,7 +68,7 @@ module.exports = (router) => {
    * get author
    */
   router
-    .route("/getUserMaterials/:author_id")
+    .route("/getUserMaterialsPaginated")
     .get(materialcontroller.getUserMaterials);
 
   /**
@@ -91,7 +91,7 @@ module.exports = (router) => {
    * get author likes
    */
   router
-    .route("/materials/user/likes/:author_id")
+    .route("/getlikedMaterialsPaginated")
     .get(materialcontroller.getUserLikes);
 
   /**

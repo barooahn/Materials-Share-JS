@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
 // import { getSecret } from "../auth/helpers";
-import MaterialCard2 from "../components/Material/MaterialCard";
+import MaterialCard from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
 import { makeStyles } from "@material-ui/core/styles";
 import { deepOrange } from "@material-ui/core/colors";
@@ -9,11 +9,12 @@ import Avatar from "@material-ui/core/Avatar";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Button from "@material-ui/core/Button";
 import {
-  getUserMaterials,
+  getPaginatedUserMaterials,
   getUserLikes,
 } from "../actions/materials-share-actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Mobile from "../components/helpers/mobile";
+import debounce from "lodash.debounce";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,6 +34,10 @@ const useStyles = makeStyles((theme) => ({
     left: "47%",
     zIndex: 50,
   },
+  info: {
+    textAlign: "center",
+    margin: 10,
+  },
 }));
 
 export default () => {
@@ -43,39 +48,82 @@ export default () => {
   const [showLikes, setshowLikes] = useState([false]);
   const cardWidth = Mobile() ? "100%" : 250;
   const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
+  const [hasMore, setHasMore] = React.useState(true);
+  const [error, setError] = React.useState(false);
+  const [page, setPage] = React.useState(0);
+  const [totalMaterials, setTotalMaterials] = React.useState(0);
+
+  const limit = Mobile() ? 4 : 10;
+
+  window.onscroll = debounce(() => {
+    if (error || gettingSearchResults || !hasMore) return;
+
+    const height =
+      window.innerHeight ||
+      document.documentElement.clientHeight ||
+      document.body.clientHeight;
+
+    let top =
+      (document.documentElement && document.documentElement.scrollTop) ||
+      document.body.scrollTop;
+
+    let offsetH =
+      document.body.offsetHeight || document.documentElement.offsetHeight;
+
+    if (height + top >= offsetH) {
+      if (userMaterials.length >= totalMaterials) {
+        setHasMore(false);
+        return;
+      } else {
+        let nextpage = page + 1;
+        setPage(nextpage);
+      }
+    }
+  }, 100);
 
   React.useEffect(() => {
     async function fetchData() {
       setGettingSearchResults(true);
-      let resultData = await getUserMaterials(id);
-      if (resultData) {
-        resultData.forEach((material) => {
+      let resultData = await getPaginatedUserMaterials(id, page, limit);
+
+      if (resultData.materials) {
+        setTotalMaterials(resultData.total);
+        resultData.materials.forEach((material) => {
           material.files = Array.isArray(material.files)
             ? [material.files[0]]
             : [material.files];
         });
-        setUserMaterials(resultData);
+        setUserMaterials([...userMaterials, ...resultData.materials]);
         setGettingSearchResults(false);
       }
     }
 
     fetchData();
-  }, [id]);
+  }, [id, page]);
 
-  const handleMyMaterials = () => {
-    // console.log("herer");
-    setshowLikes(true);
-  };
+  // React.useEffect(() => {
+  //   async function fetchData() {
+  //     handleMyLikes();
+  //   }
+
+  //   fetchData();
+  // }, [page]);
 
   const handleMyLikes = async () => {
     // console.log("Likes");
     setshowLikes(false);
     setGettingSearchResults(true);
-    const resultData = await getUserLikes(id);
-    if (resultData) {
-      setUserLikes(resultData);
+    const resultData = await getUserLikes(id, page, limit);
+    console.log("ProfilePage: retults data", resultData.materials.length);
+    if (resultData.materials) {
+      setUserLikes([...userLikes, ...resultData.materials]);
       setGettingSearchResults(false);
     }
+  };
+
+  const handleMyMaterials = () => {
+    // console.log("herer");
+    setshowLikes(true);
   };
 
   const showTabs = () => {
@@ -93,13 +141,21 @@ export default () => {
 
           <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
             {userLikes.map((material, index) => (
-              <MaterialCard2
+              <MaterialCard
                 material={material}
                 setMaterials={setUserMaterials}
                 materials={userMaterials}
+                index={index}
+                key={material.title + Date.now()}
               />
             ))}
           </StackGrid>
+          {gettingSearchResults && (
+            <div className={classes.info}>Loading...</div>
+          )}
+          {!hasMore && (
+            <div className={classes.info}>You did it! You reached the end!</div>
+          )}
         </div>
       );
     } else {
@@ -117,14 +173,26 @@ export default () => {
 
           <StackGrid columnWidth={cardWidth} gutterWidth={5} gutterHeight={10}>
             {userMaterials.map((material, index) => (
-              <MaterialCard2
+              <MaterialCard
                 key={material.title + Date.now()}
                 material={material}
                 setMaterials={setUserMaterials}
                 materials={userMaterials}
+                index={index}
               />
             ))}
           </StackGrid>
+          {error && (
+            <div className={classes.info} style={{ color: "#900" }}>
+              {error}
+            </div>
+          )}
+          {gettingSearchResults && (
+            <div className={classes.info}>Loading...</div>
+          )}
+          {!hasMore && (
+            <div className={classes.info}>You did it! You reached the end!</div>
+          )}
         </div>
       );
     }

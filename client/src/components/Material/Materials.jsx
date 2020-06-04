@@ -33,7 +33,7 @@ const Materials = () => {
   const [hasMore, setHasMore] = React.useState(true);
   const [error, setError] = React.useState(false);
 
-  const limit = Mobile() ? 5 : 10;
+  const limit = Mobile() ? 4 : 10;
 
   window.onscroll = debounce(() => {
     if (error || gettingSearchResults || !hasMore) return;
