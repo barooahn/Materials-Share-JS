@@ -66,7 +66,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MaterialCard({ material, setMaterials, materials }) {
+export default function MaterialCard({
+  material,
+  setMaterials,
+  materials,
+  index,
+}) {
   const classes = useStyles();
   const [likes, setLikes] = React.useState(material.likes || []);
   const [completed, setCompleted] = React.useState(0);
@@ -149,6 +154,7 @@ export default function MaterialCard({ material, setMaterials, materials }) {
                 thumb={thumb}
                 file={material.files[0]}
                 key={material.files[0] + Date.now()}
+                index={index}
               />
             </div>
             <CardContent>
@@ -193,7 +199,6 @@ export default function MaterialCard({ material, setMaterials, materials }) {
           </Tooltip>
           {author === material.author_id ? (
             <React.Fragment>
-              {" "}
               <Tooltip title="Edit your material" placement="top">
                 <span>
                   <IconButton component={Link} to={"/edit/" + material._id}>

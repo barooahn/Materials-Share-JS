@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     margin: "20px auto",
     padding: "15px",
   },
-  mediaHeader: {},
 }));
 
 export default ({
@@ -179,34 +178,27 @@ export default ({
   console.log("MediaFiles setting title", title.length);
   return (
     <Paper className={classes.paper}>
-
-      <div className={classes.mediaHeader}>
-        <Typography variant="h5" component={"span"} color="secondary">
-          {errorMsg}
-        </Typography>
-        <br />
-        <Typography variant="h5" component={"span"}>
-          Step 1: Title
-        </Typography>
-        <br />
-        <br />
-        <TextField
-          key="Give your resource a title"
-          label="Give your resource a title"
-          value={title}
-          onChange={changeTitle}
-          margin="normal"
-          autoFocus
-          variant="outlined"
-          fullWidth
-        />
-      </div>
-
-      <div className={classes.mediaBody}>
-
-      </div>
-
-
+      <Typography variant="h5" component={"span"} color="secondary">
+        {errorMsg}
+      </Typography>
+      <br />
+      <Typography variant="h5" component={"span"}>
+        Step 1: Title
+      </Typography>
+      <br />
+      <br />
+      <TextField
+        key="Give your resource a title"
+        label="Give your resource a title"
+        value={title}
+        onChange={changeTitle}
+        margin="normal"
+        autoFocus
+        variant="outlined"
+        fullWidth
+      />
+      <br />
+      <br />
       {title.length > 3 && renderMediaInput()}
 
       <br />
