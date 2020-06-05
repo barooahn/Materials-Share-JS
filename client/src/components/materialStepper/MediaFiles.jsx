@@ -45,7 +45,6 @@ export default ({
   setFiles,
   localFiles,
   setLocalFiles,
-  type,
 }) => {
   const [errorMsg, setErrorMsg] = useState("");
   const classes = useStyles();
@@ -165,7 +164,7 @@ export default ({
           onChange={handleChange}
         />
         {localFilesRender()}
-        {/* {existingFilesRender()} */}
+        {existingFilesRender()}
         <br />
         <label htmlFor="contained-button-file">
           <Button variant="contained" component="span">
@@ -179,7 +178,6 @@ export default ({
   console.log("MediaFiles setting title", title.length);
   return (
     <Paper className={classes.paper}>
-
       <div className={classes.mediaHeader}>
         <Typography variant="h5" component={"span"} color="secondary">
           {errorMsg}
@@ -202,10 +200,7 @@ export default ({
         />
       </div>
 
-      <div className={classes.mediaBody}>
-
-      </div>
-
+      <div className={classes.mediaBody}></div>
 
       {title.length > 3 && renderMediaInput()}
 

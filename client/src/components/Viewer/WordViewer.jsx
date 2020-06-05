@@ -17,9 +17,9 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
 export default ({ file, index }) => {
   const classes = useStyles();
+  console.log("WordViewer: called");
 
   useEffect(() => {
     const jsonFile = new XMLHttpRequest();
@@ -46,7 +46,7 @@ export default ({ file, index }) => {
           .done();
       }
     };
-  }, [index]);
+  }, []);
 
   return (
     <div className={classes.doc} id={`docViewer-${index}`}>

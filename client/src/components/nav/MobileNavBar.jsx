@@ -122,7 +122,7 @@ export default function LabelBottomNavigation({ routePaths }) {
   const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
 
   console.log("MobileNavBar - anchorEl", anchorEl);
-  console.log("MobileNavBar - routePaths", routePaths);
+  // console.log("MobileNavBar - routePaths", routePaths);
 
   const [expanded, setExpanded] = React.useState(false);
   const isMenuOpen = Boolean(anchorEl);

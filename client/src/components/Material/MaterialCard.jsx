@@ -27,7 +27,6 @@ import CancelIcon from "@material-ui/icons/Cancel";
 import Mobile from "../helpers/mobile";
 import Tooltip from "@material-ui/core/Tooltip";
 
-
 const cardWidth = Mobile() ? "98%" : 250;
 
 const useStyles = makeStyles((theme) => ({
@@ -138,7 +137,7 @@ export default function MaterialCard({
   return (
     <React.Fragment>
       <Card className={classes.root}>
-        <CardActionArea>
+        <CardActionArea component="div">
           <NavLink
             to={{ pathname: "/material/" + material.slug }}
             className="link"

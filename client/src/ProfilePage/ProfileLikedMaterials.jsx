@@ -1,16 +1,20 @@
-import React from "react";
-import MaterialCard from "./MaterialCard";
+import React, { useState } from "react";
 import Typography from "@material-ui/core/Typography";
+// import { getSecret } from "../auth/helpers";
+import MaterialCard from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { getPaginatedMaterials } from "../../actions/materials-share-actions";
+import { getUserLikes } from "../actions/materials-share-actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import debounce from "lodash.debounce";
-import Mobile from "../helpers/mobile";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     marginBottom: "70px",
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
   },
   circularProgress: {
     position: "absolute",
@@ -24,16 +28,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Materials = () => {
+export default (props) => {
   const classes = useStyles();
-  const [materials, setMaterials] = React.useState([]);
+  const [userMaterials, setUserMaterials] = useState([]);
+  const [userLikes, setUserLikes] = useState([]);
   const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
-  const [page, setPage] = React.useState(0);
-  const [totalMaterials, setTotalMaterials] = React.useState(0);
   const [hasMore, setHasMore] = React.useState(true);
   const [error, setError] = React.useState(false);
-
-  const limit = Mobile() ? 4 : 10;
+  const [page, setPage] = React.useState(0);
+  const [totalMaterials, setTotalMaterials] = React.useState(0);
 
   window.onscroll = debounce(() => {
     if (error || gettingSearchResults || !hasMore) return;
@@ -49,14 +52,14 @@ const Materials = () => {
 
     let offsetH =
       document.body.offsetHeight || document.documentElement.offsetHeight;
+
     console.log(
-      "materials materials.length , totalMaterials",
-      materials.length,
+      "ProfileLikedMaterials userLikes.length , totalMaterials.length",
+      userLikes.length,
       totalMaterials
     );
-
     if (height + top >= offsetH) {
-      if (materials.length == totalMaterials) {
+      if (userLikes.length === totalMaterials.length) {
         setHasMore(false);
         return;
       } else {
@@ -69,49 +72,50 @@ const Materials = () => {
   React.useEffect(() => {
     async function fetchData() {
       setGettingSearchResults(true);
-      let resultData = await getPaginatedMaterials(page, limit);
-      setTotalMaterials(resultData.total);
-      await resultData.materials.forEach((material) => {
-        material.files = Array.isArray(material.files)
-          ? [material.files[0]]
-          : [material.files];
-      });
-      setMaterials([...materials, ...resultData.materials]);
-      setGettingSearchResults(false);
+      const resultData = await getUserLikes(props.id, page, props.limit);
+      if (resultData.materials) {
+        setTotalMaterials(resultData.total);
+        console.log("ProfilePage: retults data", resultData.materials.length);
+        if (resultData.materials) {
+          resultData.materials.forEach((material) => {
+            material.files = Array.isArray(material.files)
+              ? [material.files[0]]
+              : [material.files];
+          });
+          setUserLikes([...userLikes, ...resultData.materials]);
+          setGettingSearchResults(false);
+        }
+      }
     }
-
     fetchData();
   }, [page]);
 
-  const cardWidth = Mobile() ? "100%" : 250;
-
   return (
-    <div className={classes.root}>
+    <div>
       {gettingSearchResults ? (
         <div className={classes.circularProgress}>
           <CircularProgress size={40} color="secondary" />
         </div>
       ) : null}
-      <Typography gutterBottom variant="h2" component="h2" align="center">
-        Teaching Resources
+      <Typography gutterBottom variant="h5" component="h5">
+        Materials I Like
       </Typography>
 
-      <StackGrid columnWidth={cardWidth} gutterWidth={10} gutterHeight={10}>
-        {materials.map((material, index) => (
+      <StackGrid
+        columnWidth={props.cardWidth}
+        gutterWidth={5}
+        gutterHeight={10}
+      >
+        {userLikes.map((material, index) => (
           <MaterialCard
-            key={material._id}
             material={material}
+            setMaterials={setUserMaterials}
+            materials={userMaterials}
             index={index}
-            setMaterials={setMaterials}
-            materials={materials}
+            key={material.title + Date.now()}
           />
         ))}
       </StackGrid>
-      {error && (
-        <div className={classes.info} style={{ color: "#900" }}>
-          {error}
-        </div>
-      )}
       {gettingSearchResults && <div className={classes.info}>Loading...</div>}
       {!hasMore && (
         <div className={classes.info}>You did it! You reached the end!</div>
@@ -119,5 +123,3 @@ const Materials = () => {
     </div>
   );
 };
-
-export default Materials;
