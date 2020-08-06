@@ -2,6 +2,7 @@ const axios = require("axios").default;
 
 export const SaveData = (payload, type, setCompleted, setSaved) => {
   console.log("ms-share-actions- save ", payload);
+
   function isFileImage(file) {
     return file && file["type"].split("/")[0] === "image";
   }
@@ -17,6 +18,7 @@ export const SaveData = (payload, type, setCompleted, setSaved) => {
         });
       });
     }
+
     handleFileUpload(type, payload.localFiles, payload, setCompleted, setSaved);
   } else {
     //save data to db
@@ -81,30 +83,99 @@ const handleFileUpload = async (
   const data = new FormData();
   data.append("saveType", "awsUpload");
   files.forEach((file, index) => {
-    // console.log("files raw: " + file.raw)
     data.append(`files[${index}]`, file.raw);
   });
-  axios
-    .post("/api/material/file/upload", data, {
-      onUploadProgress: (ProgressEvent) => {
-        setCompleted((oldCompleted) => {
-          if (oldCompleted === 100) {
-            return 0;
-          }
-          const diff = (ProgressEvent.loaded / ProgressEvent.total) * 100;
-          return Math.min(oldCompleted + diff, 100);
-        });
-      },
-    })
-    .then((res) => {
-      res.data.forEach((file) => {
-        payload.files.push(file.path);
+  const uploadedFiles = await axios.post("/api/material/file/upload", data, {
+    onUploadProgress: (ProgressEvent) => {
+      setCompleted((oldCompleted) => {
+        if (oldCompleted === 100) {
+          return 0;
+        }
+        const diff = (ProgressEvent.loaded / ProgressEvent.total) * 100;
+        return Math.min(oldCompleted + diff, 100);
       });
-      //remove from material
-      delete payload.localFiles;
+    },
+  });
 
-      if (type === "Create") createMaterial(payload, setSaved);
-      if (type === "Edit") editMaterial(payload, setSaved);
+  console.log("uploaded files", uploadedFiles);
+  uploadedFiles.data.forEach((file) => {
+    payload.files.push(file.path);
+
+    const ext = getFileExt(file);
+
+    //docx not converting on lambda
+    // if (ext === "docx" || ext === "pdf") {
+    if (ext === "pdf") {
+      getDocThumb(file, ext, (thumb) => {
+        console.log("thumb", thumb);
+        if (thumb) {
+          payload.thumb = thumb;
+        }
+        //remove from material
+        delete payload.localFiles;
+
+        if (type === "Create") createMaterial(payload, setSaved);
+        if (type === "Edit") editMaterial(payload, setSaved);
+      });
+      return;
+    }
+
+    //remove from material
+    delete payload.localFiles;
+
+    if (type === "Create") createMaterial(payload, setSaved);
+    if (type === "Edit") editMaterial(payload, setSaved);
+  });
+};
+
+// const addThumbToPayload = (thumb) => {
+//   console.log("thumb", thumb);
+//   if (thumb) {
+//     payload.thumb = thumb;
+//   }
+// };
+
+const getDocThumb = (file, ext, callback) => {
+  let path =
+    ext === "docx" ? file.path + ".pdf_thumb.jpg" : file.path + "_thumb.jpg";
+  let timeout = 0;
+  var findFile = setInterval(myTimer, 200);
+  function myTimer() {
+    console.log("searching for file: ", path);
+    timeout++;
+
+    let img = imageExists(path);
+    console.log("could not find file trying again: ", timeout);
+    if (img) {
+      myStopFunction();
+      console.log("found file: ", path);
+      callback(path);
+    }
+    if (timeout >= 15) {
+      myStopFunction();
+      console.log("could not find file: ", path);
+    }
+  }
+
+  function myStopFunction() {
+    clearInterval(findFile);
+  }
+};
+
+const getFileExt = (file) => {
+  const reExtension = /(?:\.([^.]+))?$/;
+  const ext = file.name.match(reExtension)[1].toLowerCase();
+  console.log("file ext = ", ext);
+  return ext;
+};
+
+const imageExists = async (image_url) => {
+  const data = new FormData();
+  data.append("file", image_url);
+  axios
+    .get(`/api/material/getSignedUrl?url=${image_url}`)
+    .then((res) => {
+      return res;
     })
     .catch(function (err) {
       console.log(err);

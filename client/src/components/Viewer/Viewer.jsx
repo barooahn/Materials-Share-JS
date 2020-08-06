@@ -14,10 +14,10 @@ export default ({ file, ext = null, thumb = null, index }) => {
 
   switch (ext) {
     case "docx":
-      console.log("Viewer: Word Doc found");
+      // console.log("Viewer: Word Doc found");
       return <WordViewer key={file + Date.now()} file={file} index={index} />;
     case "pdf":
-      console.log("Viewer: PDF found");
+      // console.log("Viewer: PDF found");
       return <PDFViewer key={file + Date.now()} file={file} />;
     case "jpg":
     case "jpeg":
@@ -27,10 +27,10 @@ export default ({ file, ext = null, thumb = null, index }) => {
         width: "100%",
         height: "auto",
       };
-      console.log("Viewer: Img found");
+      // console.log("Viewer: Img found");
       return <img style={mediaStyle} key={file} alt={file} src={file} />;
     default:
-      console.log("Viewer: Video found");
+      // console.log("Viewer: Video found");
       return <VideoFile key={file} file={file} />;
   }
 };

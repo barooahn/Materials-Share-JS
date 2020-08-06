@@ -77,6 +77,12 @@ module.exports = (router) => {
   router
     .route("/material/delete/:id")
     .delete(materialcontroller.deleteMaterial);
+  /**
+   * delete a material
+   */
+  router
+    .route("/material/getSignedUrl/:url")
+    .get(materialcontroller.getSignedUrl);
 
   /**
    * update a particlular material

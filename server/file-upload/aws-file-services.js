@@ -46,4 +46,24 @@ module.exports = {
       return err; // TypeError: failed to fetch
     }
   },
+
+  getSignedUrlAws: async (file) => {
+    console.log("checking if aws file exists");
+    var params = {
+      Bucket: process.env.S3_BUCKET,
+      Key: file,
+    };
+
+    try {
+      const headCode = await s3.headObject(params).promise();
+      console.log("head code", headCode);
+      const signedUrl = s3.getSignedUrl("getObject", params);
+      // Do something with signedUrl
+      return signedUrl;
+    } catch (headErr) {
+      if (headErr.code === "NotFound") {
+        console.log("can't find file");
+      }
+    }
+  },
 };

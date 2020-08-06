@@ -1,7 +1,11 @@
 /** server/controllers/material.ctrl.js*/
 const Material = require("../models/Material");
 const fs = require("fs");
-const { uploadAws, deleteAws } = require("../file-upload/aws-file-services");
+const {
+  uploadAws,
+  deleteAws,
+  getSignedUrlAws,
+} = require("../file-upload/aws-file-services");
 const sharp = require("sharp");
 
 const escapeRegex = (text) => {
@@ -26,6 +30,12 @@ module.exports = {
   },
 
   fileUpload: async (req, res) => {
+    //     post file to s3
+    // Lambda fires gets file
+    // Lambda unzips LibreOffice
+    // Labda runs LibreOffice and converts
+    // Lambda puts the pdf in s3 and returns a link to the path
+
     console.log("uploading aws file ...", req.files.files);
     if (req.files.files) {
       Promise.all(
@@ -77,6 +87,10 @@ module.exports = {
       console.log("err file not deleted");
       return res.err;
     }
+  },
+
+  getSignedUrl: async (req, res) => {
+    return await getSignedUrlAws(req.params.url);
   },
 
   addMaterial: (req, res, next) => {

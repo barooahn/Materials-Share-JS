@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default ({ file, index }) => {
   const classes = useStyles();
-  console.log("WordViewer: called");
+  // console.log("WordViewer: called");
 
   useEffect(() => {
     const jsonFile = new XMLHttpRequest();

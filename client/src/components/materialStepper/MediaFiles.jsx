@@ -49,7 +49,7 @@ export default ({
   const [errorMsg, setErrorMsg] = useState("");
   const classes = useStyles();
 
-  console.log("MediaFiles running...");
+  // console.log("MediaFiles running...");
 
   const changeTitle = (e) => {
     setTitle(e.target.value);
@@ -70,7 +70,7 @@ export default ({
           ...media,
           { preview: URL.createObjectURL(file), raw: file },
         ]);
-        console.log("MediaFiles setting localFiles", localFiles);
+        // console.log("MediaFiles setting localFiles", localFiles);
       } else {
         setErrorMsg("This file type is not currently supported");
       }
@@ -103,7 +103,7 @@ export default ({
     return localFiles.map((file, index) => {
       const reExtension = /(?:\.([^.]+))?$/;
       const ext = file.raw.name.match(reExtension)[1].toLowerCase();
-      console.log("Mediafiles localfiles mapping new files");
+      // console.log("Mediafiles localfiles mapping new files");
       return (
         <div className="attachement" key={file.preview}>
           <Viewer
@@ -127,8 +127,8 @@ export default ({
 
   const existingFilesRender = () => {
     return files.map((file) => {
-      console.log("Mediafiles localfiles mapping existing files", file);
-      console.log("Mediafiles localfiles files.length", files.length);
+      // console.log("Mediafiles localfiles mapping existing files", file);
+      // console.log("Mediafiles localfiles files.length", files.length);
       const reExtension = /(?:\.([^.]+))?$/;
       const ext = file.match(reExtension)[1].toLowerCase();
       return (
@@ -175,7 +175,7 @@ export default ({
     );
   };
 
-  console.log("MediaFiles setting title", title.length);
+  // console.log("MediaFiles setting title", title.length);
   return (
     <Paper className={classes.paper}>
       <div className={classes.mediaHeader}>
