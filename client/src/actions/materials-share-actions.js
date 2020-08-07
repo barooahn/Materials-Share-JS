@@ -104,8 +104,8 @@ const handleFileUpload = async (
     const ext = getFileExt(file);
 
     //docx not converting on lambda
-    // if (ext === "docx" || ext === "pdf") {
-    if (ext === "pdf") {
+    if (ext === "docx" || ext === "pdf") {
+      // if (ext === "pdf") {
       getDocThumb(file, ext, (thumb) => {
         console.log("thumb", thumb);
         if (thumb) {
