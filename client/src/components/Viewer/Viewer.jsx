@@ -2,10 +2,16 @@ import React from "react";
 import VideoFile from "./VideoFile";
 import PDFViewer from "./PDFViewer";
 import WordViewer from "./WordViewer";
+import { fileExistsOnS3 } from "../helpers/fileExistsOnS3";
 
 export default ({ file, ext = null, thumb = null, index }) => {
   // console.log(" Viewer- ext", ext);
   file = thumb !== null ? thumb : file;
+  console.log("Viewer thumb", thumb);
+
+  const addDefaultSrc = (ev) => {
+    ev.target.src = "./img/mediaNotReady.png";
+  };
 
   if (ext === null) {
     const reExtension = /(?:\.([^.]+))?$/;
@@ -15,7 +21,17 @@ export default ({ file, ext = null, thumb = null, index }) => {
   switch (ext) {
     case "docx":
       // console.log("Viewer: Word Doc found");
-      return <WordViewer key={file + Date.now()} file={file} index={index} />;
+
+      const pdf = fileExistsOnS3(file + Date.now() + ".pdf");
+
+      console.log("pdf: ", pdf);
+      if (pdf !== undefined && !pdf instanceof Blob) {
+        return (
+          <PDFViewer key={file + Date.now() + ".pdf"} file={file + ".pdf"} />
+        );
+      } else {
+        return <WordViewer key={file + Date.now()} file={file} index={index} />;
+      }
     case "pdf":
       // console.log("Viewer: PDF found");
       return <PDFViewer key={file + Date.now()} file={file} />;
@@ -28,7 +44,15 @@ export default ({ file, ext = null, thumb = null, index }) => {
         height: "auto",
       };
       // console.log("Viewer: Img found");
-      return <img style={mediaStyle} key={file} alt={file} src={file} />;
+      return (
+        <img
+          style={mediaStyle}
+          key={file}
+          alt={file}
+          src={file}
+          onError={addDefaultSrc}
+        />
+      );
     default:
       // console.log("Viewer: Video found");
       return <VideoFile key={file} file={file} />;

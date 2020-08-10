@@ -1,3 +1,4 @@
+import { fileExistsOnS3 } from "../components/helpers/fileExistsOnS3";
 const axios = require("axios").default;
 
 export const SaveData = (payload, type, setCompleted, setSaved) => {
@@ -103,9 +104,7 @@ const handleFileUpload = async (
 
     const ext = getFileExt(file);
 
-    //docx not converting on lambda
     if (ext === "docx" || ext === "pdf") {
-      // if (ext === "pdf") {
       getDocThumb(file, ext, (thumb) => {
         console.log("thumb", thumb);
         if (thumb) {
@@ -128,13 +127,6 @@ const handleFileUpload = async (
   });
 };
 
-// const addThumbToPayload = (thumb) => {
-//   console.log("thumb", thumb);
-//   if (thumb) {
-//     payload.thumb = thumb;
-//   }
-// };
-
 const getDocThumb = (file, ext, callback) => {
   let path =
     ext === "docx" ? file.path + ".pdf_thumb.jpg" : file.path + "_thumb.jpg";
@@ -144,7 +136,7 @@ const getDocThumb = (file, ext, callback) => {
     console.log("searching for file: ", path);
     timeout++;
 
-    let img = imageExists(path);
+    let img = fileExistsOnS3(path);
     console.log("could not find file trying again: ", timeout);
     if (img) {
       myStopFunction();
@@ -167,19 +159,6 @@ const getFileExt = (file) => {
   const ext = file.name.match(reExtension)[1].toLowerCase();
   console.log("file ext = ", ext);
   return ext;
-};
-
-const imageExists = async (image_url) => {
-  const data = new FormData();
-  data.append("file", image_url);
-  axios
-    .get(`/api/material/getSignedUrl?url=${image_url}`)
-    .then((res) => {
-      return res;
-    })
-    .catch(function (err) {
-      console.log(err);
-    });
 };
 
 export const makeThumb = async (file) => {
