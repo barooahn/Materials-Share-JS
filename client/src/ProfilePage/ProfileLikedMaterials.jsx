@@ -71,7 +71,6 @@ export default (props) => {
 
   React.useEffect(() => {
     async function fetchData() {
-      setGettingSearchResults(true);
       const resultData = await getUserLikes(props.id, page, props.limit);
       if (resultData.materials) {
         setTotalMaterials(resultData.total);
@@ -87,6 +86,7 @@ export default (props) => {
         }
       }
     }
+    setGettingSearchResults(true);
     fetchData();
   }, [page]);
 

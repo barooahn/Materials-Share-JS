@@ -68,7 +68,6 @@ const Materials = () => {
 
   React.useEffect(() => {
     async function fetchData() {
-      setGettingSearchResults(true);
       let resultData = await getPaginatedMaterials(page, limit);
       setTotalMaterials(resultData.total);
       await resultData.materials.forEach((material) => {
@@ -79,7 +78,7 @@ const Materials = () => {
       setMaterials([...materials, ...resultData.materials]);
       setGettingSearchResults(false);
     }
-
+    setGettingSearchResults(true);
     fetchData();
   }, [page]);
 

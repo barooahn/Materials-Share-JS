@@ -73,7 +73,6 @@ export default (props) => {
 
   React.useEffect(() => {
     async function fetchData() {
-      setGettingSearchResults(true);
       let resultData = await getPaginatedUserMaterials(
         props.id,
         page,
@@ -92,6 +91,7 @@ export default (props) => {
       }
     }
 
+    setGettingSearchResults(true);
     fetchData();
   }, [page]);
 

@@ -7,7 +7,7 @@ import { fileExistsOnS3 } from "../helpers/fileExistsOnS3";
 export default ({ file, ext = null, thumb = null, index }) => {
   // console.log(" Viewer- ext", ext);
   file = thumb !== null ? thumb : file;
-  console.log("Viewer thumb", thumb);
+
 
   const addDefaultSrc = (ev) => {
     ev.target.src = "./img/mediaNotReady.png";
@@ -24,7 +24,6 @@ export default ({ file, ext = null, thumb = null, index }) => {
 
       const pdf = fileExistsOnS3(file + Date.now() + ".pdf");
 
-      console.log("pdf: ", pdf);
       if (pdf !== undefined && !pdf instanceof Blob) {
         return (
           <PDFViewer key={file + Date.now() + ".pdf"} file={file + ".pdf"} />

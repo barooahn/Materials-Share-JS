@@ -55,8 +55,14 @@ export default ({
     setTitle(e.target.value);
   };
 
-  // console.log("MediaFiles files", files);
-  // console.log("MediaFiles localFiles", localFiles);
+  // const removeSpecialCharsFromFilename = (file, ext) => {
+  //   const newName = file.name.replace(/[^a-zA-Z0-9]/g, "") + "." + ext;
+  //   return Object.defineProperty(file, "name", {
+  //     writable: true,
+  //     value: newName,
+  //   });
+  // };
+
   const handleChange = (e) => {
     //   //validate mime type
     // DisplayFiles(e.target.files);
@@ -64,13 +70,13 @@ export default ({
     let files = Array.from(e.target.files);
     files.forEach((file) => {
       const ext = file.name.match(reExtension)[1].toLowerCase();
+      // file = removeSpecialCharsFromFilename(file, ext);
       if (ext === "docx" || allowedMimeTypes.includes(file.type)) {
         setErrorMsg("");
         setLocalFiles((media) => [
           ...media,
           { preview: URL.createObjectURL(file), raw: file },
         ]);
-        // console.log("MediaFiles setting localFiles", localFiles);
       } else {
         setErrorMsg("This file type is not currently supported");
       }

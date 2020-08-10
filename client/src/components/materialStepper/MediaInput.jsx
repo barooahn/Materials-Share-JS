@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import axios from "axios";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Icon from "@material-ui/core/Icon";
@@ -37,23 +36,11 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default ({
-  title,
-  setTitle,
-  files,
-  setFiles,
-  localFiles,
-  setLocalFiles,
-  type,
-}) => {
+export default ({ title, files, localFiles, setLocalFiles, changeTitle }) => {
   const [errorMsg, setErrorMsg] = useState("");
   const classes = useStyles();
 
   console.log("MediaFiles running...");
-
-  const changeTitle = (e) => {
-    setTitle(e.target.value);
-  };
 
   // console.log("MediaFiles files", files);
   // console.log("MediaFiles localFiles", localFiles);
@@ -77,23 +64,23 @@ export default ({
     });
   };
 
-  //to do refactor using action
-  const handleDelete = (file) => {
-    var fileNoPath = file.substring(
-      "https://matshre-assets.s3.eu-west-2.amazonaws.com/".length
-    );
-    axios
-      .delete("/api/material/file/delete", {
-        data: { file: fileNoPath },
-      })
-      .then((res) => {
-        const removed = [...files].filter((x) => x !== file);
-        setFiles(removed);
-      })
-      .catch(function (err) {
-        console.log(err);
-      });
-  };
+  // //to do refactor using action
+  // const handleDelete = (file) => {
+  //   var fileNoPath = file.substring(
+  //     "https://matshre-assets.s3.eu-west-2.amazonaws.com/".length
+  //   );
+  //   axios
+  //     .delete("/api/material/file/delete", {
+  //       data: { file: fileNoPath },
+  //     })
+  //     .then((res) => {
+  //       const removed = [...files].filter((x) => x !== file);
+  //       setFiles(removed);
+  //     })
+  //     .catch(function (err) {
+  //       console.log(err);
+  //     });
+  // };
 
   const handleDeleteLocal = (file) => {
     setLocalFiles(localFiles.filter((item) => item.raw.name !== file.raw.name));
@@ -125,27 +112,27 @@ export default ({
     });
   };
 
-  const existingFilesRender = () => {
-    return files.map((file) => {
-      console.log("Mediafiles localfiles mapping existing files", file);
-      console.log("Mediafiles localfiles files.length", files.length);
-      const reExtension = /(?:\.([^.]+))?$/;
-      const ext = file.match(reExtension)[1].toLowerCase();
-      return (
-        <div className="attachement" key={file}>
-          <Viewer file={file} ext={ext} key={file} />
-          <Button
-            color="secondary"
-            onClick={() => handleDelete(file)}
-            className={classes.button}
-          >
-            <Icon>delete_forever</Icon> Delete
-          </Button>
-          <br />
-        </div>
-      );
-    });
-  };
+  // const existingFilesRender = () => {
+  //   return files.map((file) => {
+  //     console.log("Mediafiles localfiles mapping existing files", file);
+  //     console.log("Mediafiles localfiles files.length", files.length);
+  //     const reExtension = /(?:\.([^.]+))?$/;
+  //     const ext = file.match(reExtension)[1].toLowerCase();
+  //     return (
+  //       <div className="attachement" key={file}>
+  //         <Viewer file={file} ext={ext} key={file} />
+  //         <Button
+  //           color="secondary"
+  //           onClick={() => handleDelete(file)}
+  //           className={classes.button}
+  //         >
+  //           <Icon>delete_forever</Icon> Delete
+  //         </Button>
+  //         <br />
+  //       </div>
+  //     );
+  //   });
+  // };
 
   const renderMediaInput = () => {
     return (

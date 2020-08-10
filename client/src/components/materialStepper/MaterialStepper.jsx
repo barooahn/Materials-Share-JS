@@ -184,6 +184,7 @@ export default function MaterialStepper() {
             type={type}
             title={title}
             setTitle={setTitle}
+            changeTitle={changeTitle}
           />
         );
       case 1:
@@ -341,6 +342,10 @@ export default function MaterialStepper() {
 
   const changeShare = (e) => {
     setShare(e.target.checked);
+  };
+
+  const changeTitle = (e) => {
+    setTitle(e.target.value);
   };
 
   // console.log("material stepper title - ", title);
