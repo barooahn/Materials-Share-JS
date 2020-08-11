@@ -49,14 +49,9 @@ const Materials = () => {
 
     let offsetH =
       document.body.offsetHeight || document.documentElement.offsetHeight;
-    console.log(
-      "materials materials.length , totalMaterials",
-      materials.length,
-      totalMaterials
-    );
 
     if (height + top >= offsetH) {
-      if (materials.length == totalMaterials) {
+      if (materials.length === totalMaterials) {
         setHasMore(false);
         return;
       } else {

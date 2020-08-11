@@ -114,13 +114,16 @@ export default (props) => {
             gutterHeight={10}
           >
             {userMaterials.map((material, index) => (
-              <MaterialCard
-                key={material.title + Date.now()}
-                material={material}
-                setMaterials={setUserMaterials}
-                materials={userMaterials}
-                index={index}
-              />
+              //div important to stop flashing bug
+              <div>
+                <MaterialCard
+                  key={material.title + Date.now()}
+                  material={material}
+                  setMaterials={setUserMaterials}
+                  materials={userMaterials}
+                  index={index}
+                />
+              </div>
             ))}
           </StackGrid>
           {error && (

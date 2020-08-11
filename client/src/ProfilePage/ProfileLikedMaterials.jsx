@@ -107,13 +107,16 @@ export default (props) => {
         gutterHeight={10}
       >
         {userLikes.map((material, index) => (
-          <MaterialCard
-            material={material}
-            setMaterials={setUserMaterials}
-            materials={userMaterials}
-            index={index}
-            key={material.title + Date.now()}
-          />
+          //div important to stop flashing bug
+          <div>
+            <MaterialCard
+              material={material}
+              setMaterials={setUserMaterials}
+              materials={userMaterials}
+              index={index}
+              key={material.title + Date.now()}
+            />
+          </div>
         ))}
       </StackGrid>
       {gettingSearchResults && <div className={classes.info}>Loading...</div>}
