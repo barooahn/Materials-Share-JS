@@ -89,8 +89,14 @@ module.exports = {
     }
   },
 
-  getSignedUrl: async (req, res) => {
-    return await getSignedUrlAws(req.params.url);
+  getSignedUrlIfExists: async (req, res, next) => {
+    console.log("calling aws get signed url...", req.query.url);
+    const signedUrl = await getSignedUrlAws(req.query.url);
+    // console.log("calling aws get signed url", signedUrl.data);
+    return res.json(signedUrl);
+    // const url = req.query.url;
+    // console.log("url", url);
+    // return res.json({ url: url });
   },
 
   addMaterial: (req, res, next) => {

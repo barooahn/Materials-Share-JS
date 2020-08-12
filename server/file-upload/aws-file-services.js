@@ -48,21 +48,27 @@ module.exports = {
   },
 
   getSignedUrlAws: async (file) => {
-    console.log("checking if aws file exists");
+    const key = file.replace(
+      "https://matshre-assets.s3.eu-west-2.amazonaws.com/",
+      ""
+    );
+    console.error("checking if aws file exists", key);
     var params = {
       Bucket: process.env.S3_BUCKET,
-      Key: file,
+      Key: key,
     };
 
     try {
       const headCode = await s3.headObject(params).promise();
-      console.log("head code", headCode);
+      console.error("head code", headCode);
       const signedUrl = s3.getSignedUrl("getObject", params);
       // Do something with signedUrl
-      return signedUrl;
+      console.error("checking if aws file exists signedUrl", signedUrl);
+      return { signedUrl: true };
     } catch (headErr) {
       if (headErr.code === "NotFound") {
-        console.log("can't find file");
+        console.error("can't find file");
+        return { signedUrl: false };
       }
     }
   },

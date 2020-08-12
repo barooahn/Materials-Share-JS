@@ -40,6 +40,11 @@ module.exports = (router) => {
    * get a particlular material to view from slug
    */
   router.route("/material/:slug").get(materialcontroller.getMaterialSlug);
+
+  /**
+   * Get signed url
+   */
+  router.route("/doesFileExist").get(materialcontroller.getSignedUrlIfExists);
   /**
    * get a particlular material to viewfrom id
    */
@@ -77,12 +82,6 @@ module.exports = (router) => {
   router
     .route("/material/delete/:id")
     .delete(materialcontroller.deleteMaterial);
-  /**
-   * delete a material
-   */
-  router
-    .route("/material/getSignedUrl/:url")
-    .get(materialcontroller.getSignedUrl);
 
   /**
    * update a particlular material
