@@ -30,7 +30,7 @@ export default ({ file, ext = null, thumb = null, index }) => {
   // const dealWithFile = async (ext) => {
   switch (ext) {
     case "docx":
-      console.log("hasPDDF", hasPDF.signedUrl);
+      console.log("hasPDF", hasPDF.signedUrl);
       if (hasPDF) {
         return (
           <PDFViewer key={file + Date.now() + ".pdf"} file={file + ".pdf"} />
@@ -38,11 +38,11 @@ export default ({ file, ext = null, thumb = null, index }) => {
       } else {
         return <WordViewer key={file + Date.now()} file={file} index={index} />;
       }
+    
     case "pdf":
       console.log("ext", ext);
       console.log("Viewer: PDF found");
       return <PDFViewer key={file + Date.now()} file={file} />;
-
     case "jpg":
     case "jpeg":
     case "svg":
@@ -61,7 +61,6 @@ export default ({ file, ext = null, thumb = null, index }) => {
           onError={addDefaultSrc}
         />
       );
-
     default:
       // console.log("Viewer: Video found");
       return <VideoFile key={file} file={file} />;

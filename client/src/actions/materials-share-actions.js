@@ -112,19 +112,17 @@ const handleFileUpload = async (
         }
         //remove from material
         delete payload.localFiles;
-
-        if (type === "Create") createMaterial(payload, setSaved);
-        if (type === "Edit") editMaterial(payload, setSaved);
       });
       return;
     }
+    // if (type === "Create") createMaterial(payload, setSaved);
+    // if (type === "Edit") editMaterial(payload, setSaved);
 
     //remove from material
     delete payload.localFiles;
-
-    if (type === "Create") createMaterial(payload, setSaved);
-    if (type === "Edit") editMaterial(payload, setSaved);
   });
+  if (type === "Create") createMaterial(payload, setSaved);
+  if (type === "Edit") editMaterial(payload, setSaved);
 };
 
 const getDocThumb = (file, ext, callback) => {
