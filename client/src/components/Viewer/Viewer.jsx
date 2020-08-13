@@ -15,9 +15,11 @@ export default ({ file, ext = null, thumb = null, index }) => {
   };
 
   React.useEffect(() => {
-    fileExistsOnS3(file + ".pdf").then((pdf) => {
-      sethasPDF(pdf.signedUrl);
-    });
+    if (ext === "docx") {
+      fileExistsOnS3(file + ".pdf").then((pdf) => {
+        sethasPDF(pdf.signedUrl);
+      });
+    }
   }, []);
 
   if (ext === null) {

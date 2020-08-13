@@ -117,7 +117,8 @@ module.exports = {
   },
 
   getMaterials: async (req, res, next) => {
-    await Material.find()
+    var query = { shared: true };
+    await Material.find(query)
       .sort({ dateModified: -1 })
       .exec((err, materials) => {
         if (materials) return res.send(materials);
@@ -185,7 +186,7 @@ module.exports = {
   materialsPaginated: async (req, res, next) => {
     var page = parseInt(req.query.page) || 0; //for next page pass 1 here
     var limit = parseInt(req.query.limit) || 3;
-    var query = {};
+    var query = { shared: true };
     await Material.find(query)
       .sort({ dateModified: -1 })
       .skip(page * limit) //Notice here
@@ -274,7 +275,10 @@ module.exports = {
   getSearchResults: (req, res, next) => {
     const regex = new RegExp(escapeRegex(req.body.search), "gi");
     console.log("material.ctrl.js-getSearchResults regex", regex);
-    Material.find({ $text: { $search: regex } }, function (err, materials) {
+    Material.find({ $text: { $search: regex }, shared: true }, function (
+      err,
+      materials
+    ) {
       // console.log(
       //   "material.ctrl.js-getSearchResults Search Materials: ",
       //   materials
