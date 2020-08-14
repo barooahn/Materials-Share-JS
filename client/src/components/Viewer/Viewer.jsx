@@ -5,7 +5,7 @@ import WordViewer from "./WordViewer";
 import { fileExistsOnS3 } from "../helpers/fileExistsOnS3";
 
 export default ({ file, ext = null, thumb = null, index }) => {
-  const [hasPDF, sethasPDF] = React.useState(false);
+  const [hasPDF, setHasPDF] = React.useState(false);
 
   // console.log(" Viewer- ext", ext);
   file = thumb !== null ? thumb : file;
@@ -15,9 +15,9 @@ export default ({ file, ext = null, thumb = null, index }) => {
   };
 
   React.useEffect(() => {
-    if (ext === "docx") {
+    if (ext === "docx" && thumb === null) {    
       fileExistsOnS3(file + ".pdf").then((pdf) => {
-        sethasPDF(pdf.signedUrl);
+        setHasPDF(pdf.signedUrl);
       });
     }
   }, []);
@@ -30,7 +30,7 @@ export default ({ file, ext = null, thumb = null, index }) => {
   // const dealWithFile = async (ext) => {
   switch (ext) {
     case "docx":
-      console.log("hasPDF", hasPDF.signedUrl);
+      // console.log("hasPDF", hasPDF.signedUrl);
       if (hasPDF) {
         return (
           <PDFViewer key={file + Date.now() + ".pdf"} file={file + ".pdf"} />
@@ -38,7 +38,7 @@ export default ({ file, ext = null, thumb = null, index }) => {
       } else {
         return <WordViewer key={file + Date.now()} file={file} index={index} />;
       }
-    
+
     case "pdf":
       console.log("ext", ext);
       console.log("Viewer: PDF found");

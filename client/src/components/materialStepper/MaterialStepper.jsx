@@ -95,6 +95,7 @@ export default function MaterialStepper() {
 
   //detail values
   const [files, setFiles] = React.useState([]);
+  const [thumb, setThumb] = React.useState("");
   const [localFiles, setLocalFiles] = React.useState([]);
   const [title, setTitle] = React.useState("");
   const [levelValue, setLevelValue] = React.useState([]);
@@ -269,6 +270,7 @@ export default function MaterialStepper() {
         tips,
         notes,
         files,
+        thumb,
         localFiles,
         likes: [],
         objective,

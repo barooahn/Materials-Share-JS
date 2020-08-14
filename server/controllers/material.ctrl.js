@@ -14,11 +14,9 @@ const escapeRegex = (text) => {
 
 module.exports = {
   getFiles: (req, res) => {
-    // console.log("get files data", req.body);
     req.body.map((file) => {
       fs.readFile(file, (err, data) => {
         if (!err) {
-          //	console.log("received data: " + data);
           res.writeHead(200, { "Content-Type": "text/html" });
           res.write(data);
           res.end();
@@ -30,12 +28,6 @@ module.exports = {
   },
 
   fileUpload: async (req, res) => {
-    //     post file to s3
-    // Lambda fires gets file
-    // Lambda unzips LibreOffice
-    // Labda runs LibreOffice and converts
-    // Lambda puts the pdf in s3 and returns a link to the path
-
     console.log("uploading aws file ...", req.files.files);
     if (req.files.files) {
       Promise.all(
@@ -43,26 +35,20 @@ module.exports = {
           return uploadAws(file);
         })
       ).then((result) => {
-        // console.log("AWS storage back end", result);
         //save to DB
         return res.json(result);
       });
     }
-
-    //node-schedule remove old files (after certain date)
   },
 
   thumbUpload: async (req, res) => {
     uploadAws(req.body.file).then((result) => {
-      // console.log("material.ctrl - thumbUpload - results", result);
       return res.json(result);
     });
   },
 
   makeThumb: async (req, res, next) => {
-    // console.log("making thumb from files...", req);
     const file = req.files.file;
-    // console.log("material.ctrl -making thumb from files...", req.files.file);
     sharp(file.path)
       .resize(300, 200)
       .toFile(`/tmp/thumb_${file.name}`)
@@ -90,25 +76,16 @@ module.exports = {
   },
 
   getSignedUrlIfExists: async (req, res, next) => {
-    console.log("calling aws get signed url...", req.query.url);
     const signedUrl = await getSignedUrlAws(req.query.url);
-    // console.log("calling aws get signed url", signedUrl.data);
     return res.json(signedUrl);
-    // const url = req.query.url;
-    // console.log("url", url);
-    // return res.json({ url: url });
   },
 
   addMaterial: (req, res, next) => {
-    // console.log("Material.ctrl - save - saving material backend... ", req.body);
-
     new Material(req.body).save((err, material) => {
+      console.log("Checking material...", req.body);
       if (err) res.send(err);
       else if (!material) res.send(400);
       else {
-        // return material.addAuthor(material.author_id).then((_material) => {
-        // return res.send(_material);
-        console.log("Material.ctrl - save - saved ... ", material);
         return res.send(material);
         // });
       }
@@ -231,15 +208,13 @@ module.exports = {
   },
 
   updateMaterial: (req, res, next) => {
-    // console.log("in update material body = ", req.body);
     Material.findOneAndUpdate(
       { _id: req.params.id },
       { $set: req.body },
       { upsert: true },
       function (err, material) {
         if (err) return next(err);
-        // res.send("material udpated.");
-        // console.log("material updated ", material);
+
         return res.send(material);
       }
     );
@@ -264,10 +239,9 @@ module.exports = {
       let distinct = [];
 
       values.forEach((x) => {
-        //console.log("x.label ===", x.label);
         distinct.includes(x.label) ? null : distinct.push(x.label);
       });
-      //console.log("Distinct values: ", distinct);
+
       res.json({ values: distinct });
     });
   },
@@ -279,10 +253,6 @@ module.exports = {
       err,
       materials
     ) {
-      // console.log(
-      //   "material.ctrl.js-getSearchResults Search Materials: ",
-      //   materials
-      // );
       if (materials) return res.send(materials);
       if (err) console.log("there was a search error", err);
       res.json({ message: "No results" });
@@ -290,7 +260,6 @@ module.exports = {
   },
 
   getFilterResults: (req, res, next) => {
-    // console.log("material.ctrl.js-filter query: ", req.query);
     let {
       search,
       timeInClass,
@@ -301,7 +270,6 @@ module.exports = {
       pupilTask,
       category,
     } = req.body;
-    // search = search ? new RegExp(escapeRegex(search), "gi") : ".";
     console.log("material.ctrl - getFilterResults", search);
     queryCond = {
       ...(search && {

@@ -9,13 +9,14 @@ export const SaveData = (payload, type, setCompleted, setSaved) => {
   }
 
   if (Array.isArray(payload.localFiles) && payload.localFiles.length > 0) {
+    //if file is docx payload.thumb = file + ".pdf" + ".jpg"
+    //if file is pdf payload.thumb = file + ".jpg"
     if (isFileImage(payload.localFiles[0].raw)) {
       //make a thumbnail
       makeThumb(payload.localFiles[0].raw).then((thumb) => {
         //save the thumb
         handleThumbUpload(thumb).then((result) => {
           payload.thumb = result.path;
-          // save the file
         });
       });
     }
@@ -48,8 +49,7 @@ const editMaterial = (material, setSaved) => {
 const createMaterial = (material, setSaved) => {
   material.author_id = localStorage.getItem("USER_ID");
   material.author_img = localStorage.getItem("USER_IMG");
-  // console.log("materials-share-actions creatematerial - material", material);
-
+  console.log("materials-share-actions creatematerial - material", material);
   axios
     .post(`/api/material`, material, {})
     .then((res) => {
@@ -105,52 +105,48 @@ const handleFileUpload = async (
     const ext = getFileExt(file);
 
     if (ext === "docx" || ext === "pdf") {
-      getDocThumb(file, ext, (thumb) => {
-        console.log("thumb", thumb);
-        if (thumb) {
-          payload.thumb = thumb;
-        }
-        //remove from material
-        delete payload.localFiles;
-      });
-      return;
+      let path =
+        ext === "docx"
+          ? file.path + ".pdf_thumb.jpg"
+          : file.path + "_thumb.jpg";
+
+      payload.thumb = path;
     }
-    // if (type === "Create") createMaterial(payload, setSaved);
-    // if (type === "Edit") editMaterial(payload, setSaved);
 
     //remove from material
     delete payload.localFiles;
   });
+
   if (type === "Create") createMaterial(payload, setSaved);
   if (type === "Edit") editMaterial(payload, setSaved);
 };
 
-const getDocThumb = (file, ext, callback) => {
-  let path =
-    ext === "docx" ? file.path + ".pdf_thumb.jpg" : file.path + "_thumb.jpg";
-  let timeout = 0;
-  var findFile = setInterval(myTimer, 200);
-  function myTimer() {
-    console.log("searching for file: ", path);
-    timeout++;
+// const getDocThumb = (file, ext, callback) => {
+//   let path =
+//     ext === "docx" ? file.path + ".pdf_thumb.jpg" : file.path + "_thumb.jpg";
+//   let timeout = 0;
+//   var findFile = setInterval(myTimer, 200);
+//   function myTimer() {
+//     console.log("searching for file: ", path);
+//     timeout++;
 
-    let img = fileExistsOnS3(path);
-    console.log("could not find file trying again: ", timeout);
-    if (img) {
-      myStopFunction();
-      console.log("found file: ", path);
-      callback(path);
-    }
-    if (timeout >= 15) {
-      myStopFunction();
-      console.log("could not find file: ", path);
-    }
-  }
+//     let img = fileExistsOnS3(path);
+//     console.log("could not find file trying again: ", timeout);
+//     if (img) {
+//       myStopFunction();
+//       console.log("found file: ", path);
+//       callback(path);
+//     }
+//     if (timeout >= 15) {
+//       myStopFunction();
+//       console.log("could not find file: ", path);
+//     }
+//   }
 
-  function myStopFunction() {
-    clearInterval(findFile);
-  }
-};
+//   function myStopFunction() {
+//     clearInterval(findFile);
+//   }
+// };
 
 const getFileExt = (file) => {
   const reExtension = /(?:\.([^.]+))?$/;

@@ -30,10 +30,10 @@ export default ({ file }) => {
     setNumPages(numPages);
   };
 
-  console.log("PDFViewer: called", file);
+  // console.log("PDFViewer: called", file);
 
   const onChangePDFpage = (e, page) => {
-    console.log("Docviewer - onChangePDFpage", page);
+    // console.log("Docviewer - onChangePDFpage", page);
     setPageNumber(page);
   };
 

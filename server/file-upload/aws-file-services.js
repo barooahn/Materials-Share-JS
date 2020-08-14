@@ -52,7 +52,6 @@ module.exports = {
       "https://matshre-assets.s3.eu-west-2.amazonaws.com/",
       ""
     );
-    console.error("checking if aws file exists", key);
     var params = {
       Bucket: process.env.S3_BUCKET,
       Key: key,
@@ -60,10 +59,8 @@ module.exports = {
 
     try {
       const headCode = await s3.headObject(params).promise();
-      console.error("head code", headCode);
-      const signedUrl = s3.getSignedUrl("getObject", params);
+      s3.getSignedUrl("getObject", params);
       // Do something with signedUrl
-      console.error("checking if aws file exists signedUrl", signedUrl);
       return { signedUrl: true };
     } catch (headErr) {
       if (headErr.code === "NotFound") {
