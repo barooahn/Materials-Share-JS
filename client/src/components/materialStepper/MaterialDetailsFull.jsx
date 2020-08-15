@@ -210,7 +210,7 @@ export default ({
           renderInput={(params) => (
             <TextField
               {...params}
-              label="What institue is the material for?"
+              label="What institute is the material for?"
               variant="outlined"
               placeholder="School, language center etc."
               fullWidth

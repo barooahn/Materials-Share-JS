@@ -260,7 +260,7 @@ export default ({ expanded, setExpanded }) => {
           renderInput={(params) => (
             <TextField
               {...params}
-              label="Institue"
+              label="Institute"
               variant="outlined"
               fullWidth
             />
