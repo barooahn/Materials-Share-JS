@@ -1,29 +1,45 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import { makeStyles } from "@material-ui/core/styles";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from "@material-ui/core/Button";
+import Link from "@material-ui/core/Link";
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     overflow: "hidden",
-    padding: theme.spacing(0, 3),
+    padding: theme.spacing(0, 1),
+
   },
+
   paper: {
     margin: `${theme.spacing(1)}px auto`,
     padding: theme.spacing(2),
   },
+
+  selectEmpty: {
+    marginTop: theme.spacing(2),
+  },
 }));
 
-function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
-}
 
 const Help = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -32,65 +48,100 @@ const Help = () => {
       </Typography>
       <br />
       <br />
+
       <Grid container spacing={0}>
-        <Grid item xs={12} md={3}>
-          <Typography align="center" variant="h6" component="h3">
-            Index
-          </Typography>
+        <Button
+          aria-controls="simple-menu"
+          aria-haspopup="true"
+          onClick={handleClick}
+        >
+          Help Topics
+        </Button>
+        <Menu
+          id="simple-menu"
+          anchorEl={anchorEl}
+          keepMounted
+          open={Boolean(anchorEl)}
+          onClose={handleClose}
+        >
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#quickstart">
+              Quick Start
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#menubar">
+              Menu bar
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#viewmaterial">
+              View a Material
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#search">
+              Search
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#filter">
+              Filter
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#register">
+              Register
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#login">
+              Login/Logout
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#privatepublic">
+              Private Public Materials
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#likematerial">
+              Like Material
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#savematerial">
+              Save Material
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#downloadmaterial">
+              Download Material
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#mymaterials">
+              My Materials
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#creatematerial">
+              Create Material
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#editmaterial">
+              Edit Material
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={handleClose}>
+            <Link color="inherit" href="#printmaterial">
+              Print Material
+            </Link>
+          </MenuItem>
+        </Menu>
 
-          <List component="nav">
-            <ListItemLink href="#quickstart">
-              <ListItemText primary="Quick Start" />
-            </ListItemLink>
-            <ListItemLink href="#menubar">
-              <ListItemText primary="Menu bar" />
-            </ListItemLink>
-            <ListItemLink href="#materials">
-              <ListItemText primary="Materials" />
-            </ListItemLink>
-            <ListItemLink href="#viewmaterial">
-              <ListItemText primary="View a Material" />
-            </ListItemLink>
-            <ListItemLink href="#search">
-              <ListItemText primary="Search" />
-            </ListItemLink>
-            <ListItemLink href="#filter">
-              <ListItemText primary="Filter" />
-            </ListItemLink>
-            <ListItemLink href="#register">
-              <ListItemText primary="Register" />
-            </ListItemLink>
-            <ListItemLink href="#login">
-              <ListItemText primary="Login/Logout" />
-            </ListItemLink>
-            <ListItemLink href="#privatepublic">
-              <ListItemText primary="Private Public Materials" />
-            </ListItemLink>
-            <ListItemLink href="#ratematerial">
-              <ListItemText primary="Rate Material" />
-            </ListItemLink>
-            <ListItemLink href="#savematerial">
-              <ListItemText primary="Save Material" />
-            </ListItemLink>
-            <ListItemLink href="#downloadmaterial">
-              <ListItemText primary="Download Material" />
-            </ListItemLink>
-            <ListItemLink href="#mymaterials">
-              <ListItemText primary="My Materials" />
-            </ListItemLink>
-            <ListItemLink href="#creatematerial">
-              <ListItemText primary="Create Material" />
-            </ListItemLink>
-            <ListItemLink href="#editmaterial">
-              <ListItemText primary="Edit Material" />
-            </ListItemLink>
-            <ListItemLink href="#printmaterial">
-              <ListItemText primary="Print Material" />
-            </ListItemLink>
-          </List>
-        </Grid>
-
-        <Grid item xs={12} md={8} justify="center" alignItems="center">
+        <Grid item xs={12} justify="center" alignItems="center">
           <Paper className={classes.paper}>
             <Typography variant="h5" component="h3" href="#" id="quickstart">
               Quick Start
@@ -98,34 +149,36 @@ const Help = () => {
 
             <Typography variant="body1" className="spacedBodyText">
               The first thing to do to have full access to the site is
-              <a href="#register">Register</a>.
+              <Link href="#register"> Register</Link>.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
               After registering and verifying your email address you should be
-              logged in, if not <a href="#login">Login</a>.
+              logged in, if not <Link href="#login">Login</Link>.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Now you can browse <a href="#materials">Materials</a>,
-              <a href="#downloadmaterial">Download Materials</a>,
-              <a href="#ratematerial">Rate Materials</a> and
-              <a href="#savematerial">Save Materials</a>
+              Now you can browse <Link href="#materials">Materials</Link>,
+              <Link href="#downloadmaterial">Download Materials</Link>,
+              <Link href="#likematerial">Like Materials</Link> and
+              <Link href="#savematerial">Save Materials</Link>
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
               If you want to find materials quickly you can
-              <a href="#search">Search</a> or <a href="#filter">Filter</a>
+              <Link href="#search">Search</Link> or{" "}
+              <Link href="#filter">Filter</Link>
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
               Remember to click on the title or image of the material you are
               interested in to get a detailed view -
-              <a href="#viewmaterial">View a Material</a>
+              <Link href="#viewmaterial">View a Material</Link>
             </Typography>
             <Typography variant="body1" className="spacedBodyText">
-              You can also <a href="#creatematerial">Create Materials</a> and
-              <a href="#editmaterial">Edit your Materials</a>
+              You can also <Link href="#creatematerial">Create Materials</Link>{" "}
+              and
+              <Link href="#editmaterial">Edit your Materials</Link>
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
@@ -297,8 +350,8 @@ const Help = () => {
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
-            <Typography variant="h5" component="h3" href="#" id="ratematerial">
-              Rate Material
+            <Typography variant="h5" component="h3" href="#" id="likematerial">
+              Like Material
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
@@ -451,29 +504,6 @@ const Help = () => {
           </Paper>
         </Grid>
       </Grid>
-
-      {/* <script>
-        $(document).ready(function () {
-
-//Check to see if the window is top if not then display button
-            $(window).scroll(function () {
-                if ($(this).scrollTop() > 400) {
-                    $('.scrollToTop').fadeIn().css('z-index', 20000);
-
-                } else {
-                    $('.scrollToTop').fadeOut();
-                }
-            });
-
-//Click event to scroll to top
-            $('.scrollToTop').click(function () {
-                $('html, body').animate({scrollTop: 0}, 800);
-                return false;
-            });
-
-        });
-
-    </script> */}
     </div>
   );
 };
