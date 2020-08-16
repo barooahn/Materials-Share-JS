@@ -114,6 +114,12 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
+app.use(function (req, res, next) {
+  if (req.get("X-Forwarded-Proto") !== "https") {
+    res.redirect("https://" + req.get("Host") + req.url);
+  } else next();
+});
+
 let port = process.env.PORT || 5000;
 /** start server */
 app.listen(port, () => {
