@@ -6,6 +6,7 @@ import theme from './theme'
 import Home from "./components/Home";
 
 class App extends Component {
+  
   render() {
     return (
       <ThemeProvider theme={theme}>
