@@ -132,7 +132,7 @@ export default () => {
       name: res.name,
       id: res.id,
       // img: res.picture.data.url,
-      img:  `http://graph.facebook.com/${res.id}/picture?type=square`,
+      img: `https://graph.facebook.com/${res.id}/picture?type=square`,
       email: res.email,
     };
     const response = await signUser(user);

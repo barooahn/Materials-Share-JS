@@ -72,7 +72,6 @@ const routePaths = () => {
           <Route path="/users" component={Users} />
           <Route path="/materials" component={Materials} />
           <Route path="/material/:slug" component={Material}></Route>
-          />
           <PrivateRoute
             path="/create"
             name="create"
