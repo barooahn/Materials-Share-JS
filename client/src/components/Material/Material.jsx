@@ -134,6 +134,7 @@ export default () => {
     if (slug !== undefined) {
       getMaterial(slug).then((resultData) => {
         setMaterial(resultData[0]);
+        setLikes(resultData[0].likes);
       });
     }
   }, [slug]);
