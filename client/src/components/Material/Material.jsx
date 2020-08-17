@@ -44,6 +44,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 1000,
     paddingBottom: 5,
     pageBreakBefore: "always",
+    overflow: "hidden",
   },
   modal: {
     display: "flex",
@@ -72,6 +73,8 @@ export default () => {
   const { slug } = useParams();
   const [material, setMaterial] = React.useState([]);
   const [likes, setLikes] = React.useState(material.likes || []);
+  const [completed, setCompleted] = React.useState(0);
+  const [saved, setSaved] = React.useState(false);
   const author = localStorage.getItem("USER_ID");
 
   //Delete model stuff
@@ -109,7 +112,7 @@ export default () => {
   };
 
   const toggleLikes = () => {
-    ToggleLikes(author, likes, setLikes, material._id);
+    ToggleLikes(author, likes, setLikes, material._id, setSaved, setCompleted);
   };
 
   const setLikesColour = () => {
@@ -163,7 +166,6 @@ export default () => {
             <IconButton
               aria-label="add to favorites"
               onClick={print}
-              color={setLikesColour()}
               disabled={!author}
             >
               <PrintIcon />
