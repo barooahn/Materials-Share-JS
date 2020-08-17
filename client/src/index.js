@@ -10,7 +10,7 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
 import Mobile from "./components/helpers/mobile";
-import ReactGA from "react-ga";
+import GA from "./components/helpers/GoogleAnalytics";
 
 import {
   BrowserRouter as Router,
@@ -37,9 +37,6 @@ const ForgotPassword = lazy(() => import("./LoginPage/ForgotPassword"));
 
 const jwtToken = localStorage.getItem("JWT_TOKEN");
 Axios.defaults.headers.common["Authorization"] = jwtToken;
-
-ReactGA.initialize("G-9ZXSJT3VNB");
-ReactGA.pageview(window.location.pathname + window.location.search);
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -71,6 +68,7 @@ const routePaths = () => {
       <Suspense
         fallback={<div style={{ textAlign: "center" }}>Loading...</div>}
       >
+        {GA.init() && <GA.RouteTracker />}
         <Switch>
           <Route exact path="/" component={App} />
           <Route path="/users" component={Users} />
