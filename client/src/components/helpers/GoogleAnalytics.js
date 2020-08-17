@@ -20,6 +20,7 @@ class GoogleAnalytics extends Component {
     const isDifferentSearch = search !== prevLocation.search;
 
     if (isDifferentPathname || isDifferentSearch) {
+      console.log("Analytics page has changed", pathname, search);
       this.logPageChange(pathname, search);
     }
   }
@@ -51,12 +52,14 @@ GoogleAnalytics.propTypes = {
 const RouteTracker = () => <Route component={GoogleAnalytics} />;
 
 const init = (options = {}) => {
-  const isGAEnabled = process.env.NODE_ENV === "production";
+  ReactGA.initialize("G-9ZXSJT3VNB");
+  //   const isGAEnabled = process.env.NODE_ENV === "production";
+  const isGAEnabled = true;
 
-  if (isGAEnabled) {
-    ReactGA.initialize("G-9ZXSJT3VNB");
-  }
-
+//   if (isGAEnabled) {
+//     ReactGA.initialize("G-9ZXSJT3VNB");
+//   }
+  console.log("Analaytics running", isGAEnabled);
   return isGAEnabled;
 };
 

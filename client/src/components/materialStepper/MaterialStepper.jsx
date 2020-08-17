@@ -175,7 +175,7 @@ export default function MaterialStepper() {
   function getStepContent(step) {
     switch (step) {
       case 0:
-        console.log("stepper calling mediaFiles...");
+        // console.log("stepper calling mediaFiles...");
         return (
           <MediaFiles
             files={files}
@@ -291,7 +291,7 @@ export default function MaterialStepper() {
     );
   };
   React.useEffect(() => {
-    console.log("materialstepper - saved: ", saved);
+    // console.log("materialstepper - saved: ", saved);
     if (saved) history.push("/profile");
   }, [saved, history]);
 
