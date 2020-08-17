@@ -42,7 +42,7 @@ export default () => {
   const id = localStorage.getItem("USER_ID");
   const cardWidth = Mobile() ? "100%" : 250;
 
-  console.log("ProfilePage cardwidth", cardWidth);
+  // console.log("ProfilePage cardwidth", cardWidth);
 
   const limit = Mobile() ? 4 : 10;
 

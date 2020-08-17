@@ -75,7 +75,7 @@ export default function Search({ setGettingSearchResults }) {
 
   const handleSearchChange = (e, value) => {
     let searchQ = value ? value : e.target.value;
-    console.log("Search searchQ", searchQ);
+    // console.log("Search searchQ", searchQ);
     if (searchQ && searchQ.length > 2) {
       setSearchQuery(searchQ);
     }

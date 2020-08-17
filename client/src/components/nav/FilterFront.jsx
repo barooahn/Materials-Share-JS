@@ -16,7 +16,7 @@ import Mobile from "../helpers/mobile";
 const filterHeight =
   Mobile() ? "100vh" : "auto";
 
-console.log(" Filter Mobile", Mobile());
+// console.log(" Filter Mobile", Mobile());
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
@@ -166,13 +166,13 @@ export default ({ expanded, setExpanded }) => {
   };
 
   const changeActivityUse = (e, value) => {
-    console.log("filter filterMaterials value ", value);
+    // console.log("filter filterMaterials value ", value);
     optionChange(value);
     setActivityUseValue(value);
-    console.log(
-      "filter filterMaterials setActivityUseValue ",
-      activityUseValue
-    );
+    // console.log(
+    //   "filter filterMaterials setActivityUseValue ",
+    //   activityUseValue
+    // );
   };
 
   const getValuesFromObjects = (item) => {

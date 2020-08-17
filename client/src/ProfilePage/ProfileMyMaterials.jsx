@@ -53,10 +53,10 @@ export default (props) => {
     let offsetH =
       document.body.offsetHeight || document.documentElement.offsetHeight;
 
-    console.log(
-      "ProfileMyMaterials userMaterials.length , totalMaterials",
-      userMaterials.length,
-      totalMaterials
+    // console.log(
+    //   "ProfileMyMaterials userMaterials.length , totalMaterials",
+    //   userMaterials.length,
+    //   totalMaterials
     );
 
     if (height + top >= offsetH) {
@@ -78,7 +78,7 @@ export default (props) => {
         page,
         props.limit
       );
-      console.log("ProfileMyMaterials  resultData", resultData);
+      // console.log("ProfileMyMaterials  resultData", resultData);
       if (resultData.materials) {
         setTotalMaterials(resultData.total);
         resultData.materials.forEach((material) => {

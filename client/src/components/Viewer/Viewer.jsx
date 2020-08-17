@@ -40,8 +40,8 @@ export default ({ file, ext = null, thumb = null, index }) => {
       }
 
     case "pdf":
-      console.log("ext", ext);
-      console.log("Viewer: PDF found");
+      // console.log("ext", ext);
+      // console.log("Viewer: PDF found");
       return <PDFViewer key={file + Date.now()} file={file} />;
     case "jpg":
     case "jpeg":

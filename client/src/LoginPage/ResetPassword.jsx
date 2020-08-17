@@ -91,19 +91,19 @@ export default function ResetPassword() {
     e.preventDefault();
 
     try {
-      console.log("resetPassword.jsx - updatePassword email", email);
-      console.log("resetPassword.jsx - updatePassword password", password);
-      console.log(
-        "resetPassword.jsx - updatePassword resetPasswordToken",
-        token.token
-      );
+      // console.log("resetPassword.jsx - updatePassword email", email);
+      // console.log("resetPassword.jsx - updatePassword password", password);
+      // console.log(
+      //   "resetPassword.jsx - updatePassword resetPasswordToken",
+      //   token.token
+      // );
 
       const response = await axios.put("/api/users/updatePasswordViaEmail", {
         email,
         password,
         resetPasswordToken: token.token,
       });
-      console.log(response.data);
+      // console.log(response.data);
       if (response.data.message === "password updated") {
         setUpdated(true);
         setError(false);

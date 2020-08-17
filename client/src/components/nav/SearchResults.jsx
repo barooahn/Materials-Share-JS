@@ -13,10 +13,10 @@ export default () => {
 
   React.useEffect(() => {
     if (location.state?.searchResults.length > 0) {
-      console.log(
-        "searchResults - location.state.searchResults",
-        location.state.searchResults
-      );
+      // console.log(
+      //   "searchResults - location.state.searchResults",
+      //   location.state.searchResults
+      // );
       let resultData = location.state.searchResults;
 
       resultData.forEach((material) => {

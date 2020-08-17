@@ -126,7 +126,7 @@ export default () => {
   };
 
   const responseFacebook = async (res) => {
-    console.log("got facebook res.picture.data.url ", res.picture.data.url);
+    // console.log("got facebook res.picture.data.url ", res.picture.data.url);
     const user = {
       method: "facebook",
       name: res.name,

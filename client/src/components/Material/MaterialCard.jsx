@@ -133,7 +133,6 @@ export default function MaterialCard({
   const dateMod = date.toLocaleDateString(undefined, dateOptions);
 
   const thumb = material.thumb ? material.thumb : null;
-  console.log("material", material);
 
   return (
     <React.Fragment>

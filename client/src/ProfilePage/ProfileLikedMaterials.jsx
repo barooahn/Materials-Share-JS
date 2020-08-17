@@ -53,11 +53,11 @@ export default (props) => {
     let offsetH =
       document.body.offsetHeight || document.documentElement.offsetHeight;
 
-    console.log(
-      "ProfileLikedMaterials userLikes.length , totalMaterials.length",
-      userLikes.length,
-      totalMaterials
-    );
+    // console.log(
+    //   "ProfileLikedMaterials userLikes.length , totalMaterials.length",
+    //   userLikes.length,
+    //   totalMaterials
+    // );
     if (height + top >= offsetH) {
       if (userLikes.length === totalMaterials.length) {
         setHasMore(false);
@@ -74,7 +74,7 @@ export default (props) => {
       const resultData = await getUserLikes(props.id, page, props.limit);
       if (resultData.materials) {
         setTotalMaterials(resultData.total);
-        console.log("ProfilePage: retults data", resultData.materials.length);
+        // console.log("ProfilePage: retults data", resultData.materials.length);
         if (resultData.materials) {
           resultData.materials.forEach((material) => {
             material.files = Array.isArray(material.files)
