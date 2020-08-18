@@ -15,6 +15,7 @@ import { getFilterResults } from "../../actions/materials-share-actions";
 import Link from "@material-ui/core/Link";
 
 const filterHeight = Mobile() ? "100vh" : "auto";
+const filterWidth = Mobile() ? "100%" : "90%";
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
@@ -22,14 +23,20 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     padding: 2,
     maxWidth: "100%",
+    width: filterWidth,
     height: filterHeight + "!important",
-    marginTop: 70,
+    zIndex: 200,
+    position: "fixed",
+    top: "70px",
+    padding: 10,
+    backgroundColor: "white",
   },
   filterItem: {
     marginBottom: 5,
     width: "90%",
     marginLeft: "auto",
     marginRight: "auto",
+    zIndex: 2020,
   },
   filterButton: {
     marginBottom: 5,
