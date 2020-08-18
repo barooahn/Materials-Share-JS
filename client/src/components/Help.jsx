@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     overflow: "hidden",
     padding: theme.spacing(0, 1),
-
   },
 
   paper: {
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const Help = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -38,7 +36,6 @@ const Help = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
 
   const classes = useStyles();
   return (
@@ -153,8 +150,8 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              After registering and verifying your email address you should be
-              logged in, if not <Link href="#login">Login</Link>.
+              After registering and verifying your email address, you should be
+              logged in, if not,<Link href="#login">Login</Link>.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
@@ -166,14 +163,14 @@ const Help = () => {
 
             <Typography variant="body1" className="spacedBodyText">
               If you want to find materials quickly you can
-              <Link href="#search">Search</Link> or{" "}
+              <Link href="#search">Search</Link> or
               <Link href="#filter">Filter</Link>
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Remember to click on the title or image of the material you are
-              interested in to get a detailed view -
-              <Link href="#viewmaterial">View a Material</Link>
+              Remember to hit the title or image of the material you are
+              interested in to
+              <Link href="#viewmaterial">View a Material</Link> in detail.
             </Typography>
             <Typography variant="body1" className="spacedBodyText">
               You can also <Link href="#creatematerial">Create Materials</Link>{" "}
@@ -193,21 +190,23 @@ const Help = () => {
 
             <Typography variant="body1" className="spacedBodyText">
               The menu bar is located at the top of the screen. It looks
-              different on mobile and is not visible to begin with. On mobile
-              you have to hit the icon in the top right hand corner with three
-              bars on it to open the menu. See the pictures for both desktop and
-              mobile menu bars.
+              different on mobile and is not visible to begin with.
+            </Typography>
+            <Typography variant="body1" className="spacedBodyText">
+              On mobile you have to hit the icon in the top right hand corner
+              with three bars on it to open the menu. See the pictures for both
+              desktop and mobile menu bars.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
               The menu is like a navigation panel. It allows you to see
-              different areas of Materials Share. You are now in the Start Here
+              different areas of <em>Materials Share</em>. You are now in the
+              <b> Start Here </b>
               area. Have a look at the other areas you can visit. We will take a
-              look at each in more detail further down the page.
+              look at each in more detail below.
             </Typography>
-
             <Typography variant="body1" className="spacedBodyText">
-              Click or tap on any menu item to go to that page.
+              Hit any menu item to go to that page.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -216,15 +215,15 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              The materials page is where you view all materials created and
-              currently shared
+              The <b> Materials </b> page is where you view all materials
+              created and currently shared.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              The materials page gives you brief information about each
+              The <b> Materials </b> page gives you brief information about each
               material, such as: title, objective, level, the textbook it can be
-              used with and a picture of files associated with the material. You
-              can click on any material to get the full details.
+              used with, and a picture of files associated with the material.
+              Hit any material to get the full details.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -233,15 +232,15 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              By clicking Materials button on the menu bar you will get a list
+              By hitting <b> Materials </b> on the menu bar, you will get a list
               of all the materials currently available on the site. If you want
-              more detail on a particular material click on its title. This will
-              bring you into the material's page. From here you have many
-              options.
+              more detail on a particular material, click on its title. This
+              will bring you into the <b> Materials </b> page. From here you
+              have many options.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              If you are not logged in you can browse the material.
+              - If you are not logged in you can browse the material.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
@@ -249,16 +248,16 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              If you own the material you can edit or delete the material by
-              clicking the appropriate button. You can also make the material
+              - (and you own the material), you can edit or delete the material
+              by clicking the appropriate button. You can also make the material
               public or private.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              If you are not the owner of the material you can save the material
-              in your My Materials page by clicking the save button. You can
-              download the files the accompany the material. You can also rate
-              and leave comments about the material.
+              - If you are not the owner of the material, you can save the
+              material in your <b> My Materials </b> page by hitting save. You
+              can download the files that accompany the material. You can also
+              rate and leave comments about the material.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -267,15 +266,9 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              As the collection of materials increases it will become more
-              difficult to just browse to files you are interested in. A search
-              function has been implemented on the site to aid in finding a
-              material specifc to you needs. Just key in a word such as "family"
-              and Materials Share will search it's database for materials
-              containing the key word.
-            </Typography>
-
-            <Typography variant="body1" className="spacedBodyText">
+              A <b> Search </b> function aids finding a material specific to
+              your needs. Just type in a word such as family and Materials Share
+              will search its database for materials containing the key word.
               Search is located on the menu bar. Just type a relevant word and
               hit enter. All the materials pertinent to the search query will be
               displayed.
@@ -287,17 +280,14 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Filer is similar to search in that it reduces the number of
-              materials into something more meaningful. However, filter reduces
-              by a number of factors at once. Say you want a material for "Level
-              2", which lasts "10" minutes and involves "speaking", then you can
-              set these filters and only find materials with these attributes.
-            </Typography>
-
-            <Typography variant="body1" className="spacedBodyText">
-              The filter button is located at the top on the materials page.
-              Click it to see the filter criteria. Choose your criteria and hit
-              the "start filter" button to see your selection.
+              <b> Filter </b> reduces the number of materials to meet your
+              needs, but filter reduces by a number of factors at once. Say you
+              want a material for Level 2, which lasts 10 minutes and involves
+              speaking, then you can set these filters and only find materials
+              with these attributes. The filter button is located at the top on
+              the <b> Materials page </b>. Click it to see the filter criteria.
+              Choose your criteria and hit the Start filter button to see your
+              selection.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -306,21 +296,18 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Registering is free and gives you many benefits. Registered users
-              can: upload, edit and download materials; save new materials to
-              their "My materials" page and rate and comment on materials
-            </Typography>
-
-            <Typography variant="body1" className="spacedBodyText">
-              Registering is easy. Click on Register on the menu bar. You will
-              back teken to a form. Fill out all the details requested. Please
-              use a strong password one with numbers letters and characters
-              longer than 8 characters is a good password. Click the submit
-              button. You should see a new page asking you to check the email
-              address you have registered with. Please check for an email from
-              Materials Share. The email should contain a link. Click on this
-              link to activate your account. You should now see your "my
-              Materials" page. You are now logged in.
+              <b> Registering </b> is free and gives you many benefits.
+              Registered users can: upload, edit, download, and save new
+              materials to their <b> My Materials </b> page and rate and comment
+              on materials. Registering is easy. Click on Register on the menu
+              bar. You will be taken to a form. Fill out all the details
+              requested. Please use a strong password - one with numbers letters
+              and characters longer than 8 characters is a good password. Click
+              the submit button. You should see a new page asking you to check
+              the email address you have registered with. Please check for an
+              email from Materials Share. The email should contain a link. Hit
+              the link to activate your account. You should now see your
+              <b> My Materials </b> page. You are now logged in.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -329,10 +316,11 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              To login or logout simply click on the appropriate button in the
-              menu bar. Login will require that you are registered and the email
-              address and password you chose when you registered. When you login
-              you will be taken to your "My Materials" page.
+              To <b> login </b> or logout, simply click on the appropriate
+              button in the menu bar. Login will require that you are registered
+              and ask for the email address and password you chose when you
+              registered. When you login, you will be taken to your
+              <b> My Materials </b> page.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -355,14 +343,13 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              If you are logged in you are able to give a rating of 0-5
-              (including half) hearts. To do so go the the detailed view of the
-              material you want to rate (find material and click on its title).
-              From here you can select as many hearts as you want for the
-              material and then hit the "rate" button to register your opinion.
-              You can change your mind and re-rate by using the same method at
-              anytime but, you can only vote once. After your vote the hearts
-              display the average value of the votes, not your vote.
+              If you are logged in you are able like a material. To do so, go to
+              the either the detailed view of the material you want to rate
+              (find material and click on its title), or directly from the
+              materials view. Yuo just click on the heart shaped icon to like.
+              You can change your mind and de-like by using the same method at
+              any time, but can only like a material once. After your like, the
+              hearts display the number of likes cast, not just your like.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -371,11 +358,12 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Materials can be saved to your "My Materials" page from the
-              "Materials" page or from the detailed view of a material. If you
-              are logged in simply click the "Save to my materials" button to
-              save or "Remove from my materials" to remove. Once a material is
-              saved you can easily find it again in your "My Materials" page.
+              Materials can be saved to your <b> My Materials </b> page from the
+              <b> Materials </b> page or from the detailed view of a material.
+              If you are logged in, simply hit the <b> Save to my materials </b>{" "}
+              button, or hit the
+              <b> Remove from my materials </b>. Once a material is saved, you
+              can easily find it again in your <b> My Materials </b> page.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -389,14 +377,14 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              If you are logged in you may download materials. To do this go to
-              the detailed view of a material (click on the title from "My
-              Materials" or "Materials" pages). In the detailed view you will
-              see a download button under the image of the attached files. Click
-              this button to start the download. Please note this may take a
-              while depending on your internet connection speed and the size of
-              the file. Also not files downloaded are at original file size not
-              reduced as you see on the preview.
+              If you are logged in you may <b> download </b> materials. To do
+              this, go to the detailed view of a material (click on the title
+              from <b> My Materials </b> or <b> Materials </b> pages). In the
+              detailed view you will see a download button under the image of
+              the attached files. Hit this button to start the download. Please
+              note this may take a while depending on your internet connection
+              speed and the size of the file. Files downloaded are at original
+              file size, not reduced as you see on the preview.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -405,11 +393,11 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              My Materials is your home page. It is where all the materials you
-              have created are stored. It can only be accessed by you the owner
-              when you are logged in. Materials that are private can be worked
-              on from here. Materials can be made public (or private) from here
-              too. All your saved materials will also be here.
+              <b> My Materials </b> is your home page. It is where all the
+              materials you have created are stored. It can only be accessed by
+              you, the owner, when you are logged in. Materials that are private
+              can be worked on from here. Materials can be made public (or
+              private) from here too. All your saved materials will be here.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -423,39 +411,42 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              To create a material you must be logged in. Creating a material is
-              a two stage process. The first stage is to chose the attributes
-              your material requires. The second stage is to provide details
-              about those attributes. Please note you can edit a material and
-              add attributes to it or update it at anytime
+              To <b>create </b> a material you must be logged in. Creating a
+              material is a two stage process. The first stage is to choose the
+              attributes your material requires.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Stage one: choosing attributes- To create a new materials hit the
-              "New Material" button. A new screen will lead with a number of
-              buttons. Each button represents a different attribute of your
-              material. You may choose as many or a few attributes as you
-              require. There is a "?" which will give you more information on
-              each attribute if you require. Hover over the "?" (or tap on
-              mobile) for extra information.
+              Choosing attributes - To create a new material, hit the [+] or{" "}
+              <b> New Material </b> button. A new screen will lead with a number
+              of buttons. Each button represents a different attribute of your
+              material. You may choose as many or as few attributes as you
+              require.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Perhaps if you are in a rush you may jut choose "files". You could
+              If you are in a rush you may just choose <b> files </b>. You could
               take a quick picture with your phone and give the material a title
               and you would be done. Later you could edit the material and fill
-              out more details. Or, as a conscientious uploader you may chose to
-              complete all the fields in one sitting.
+              out more details. Or, as a conscientious uploader, you may choose
+              to complete all the fields in one sitting.
+            </Typography>
+            <Typography variant="body1" className="spacedBodyText">
+              *Please note you can edit a material and add attributes to it or
+              update it at anytime
+            </Typography>
+            <Typography variant="body1" className="spacedBodyText">
+              The second stage is to provide details about those attributes.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              Stage two: complete the form - for each button you selected in
+              Stage two: Complete the form - For each button you selected in
               stage one, one of a number of different input type tools will be
-              displayed. Please try to complete these as best you can. You can
-              always edit them later if you make mistakes. Once all the fields
-              are complete press the continue button. If there are no errors in
-              the form you will be taken to the "My Materials" page where you
-              should see your recently created material.
+              displayed. Please try to complete these as accurately as you can.
+              You can always edit them later if you make mistakes. Once all the
+              fields are complete, hit the continue button. If there are no
+              errors in the form, you will be taken to the <b> My Materials </b>{" "}
+              page where you should see your recently created material.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -464,10 +455,11 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              To edit a material you will need to be logged in. You will need to
-              be in the detailed view of the material. You need to be the
-              creator of the material. Click the "Edit" button to edit. This
-              will take you to a menu similar to when you created the material.
+              To <b> edit </b> a material you will need to be logged in. You
+              will need to be in the detailed view or materials view of the
+              material. You need to be the creator of the material. Click the{" "}
+              <b> Edit </b> button to edit. This will take you to a menu similar
+              to when you created the material.
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
@@ -484,7 +476,7 @@ const Help = () => {
               click the "continue" button at the bottom of the screen. This will
               take you to the form for making you edits. Once you have completed
               the form click continue to finish. You will be taken back to your
-              "My Materials" page where you will see the edited material.
+              <b> My Materials </b> page where you will see the edited material.
             </Typography>
           </Paper>
           <Paper className={classes.paper}>
@@ -493,13 +485,11 @@ const Help = () => {
             </Typography>
 
             <Typography variant="body1" className="spacedBodyText">
-              If you wish to print any material you can press the "CTRL" + "p"
-              on your keyboard. This will open the print service of your browser
-              where you will see a modified version of the material designed for
-              print. Follow the instructions for printing. Please note with
-              attached files it is highly recommended to download these files
-              and then print off. Low quality images are used for fast load
-              times on the website.
+              If you wish to print any material you can press the print icon in
+              the detailed view or press CTRL + P on your keyboard. This will
+              open the print service of your browser where you will see a
+              modified version of the material designed for print. Follow the
+              instructions for printing.
             </Typography>
           </Paper>
         </Grid>
