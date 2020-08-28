@@ -126,11 +126,10 @@ const useStyles = makeStyles((theme) => ({
   },
   loginRegisterButtons: {
     display: "inline",
-    minWidth: 265,
     textAlign: "right",
   },
   logo: {
-    height: 20,
+    height: 32,
     paddingRight: 20,
     cursor: "pointer",
   },
