@@ -125,7 +125,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 50,
   },
   loginRegisterButtons: {
-    display: "inline",
+    display: "flex",
     textAlign: "right",
   },
   logo: {
@@ -202,7 +202,6 @@ export default function MiniDrawer({ routePaths }) {
         <React.Fragment>
           <Button
             variant="contained"
-            color="secondary"
             className={classes.button}
             startIcon={<AccountBoxIcon />}
             onClick={handleLoginClick}
@@ -212,7 +211,6 @@ export default function MiniDrawer({ routePaths }) {
           </Button>
           <Button
             variant="contained"
-            color="primary"
             className={classes.button}
             startIcon={<Assignment />}
             onClick={handleRegisterClick}
