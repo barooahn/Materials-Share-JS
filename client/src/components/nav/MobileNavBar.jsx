@@ -104,6 +104,8 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: "flex",
     justifyContent: "flex-start",
+    height: 20,
+    paddingRight: 20,
   },
   search: { display: "flex ", width: "100%" },
   circularProgress: {
@@ -249,7 +251,12 @@ export default function LabelBottomNavigation({ routePaths }) {
                 onClick={handleHomeClick}
                 aria-label="Home"
               >
-                <LocalLibraryIcon color="secondary" fontSize="large" />
+                {/* <LocalLibraryIcon color="secondary" fontSize="large" /> */}
+                <img
+                  src={"/img/SVG/MaterialsshareLogoMobile.svg"}
+                  alt="Materialsshare Logo"
+                  className={classes.logo}
+                />
               </IconButton>
               {/* <div className={classes.grow} /> */}
               {"/" === location.pathname ||

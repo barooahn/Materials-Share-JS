@@ -103,10 +103,6 @@ const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
   },
-  // logo: {
-  //   marginRight: 20,
-  //   minWidth: 255,
-  // },
   filter: {
     width: "100%",
   },
