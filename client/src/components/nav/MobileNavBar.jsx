@@ -104,8 +104,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     display: "flex",
     justifyContent: "flex-start",
-    height: 20,
-    paddingRight: 20,
+    height: 32,
   },
   search: { display: "flex ", width: "100%" },
   circularProgress: {
