@@ -32,7 +32,6 @@ import Filter from "./Filter";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import clsx from "clsx";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import LocalLibraryIcon from "@material-ui/icons/LocalLibrary";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
@@ -76,7 +75,6 @@ const useStyles = makeStyles((theme) => ({
     right: 10,
   },
   filter: {
-    // width: "100%"
     marginTop: 100,
   },
   expand: {
@@ -98,12 +96,9 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
-  profile: { alignSelf: "flex-end" },
+  profile: { marginLeft: "auto" },
   logo: {
     cursor: "pointer",
-    flexGrow: 1,
-    display: "flex",
-    justifyContent: "flex-start",
     height: 32,
   },
   search: { display: "flex ", width: "100%" },

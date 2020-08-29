@@ -116,7 +116,7 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
-  profile: { display: "flex", justifyContent: "flex-end" },
+  profile: { marginLeft: "auto" },
   search: { display: "flex ", width: "100%" },
   circularProgress: {
     position: "absolute",
