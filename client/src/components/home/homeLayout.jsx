@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     overflow: "hidden",
     // padding: theme.spacing(0, 5),
-    margin: `${theme.spacing(1)}px auto`,
+    // margin: `${theme.spacing(1)}px auto`,
     textAlign: "center",
     [theme.breakpoints.up("sm")]: {
       textAlign: "left",
@@ -33,6 +33,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       textAlign: "right",
       marginBottom: 30,
+      paddingRight: 40,
     },
   },
   title: {
