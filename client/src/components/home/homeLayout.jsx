@@ -59,7 +59,7 @@ const useStyles = makeStyles((theme) => ({
   SVGicon: {
     fontSize: 45,
     marginBottom: 20,
-    marginRight: 10,
+    marginRight: 5,
     [theme.breakpoints.up("sm")]: {
       paddingTop: 5,
       fontSize: 55,
