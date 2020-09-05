@@ -198,26 +198,6 @@ export default ({
         })}
 
         <Autocomplete
-          id="category"
-          multiple
-          className={classes.inputAutocomplete}
-          fullwidth="true"
-          value={categoryValue}
-          onChange={setCategoryValue}
-          options={category}
-          freeSolo={true}
-          getOptionLabel={(option) => option.label}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="What institute is the material for?"
-              variant="outlined"
-              placeholder="School, language center etc."
-              fullWidth
-            />
-          )}
-        />
-        <Autocomplete
           id="language-focus"
           multiple
           className={classes.inputAutocomplete}

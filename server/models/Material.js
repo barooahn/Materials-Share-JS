@@ -51,12 +51,6 @@ let MaterialSchema = new mongoose.Schema({
     },
   ],
   targetLanguage: { type: String, trim: true },
-  institute: [
-    {
-      label: { type: String, trim: true },
-      value: { type: String, trim: true },
-    },
-  ],
   materials: { type: String, trim: true },
   shared: Boolean,
   dateCreated: Date,

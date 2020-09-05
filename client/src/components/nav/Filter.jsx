@@ -214,7 +214,7 @@ export default ({ expanded, setExpanded }) => {
       </div>
       <div className={classes.filterItem}>
         <Typography id="range-slider" gutterBottom>
-          Time for preperation
+          Time for preparation
         </Typography>
         <Slider
           value={timePrepValue}
@@ -253,24 +253,6 @@ export default ({ expanded, setExpanded }) => {
           getOptionLabel={(option) => option.label}
           renderInput={(params) => (
             <TextField {...params} label="Level" variant="outlined" fullWidth />
-          )}
-        />
-      </div>
-      <div className={classes.filterItem}>
-        <Autocomplete
-          id="category"
-          multiple
-          value={categoryValue}
-          onChange={changeCategory}
-          options={dynamicCategory}
-          getOptionLabel={(option) => option.label}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Institute"
-              variant="outlined"
-              fullWidth
-            />
           )}
         />
       </div>
