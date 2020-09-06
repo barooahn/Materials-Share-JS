@@ -30,7 +30,7 @@ import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import Search from "./Search";
 import Filter from "./Filter";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Icon from "@material-ui/core/Icon";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { deepOrange } from "@material-ui/core/colors";
 import Box from "@material-ui/core/Box";
@@ -286,7 +286,7 @@ export default function MiniDrawer({ routePaths }) {
                   aria-expanded={expanded}
                   aria-label="show more"
                 >
-                  <ExpandMoreIcon />
+                  <Icon color="secondary">filter_list</Icon>
                 </IconButton>
               </div>
             ) : null}

@@ -100,13 +100,13 @@ export default function AutoGridNoWrap() {
           <Grid item sm={5} xs={12}>
             <NavLink to="/create" className="link">
               <Icon className={classes.icon} color="secondary">
+                post_add
+              </Icon>
+              <Icon className={classes.icon} color="secondary">
                 camera_alt
               </Icon>
               <Icon className={classes.icon} color="secondary">
                 video_call
-              </Icon>
-              <Icon className={classes.icon} color="secondary">
-                post_add
               </Icon>
             </NavLink>
           </Grid>
@@ -170,7 +170,7 @@ export default function AutoGridNoWrap() {
             <Icon className={classes.icon} color="secondary">
               search
             </Icon>
-            <Icon className={classes.icon} color="secondary">
+            <Icon className={classes.icon} color="secondary" height="50px">
               filter_list
             </Icon>
           </Grid>

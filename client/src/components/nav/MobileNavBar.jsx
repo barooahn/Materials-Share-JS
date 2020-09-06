@@ -29,7 +29,7 @@ import { logOut } from "../../auth/helpers";
 import { NavLink, useLocation } from "react-router-dom";
 import Search from "./Search";
 import Filter from "./Filter";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import Icon from "@material-ui/core/Icon";
 import clsx from "clsx";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create("transform", {
       duration: theme.transitions.duration.shortest,
     }),
-    marginLeft: -10,
+    marginLeft: -5,
     marginRight: -10,
   },
   expandOpen: {
@@ -265,9 +265,8 @@ export default function LabelBottomNavigation({ routePaths }) {
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
                     aria-label="show more"
-                    fontSize="large"
                   >
-                    <ExpandMoreIcon />
+                    <Icon color="secondary">filter_list</Icon>
                   </IconButton>
                 </div>
               ) : null}
