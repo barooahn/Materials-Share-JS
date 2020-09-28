@@ -317,13 +317,13 @@ export default function LabelBottomNavigation({ routePaths }) {
           <div>{menuOptions()}</div>
         </Menu>
       </Box>
-      <main className={classes.content}>{routePaths}</main>
+      <div className={classes.content}>{routePaths}</div>
       <Box display="block" displayPrint="none">
         <BottomNavigation
           bottomnavvalue={bottomNavValue}
           onChange={handleBottomNavChange}
           className={classes.bottomNav}
-          position="fixed"
+          // position="fixed"
         >
           <BottomNavigationAction
             label="Home"
