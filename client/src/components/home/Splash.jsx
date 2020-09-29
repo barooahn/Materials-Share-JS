@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100VH",
 
     [theme.breakpoints.up("sm")]: {
+      margin: "-24px auto",
       height: "calc(100VH - 64px)",
       textAlign: "left",
     },
