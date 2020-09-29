@@ -1,11 +1,11 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import DocsPicsVids from "./DocsPicsVids";
-import Splash from "./Splash";
-import SaveSecurelyForever from "./SaveSecurelyForever";
-import ShareWithOthers from "./ShareWithOthers";
-import SearchAndFilter from "./SearchAndFilter";
+const DocsPicsVids = lazy(() => import("./DocsPicsVids"));
+const Splash = lazy(() => import("./Splash"));
+const SaveSecurelyForever = lazy(() => import("./SaveSecurelyForever"));
+const ShareWithOthers = lazy(() => import("./ShareWithOthers"));
+const SearchAndFilter = lazy(() => import("./SearchAndFilter"));
 
 const useStyles = makeStyles((theme) => ({}));
 
