@@ -194,7 +194,7 @@ export default () => {
   }
 
   return (
-    <main className={classes.main}>
+    <div className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -317,6 +317,6 @@ export default () => {
           </Button>
         </form>
       </Paper>
-    </main>
+    </div>
   );
 };

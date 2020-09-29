@@ -11,9 +11,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: "hidden",
     height: "100VH",
     margin: 0,
-    backgroundPosition: "top",
+    backgroundPosition: "center",
     backgroundSize: "cover",
-    backgroundImage: "url(./img/DocsPicsVidsImg-80.webp)",
+    backgroundImage: "url(./img/saveSecurelyForeverImg.webp)",
     backgroundRepeat: "no-repeat",
     backgroundColor: "rgb(235,235,235)",
     [theme.breakpoints.up("sm")]: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   docsPicsVidText: {
     margin: "7px",
     padding: "10px",
-    backgroundColor: "rgba(255,255,255, 0.95)",
+    backgroundColor: "rgba(255,255,255, 0.85)",
     [theme.breakpoints.up("sm")]: {
       marginTop: 0,
       width: "100%",
@@ -79,7 +79,7 @@ export default function DocsPicsVids() {
           variant="h1"
           component="h1"
         >
-          Documents, Pictures and Video
+          Save Securely, Forever
         </Typography>
 
         <br />
@@ -91,15 +91,13 @@ export default function DocsPicsVids() {
                 variant="body"
                 component="body"
               >
-                Upload Word documents, PDF files, vidoes, images or any
-                combination of the above to create the perfect teaching
-                resource.
-                <br />
-                <br />
-                Describe how the material is used and give additional details to
-                help your material be easily found when you need it, using
-                search and filter.
+                Save your work to the cloud. No need to carry around laptops,
+                hard disk drives, USB sticks or boxes of materials. Always carry
+                your work with you with cloud storage. Anywhere you can access
+                the internet, you can access your resources. On your phone, your
+                work computer, your laptop or even on a projector.
               </Typography>
+
               <Typography
                 className={classes.proTip}
                 variant="h2"
@@ -113,10 +111,10 @@ export default function DocsPicsVids() {
                 variant="body"
                 component="body"
               >
-                Why not complete all the fields when uploading a resource and
-                make your own resource book? Just print and send to the
-                publishers. Useful day-to-day, attractive to employers, and
-                evidence of professional development.
+                Look out for the padlock on websites to make sure your data is
+                secure. Insecure websites can access data you do not want to
+                share. Material Share only shares your teaching resources with
+                your permission and never shares your personal data.
               </Typography>
             </Paper>
           </Grid>

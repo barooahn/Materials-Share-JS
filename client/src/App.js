@@ -3,8 +3,7 @@ import "./App.css";
 import { ThemeProvider } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
-import Home from "./components/home/homeLayout";
-
+import Home from "./components/home/HomeLayout";
 
 class App extends Component {
   render() {

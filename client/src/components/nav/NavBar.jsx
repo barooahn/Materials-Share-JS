@@ -408,7 +408,7 @@ export default function MiniDrawer({ routePaths }) {
           </List>
         </Drawer>
       </Box>
-      <main className={classes.content}>
+      <div className={classes.content}>
         <div className={classes.toolbar} />
         {"/" === location.pathname ||
         "/materials" === location.pathname ||
@@ -426,7 +426,7 @@ export default function MiniDrawer({ routePaths }) {
         ) : null}
 
         {routePaths}
-      </main>
+      </div>
     </div>
   );
 }

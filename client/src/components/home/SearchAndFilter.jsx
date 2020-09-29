@@ -8,12 +8,11 @@ import { Paper } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    overflow: "hidden",
     height: "100VH",
-    margin: 0,
+    margin: "0 0 56px 0",
     backgroundPosition: "top",
     backgroundSize: "cover",
-    backgroundImage: "url(./img/DocsPicsVidsImg-80.webp)",
+    backgroundImage: "url(./img/searchAndFilterImg.webp)",
     backgroundRepeat: "no-repeat",
     backgroundColor: "rgb(235,235,235)",
     [theme.breakpoints.up("sm")]: {
@@ -40,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
   docsPicsVidText: {
     margin: "7px",
     padding: "10px",
-    backgroundColor: "rgba(255,255,255, 0.95)",
+    backgroundColor: "rgba(255,255,255, 0.89)",
     [theme.breakpoints.up("sm")]: {
       marginTop: 0,
       width: "100%",
@@ -79,7 +78,7 @@ export default function DocsPicsVids() {
           variant="h1"
           component="h1"
         >
-          Documents, Pictures and Video
+          Save Time With Search And Filter
         </Typography>
 
         <br />
@@ -91,14 +90,16 @@ export default function DocsPicsVids() {
                 variant="body"
                 component="body"
               >
-                Upload Word documents, PDF files, vidoes, images or any
-                combination of the above to create the perfect teaching
-                resource.
+                Use the power of search and filter. Material Share could be
+                called Material Search. We can accurately find the resource you
+                are looking for in a split second. Search for a keyword in any
+                part of the material’s metadata (objective, title, materials
+                needed, procedure, language point and more).
                 <br />
                 <br />
-                Describe how the material is used and give additional details to
-                help your material be easily found when you need it, using
-                search and filter.
+                Then refine even further with filters. How long do you have
+                before class to prepare? What level are you teaching? Only show
+                resources that match your criteria.
               </Typography>
               <Typography
                 className={classes.proTip}
@@ -113,10 +114,10 @@ export default function DocsPicsVids() {
                 variant="body"
                 component="body"
               >
-                Why not complete all the fields when uploading a resource and
-                make your own resource book? Just print and send to the
-                publishers. Useful day-to-day, attractive to employers, and
-                evidence of professional development.
+                Combine search and filter to zoom in on materials that suit your
+                precise needs. If you can’t find what you are looking for, why
+                not create a new resource? Teachers can share their appreciation
+                by giving you a like as they hit the heart button.
               </Typography>
             </Paper>
           </Grid>

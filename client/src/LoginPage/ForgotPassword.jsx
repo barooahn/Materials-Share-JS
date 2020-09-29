@@ -88,7 +88,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <main className={classes.main}>
+    <div className={classes.main}>
       <CssBaseline />
       <Paper className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -151,6 +151,6 @@ export default function ForgotPassword() {
           </Button>
         </form>
       </Paper>
-    </main>
+    </div>
   );
 }

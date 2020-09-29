@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     backgroundPosition: "top",
     backgroundSize: "cover",
-    backgroundImage: "url(./img/DocsPicsVidsImg-80.webp)",
+    backgroundImage: "url(./img/shareWithOthersImg.webp)",
     backgroundRepeat: "no-repeat",
     backgroundColor: "rgb(235,235,235)",
     [theme.breakpoints.up("sm")]: {
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   docsPicsVidText: {
     margin: "7px",
     padding: "10px",
-    backgroundColor: "rgba(255,255,255, 0.95)",
+    backgroundColor: "rgba(255,255,255, 0.85)",
     [theme.breakpoints.up("sm")]: {
       marginTop: 0,
       width: "100%",
@@ -79,7 +79,7 @@ export default function DocsPicsVids() {
           variant="h1"
           component="h1"
         >
-          Documents, Pictures and Video
+          Share With Other Teachers
         </Typography>
 
         <br />
@@ -91,15 +91,15 @@ export default function DocsPicsVids() {
                 variant="body"
                 component="body"
               >
-                Upload Word documents, PDF files, vidoes, images or any
-                combination of the above to create the perfect teaching
-                resource.
+                Why not share your work with other teachers? Sharing makes
+                everyone's life easier. Imagine having not only your resources,
+                but every other teacher’s resources to hand, searchable in an
+                instant, 24/7.
                 <br />
                 <br />
-                Describe how the material is used and give additional details to
-                help your material be easily found when you need it, using
-                search and filter.
+                Delight your students with resources they deserve.
               </Typography>
+
               <Typography
                 className={classes.proTip}
                 variant="h2"
@@ -113,10 +113,10 @@ export default function DocsPicsVids() {
                 variant="body"
                 component="body"
               >
-                Why not complete all the fields when uploading a resource and
-                make your own resource book? Just print and send to the
-                publishers. Useful day-to-day, attractive to employers, and
-                evidence of professional development.
+                If you don't want to share your work with others, or it is not
+                complete yet, turn off sharing. Your document will be saved
+                under your profile. You can edit your resource or change the
+                sharing status at any time.
               </Typography>
             </Paper>
           </Grid>
