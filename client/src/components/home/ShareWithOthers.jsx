@@ -86,11 +86,7 @@ export default function DocsPicsVids() {
         <Grid container spacing={1} justify="center" alignItems="center">
           <Grid item sm={8} xs={12}>
             <Paper className={classes.docsPicsVidText}>
-              <Typography
-                className={classes.typography}
-                variant="body"
-                component="body"
-              >
+              <Typography className={classes.typography} variant="body1">
                 Why not share your work with other teachers? Sharing makes
                 everyone's life easier. Imagine having not only your resources,
                 but every other teacher’s resources to hand, searchable in an
@@ -108,11 +104,7 @@ export default function DocsPicsVids() {
               >
                 Pro Tip
               </Typography>
-              <Typography
-                className={classes.typography}
-                variant="body"
-                component="body"
-              >
+              <Typography className={classes.typography} variant="body1">
                 If you don't want to share your work with others, or it is not
                 complete yet, turn off sharing. Your document will be saved
                 under your profile. You can edit your resource or change the

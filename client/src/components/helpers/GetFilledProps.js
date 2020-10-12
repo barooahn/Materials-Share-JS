@@ -52,7 +52,8 @@ const GetFilledProps = (props) => {
       item !== "loaded" &&
       item !== "author_img" &&
       item !== "slug" &&
-      item !== "thumb"
+      item !== "thumb" &&
+      item !== "likes"
     ) {
       const label = getLabel(item);
       filled.push({ label: label, value: props[item] });

@@ -86,11 +86,7 @@ export default function DocsPicsVids() {
         <Grid container spacing={1} justify="center" alignItems="center">
           <Grid item sm={8} xs={12}>
             <Paper className={classes.docsPicsVidText}>
-              <Typography
-                className={classes.typography}
-                variant="body"
-                component="body"
-              >
+              <Typography className={classes.typography} variant="body1">
                 Upload Word documents, PDF files, vidoes, images or any
                 combination of the above to create the perfect teaching
                 resource.
@@ -108,11 +104,7 @@ export default function DocsPicsVids() {
               >
                 Pro Tip
               </Typography>
-              <Typography
-                className={classes.typography}
-                variant="body"
-                component="body"
-              >
+              <Typography className={classes.typography} variant="body1">
                 Why not complete all the fields when uploading a resource and
                 make your own resource book? Just print and send to the
                 publishers. Useful day-to-day, attractive to employers, and

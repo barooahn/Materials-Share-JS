@@ -88,8 +88,8 @@ export default function DocsPicsVids() {
             <Paper className={classes.docsPicsVidText}>
               <Typography
                 className={classes.typography}
-                variant="body"
-                component="body"
+                variant="body1"
+                
               >
                 Save your work to the cloud. No need to carry around laptops,
                 hard disk drives, USB sticks or boxes of materials. Always carry
@@ -108,8 +108,8 @@ export default function DocsPicsVids() {
               </Typography>
               <Typography
                 className={classes.typography}
-                variant="body"
-                component="body"
+                variant="body1"
+                
               >
                 Look out for the padlock on websites to make sure your data is
                 secure. Insecure websites can access data you do not want to

@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
   },
   paperCenter: {
     marginBottom: 50,
+    paddingBottom: 20,
   },
   media: {
     // paddingTop: "56.25%", // 16:9
@@ -51,12 +52,13 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  paper: {
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
+  // paper: {
+  //   backgroundColor: theme.palette.background.paper,
+  //   border: "2px solid #000",
+  //   boxShadow: theme.shadows[5],
+  //   padding: theme.spacing(2, 4, 3),
+  //   paddingBottom: "20px",
+  // },
   modalDeleteButtons: {
     display: "flex",
     justifyContent: "center",

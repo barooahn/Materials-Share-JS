@@ -87,8 +87,8 @@ export default function DocsPicsVids() {
             <Paper className={classes.docsPicsVidText}>
               <Typography
                 className={classes.typography}
-                variant="body"
-                component="body"
+                variant="body1"
+                
               >
                 Use the power of search and filter. Material Share could be
                 called Material Search. We can accurately find the resource you
@@ -111,8 +111,8 @@ export default function DocsPicsVids() {
               </Typography>
               <Typography
                 className={classes.typography}
-                variant="body"
-                component="body"
+                variant="body1"
+                
               >
                 Combine search and filter to zoom in on materials that suit your
                 precise needs. If you can’t find what you are looking for, why
