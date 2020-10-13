@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,10 +30,7 @@ export default ({ file }) => {
     setNumPages(numPages);
   };
 
-  // console.log("PDFViewer: called", file);
-
   const onChangePDFpage = (e, page) => {
-    // console.log("Docviewer - onChangePDFpage", page);
     setPageNumber(page);
   };
 
@@ -44,9 +41,9 @@ export default ({ file }) => {
           file={file}
           className={classes.page}
           onLoadSuccess={onDocumentLoadSuccess}
-          // renderMode="svg"
+          renderMode="svg"
         >
-          <Page size="A4" pageNumber={pageNumber} width={pdfWidth}></Page>
+          <Page size="A4" pageNumber={pageNumber} maxWidth={"100%"}></Page>
         </Document>
         {numPages > 1 ? (
           <Pagination count={numPages} onChange={onChangePDFpage} />

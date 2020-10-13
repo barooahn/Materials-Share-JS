@@ -138,7 +138,7 @@ const Help = () => {
           </MenuItem>
         </Menu>
 
-        <Grid item xs={12} justify="center" alignItems="center">
+        <Grid item xs={12}>
           <Paper className={classes.paper}>
             <Typography variant="h5" component="h3" href="#" id="quickstart">
               Quick Start

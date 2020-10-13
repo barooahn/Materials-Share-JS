@@ -40,7 +40,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 20,
   },
   media: {
-    // paddingTop: "56.25%", // 16:9
     width: "100%",
     maxWidth: 1000,
     paddingBottom: 5,
@@ -52,13 +51,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
   },
-  // paper: {
-  //   backgroundColor: theme.palette.background.paper,
-  //   border: "2px solid #000",
-  //   boxShadow: theme.shadows[5],
-  //   padding: theme.spacing(2, 4, 3),
-  //   paddingBottom: "20px",
-  // },
+
   modalDeleteButtons: {
     display: "flex",
     justifyContent: "center",
@@ -132,10 +125,18 @@ export default () => {
   };
 
   React.useEffect(() => {
-    //get all Materials from db setMaterials
+    //get all Materials from db setMaterials\
     if (slug !== undefined) {
       getMaterial(slug).then((resultData) => {
         setMaterial(resultData[0]);
+        //The line below causes error: 
+        //Can't perform a React state update on an unmounted component. 
+        //This is a no-op, but it indicates a memory leak in your application. 
+        //To fix, cancel all subscriptions and asynchronous tasks in a useEffect
+        // cleanup function.
+
+        //this line is dependent on materials
+        //const [likes, setLikes] = React.useState(material.likes || []);
         setLikes(resultData[0].likes);
       });
     }
@@ -145,7 +146,10 @@ export default () => {
     <Paper className={classes.paperCenter} elevation={1}>
       <Typography gutterBottom variant="h2" component="h2" align="center">
         {material.title}
+
       </Typography>
+
+
       <Box display="block" displayPrint="none">
         <Tooltip
           title={!author ? "Login to add to likes" : "Add to likes"}
