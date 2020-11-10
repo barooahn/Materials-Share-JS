@@ -41,6 +41,9 @@ export default ({
   pupilTasks,
   pupilTaskValue,
   setPupilTaskValue,
+  curriculums,
+  curriculumValue,
+  setCurriculumValue,
   timePrep,
   setTimePrep,
   timeInClass,
@@ -151,6 +154,29 @@ export default ({
           return null;
         }
       })}
+      <Autocomplete
+        id="combo-box-demo1"
+        multiple
+        value={curriculumValue}
+        onChange={setCurriculumValue}
+        options={curriculums}
+        freeSolo={true}
+        className={classes.inputAutocomplete}
+        getOptionLabel={(option) => option.label}
+        // style={{
+        //   width: 600
+        // }}
+        fullwidth="true"
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            label="Curriculum"
+            placeholder="IB, Cambridge etc."
+            variant="outlined"
+            fullWidth
+          />
+        )}
+      />
       <Autocomplete
         id="combo-box-demo1"
         multiple

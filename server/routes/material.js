@@ -32,6 +32,13 @@ module.exports = (router) => {
   router
     .route("/materialsPaginated")
     .get(materialcontroller.materialsPaginated);
+
+  /**
+   * get paginated materials
+   */
+  router
+  .route("/materialsPaginatedIB")
+  .get(materialcontroller.materialsPaginatedIB);
   /**
    * get all materials
    */

@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     // padding: theme.spacing(0, 5),
     // margin: `${theme.spacing(1)}px auto`,
     textAlign: "center",
-    verticalAlign: "middle",
+    // verticalAlign: "middle",
     height: "100VH",
 
     [theme.breakpoints.up("sm")]: {
@@ -72,7 +72,6 @@ const useStyles = makeStyles((theme) => ({
   box: {
     verticalAlign: "middle",
     padding: 10,
-    margin: "auto",
   },
 }));
 
@@ -85,8 +84,7 @@ export default function AutoGridNoWrap() {
         className={classes.title}
         align="center"
         variant="h1"
-        component="h1"
-      >
+        component="h1">
         Teaching Resources Made Simple
       </Typography>
       <Grid
@@ -94,15 +92,13 @@ export default function AutoGridNoWrap() {
         className={classes.box}
         spacing={1}
         justify="center"
-        alignItems="center"
-      >
+        alignItems="center">
         <Grid item sm={7} xs={12}>
           <NavLink to="/create" className="link">
             <Typography
               className={classes.typography}
               variant="h3"
-              component="h3"
-            >
+              component="h3">
               Documents, pictures and video
             </Typography>
           </NavLink>
@@ -125,8 +121,7 @@ export default function AutoGridNoWrap() {
             <Typography
               className={classes.typography}
               variant="h3"
-              component="h3"
-            >
+              component="h3">
               Save securely, forever. Access anywhere
             </Typography>
           </NavLink>
@@ -145,8 +140,7 @@ export default function AutoGridNoWrap() {
           <Typography
             className={classes.typography}
             variant="h3"
-            component="h3"
-          >
+            component="h3">
             Share with other teachers
           </Typography>
         </Grid>
@@ -171,8 +165,7 @@ export default function AutoGridNoWrap() {
           <Typography
             className={classes.typography}
             variant="h3"
-            component="h5"
-          >
+            component="h5">
             Save time with search and filter
           </Typography>
         </Grid>

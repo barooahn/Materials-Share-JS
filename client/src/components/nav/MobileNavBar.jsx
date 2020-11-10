@@ -108,6 +108,9 @@ const useStyles = makeStyles((theme) => ({
     left: "47%",
     zIndex: 50,
   },
+  ibLogo: {
+    height: 22,
+  },
 }));
 
 export default function LabelBottomNavigation({ routePaths }) {
@@ -166,6 +169,9 @@ export default function LabelBottomNavigation({ routePaths }) {
   };
   const handleNewClick = () => {
     history.push("/create");
+  };
+  const handleIBClick = () => {
+    history.push("/ibmyp");
   };
   const handleHelpClick = () => {
     history.push("/help");
@@ -243,8 +249,7 @@ export default function LabelBottomNavigation({ routePaths }) {
               <IconButton
                 className={classes.logo}
                 onClick={handleHomeClick}
-                aria-label="Home"
-              >
+                aria-label="Home">
                 {/* <LocalLibraryIcon color="secondary" fontSize="large" /> */}
                 <img
                   src={"/img/SVG/MaterialsshareLogoMobile.svg"}
@@ -264,8 +269,7 @@ export default function LabelBottomNavigation({ routePaths }) {
                     })}
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
-                    aria-label="show more"
-                  >
+                    aria-label="show more">
                     <Icon color="secondary">filter_list</Icon>
                   </IconButton>
                 </div>
@@ -275,13 +279,11 @@ export default function LabelBottomNavigation({ routePaths }) {
                 aria-label="account of current user"
                 aria-controls={menuId}
                 aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-              >
+                onClick={handleProfileMenuOpen}>
                 <Avatar
                   alt={localStorage.getItem("USER_NAME")}
                   src={localStorage.getItem("USER_IMG")}
-                  className={classes.orange}
-                >
+                  className={classes.orange}>
                   {localStorage.getItem("USER_NAME")
                     ? localStorage.getItem("USER_NAME").charAt(0)
                     : null}
@@ -312,8 +314,7 @@ export default function LabelBottomNavigation({ routePaths }) {
           id={menuId}
           keepMounted
           open={isMenuOpen}
-          onClose={handleMenuClose}
-        >
+          onClose={handleMenuClose}>
           <div>{menuOptions()}</div>
         </Menu>
       </Box>
@@ -347,6 +348,19 @@ export default function LabelBottomNavigation({ routePaths }) {
             onClick={handleNewClick}
           />
           <BottomNavigationAction
+            label="IB MYP"
+            value="ibmyp"
+            icon={
+              <img
+                src={"/img/ibLogo.png"}
+                alt="IB Logo"
+                className={classes.ibLogo}
+              />
+            }
+            showLabel={true}
+            onClick={handleIBClick}
+          />
+          <BottomNavigationAction
             label="Help"
             value="help"
             icon={<HelpIcon />}
@@ -357,8 +371,7 @@ export default function LabelBottomNavigation({ routePaths }) {
             <Fab
               color="secondary"
               className={classes.fabButton}
-              aria-label="Create Material"
-            >
+              aria-label="Create Material">
               <AddIcon onClick={handleNewClick} />
             </Fab>
           </HideOnScroll>
