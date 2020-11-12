@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core/styles";
@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     canvas: {
-      maxWidth: "100%",
+      maxWidth: "100% !important",
       width: "auto !important",
       height: "auto !important",
       overflow: "hidden",
@@ -41,8 +41,7 @@ export default ({ file }) => {
           file={file}
           className={classes.page}
           onLoadSuccess={onDocumentLoadSuccess}
-          renderMode="svg"
-        >
+          renderMode="canvas">
           <Page size="A4" pageNumber={pageNumber} maxWidth={"100%"}></Page>
         </Document>
         {numPages > 1 ? (
