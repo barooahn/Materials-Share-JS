@@ -20,6 +20,7 @@ const titles = [
   { author_img: "author_img" },
   { slug: "slug" },
   { thumb: "thumb" },
+  {curriculum: "curriculum"},
 ];
 
 const getLabel = (name) => {

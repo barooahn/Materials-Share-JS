@@ -100,6 +100,8 @@ export default function MaterialStepper() {
   const [title, setTitle] = React.useState("");
   const [levelValue, setLevelValue] = React.useState([]);
   const [dynamicLevels, setDynamicLevels] = React.useState([]);
+  const [curriculumValue, setCurriculumValue] = React.useState([]);
+  const [dynamicCurriculums, setDynamicCurriculums] = React.useState([]);
   const [categoryValue, setCategoryValue] = React.useState([]);
   const [dynamicCategory, setDynamicCategory] = React.useState([]);
   const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
@@ -143,6 +145,7 @@ export default function MaterialStepper() {
         setTips(resultData.tips);
         setNotes(resultData.notes);
         setActivityUseValue(resultData.activityUse);
+        setCurriculumValue(resultData.curriculum);
         setLanguageFocusValue(resultData.languageFocus);
         setTargetLanguage(resultData.targetLanguage);
         setTimeInClass(resultData.timeInClass);
@@ -153,6 +156,8 @@ export default function MaterialStepper() {
   }, [id]);
 
   const getDetailsAutoComplete = async () => {
+    const curriculum = await SetAutocompletes("curriculum");
+    setDynamicCurriculums(curriculum);
     const level = await SetAutocompletes("level");
     setDynamicLevels(level);
     const pupilTask = await SetAutocompletes("pupilTask");
@@ -208,6 +213,9 @@ export default function MaterialStepper() {
             pupilTasks={dynamicPupilTask}
             pupilTaskValue={pupilTaskValue}
             setPupilTaskValue={changePupilTask}
+            curriculums={dynamicCurriculums}
+            curriculumValue={curriculumValue}
+            setCurriculumValue={changeCurriculum}
             share={share}
             changeShare={changeShare}
             type={type}
@@ -284,6 +292,7 @@ export default function MaterialStepper() {
         shared: share,
         id: id,
         dateModified: Date.now(),
+        curriculum: curriculumValue,
       },
       type,
       setCompleted,
@@ -340,6 +349,10 @@ export default function MaterialStepper() {
   const changeActivityUse = (e, value) => {
     optionChange(value);
     setActivityUseValue(value);
+  };
+  const changeCurriculum = (e, value) => {
+    optionChange(value);
+    setCurriculumValue(value);
   };
 
   const changeShare = (e) => {

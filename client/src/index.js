@@ -26,6 +26,7 @@ const MaterialStepper = lazy(() =>
 );
 const ProfilePage = lazy(() => import("./ProfilePage/ProfilePage"));
 const Help = lazy(() => import("./components/Help"));
+const Ibmyp = lazy(() => import("./components/Ibmyp"));
 const Login = lazy(() => import("./LoginPage/Login"));
 const Register = lazy(() => import("./RegisterPage/Register2"));
 const Material = lazy(() => import("./components/Material/Material"));
@@ -80,6 +81,7 @@ const routePaths = () => {
             component={MaterialStepper}
           />
           <Route path="/help" component={Help} />
+          <Route path="/ibmyp" component={Ibmyp} />
           <Route path="/privacy" component={PrivacyPolicy} />
           <Route
             path="/login"

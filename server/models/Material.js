@@ -31,6 +31,12 @@ let MaterialSchema = new mongoose.Schema({
       value: { type: String, trim: true },
     },
   ],
+  curriculum: [
+    {
+      label: { type: String, trim: true },
+      value: { type: String, trim: true },
+    },
+  ],
   likes: [String],
   languageFocus: [
     {

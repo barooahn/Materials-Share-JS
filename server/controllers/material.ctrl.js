@@ -187,6 +187,33 @@ module.exports = {
       });
   },
 
+  materialsPaginatedIB: async (req, res, next) => {
+    var page = parseInt(req.query.page) || 0; //for next page pass 1 here
+    var limit = parseInt(req.query.limit) || 3;
+    var query = { shared: true, curriculum: "International Baccalaureate® (IB)" };
+    await Material.find(query)
+      .sort({ dateModified: -1 })
+      .skip(page * limit) //Notice here
+      .limit(limit)
+      .exec((err, doc) => {
+        if (err) {
+          return res.json(err);
+        }
+        Material.countDocuments(query).exec((count_error, count) => {
+          if (err) {
+            return res.json(count_error);
+          }
+          // console.log("materials.ctrl - materialsPaginaged doc", doc);
+          return res.json({
+            total: count,
+            page: page,
+            pageSize: doc.length,
+            materials: doc,
+          });
+        });
+      });
+  },
+
   getMaterialId: (req, res, next) => {
     // console.log("Materials.ctrl getMaterialId id", req.params.id);
     Material.findById(req.params.id).exec((err, material) => {
@@ -269,6 +296,7 @@ module.exports = {
       activityUse,
       pupilTask,
       category,
+      curriculum,
     } = req.body;
     console.log("material.ctrl - getFilterResults", search);
     queryCond = {
@@ -279,6 +307,7 @@ module.exports = {
         //   search: new RegExp(escapeRegex(search), "gi"),
       }),
       ...(level.length > 0 && { "level.value": `${level}` }),
+      ...(curriculum.length > 0 && { "curriculum.value": `${curriculum}` }),
       ...(activityUse.length > 0 && { "activityUse.value": `${activityUse}` }),
       ...(category.length > 0 && { "category.value": `${category}` }),
       ...(pupilTask.length > 0 && { "pupilTask.value": `${pupilTask}` }),

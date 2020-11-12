@@ -50,6 +50,7 @@ export default ({ expanded, setExpanded }) => {
   const [timeInClassValue, setTimeInClassValue] = React.useState([0, 100]);
   const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
   const [levelValue, setLevelValue] = React.useState([]);
+  const [curriculumValue, setCurriculumValue] = React.useState([]);
   const [categoryValue, setCategoryValue] = React.useState([]);
   const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
   const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
@@ -57,6 +58,7 @@ export default ({ expanded, setExpanded }) => {
 
   const [dynamicCategory, setDynamicCategory] = React.useState([]);
   const [dynamicLevels, setDynamicLevels] = React.useState([]);
+  const [dynamicCurriculums, setDynamicCurriculums] = React.useState([]);
   const [dynamicPupilTask, setDynamicPupilTask] = React.useState([]);
   const [dynamicActivityUse, setDynamicActivityUse] = React.useState([]);
   const [dynamicLanguageFocus, setDynamicLanguageFocus] = React.useState([]);
@@ -71,6 +73,8 @@ export default ({ expanded, setExpanded }) => {
     async function fetchData() {
       const level = await SetAutocompletes("level");
       setDynamicLevels(level);
+      const curriculum = await SetAutocompletes("curriculum");
+      setDynamicCurriculums(curriculum);
       const languageFocus = await SetAutocompletes("languageFocus");
       setDynamicLanguageFocus(languageFocus);
       const activityUse = await SetAutocompletes("activityUse");
@@ -135,6 +139,11 @@ export default ({ expanded, setExpanded }) => {
     setLevelValue(value);
   };
 
+  const changeCurriculum = (e, value) => {
+    optionChange(value);
+    setCurriculumValue(value);
+  };
+
   const changePupilTask = (e, value) => {
     optionChange(value);
     setPupilTaskValue(value);
@@ -155,11 +164,6 @@ export default ({ expanded, setExpanded }) => {
     setActivityUseValue(value);
   };
 
-  // const timeFilter = (key, values) => {
-  //   filterResults.filter(material => {
-  //     return material[key] > values[0] && material[key] < values[1];
-  //   });
-  // };
 
   const getValuesFromObjects = (item) => {
     return item.map((element) => {
@@ -169,6 +173,7 @@ export default ({ expanded, setExpanded }) => {
 
   const goToResults = async (e) => {
     const level = getValuesFromObjects(levelValue);
+    const curriculum = getValuesFromObjects(curriculumValue);
     const languageFocus = getValuesFromObjects(languageFocusValue);
     const activityUse = getValuesFromObjects(activityUseValue);
     const pupilTask = getValuesFromObjects(pupilTaskValue);
@@ -181,7 +186,8 @@ export default ({ expanded, setExpanded }) => {
       languageFocus,
       activityUse,
       pupilTask,
-      category
+      category,
+      curriculum
     );
     if (results) {
       // console.log(" filter returned results ", results);
@@ -253,6 +259,19 @@ export default ({ expanded, setExpanded }) => {
           getOptionLabel={(option) => option.label}
           renderInput={(params) => (
             <TextField {...params} label="Level" variant="outlined" fullWidth />
+          )}
+        />
+      </div>
+      <div className={classes.filterItem}>
+        <Autocomplete
+          id="combo-box-demo2"
+          multiple
+          value={curriculumValue}
+          onChange={changeCurriculum}
+          options={dynamicCurriculums}
+          getOptionLabel={(option) => option.label}
+          renderInput={(params) => (
+            <TextField {...params} label="Curriculum" variant="outlined" fullWidth />
           )}
         />
       </div>

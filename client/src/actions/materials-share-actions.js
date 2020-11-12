@@ -189,6 +189,19 @@ export const getPaginatedMaterials = async (page, limit) => {
   return response.json();
 };
 
+export const getPaginatedIBMaterials = async (page, limit) => {
+  let response = await fetch(
+    `/api/materialsPaginatedIB?page=${page}&limit=${limit}`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    }
+  );
+  return response.json();
+};
+
 export const getMaterial = async (slug) => {
   let response = await fetch(`/api/material/${slug}`, {
     headers: {
@@ -302,7 +315,8 @@ export const getFilterResults = async (
   languageFocus,
   activityUse,
   pupilTask,
-  category
+  category, 
+  curriculum,
 ) => {
   let response = await fetch(
     // `api/search?search=${search}&timeInClass=${timeInClass}&timePrep=${timePrep}&level=${level}&languageFocus=${languageFocus}&activityUse=${activityUse}&pupilTask=${pupilTask}&category=${category}`,
@@ -322,6 +336,7 @@ export const getFilterResults = async (
         activityUse: activityUse,
         pupilTask: pupilTask,
         category: category,
+        curriculum: curriculum,
       }),
     }
   );
