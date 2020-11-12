@@ -3,7 +3,7 @@ import MaterialCard from "./Material/MaterialCard";
 import Typography from "@material-ui/core/Typography";
 import StackGrid from "react-stack-grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { getPaginatedMaterials } from "../actions/materials-share-actions";
+import { getPaginatedIBMaterials } from "../actions/materials-share-actions";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import debounce from "lodash.debounce";
 import Mobile from "./helpers/mobile";
@@ -63,15 +63,20 @@ const Materials = () => {
 
   React.useEffect(() => {
     async function fetchData() {
-      let resultData = await getPaginatedMaterials(page, limit);
+      let resultData = await getPaginatedIBMaterials(page, limit);
+      console.log('results', resultData.total == undefined)
+      if (resultData.total !== undefined) {
       setTotalMaterials(resultData.total);
-      await resultData.materials.forEach((material) => {
-        material.files = Array.isArray(material.files)
-          ? [material.files[0]]
-          : [material.files];
-      });
-      setMaterials([...materials, ...resultData.materials]);
-      setGettingSearchResults(false);
+        await resultData.materials.forEach((material) => {
+          material.files = Array.isArray(material.files)
+            ? [material.files[0]]
+            : [material.files];
+        });
+        setMaterials([...materials, ...resultData.materials]);
+        setGettingSearchResults(false);
+      } else {
+        setGettingSearchResults(false);
+      }
     }
     setGettingSearchResults(true);
     fetchData();

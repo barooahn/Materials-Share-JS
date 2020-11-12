@@ -260,6 +260,7 @@ export default function LabelBottomNavigation({ routePaths }) {
               {/* <div className={classes.grow} /> */}
               {"/" === location.pathname ||
               "/materials" === location.pathname ||
+              "/ibmyp" === location.pathname ||
               "/search" === location.pathname ? (
                 <div className={classes.search}>
                   <Search setGettingSearchResults={setGettingSearchResults} />
@@ -296,6 +297,7 @@ export default function LabelBottomNavigation({ routePaths }) {
 
       {"/" === location.pathname ||
       "/materials" === location.pathname ||
+      "/ibmyp" === location.pathname ||
       "/search" === location.pathname ? (
         <Filter
           expanded={expanded}

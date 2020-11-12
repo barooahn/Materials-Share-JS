@@ -164,11 +164,6 @@ export default ({ expanded, setExpanded }) => {
     setActivityUseValue(value);
   };
 
-  // const timeFilter = (key, values) => {
-  //   filterResults.filter(material => {
-  //     return material[key] > values[0] && material[key] < values[1];
-  //   });
-  // };
 
   const getValuesFromObjects = (item) => {
     return item.map((element) => {

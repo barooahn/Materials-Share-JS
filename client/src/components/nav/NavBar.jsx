@@ -274,6 +274,7 @@ export default function MiniDrawer({ routePaths }) {
             />
             {"/" === location.pathname ||
             "/materials" === location.pathname ||
+            "/ibmyp" === location.pathname ||
             "/search" === location.pathname ? (
               <div className={classes.search}>
                 <Search setGettingSearchResults={setGettingSearchResults} />
@@ -384,12 +385,12 @@ export default function MiniDrawer({ routePaths }) {
                 <ListItemText primary="New Material" />
               </ListItem>
             </NavLink>
-            <NavLink to="/ibmpy" className="link">
+            <NavLink to="/ibmyp" className="link">
               <ListItem
                 button
                 aria-label="IB-MPY Curriculum"
                 key={"IB-MPY Curriculum"}
-                selected={"/ibmpy" === location.pathname}>
+                selected={"/ibmyp" === location.pathname}>
                 <ListItemIcon>
                   <img
                     src={"/img/ibLogo.png"}
@@ -421,7 +422,7 @@ export default function MiniDrawer({ routePaths }) {
         <div className={classes.toolbar} />
         {"/" === location.pathname ||
         "/materials" === location.pathname ||
-        "/ibmpy" === location.pathname ||
+        "/ibmyp" === location.pathname ||
         "/search" === location.pathname ? (
           <Filter
             expanded={expanded}
