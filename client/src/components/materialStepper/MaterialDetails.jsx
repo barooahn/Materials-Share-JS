@@ -155,7 +155,7 @@ export default ({
         }
       })}
       <Autocomplete
-        id="combo-box-demo1"
+        id="curriculum"
         multiple
         value={curriculumValue}
         onChange={setCurriculumValue}
@@ -178,7 +178,7 @@ export default ({
         )}
       />
       <Autocomplete
-        id="combo-box-demo1"
+        id="pupilTask"
         multiple
         value={pupilTaskValue}
         onChange={setPupilTaskValue}

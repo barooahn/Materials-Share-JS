@@ -1,5 +1,6 @@
 const titles = [
   { title: "Title" },
+  { curriculum: "Curriculum"},
   { timeInClass: "Time In Class (mins)" },
   { timePrep: "Time To prepare (mins)" },
   { procedureBefore: "Procedure Before Class" },
@@ -20,7 +21,6 @@ const titles = [
   { author_img: "author_img" },
   { slug: "slug" },
   { thumb: "thumb" },
-  {curriculum: "curriculum"},
 ];
 
 const getLabel = (name) => {
@@ -33,7 +33,11 @@ const GetFilledProps = (props) => {
   let filled = [];
 
   for (var item in props) {
-    if (
+    console.log("item... ", item);
+    console.log("props[item]... ", props[item]);
+    if ( item == "timeInClass" || item == "timePrep" && props[item] > 0 ||
+    // item == "timePrep" && props[item] > 0 ||
+
       props[item] !== "" &&
       props[item] !== undefined &&
       props[item] !== null &&
@@ -56,12 +60,13 @@ const GetFilledProps = (props) => {
       item !== "thumb" &&
       item !== "likes"
     ) {
+      console.log("after filter... ", item);
       const label = getLabel(item);
+
       filled.push({ label: label, value: props[item] });
     }
   }
 
-  // console.log("filled... ", filled);
 
   return filled;
 };

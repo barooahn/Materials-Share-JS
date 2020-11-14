@@ -130,6 +130,7 @@ export default function MaterialStepper() {
     if (id !== undefined) {
       getMaterialId(id).then((resultData) => {
         setFiles(resultData.files);
+        setThumb(resultData.thumb);
         setTitle(resultData.title);
         setLevelValue(resultData.level);
         setCategoryValue(resultData.category);
@@ -420,8 +421,7 @@ export default function MaterialStepper() {
                 <Button
                   disabled={activeStep === 0}
                   onClick={handleBack}
-                  className={classes.button}
-                >
+                  className={classes.button}>
                   Back
                 </Button>
                 {isStepOptional(activeStep) && (
@@ -429,8 +429,7 @@ export default function MaterialStepper() {
                     variant="contained"
                     color="primary"
                     onClick={handleSkip}
-                    className={classes.button}
-                  >
+                    className={classes.button}>
                     Skip
                   </Button>
                 )}
@@ -443,8 +442,7 @@ export default function MaterialStepper() {
                     disabled={
                       (localFiles.length === 0 && files.length === 0) ||
                       title === ""
-                    }
-                  >
+                    }>
                     Next
                   </Button>
                 ) : null}
@@ -456,8 +454,7 @@ export default function MaterialStepper() {
                   variant="contained"
                   color="secondary"
                   onClick={save}
-                  className={classes.button}
-                >
+                  className={classes.button}>
                   Save
                 </Button>
               </div>
