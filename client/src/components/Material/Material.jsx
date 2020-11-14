@@ -129,9 +129,9 @@ export default () => {
     if (slug !== undefined) {
       getMaterial(slug).then((resultData) => {
         setMaterial(resultData[0]);
-        //The line below causes error: 
-        //Can't perform a React state update on an unmounted component. 
-        //This is a no-op, but it indicates a memory leak in your application. 
+        //The line below causes error:
+        //Can't perform a React state update on an unmounted component.
+        //This is a no-op, but it indicates a memory leak in your application.
         //To fix, cancel all subscriptions and asynchronous tasks in a useEffect
         // cleanup function.
 
@@ -146,22 +146,18 @@ export default () => {
     <Paper className={classes.paperCenter} elevation={1}>
       <Typography gutterBottom variant="h2" component="h2" align="center">
         {material.title}
-
       </Typography>
-
 
       <Box display="block" displayPrint="none">
         <Tooltip
           title={!author ? "Login to add to likes" : "Add to likes"}
-          placement="top"
-        >
+          placement="top">
           <span>
             <IconButton
               aria-label="add to favorites"
               onClick={toggleLikes}
               color={setLikesColour()}
-              disabled={!author}
-            >
+              disabled={!author}>
               <Badge color="default" badgeContent={likes.length}>
                 <FavoriteIcon />
               </Badge>
@@ -173,8 +169,7 @@ export default () => {
             <IconButton
               aria-label="add to favorites"
               onClick={print}
-              disabled={!author}
-            >
+              disabled={!author}>
               <PrintIcon />
             </IconButton>
           </span>
@@ -257,8 +252,7 @@ export default () => {
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
-        }}
-      >
+        }}>
         <Fade in={deleteOpen}>
           <div className={classes.paper}>
             <Typography variant="h6" color="secondary" component="p">
@@ -271,8 +265,7 @@ export default () => {
                 variant="contained"
                 size="large"
                 startIcon={<DeleteForeverIcon />}
-                onClick={confirmDelete}
-              >
+                onClick={confirmDelete}>
                 Delete
               </Button>
               <br />
@@ -281,8 +274,7 @@ export default () => {
                 variant="contained"
                 size="large"
                 startIcon={<CancelIcon />}
-                onClick={cancelDelete}
-              >
+                onClick={cancelDelete}>
                 Cancel
               </Button>
             </div>

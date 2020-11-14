@@ -35,6 +35,7 @@ export const SaveData = (payload, type, setCompleted, setSaved) => {
 };
 
 const editMaterial = (material, setSaved) => {
+  console.log('materialsactionshare- material',material)
   axios
     .put(`/api/material/update/${material.id}`, material, {})
     .then((res) => {

@@ -141,15 +141,13 @@ export default function MaterialCard({
           <NavLink
             to={{ pathname: "/material/" + material.slug }}
             className="link"
-            key="ma"
-          >
+            key="ma">
             <div className={classes.media}>
               <Avatar
                 aria-label="material"
                 alt={material.title}
                 src={material.author_img}
-                className={classes.avatar}
-              ></Avatar>
+                className={classes.avatar}></Avatar>
               <Viewer
                 thumb={thumb}
                 file={material.files[0]}
@@ -175,15 +173,13 @@ export default function MaterialCard({
         <CardActions disableSpacing>
           <Tooltip
             title={!author ? "Login to add to likes" : "Add to likes"}
-            placement="top"
-          >
+            placement="top">
             <span>
               <IconButton
                 aria-label="add to favorites"
                 onClick={toggleLikes}
                 color={setLikesColour()}
-                disabled={!author}
-              >
+                disabled={!author}>
                 <Badge color="default" badgeContent={likes.length}>
                   <FavoriteIcon />
                 </Badge>
@@ -233,8 +229,7 @@ export default function MaterialCard({
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,
-        }}
-      >
+        }}>
         <Fade in={deleteOpen}>
           <div className={classes.paper}>
             <Typography variant="h6" color="secondary" component="p">
@@ -247,8 +242,7 @@ export default function MaterialCard({
                 variant="contained"
                 size="large"
                 startIcon={<DeleteForeverIcon />}
-                onClick={confirmDelete}
-              >
+                onClick={confirmDelete}>
                 Delete
               </Button>
               <br />
@@ -257,8 +251,7 @@ export default function MaterialCard({
                 variant="contained"
                 size="large"
                 startIcon={<CancelIcon />}
-                onClick={cancelDelete}
-              >
+                onClick={cancelDelete}>
                 Cancel
               </Button>
             </div>

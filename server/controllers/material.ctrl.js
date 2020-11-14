@@ -190,7 +190,7 @@ module.exports = {
   materialsPaginatedIB: async (req, res, next) => {
     var page = parseInt(req.query.page) || 0; //for next page pass 1 here
     var limit = parseInt(req.query.limit) || 3;
-    var query = { shared: true, curriculum: "International Baccalaureate® (IB)" };
+    var query = { shared: true, "curriculum.value":"internationalbaccalaureateib" };
     await Material.find(query)
       .sort({ dateModified: -1 })
       .skip(page * limit) //Notice here
@@ -203,7 +203,7 @@ module.exports = {
           if (err) {
             return res.json(count_error);
           }
-          // console.log("materials.ctrl - materialsPaginaged doc", doc);
+          console.log("materials.ctrl - materialsPaginaged doc", doc);
           return res.json({
             total: count,
             page: page,
