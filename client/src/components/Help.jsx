@@ -8,6 +8,7 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
 import Link from "@material-ui/core/Link";
+import ContactForm from "./ContactForm";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,22 +46,24 @@ const Help = () => {
       </Typography>
       <br />
       <br />
+      
+      <ContactForm />
 
       <Grid container spacing={0}>
         <Button
+          variant="contained"
           aria-controls="simple-menu"
           aria-haspopup="true"
-          onClick={handleClick}
-        >
+          onClick={handleClick}>
           Help Topics
         </Button>
+
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
           keepMounted
           open={Boolean(anchorEl)}
-          onClose={handleClose}
-        >
+          onClose={handleClose}>
           <MenuItem onClick={handleClose}>
             <Link color="inherit" href="#quickstart">
               Quick Start
@@ -371,8 +374,7 @@ const Help = () => {
               variant="h5"
               component="h3"
               href="#"
-              id="downloadmaterial"
-            >
+              id="downloadmaterial">
               Download Material
             </Typography>
 
@@ -405,8 +407,7 @@ const Help = () => {
               variant="h5"
               component="h3"
               href="#"
-              id="creatematerial"
-            >
+              id="creatematerial">
               Create Material
             </Typography>
 
