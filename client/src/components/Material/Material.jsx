@@ -70,6 +70,8 @@ export default () => {
   const [likes, setLikes] = React.useState(material.likes || []);
   const [completed, setCompleted] = React.useState(0);
   const [saved, setSaved] = React.useState(false);
+  const [printPDF, setPrintPDF] = React.useState(false);
+  const [printReady, setPrintReady] = React.useState(false);
   const author = localStorage.getItem("USER_ID");
 
   //Delete model stuff
@@ -119,6 +121,19 @@ export default () => {
     });
     return color;
   };
+
+  ///////////////////////////////////Two print methods to be implmented/////////////////
+  // React.useEffect(() => {
+  //   if (printReady) {
+  //     window.print();
+  //   }
+  // }, [printReady]);
+
+  // const print = () => {
+  //   setPrintPDF(true);
+  //   //need to set in useEffect printPDF as dependancy
+  // };
+  ///////////////////////////////////Two print methods to be implmented/////////////////
 
   const print = () => {
     window.print();
@@ -211,7 +226,12 @@ export default () => {
             <div className={classes.media}>
               {material.files
                 ? material.files.map((file) => (
-                    <Viewer key={file + Date.now()} file={file} />
+                    <Viewer
+                      key={file + Date.now()}
+                      file={file}
+                      printPDF={printPDF}
+                      setPrintReady={setPrintReady}
+                    />
                   ))
                 : null}
             </div>
