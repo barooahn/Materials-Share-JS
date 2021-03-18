@@ -89,15 +89,18 @@ export default () => {
       setPasswordError(true);
       setPassword1Error(true);
       setFormError((formError) => [...formError, "Passwords don't match"]);
+      console.log("passwords dont match error");
     }
 
     if (name === "") {
       setNameError(true);
       setFormError((formError) => [...formError, "Please enter your name"]);
+      console.log("name error");
     }
     if (email === "") {
       setEmailError(true);
       setFormError((formError) => [...formError, "Please enter your email"]);
+      console.log("email error");
     }
     if (password.length < 8) {
       setPasswordError(true);
@@ -105,13 +108,17 @@ export default () => {
         ...formError,
         "Password must be more than 8 characters ",
       ]);
+      console.log("password error");
     }
     if (password1 === "") {
       setPassword1Error(true);
       setFormError((formError) => [...formError, "Please repeat the password"]);
+      console.log("password error");
     }
 
-    if (formError === []) {
+    console.log("errors", formError.length < 1);
+    if (formError && formError.length < 1) {
+      console.log("no errors");
       const user = {
         name: name,
         email: email,
@@ -216,8 +223,7 @@ export default () => {
                   onClick={renderProps.onClick}
                   startIcon={<FacebookIcon />}
                   variant="outlined"
-                  size="large"
-                >
+                  size="large">
                   Login
                 </Button>
               )}
@@ -232,8 +238,7 @@ export default () => {
                   onClick={renderProps.onClick}
                   startIcon={<GoogleIcon />}
                   variant="outlined"
-                  size="large"
-                >
+                  size="large">
                   Login
                 </Button>
               )}
@@ -311,8 +316,7 @@ export default () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={onSubmit}
-          >
+            onClick={onSubmit}>
             Register
           </Button>
         </form>
