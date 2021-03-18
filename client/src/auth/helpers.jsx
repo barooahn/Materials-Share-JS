@@ -35,11 +35,19 @@ export const signUser = async (user) => {
 };
 
 export const register = async (data) => {
-  const res = await axios.post("/api/users/register", data);
-  console.log("helpers register", res);
-  localStorage.setItem("JWT_TOKEN", res.data.token);
-  localStorage.setItem("USER_ID", res.data.id);
-  axios.defaults.headers.common["Authorization"] = res.data.token;
+  try {
+    const res = await axios.post("/api/users/register", data);
+    console.log("helpers register", res);
+    localStorage.setItem("JWT_TOKEN", res.data.token);
+    localStorage.setItem("USER_ID", res.data.id);
+    axios.defaults.headers.common["Authorization"] = res.data.token;
+  } catch (error) {
+    console.log(error.response);
+    return {
+      err: error,
+      message: error.response.data.error,
+    };
+  }
 };
 
 export const logOut = () => {
