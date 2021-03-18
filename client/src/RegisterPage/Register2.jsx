@@ -111,7 +111,8 @@ export default () => {
       setFormError((formError) => [...formError, "Please repeat the password"]);
     }
 
-    if (formError === []) {
+    if (formError && formError.length < 1) {
+      console.log("no errors");
       const user = {
         name: name,
         email: email,
@@ -216,8 +217,7 @@ export default () => {
                   onClick={renderProps.onClick}
                   startIcon={<FacebookIcon />}
                   variant="outlined"
-                  size="large"
-                >
+                  size="large">
                   Login
                 </Button>
               )}
@@ -232,8 +232,7 @@ export default () => {
                   onClick={renderProps.onClick}
                   startIcon={<GoogleIcon />}
                   variant="outlined"
-                  size="large"
-                >
+                  size="large">
                   Login
                 </Button>
               )}
@@ -311,8 +310,7 @@ export default () => {
             variant="contained"
             color="primary"
             className={classes.submit}
-            onClick={onSubmit}
-          >
+            onClick={onSubmit}>
             Register
           </Button>
         </form>
