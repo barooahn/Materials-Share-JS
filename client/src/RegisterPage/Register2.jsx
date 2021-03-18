@@ -73,10 +73,31 @@ export default () => {
   const [emailError, setEmailError] = React.useState(false);
   const [passwordError, setPasswordError] = React.useState(false);
   const [password1Error, setPassword1Error] = React.useState(false);
-  const [formError, setFormError] = React.useState([]);
+  const [formError, setFormError] = React.useState([""]);
 
   let location = useLocation();
   let history = useHistory();
+
+  React.useEffect(() => {
+    console.log("formError", formError);
+    async function fetchMyAPI() {
+      if (formError.length < 1) {
+        const user = {
+          name: name,
+          email: email,
+          password: password,
+        };
+        const response = await register(user);
+        console.log("responcse", response);
+        if (response?.err) {
+          setFormError((formError) => [...formError, response.message]);
+        } else {
+          history.push("/login");
+        }
+      }
+    }
+    fetchMyAPI();
+  }, [formError]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -109,21 +130,6 @@ export default () => {
     if (password1 === "") {
       setPassword1Error(true);
       setFormError((formError) => [...formError, "Please repeat the password"]);
-    }
-
-    if (formError && formError.length < 1) {
-      console.log("no errors");
-      const user = {
-        name: name,
-        email: email,
-        password: password,
-      };
-      await register(user);
-      if (user) {
-        history.push("/login");
-      }
-    } else {
-      return;
     }
   };
 

@@ -11,8 +11,10 @@ module.exports = {
 
     // Check if there is a user with the same email
     console.log("user.ctrl - register user request", req.body);
+    console.log("body", req.body);
     const foundUser = await User.findOne({ email: email });
     if (foundUser) {
+      console.log("Email is already in use ");
       return res.status(403).json({ error: "Email is already in use" });
     }
 
