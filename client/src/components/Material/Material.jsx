@@ -241,24 +241,24 @@ export default () => {
       </Grid>
       <div className={classes.pageBreak}>
         <Typography gutterBottom variant="h4" component="h4" align="center">
-          Teacher Notes
+          Teacher Notes 
         </Typography>
         {DisplayMaterialList(material)}
-        {typeof variable !== "undefined" && material.book.title !== "" ? (
+        { material.book !== "" ? (
           <Grid item xs={12} md={6}>
-            <List>
-              <ListItem>
-                <ListItemText
-                  primary="Material used in conjuction with text book"
-                  secondary={
-                    <React.Fragment>
-                      {material.book.title}
-                      {" - Page " + material.book.page}
-                    </React.Fragment>
-                  }
-                />
-              </ListItem>
-            </List>
+
+              <Typography variant="h6" style={{ paddingLeft: 10 }} component="h6">
+              Material used in conjuction with text book
+            </Typography>
+            <Typography
+              gutterBottom
+              variant="body1"
+              style={{ padding: 10, whiteSpace: "pre-wrap" }}
+              component="p"
+            >
+                      {material.book}
+                      {" - Page " + material.page}
+            </Typography>
           </Grid>
         ) : null}
       </div>
