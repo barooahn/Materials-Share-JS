@@ -116,19 +116,6 @@ export default ({
     },
     {
       type: "text",
-      label: "Is the resource based on a textbook?",
-      value: book || "",
-      multi: false,
-      onChange: changeBook,
-    },
-    {
-      type: "text",
-      label: "What page of the textbook?",
-      value: page || undefined,
-      onChange: changePage,
-    },
-    {
-      type: "text",
       label: "Follow up activities",
       value: followUp,
       multi: true,
@@ -196,6 +183,28 @@ export default ({
             return null;
           }
         })}
+        <TextField
+          className={classes.inputText}
+          key={"Is the resource based on a textbook?"}
+          label="Is the resource based on a textbook?"
+          value={book || ""}
+          onChange={changeBook}
+          multiline={false}
+          fullWidth
+          variant="outlined"
+        />
+
+        <TextField
+          type="number"
+          className={classes.inputText}
+          key={"What page of the textbook?"}
+          label="What page of the textbook?"
+          value={page || undefined}
+          onChange={changePage}
+          multiline={false}
+          fullWidth
+          variant="outlined"
+        />
 
         <Autocomplete
           id="language-focus"
