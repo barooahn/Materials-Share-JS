@@ -1,5 +1,7 @@
 // import React from "react";
+
 import { getAllMaterials } from "../../actions/materials-share-actions";
+import { getAutoComplete } from "../../actions/materials-share-actions";
 
 export const SetAutocompletes = async column => {
   // console.log("SetAutocompletes column", column);
@@ -32,15 +34,21 @@ export const SetAutocompletes = async column => {
     return false;
   };
 
-  const resultData = await getAllMaterials();
+  const materials = await getAllMaterials();
+  const autoComp = await getAutoComplete(column);
+
+
+
+  console.log('autoComp', autoComp.values)
+  //console.log('materials', materials)
 
   let resultArray = [];
   // columns.forEach(column => {
 
   // console.log("SetAutocompletes column", column);
-  resultData.forEach(node => {
-    if (node[column] !== null) {
-      node[column].forEach(item => {
+  materials.forEach(material => {
+    if (material[column] !== null) {
+      material[column].forEach(item => {
         if (!IsInObject(item.value, resultArray))
           resultArray.push({
             label: item.label,
@@ -50,5 +58,6 @@ export const SetAutocompletes = async column => {
     }
   });
   const result = resultArray.sort(compareValues("label"));
+  console.log('autocomplete reuslt', result)
   return result;
 };

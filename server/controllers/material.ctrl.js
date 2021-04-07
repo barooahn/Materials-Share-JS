@@ -17,7 +17,9 @@ module.exports = {
     req.body.map((file) => {
       fs.readFile(file, (err, data) => {
         if (!err) {
-          res.writeHead(200, { "Content-Type": "text/html" });
+          res.writeHead(200, {
+            "Content-Type": "text/html"
+          });
           res.write(data);
           res.end();
         } else {
@@ -68,7 +70,9 @@ module.exports = {
     console.log("deleting...", req.body.file);
     const result = await deleteAws(req.body.file);
     if (result) {
-      return res.json({ deleted: req.body.file });
+      return res.json({
+        deleted: req.body.file
+      });
     } else {
       console.log("err file not deleted");
       return res.err;
@@ -94,9 +98,13 @@ module.exports = {
   },
 
   getMaterials: async (req, res, next) => {
-    var query = { shared: true };
+    var query = {
+      shared: true
+    };
     await Material.find(query)
-      .sort({ dateModified: -1 })
+      .sort({
+        dateModified: -1
+      })
       .exec((err, materials) => {
         if (materials) return res.send(materials);
         else if (err) return res.send(err);
@@ -107,9 +115,13 @@ module.exports = {
   getUserMaterials: async (req, res, next) => {
     var page = parseInt(req.query.page) || 0; //for next page pass 1 here
     var limit = parseInt(req.query.limit) || 3;
-    var query = { author_id: req.query.id };
+    var query = {
+      author_id: req.query.id
+    };
     await Material.find(query)
-      .sort({ dateModified: -1 })
+      .sort({
+        dateModified: -1
+      })
       .skip(page * limit) //Notice here
       .limit(limit)
       .exec((err, doc) => {
@@ -131,14 +143,29 @@ module.exports = {
       });
   },
 
+  //get destinct values for passed column
+  getAutoComplete: async (req, res, next) => {
+    const column = req.query.column;
+    Material.distinct([column])
+      .exec((err, materials) => {
+        if (materials) return res.send(materials);
+        else if (err) return res.send(err);
+        else return res.send(404);
+      });
+  },
+
   getUserLikes: async (req, res, next) => {
     // console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
     var page = parseInt(req.query.page) || 0; //for next page pass 1 here
     var limit = parseInt(req.query.limit) || 3;
-    var query = { likes: req.query.id };
+    var query = {
+      likes: req.query.id
+    };
     // console.log("materials.ctrl - getUserLikes req.query.id ", req.query.id);
     await Material.find(query)
-      .sort({ dateModified: -1 })
+      .sort({
+        dateModified: -1
+      })
       .skip(page * limit) //Notice here
       .limit(limit)
       .exec((err, doc) => {
@@ -163,9 +190,13 @@ module.exports = {
   materialsPaginated: async (req, res, next) => {
     var page = parseInt(req.query.page) || 0; //for next page pass 1 here
     var limit = parseInt(req.query.limit) || 3;
-    var query = { shared: true };
+    var query = {
+      shared: true
+    };
     await Material.find(query)
-      .sort({ dateModified: -1 })
+      .sort({
+        dateModified: -1
+      })
       .skip(page * limit) //Notice here
       .limit(limit)
       .exec((err, doc) => {
@@ -195,7 +226,9 @@ module.exports = {
       "curriculum.value": "internationalbaccalaureateib",
     };
     await Material.find(query)
-      .sort({ dateModified: -1 })
+      .sort({
+        dateModified: -1
+      })
       .skip(page * limit) //Notice here
       .limit(limit)
       .exec((err, doc) => {
@@ -228,7 +261,9 @@ module.exports = {
   },
 
   getMaterialSlug: (req, res, next) => {
-    Material.find({ slug: req.params.slug })
+    Material.find({
+        slug: req.params.slug
+      })
       // .populate("author")
       .exec((err, material) => {
         if (material) return res.send(material);
@@ -238,10 +273,13 @@ module.exports = {
   },
 
   updateMaterial: (req, res, next) => {
-    Material.findOneAndUpdate(
-      { _id: req.params.id },
-      { $set: req.body },
-      { upsert: true },
+    Material.findOneAndUpdate({
+        _id: req.params.id
+      }, {
+        $set: req.body
+      }, {
+        upsert: true
+      },
       function (err, material) {
         if (err) return next(err);
 
@@ -251,7 +289,9 @@ module.exports = {
   },
 
   deleteMaterial: (req, res, next) => {
-    Material.findOneAndDelete({ _id: req.params.id }, function (err) {
+    Material.findOneAndDelete({
+      _id: req.params.id
+    }, function (err) {
       if (err) {
         console.log("there was an error deleteing the material", err);
         return res.err;
@@ -262,30 +302,111 @@ module.exports = {
   },
 
   getDistinct: (req, res, next) => {
-    Material.distinct(req.params.field, function (err, values) {
-      // ids is an array of all ObjectIds
-      if (err) throw err;
 
-      let distinct = [];
+    const IsInObject = (value, resultArray) => {
+      for (let i = 0; i < resultArray.length; i++) {
+        if (resultArray[i]["value"] === value) {
+          return true;
+        }
+      }
+      return false;
+    };
 
-      values.forEach((x) => {
-        distinct.includes(x.label) ? null : distinct.push(x.label);
+    const field = req.query.field + ".label"
+    const value1 = req.query.field + ".value"
+
+    Material.find({
+        [req.query.field]: {
+          $ne: null,
+          $ne: [],
+          $ne: {}
+        }
+      })
+      .select({
+        [field]: 1,
+        [value1]: 1,
+        _id: 0
+      })
+      .exec((err, materials) => {
+        if (materials) {
+          //console.log('materials', materials)
+          let distinct = [];
+          materials.forEach((x) => {
+            if (x[req.query.field]) {
+              x[req.query.field].forEach((y) => {
+                //console.log('y',!IsInObject(y.value, distinct))
+                if (!IsInObject(y.value, distinct)) {
+                  distinct.push({
+                    label: y.label,
+                    value: y.value
+                  });
+                }
+
+
+
+
+                
+              })
+            }
+          });
+          console.log('distinct', distinct)
+
+          //console.log('distinct', distinct)
+        } else if (err) return res.send(err);
+        else return res.send(404);
       });
 
-      res.json({ values: distinct });
+
+
+    // ids is an array of all ObjectIds
+    if (err) throw err;
+
+
+
+
+
+
+
+
+    const unique = [...new Set(values.map(item => {
+      let rObj = {}
+      rObj[item.label] = item.value
+      return rObj
+    }))]; // [ 'A', 'B']
+    //console.log("unique", unique)
+
+    values.forEach((x) => {
+      distinct.includes({
+        label: x.label
+      }) ? null : distinct.push({
+        label: x.label,
+        value: x.value
+      });
     });
+
+    res.json({
+      values: distinct
+    });
+
   },
 
   getSearchResults: (req, res, next) => {
     const regex = new RegExp(escapeRegex(req.body.search), "gi");
     console.log("material.ctrl.js-getSearchResults regex", regex);
-    Material.find({ $text: { $search: regex }, shared: true }, function (
+    Material.find({
+      $text: {
+        $search: regex
+      },
+      shared: true
+    }, function (
       err,
       materials
     ) {
       if (materials) return res.send(materials);
       if (err) console.log("there was a search error", err);
-      res.json({ message: "No results" });
+      res.json({
+        message: "No results"
+      });
     });
   },
 
@@ -309,11 +430,21 @@ module.exports = {
         },
         //   search: new RegExp(escapeRegex(search), "gi"),
       }),
-      ...(level.length > 0 && { "level.value": `${level}` }),
-      ...(curriculum.length > 0 && { "curriculum.value": `${curriculum}` }),
-      ...(activityUse.length > 0 && { "activityUse.value": `${activityUse}` }),
-      ...(category.length > 0 && { "category.value": `${category}` }),
-      ...(pupilTask.length > 0 && { "pupilTask.value": `${pupilTask}` }),
+      ...(level.length > 0 && {
+        "level.value": `${level}`
+      }),
+      ...(curriculum.length > 0 && {
+        "curriculum.value": `${curriculum}`
+      }),
+      ...(activityUse.length > 0 && {
+        "activityUse.value": `${activityUse}`
+      }),
+      ...(category.length > 0 && {
+        "category.value": `${category}`
+      }),
+      ...(pupilTask.length > 0 && {
+        "pupilTask.value": `${pupilTask}`
+      }),
       ...(languageFocus.length > 0 && {
         "languageFocus.value": `${languageFocus}`,
       }),
@@ -347,8 +478,13 @@ module.exports = {
 
   getTitles: async (req, res, next) => {
     await Material.find()
-      .select({ title: 1, _id: 0 })
-      .sort({ dateModified: -1 })
+      .select({
+        title: 1,
+        _id: 0
+      })
+      .sort({
+        dateModified: -1
+      })
       .exec((err, titles) => {
         if (titles) return res.send(titles);
         else if (err) return res.send(err);

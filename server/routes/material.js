@@ -33,16 +33,29 @@ module.exports = (router) => {
     .route("/materialsPaginated")
     .get(materialcontroller.materialsPaginated);
 
+    
   /**
-   * get paginated materials
+   * get paginated IB materials
    */
   router
   .route("/materialsPaginatedIB")
   .get(materialcontroller.materialsPaginatedIB);
+
+
+  /**
+  * get Autocomplete materials
+  */
+  router
+  .route("/materialsAutocomplete")
+  .get(materialcontroller.getDistinct);
+
+
   /**
    * get all materials
    */
   router.route("/materials").get(materialcontroller.getMaterials);
+
+
   /**
    * get a particlular material to view from slug
    */
