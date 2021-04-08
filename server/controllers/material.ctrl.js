@@ -143,17 +143,6 @@ module.exports = {
       });
   },
 
-  //get destinct values for passed column
-  getAutoComplete: async (req, res, next) => {
-    const column = req.query.column;
-    Material.distinct([column])
-      .exec((err, materials) => {
-        if (materials) return res.send(materials);
-        else if (err) return res.send(err);
-        else return res.send(404);
-      });
-  },
-
   getUserLikes: async (req, res, next) => {
     // console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
     var page = parseInt(req.query.page) || 0; //for next page pass 1 here
@@ -312,8 +301,29 @@ module.exports = {
       return false;
     };
 
+    const compareValues = (key, order = "asc") => {
+      return function innerSort(a, b) {
+        if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) {
+          // property doesn't exist on either object
+          return 0;
+        }
+  
+        const varA = typeof a[key] === "string" ? a[key].toUpperCase() : a[key];
+        const varB = typeof b[key] === "string" ? b[key].toUpperCase() : b[key];
+  
+        let comparison = 0;
+        if (varA > varB) {
+          comparison = 1;
+        } else if (varA < varB) {
+          comparison = -1;
+        }
+        return order === "desc" ? comparison * -1 : comparison;
+      };
+    };
+
     const field = req.query.field + ".label"
     const value1 = req.query.field + ".value"
+    let distinct = [];
 
     Material.find({
         [req.query.field]: {
@@ -330,7 +340,6 @@ module.exports = {
       .exec((err, materials) => {
         if (materials) {
           //console.log('materials', materials)
-          let distinct = [];
           materials.forEach((x) => {
             if (x[req.query.field]) {
               x[req.query.field].forEach((y) => {
@@ -341,53 +350,16 @@ module.exports = {
                     value: y.value
                   });
                 }
-
-
-
-
-                
               })
             }
           });
-          console.log('distinct', distinct)
 
-          //console.log('distinct', distinct)
-        } else if (err) return res.send(err);
+          const result = distinct.sort(compareValues("label"));
+          return res.send(result);
+        }
+        else if (err) return res.send(err);
         else return res.send(404);
       });
-
-
-
-    // ids is an array of all ObjectIds
-    if (err) throw err;
-
-
-
-
-
-
-
-
-    const unique = [...new Set(values.map(item => {
-      let rObj = {}
-      rObj[item.label] = item.value
-      return rObj
-    }))]; // [ 'A', 'B']
-    //console.log("unique", unique)
-
-    values.forEach((x) => {
-      distinct.includes({
-        label: x.label
-      }) ? null : distinct.push({
-        label: x.label,
-        value: x.value
-      });
-    });
-
-    res.json({
-      values: distinct
-    });
-
   },
 
   getSearchResults: (req, res, next) => {
