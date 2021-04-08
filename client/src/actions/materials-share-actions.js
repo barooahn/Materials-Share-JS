@@ -177,6 +177,18 @@ export const getAllMaterials = async () => {
   return response.json();
 };
 
+export const getAutoComplete = async (field) => {
+  let response = await fetch(`/api/materialsAutocomplete?field=${field}`, {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+    },
+  });
+  return response.json();
+};
+
+
+
 export const getPaginatedMaterials = async (page, limit) => {
   let response = await fetch(
     `/api/materialsPaginated?page=${page}&limit=${limit}`,
