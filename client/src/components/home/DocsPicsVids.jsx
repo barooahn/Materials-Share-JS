@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     overflow: "hidden",
-    height: "100VH",
+    // height: "100VH",
     margin: 0,
     backgroundPosition: "top",
     backgroundSize: "cover",
