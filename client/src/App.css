@@ -46,8 +46,9 @@ body {
 }
 
 .MuiMenu-paper {
-  right: 16px;
+  right: 5px;
   left: auto !important;
+  top: 55px !important;
 }
 
 .MuiList-root {
