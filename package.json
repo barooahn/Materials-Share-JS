@@ -47,6 +47,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "react-google-recaptcha": "^2.1.0",
+    "react-meta-tags": "^1.0.1",
     "sharp": "^0.25.2"
   },
   "devDependencies": {
