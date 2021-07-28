@@ -149,6 +149,7 @@ export default function MaterialStepper() {
 	const [share, setShare] = React.useState(true);
 	const [type, setType] = React.useState("Create");
 	const [warnings, setWarnings] = React.useState([]);
+	const [saveAnywayFlag, setSaveAnywayFlag] = React.useState(false);
 
 	React.useEffect(() => {
 		if (id !== undefined) {
@@ -180,10 +181,10 @@ export default function MaterialStepper() {
 		}
 	}, [id]);
 
-  React.useEffect(() => {
-    if(warnings.length>0){
-      setShare(false)
-    }
+	React.useEffect(() => {
+		if (warnings.length > 0) {
+			setShare(false);
+		}
 	}, [warnings]);
 
 	const getDetailsAutoComplete = async () => {
@@ -294,25 +295,27 @@ export default function MaterialStepper() {
 	}
 
 	const checkSave = () => {
-		console.log('checkMaterialDetails', checkMaterialDetails())
-		console.log('checkFilesTitle', checkFilesTitle())
-		if (checkMaterialDetails() && !checkFilesTitle()) {
+		if ((checkMaterialDetails() && checkFilesTitle()) || saveAnywayFlag ) {
 			save();
-			return;
+		} else {
+			handleOpenModelWarnings();
 		}
-
-		handleOpenModelWarnings();
 	};
 
 	const checkFilesTitle = () => {
-		return (
-			(localFiles.length === 0 && files.length === 0) || title === ""
+		console.log(
+			"checkFilesTitle",
+			localFiles.length !== 0 || files.length !== 0 || title !== ""
 		);
+
+		return localFiles.length !== 0 || files.length !== 0 || title !== "";
 	};
 
 	const checkMaterialDetails = () => {
+		let warnings = 0;
 		if (objective === "") {
 			setWarnings((oldWarnings) => [...oldWarnings, "Objective"]);
+			warnings++;
 		}
 
 		if (timePrep === 0) {
@@ -320,29 +323,38 @@ export default function MaterialStepper() {
 				...oldWarnings,
 				"Time needed for preperation",
 			]);
+			warnings++;
 		}
 		if (timeInClass === 0) {
 			setWarnings((oldWarnings) => [
 				...oldWarnings,
 				"Time needed in class",
 			]);
+			warnings++;
 		}
 
 		if (levelValue.length === 0) {
 			setWarnings((oldWarnings) => [...oldWarnings, "Level"]);
+			warnings++;
 		}
 
-		return warnings.length === 0;
+		console.log("warnings ++;", warnings === 0);
+		return warnings === 0;
 	};
 
-  const addDetails = () => {
-    handleCloseModelWarnings();
-    setWarnings([]);
-    setActiveStep(1);
-  }
+	const addDetails = () => {
+		handleCloseModelWarnings();
+		setWarnings([]);
+		setActiveStep(1);
+	};
+
+	const saveAnyway = () => {
+		setSaveAnywayFlag(true);
+		save();
+	};
 
 	const save = () => {
-    console.log('share save', share);
+		console.log("share save", share);
 		SaveData(
 			{
 				type,
@@ -540,7 +552,7 @@ export default function MaterialStepper() {
 									</Button>
 								) : null}
 								<Button
-									disabled={checkFilesTitle()}
+									disabled={!checkFilesTitle()}
 									variant='contained'
 									color='secondary'
 									onClick={checkSave}
@@ -580,7 +592,7 @@ export default function MaterialStepper() {
 						</div>
 						<Button
 							color='secondary'
-							onClick={save}
+							onClick={saveAnyway}
 							variant='contained'
 							className={classes.button}>
 							Save Anyway
