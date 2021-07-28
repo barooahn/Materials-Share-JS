@@ -1,6 +1,6 @@
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createTheme } from "@material-ui/core/styles";
 import red from "@material-ui/core/colors/red";
-const theme = createMuiTheme({
+const theme = createTheme({
   typography: {
     // Use the system font instead of the default Roboto font.
     fontFamily: [
@@ -25,7 +25,7 @@ const theme = createMuiTheme({
   },
   palette: {
     primary: {
-      main: "#86BBD8",
+      main: "#4076d8",
     },
     secondary: {
       main: red[500],
