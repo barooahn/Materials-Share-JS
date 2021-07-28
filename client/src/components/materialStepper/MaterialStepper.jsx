@@ -578,7 +578,7 @@ export default function MaterialStepper() {
 						</div>
 						<Button
 							color='secondary'
-							onClick={checkSave}
+							onClick={save}
 							variant='contained'
 							className={classes.button}>
 							Save Anyway
