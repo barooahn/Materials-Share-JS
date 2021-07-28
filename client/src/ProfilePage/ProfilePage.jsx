@@ -11,8 +11,9 @@ import MyMaterials from "./ProfileMyMaterials";
 import MyLikes from "./ProfileLikedMaterials";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  profilePage: {
     marginBottom: "70px",
+    padding: 10
   },
   orange: {
     color: theme.palette.getContrastText(deepOrange[500]),
@@ -32,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     margin: 10,
   },
+  button: {
+    marginRight: 10,
+  }
 }));
 
 export default () => {
@@ -56,7 +60,7 @@ export default () => {
 
   return (
     <React.Fragment>
-      <div className={classes.root}>
+      <div className={classes.profilePage}>
         <Typography gutterBottom variant="h4" component="h1">
           {localStorage.getItem("USER_NAME")}'s Profile
         </Typography>
