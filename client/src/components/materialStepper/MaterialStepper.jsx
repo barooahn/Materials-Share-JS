@@ -294,7 +294,9 @@ export default function MaterialStepper() {
 	}
 
 	const checkSave = () => {
-		if (checkMaterialDetails() && checkFilesTitle()) {
+		console.log('checkMaterialDetails', checkMaterialDetails())
+		console.log('checkFilesTitle', checkFilesTitle())
+		if (checkMaterialDetails() && !checkFilesTitle()) {
 			save();
 			return;
 		}
