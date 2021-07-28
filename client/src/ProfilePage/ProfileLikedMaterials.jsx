@@ -9,9 +9,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import debounce from "lodash.debounce";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: "70px",
-  },
   small: {
     width: theme.spacing(3),
     height: theme.spacing(3),
@@ -26,6 +23,11 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     margin: 10,
   },
+  likedMaterialsHeader: {
+    paddingTop:10,
+    paddingBottom: 10
+
+  }
 }));
 
 export default (props) => {
@@ -53,11 +55,6 @@ export default (props) => {
     let offsetH =
       document.body.offsetHeight || document.documentElement.offsetHeight;
 
-    // console.log(
-    //   "ProfileLikedMaterials userLikes.length , totalMaterials.length",
-    //   userLikes.length,
-    //   totalMaterials
-    // );
     if (height + top >= offsetH) {
       if (userLikes.length === totalMaterials.length) {
         setHasMore(false);
@@ -91,7 +88,7 @@ export default (props) => {
   }, [page]);
 
   return (
-    <div>
+    <div className={classes.likedMaterialsHeader}>
       {gettingSearchResults ? (
         <div className={classes.circularProgress}>
           <CircularProgress size={40} color="secondary" />

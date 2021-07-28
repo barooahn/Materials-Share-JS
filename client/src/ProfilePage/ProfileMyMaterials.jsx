@@ -9,9 +9,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import debounce from "lodash.debounce";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    marginBottom: "70px",
-  },
   small: {
     width: theme.spacing(3),
     height: theme.spacing(3),
@@ -26,6 +23,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     margin: 10,
   },
+  myMaterialsText:{
+    paddingTop:20,
+  },
+  myMaterialsHeader: {
+    paddingTop:10,
+    paddingBottom: 10
+
+  }
 }));
 
 export default (props) => {
@@ -91,7 +96,7 @@ export default (props) => {
   return (
     <React.Fragment>
       {userMaterials.length > 1 ? (
-        <div>
+        <div className={classes.myMaterialsHeader}>
           {gettingSearchResults ? (
             <div className={classes.circularProgress}>
               <CircularProgress size={40} color="secondary" />
@@ -108,9 +113,9 @@ export default (props) => {
           >
             {userMaterials.map((material, index) => (
               //div important to stop flashing bug
-              <div>
+              <div key={material.title + Date.now()}>
                 <MaterialCard
-                  key={material.title + Date.now()}
+                  
                   material={material}
                   setMaterials={setUserMaterials}
                   materials={userMaterials}
@@ -132,10 +137,7 @@ export default (props) => {
           )}
         </div>
       ) : (
-        <div>
-          <Typography gutterBottom variant="h4" component="h1">
-            {localStorage.getItem("USER_NAME")}'s Profile
-          </Typography>
+        <div className={classes.myMaterialsText}>
           <Typography gutterBottom variant="body1">
             Add or like resources to see them here
           </Typography>
