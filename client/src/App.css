@@ -19,25 +19,6 @@ body {
 .paperCenter {
   margin: 5px;
 }
-/* .react-pdf__Page__textContent {
-  max-width: 100% !important;
-}
-.react-pdf__Page__textContent > span {
-  display: none;
-} */
-
-/* #card {
-  align-self: auto;
-  margin-top: 10px;
-} */
-
-/* .App-link {
-  color: #61dafb;
-} */
-
-/* .mainImg {
-  width: 50%;
-} */
 
 .link {
   color: #2b333f;
@@ -64,10 +45,11 @@ body {
   padding: 0 !important;
 }
 
-/* .viewer {
-  max-height: 250px !important;
-  overflow: hidden;
-} */
+.MuiMenu-paper {
+  right: 5px;
+  left: auto !important;
+  top: 55px !important;
+}
 
 .MuiList-root {
   width: 100%;

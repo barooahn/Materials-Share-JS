@@ -10,7 +10,7 @@
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.4.0",
     "lodash.debounce": "^4.0.8",
-    "mammoth": "^1.4.9",
+    "mammoth": "^1.4.17",
     "material-ui-icons": "^1.0.0-beta.36",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
