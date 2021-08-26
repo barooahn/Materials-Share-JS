@@ -4,129 +4,137 @@ const multipart = require("connect-multiparty");
 const multipartWare = multipart();
 
 module.exports = (router) => {
-  /**
-   * get files
-   */
-  router.route("/material/file/").post(materialcontroller.getFiles);
-  // /**
-  //  * get file from path
-  //  */
-  // router
-  //   .route("/material/getFileFromPath/")
-  //   .post(materialcontroller.getFileFromPath);
+	/**
+	 * get files
+	 */
+	router.route("/material/file/").post(materialcontroller.getFiles);
+	// /**
+	//  * get file from path
+	//  */
+	// router
+	//   .route("/material/getFileFromPath/")
+	//   .post(materialcontroller.getFileFromPath);
 
-  /**
-   * upload file
-   */
-  router
-    .route("/material/file/upload")
-    .post(multipartWare, materialcontroller.fileUpload);
-  /**
-   * delete file
-   */
-  router.route("/material/file/delete").delete(materialcontroller.deleteFile);
+	/**
+	 * upload file
+	 */
+	router
+		.route("/material/file/upload")
+		.post(multipartWare, materialcontroller.fileUpload);
+	/**
+	 * delete file
+	 */
+	router
+		.route("/material/file/delete")
+		.delete(materialcontroller.deleteFile);
 
-  /**
-   * get paginated materials
-   */
-  router
-    .route("/materialsPaginated")
-    .get(materialcontroller.materialsPaginated);
+	/**
+	 * get paginated materials
+	 */
+	router
+		.route("/materialsPaginated")
+		.get(materialcontroller.materialsPaginated);
 
-    
-  /**
-   * get paginated IB materials
-   */
-  router
-  .route("/materialsPaginatedIB")
-  .get(materialcontroller.materialsPaginatedIB);
+	/**
+	 * get paginated IB materials
+	 */
+	router
+		.route("/materialsPaginatedIB")
+		.get(materialcontroller.materialsPaginatedIB);
 
+	/**
+	 * get Autocomplete materials
+	 */
+	router.route("/materialsAutocomplete").get(materialcontroller.getDistinct);
 
-  /**
-  * get Autocomplete materials
-  */
-  router
-  .route("/materialsAutocomplete")
-  .get(materialcontroller.getDistinct);
+	/**
+	 * get all materials
+	 */
+	router.route("/materials").get(materialcontroller.getMaterials);
 
+	/**
+	 * get a particlular material to view from slug
+	 */
+	router.route("/material/:slug").get(materialcontroller.getMaterialSlug);
 
-  /**
-   * get all materials
-   */
-  router.route("/materials").get(materialcontroller.getMaterials);
+	/**
+	 * Get signed url
+	 */
+	router
+		.route("/doesFileExist")
+		.get(materialcontroller.getSignedUrlIfExists);
+	/**
+	 * get a particlular material to viewfrom id
+	 */
+	router.route("/materialId/:id").get(materialcontroller.getMaterialId);
+	// /**
+	//  * get a particlular material to view
+	//  */
+	// router.route("/material/:id").get(materialcontroller.getMaterial);
+	/**
+	 * add a material
+	 */
+	router
+		.route("/material")
+		.post(multipartWare, materialcontroller.addMaterial);
+	/**
+	 * get search results
+	 */
+	router.route("/searchResults").post(materialcontroller.getSearchResults);
+	/**
+	 * get filter results
+	 */
+	router.route("/filterResults").post(materialcontroller.getFilterResults);
+	/**
+	 * get all titles
+	 */
+	router.route("/titles").get(materialcontroller.getTitles);
+	/**
+	 * get paginated materials
+	 */
+	router
+		.route("/getUserMaterialsPaginated")
+		.get(materialcontroller.getUserMaterials);
 
+	/**
+	 * delete a material
+	 */
+	router
+		.route("/material/delete/:id")
+		.delete(materialcontroller.deleteMaterial);
 
-  /**
-   * get a particlular material to view from slug
-   */
-  router.route("/material/:slug").get(materialcontroller.getMaterialSlug);
+	/**
+	 * update a particlular material
+	 */
+	router
+		.route("/material/update/:id")
+		.put(materialcontroller.updateMaterial);
+	/**
+	 * get distinct values from a field
+	 */
+	router.route("/material/field/:field").get(materialcontroller.getDistinct);
 
-  /**
-   * Get signed url
-   */
-  router.route("/doesFileExist").get(materialcontroller.getSignedUrlIfExists);
-  /**
-   * get a particlular material to viewfrom id
-   */
-  router.route("/materialId/:id").get(materialcontroller.getMaterialId);
-  // /**
-  //  * get a particlular material to view
-  //  */
-  // router.route("/material/:id").get(materialcontroller.getMaterial);
-  /**
-   * add a material
-   */
-  router.route("/material").post(multipartWare, materialcontroller.addMaterial);
-  /**
-   * get search results
-   */
-  router.route("/searchResults").post(materialcontroller.getSearchResults);
-  /**
-   * get filter results
-   */
-  router.route("/filterResults").post(materialcontroller.getFilterResults);
-  /**
-   * get all titles
-   */
-  router.route("/titles").get(materialcontroller.getTitles);
-  /**
-   * get author
-   */
-  router
-    .route("/getUserMaterialsPaginated")
-    .get(materialcontroller.getUserMaterials);
+	/**
+	 * get author likes
+	 */
+	router
+		.route("/getlikedMaterialsPaginated")
+		.get(materialcontroller.getUserLikes);
+	/**
+	 * get materialsAwaitingApproval materials
+	 */
+	router
+		.route("/ ")
+		.get(materialcontroller.getMaterialsAwaitingApproval);
 
-  /**
-   * delete a material
-   */
-  router
-    .route("/material/delete/:id")
-    .delete(materialcontroller.deleteMaterial);
-
-  /**
-   * update a particlular material
-   */
-  router.route("/material/update/:id").put(materialcontroller.updateMaterial);
-  /**
-   * get distinct values from a field
-   */
-  router.route("/material/field/:field").get(materialcontroller.getDistinct);
-
-  /**
-   * get author likes
-   */
-  router
-    .route("/getlikedMaterialsPaginated")
-    .get(materialcontroller.getUserLikes);
-
-  /**
-   * get thumb from image
-   */
-  router
-    .route("/material/makeThumb")
-    .post(multipartWare, materialcontroller.makeThumb);
-  /**
-   * thumb upload
-   */
-  router.route("/material/thumbUpload").post(materialcontroller.thumbUpload);
+	/**
+	 * get thumb from image
+	 */
+	router
+		.route("/material/makeThumb")
+		.post(multipartWare, materialcontroller.makeThumb);
+	/**
+	 * thumb upload
+	 */
+	router.route("/material/thumbUpload").post(materialcontroller.thumbUpload);
 };

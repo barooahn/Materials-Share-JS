@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
@@ -227,6 +226,7 @@ export default () => {
 				<SocialShare
 					handleShareClose={handleShareClose}
 					shareOpen={shareOpen}
+					material={material}
 				/>
 				{author === material.author_id ? (
 					<React.Fragment>

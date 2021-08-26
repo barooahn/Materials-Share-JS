@@ -46,6 +46,7 @@ const GetFilledProps = (props) => {
       item !== "book" &&
       item !== "author_id" &&
       item !== "shared" &&
+      item !== "approved" &&
       item !== "filePaths" &&
       item !== "showContinue" &&
       item !== "selectedFiles" &&

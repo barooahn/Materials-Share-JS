@@ -35,6 +35,7 @@ const Users = lazy(() => import("./components/Users"));
 const SearchResults = lazy(() => import("./components/nav/SearchResults"));
 const ResetPassword = lazy(() => import("./LoginPage/ResetPassword"));
 const ForgotPassword = lazy(() => import("./LoginPage/ForgotPassword"));
+const Admin = lazy(() => import("./admin/AdminPage"));
 
 const jwtToken = localStorage.getItem("JWT_TOKEN");
 Axios.defaults.headers.common["Authorization"] = jwtToken;
@@ -104,6 +105,11 @@ const routePaths = () => {
             name="editMaterial"
             type="edit"
             component={MaterialStepper}
+          />
+          <PrivateRoute
+            path="/admin"
+            name="adminPage"
+            component={Admin}
           />
           <Route component={Notfound} />
         </Switch>
