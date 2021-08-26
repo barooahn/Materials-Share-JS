@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
 import Grid from "@material-ui/core/Grid";
+import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	documentsPicturesVideo: {
@@ -20,21 +21,36 @@ const useStyles = makeStyles((theme) => ({
 		minHeight: "100vh",
 	},
 
-	typography: {
+	mainText: {
+		border: "4px solid #313b61",
+		color: "#313b61",
+		borderRadius: "10px",
 		padding: "1rem",
+		margin: "10px 0",
 		[theme.breakpoints.up("sm")]: {
-			padding: 20,
+			padding: 40,
 			textAlign: "left",
-			margin: "0 20px",
-			fontSize: "1.3rem",
+			margin: "45px 0 90px 0",
+			fontSize: "1.7rem",
 		},
 	},
 	proTip: {
-		fontSize: "2rem",
-		paddingLeft: "1rem",
+		fontSize: "18px",
+		marginLeft: "20px",
+		marginBottom: "-10px",
+		fontWeight: 700,
+		textTransform: "capitalize",
 		[theme.breakpoints.up("sm")]: { marginLeft: 20 },
 	},
 
+	tipText: {
+		[theme.breakpoints.up("sm")]: {
+			padding: "0 20px",
+			textAlign: "left",
+			margin: "20px 0 35px 0",
+			fontSize: "1rem",
+		},
+	},
 	title: {
 		padding: "1rem",
 		backgroundColor: "black",
@@ -61,7 +77,7 @@ export default function DocsPicsVids() {
 			<Grid container spacing={1} justify='center' alignItems='center'>
 				<Grid item sm={8} xs={12}>
 					<Typography
-						className={classes.typography}
+						className={classes.mainText}
 						variant='body1'>
 						Upload Word documents, PDF files, vidoes, images
 						or any combination of the above to create the
@@ -77,10 +93,10 @@ export default function DocsPicsVids() {
 						variant='h2'
 						component='h3'
 						color='secondary'>
-						Pro Tip
+						PRO TIP
 					</Typography>
 					<Typography
-						className={classes.typography}
+						className={classes.tipText}
 						variant='body1'>
 						Why not complete all the fields when uploading a
 						resource and make your own resource book? Just
