@@ -9,9 +9,9 @@ const useStyles = makeStyles((theme) => ({
 	documentsPicturesVideo: {
 		margin: "20px 0",
 		[theme.breakpoints.up("sm")]: {
-			textAlign: "left",
-			margin: "20px -24px",
+			margin: "0 -24px",
 		},
+		backgroundColor: "#546f8b",
 	},
 	img: {
 		backgroundSize: "cover",
@@ -22,38 +22,48 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	mainText: {
-		border: "4px solid #313b61",
-		color: "#313b61",
-		borderRadius: "10px",
+		// border: "4px solid #313b61",
+		backgroundColor: "#546f8b",
+		color: "white",
+
 		padding: "1rem",
 		margin: "10px 0",
 		[theme.breakpoints.up("sm")]: {
-			padding: 40,
+			// padding: 40,
 			textAlign: "left",
-			margin: "45px 0 90px 0",
-			fontSize: "1.7rem",
+			// margin: "45px 0 90px 0",
+			fontSize: "1.9rem",
 		},
 	},
+	proTipContainer: {
+		width: "50%",
+		padding: "20px",
+		position: "relative",
+		// right: "0%",
+		// bottom: 0,
+		// margin: 0,
+		marginLeft: "auto",
+		marginRight: 0,
+		backgroundColor: "white",
+		borderRadius: "5px 0 0 0",
+	},
 	proTip: {
-		fontSize: "18px",
-		marginLeft: "20px",
-		marginBottom: "-10px",
+		fontSize: "1.2rem",
 		fontWeight: 700,
 		textTransform: "capitalize",
-		[theme.breakpoints.up("sm")]: { marginLeft: 20 },
+
+		[theme.breakpoints.up("sm")]: {},
 	},
 
 	tipText: {
 		[theme.breakpoints.up("sm")]: {
-			padding: "0 20px",
-			textAlign: "left",
-			margin: "20px 0 35px 0",
 			fontSize: "1rem",
 		},
 	},
 	title: {
 		padding: "1rem",
-		backgroundColor: "black",
+		marginBottom: "50px",
+		background: "rgb(0,0,0)",
 		color: "#fff",
 	},
 }));
@@ -75,7 +85,7 @@ export default function DocsPicsVids() {
 
 			<br />
 			<Grid container spacing={1} justify='center' alignItems='center'>
-				<Grid item sm={8} xs={12}>
+				<Grid item sm={9} xs={12}>
 					<Typography
 						className={classes.mainText}
 						variant='body1'>
@@ -88,22 +98,25 @@ export default function DocsPicsVids() {
 						additional details to help your material be easily
 						found when you need it, using search and filter.
 					</Typography>
-					<Typography
-						className={classes.proTip}
-						variant='h2'
-						component='h3'
-						color='secondary'>
-						PRO TIP
-					</Typography>
-					<Typography
-						className={classes.tipText}
-						variant='body1'>
-						Why not complete all the fields when uploading a
-						resource and make your own resource book? Just
-						print and send to the publishers. Useful
-						day-to-day, attractive to employers, and evidence
-						of professional development.
-					</Typography>
+					<div className={classes.proTipContainer}>
+						<Typography
+							className={classes.proTip}
+							variant='h2'
+							component='h3'
+							color='secondary'>
+							PRO TIP
+						</Typography>
+						<Typography
+							className={classes.tipText}
+							variant='body1'>
+							Why not complete all the fields when
+							uploading a resource and make your own
+							resource book? Just print and send to the
+							publishers. Useful day-to-day, attractive to
+							employers, and evidence of professional
+							development.
+						</Typography>
+					</div>
 				</Grid>
 			</Grid>
 		</div>
