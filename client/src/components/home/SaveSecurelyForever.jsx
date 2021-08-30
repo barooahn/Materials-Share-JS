@@ -7,37 +7,59 @@ const useStyles = makeStyles((theme) => ({
 	saveSecurelyForever: {
 		margin: "20px 0",
 		[theme.breakpoints.up("sm")]: {
-			textAlign: "left",
-			margin: "20px -24px",
+			margin: "0 -24px",
 		},
+		backgroundColor: "white",
 	},
 	img: {
 		backgroundSize: "cover",
 		background:
-			"url(./img/saveSecurelyForeverImg.webp)  no-repeat center center",
+			"url(./img/DocsPicsVidsImg-80.webp)  no-repeat center center",
 		backgroundAttachment: "fixed",
-		minHeight: "400px",
+		minHeight: "100vh",
 	},
 
-	typography: {
-		padding: "1rem",
+	mainText: {
+		backgroundColor: "#7a5195",
+		color: "white",
+		padding: "3rem 1rem",
+		margin: "10px auto",
 		[theme.breakpoints.up("sm")]: {
-			padding: 20,
+			padding: "3rem",
 			textAlign: "left",
-			margin: "0 20px",
-			fontSize: "1.3rem",
+			maxWidth: "66%",
+			fontSize: "1.4rem",
+		},
+	},
+	proTipContainer: {
+		padding: "20px",
+		margin: "10px auto",
+		borderRadius: "5px 0 0 0",
+		paddingBottom: "10px",
+		[theme.breakpoints.up("sm")]: {
+			width: "50%",
 		},
 	},
 	proTip: {
-		fontSize: "2rem",
-		paddingLeft: "1rem",
-		[theme.breakpoints.up("sm")]: { marginLeft: 20 },
+		fontSize: "1.2rem",
+		fontWeight: 700,
+		textTransform: "capitalize",
+		paddingBottom: "10px",
+
+		[theme.breakpoints.up("sm")]: {},
 	},
 
+	tipText: {
+		[theme.breakpoints.up("sm")]: {
+			fontSize: "1rem",
+		},
+	},
 	title: {
-		padding: "1rem",
-		backgroundColor: "black",
-		color: "#fff",
+		color: "black",
+		paddingTop: "30px",
+		[theme.breakpoints.up("sm")]: {
+			paddingTop: "25px",
+		},
 	},
 }));
 
@@ -57,36 +79,38 @@ export default function DocsPicsVids() {
 			</Typography>
 
 			<br />
-			<Grid container spacing={1} justify='center' alignItems='center'>
+			<Grid
+				container
+				spacing={1}
+				justifyContent='center'
+				alignItems='center'>
 				<Grid item sm={8} xs={12}>
 					<Typography
-						className={classes.typography}
+						className={classes.mainText}
 						variant='body1'>
-						Save your work to the cloud. No need to carry
-						around laptops, hard disk drives, USB sticks or
-						boxes of materials. Always carry your work with
-						you with cloud storage. Anywhere you can access
-						the internet, you can access your resources. On
-						your phone, your work computer, your laptop or
-						even on a projector.
+						Always carry your work with you with cloud
+						storage. Anywhere you can access the internet, you
+						can access your resources.
 					</Typography>
-
-					<Typography
-						className={classes.proTip}
-						variant='h2'
-						component='h3'
-						color='secondary'>
-						Pro Tip
-					</Typography>
-					<Typography
-						className={classes.typography}
-						variant='body1'>
-						Look out for the padlock on websites to make sure
-						your data is secure. Insecure websites can access
-						data you do not want to share. Material Share only
-						shares your teaching resources with your
-						permission and never shares your personal data.
-					</Typography>
+					<div className={classes.proTipContainer}>
+						<Typography
+							className={classes.proTip}
+							variant='h2'
+							component='h3'
+							color='secondary'>
+							PRO TIP
+						</Typography>
+						<Typography
+							className={classes.tipText}
+							variant='body2'>
+							Look out for the padlock on websites to make
+							sure your data is secure. Insecure websites
+							can access data you do not want to share.
+							Material Share only shares your teaching
+							resources with your permission and never
+							shares your personal data.
+						</Typography>
+					</div>
 				</Grid>
 			</Grid>
 		</div>

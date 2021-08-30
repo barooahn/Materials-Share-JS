@@ -9,40 +9,61 @@ const useStyles = makeStyles((theme) => ({
 	searchAndFilter: {
 		margin: "20px 0",
 		[theme.breakpoints.up("sm")]: {
-			textAlign: "left",
-			margin: "20px -24px",
+			margin: "0 -24px",
 		},
+		backgroundColor: "white",
 	},
 	img: {
 		backgroundSize: "cover",
 		background:
-			"url(./img/searchAndFilterImg.webp) no-repeat center center",
+			"url(./img/DocsPicsVidsImg-80.webp)  no-repeat center center",
 		backgroundAttachment: "fixed",
-		minHeight: "400px",
+		minHeight: "100vh",
 	},
 
-	typography: {
-		padding: "1rem",
+	mainText: {
+		backgroundColor: "#ef5675",
+		color: "white",
+		padding: "3rem 1rem",
+		margin: "10px auto",
 		[theme.breakpoints.up("sm")]: {
-			padding: 20,
+			padding: "3rem",
 			textAlign: "left",
-			margin: "0 20px",
-			fontSize: "1.3rem",
+			maxWidth: "66%",
+			fontSize: "1.4rem",
+		},
+	},
+	proTipContainer: {
+		padding: "20px",
+		margin: "10px auto",
+		borderRadius: "5px 0 0 0",
+		paddingBottom: "10px",
+		[theme.breakpoints.up("sm")]: {
+			width: "50%",
 		},
 	},
 	proTip: {
-		fontSize: "2rem",
-		paddingLeft: "1rem",
-		[theme.breakpoints.up("sm")]: { marginLeft: 20 },
+		fontSize: "1.2rem",
+		fontWeight: 700,
+		textTransform: "capitalize",
+		paddingBottom: "10px",
+
+		[theme.breakpoints.up("sm")]: {},
 	},
 
+	tipText: {
+		[theme.breakpoints.up("sm")]: {
+			fontSize: "1rem",
+		},
+	},
 	title: {
-		padding: "1rem",
-		backgroundColor: "black",
-		color: "#fff",
+		color: "black",
+		paddingTop: "30px",
+		[theme.breakpoints.up("sm")]: {
+			paddingTop: "25px",
+		},
 	},
 }));
-
 export default function DocsPicsVids() {
 	const classes = useStyles();
 
@@ -59,40 +80,43 @@ export default function DocsPicsVids() {
 			</Typography>
 
 			<br />
-			<Grid container spacing={1} justify='center' alignItems='center'>
+			<Grid
+				container
+				spacing={1}
+				justifyContent='center'
+				alignItems='center'>
 				<Grid item sm={8} xs={12}>
 					<Typography
-						className={classes.typography}
+						className={classes.mainText}
 						variant='body1'>
-						Use the power of search and filter. Material Share
-						could be called Material Search. We can accurately
-						find the resource you are looking for in a split
-						second. Search for a keyword in any part of the
-						material’s metadata (objective, title, materials
-						needed, procedure, language point and more).
+						Material Share can accurately find the resource
+						you are looking for in a split second. Just search
+						for a keyword.
 						<br />
 						<br />
-						Then refine even further with filters. How long do
-						you have before class to prepare? What level are
-						you teaching? Only show resources that match your
-						criteria.
+						Refine your search with filters. Time, Level,
+						Language focus etc. Only show resources that match
+						your criteria.
 					</Typography>
-					<Typography
-						className={classes.proTip}
-						variant='h2'
-						component='h3'
-						color='secondary'>
-						Pro Tip
-					</Typography>
-					<Typography
-						className={classes.typography}
-						variant='body1'>
-						Combine search and filter to zoom in on materials
-						that suit your precise needs. If you can’t find
-						what you are looking for, why not create a new
-						resource? Teachers can share their appreciation by
-						giving you a like as they hit the heart button.
-					</Typography>
+					<div className={classes.proTipContainer}>
+						<Typography
+							className={classes.proTip}
+							variant='h2'
+							component='h3'
+							color='secondary'>
+							PRO TIP
+						</Typography>
+						<Typography
+							className={classes.tipText}
+							variant='body2'>
+							Combine search and filter to zoom in on
+							materials that suit your precise needs. If
+							you can’t find what you are looking for, why
+							not create a new resource? Teachers can share
+							their appreciation by giving you a like as
+							they hit the heart button.
+						</Typography>
+					</div>
 				</Grid>
 			</Grid>
 		</div>

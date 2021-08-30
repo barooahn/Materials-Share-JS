@@ -3,14 +3,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
 import Grid from "@material-ui/core/Grid";
+import { red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
 	documentsPicturesVideo: {
 		margin: "20px 0",
 		[theme.breakpoints.up("sm")]: {
-			textAlign: "left",
-			margin: "20px -24px",
+			margin: "0 -24px",
 		},
+		backgroundColor: "white",
 	},
 	img: {
 		backgroundSize: "cover",
@@ -20,25 +21,47 @@ const useStyles = makeStyles((theme) => ({
 		minHeight: "100vh",
 	},
 
-	typography: {
-		padding: "1rem",
+	mainText: {
+		backgroundColor: "#003f5c",
+		color: "white",
+		padding: "3rem 1rem",
+		margin: "10px auto",
 		[theme.breakpoints.up("sm")]: {
-			padding: 20,
+			padding: "3rem",
 			textAlign: "left",
-			margin: "0 20px",
-			fontSize: "1.3rem",
+			maxWidth: "66%",
+			fontSize: "1.4rem",
+		},
+	},
+	proTipContainer: {
+		padding: "20px",
+		margin: "10px auto",
+		borderRadius: "5px 0 0 0",
+		paddingBottom: "10px",
+		[theme.breakpoints.up("sm")]: {
+			width: "50%",
 		},
 	},
 	proTip: {
-		fontSize: "2rem",
-		paddingLeft: "1rem",
-		[theme.breakpoints.up("sm")]: { marginLeft: 20 },
+		fontSize: "1.2rem",
+		fontWeight: 700,
+		textTransform: "capitalize",
+		paddingBottom: "10px",
+
+		[theme.breakpoints.up("sm")]: {},
 	},
 
+	tipText: {
+		[theme.breakpoints.up("sm")]: {
+			fontSize: "1rem",
+		},
+	},
 	title: {
-		padding: "1rem",
-		backgroundColor: "black",
-		color: "#fff",
+		color: "black",
+		paddingTop: "30px",
+		[theme.breakpoints.up("sm")]: {
+			paddingTop: "25px",
+		},
 	},
 }));
 
@@ -58,36 +81,41 @@ export default function DocsPicsVids() {
 			</Typography>
 
 			<br />
-			<Grid container spacing={1} justify='center' alignItems='center'>
-				<Grid item sm={8} xs={12}>
+			<Grid
+				container
+				spacing={1}
+				justifyContent='center'
+				alignItems='center'>
+				<Grid item sm={9} xs={12}>
 					<Typography
-						className={classes.typography}
+						className={classes.mainText}
 						variant='body1'>
 						Upload Word documents, PDF files, vidoes, images
-						or any combination of the above to create the
-						perfect teaching resource.
+						to create the perfect teaching resource.
 						<br />
 						<br />
-						Describe how the material is used and give
-						additional details to help your material be easily
-						found when you need it, using search and filter.
+						Give additional details to help your material be
+						easily found using search and filter.
 					</Typography>
-					<Typography
-						className={classes.proTip}
-						variant='h2'
-						component='h3'
-						color='secondary'>
-						Pro Tip
-					</Typography>
-					<Typography
-						className={classes.typography}
-						variant='body1'>
-						Why not complete all the fields when uploading a
-						resource and make your own resource book? Just
-						print and send to the publishers. Useful
-						day-to-day, attractive to employers, and evidence
-						of professional development.
-					</Typography>
+					<div className={classes.proTipContainer}>
+						<Typography
+							className={classes.proTip}
+							variant='h2'
+							component='h3'
+							color='secondary'>
+							PRO TIP
+						</Typography>
+						<Typography
+							className={classes.tipText}
+							variant='body2'>
+							Why not complete all the fields when
+							uploading a resource and make your own
+							resource book? Just print and send to the
+							publishers. Useful day-to-day, attractive to
+							employers, and evidence of professional
+							development.
+						</Typography>
+					</div>
 				</Grid>
 			</Grid>
 		</div>
