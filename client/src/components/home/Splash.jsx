@@ -35,7 +35,14 @@ const useStyles = makeStyles((theme) => ({
 	title: {
 		padding: "1rem",
 		color: "black",
-		[theme.breakpoints.up("sm")]: {},
+	},
+	iconWrapper: {
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "center",
+		[theme.breakpoints.up("sm")]: {
+			justifyContent: "flex-start",
+		},
 	},
 	icon: {
 		fontSize: 40,
@@ -48,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	SVGicon: {
-		fontSize: 45,
+		fontSize: 40,
 		marginBottom: 20,
 		marginRight: 5,
 		[theme.breakpoints.up("sm")]: {
@@ -82,19 +89,22 @@ export default function AutoGridNoWrap() {
 					container
 					className={classes.box}
 					spacing={1}
-					justify='center'
+					justifyContent='center'
 					alignItems='center'>
 					<Grid item sm={7} xs={12}>
 						<NavLink to='/create' className='link'>
 							<Typography
 								className={classes.typography}
-								variant='h3'
 								component='h3'>
 								Documents, pictures and video
 							</Typography>
 						</NavLink>
 					</Grid>
-					<Grid item sm={5} xs={12}>
+					<Grid
+						item
+						sm={5}
+						xs={12}
+						className={classes.iconWrapper}>
 						<NavLink to='/create' className='link'>
 							<Icon
 								className={classes.icon}
@@ -117,13 +127,16 @@ export default function AutoGridNoWrap() {
 						<NavLink to='/create' className='link'>
 							<Typography
 								className={classes.typography}
-								variant='h3'
 								component='h3'>
 								Save securely, forever. Access anywhere
 							</Typography>
 						</NavLink>
 					</Grid>
-					<Grid item sm={5} xs={12}>
+					<Grid
+						item
+						sm={5}
+						xs={12}
+						className={classes.iconWrapper}>
 						<NavLink to='/create' className='link'>
 							<Icon
 								className={classes.icon}
@@ -140,12 +153,15 @@ export default function AutoGridNoWrap() {
 					<Grid item sm={7} xs={12}>
 						<Typography
 							className={classes.typography}
-							variant='h3'
 							component='h3'>
 							Share with other teachers
 						</Typography>
 					</Grid>
-					<Grid item sm={5} xs={12}>
+					<Grid
+						item
+						sm={5}
+						xs={12}
+						className={classes.iconWrapper}>
 						<SvgIcon
 							className={classes.SVGicon}
 							color='secondary'>
@@ -175,12 +191,15 @@ export default function AutoGridNoWrap() {
 					<Grid item sm={7} xs={12}>
 						<Typography
 							className={classes.typography}
-							variant='h3'
-							component='h5'>
+							component='h3'>
 							Save time with search and filter
 						</Typography>
 					</Grid>
-					<Grid item sm={5} xs={12}>
+					<Grid
+						item
+						sm={5}
+						xs={12}
+						className={classes.iconWrapper}>
 						<Icon className={classes.icon} color='secondary'>
 							search
 						</Icon>

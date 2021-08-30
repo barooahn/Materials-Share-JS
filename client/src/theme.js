@@ -35,10 +35,11 @@ const theme = createTheme({
 
 theme.typography.h1 = {
 	fontFamily: ["playfair display", "serif"].join(","),
-	// fontSize: "1.3rem",
-	fontWeight: 400,
+	fontSize: "1.4rem",
+	fontWeight: 600,
 	"@media (min-width:600px)": {
-		// fontSize: "2.5rem",
+		fontWeight: 400,
+		fontSize: "2.5rem",
 	},
 	[theme.breakpoints.up("md")]: {
 		fontSize: "2.5rem",

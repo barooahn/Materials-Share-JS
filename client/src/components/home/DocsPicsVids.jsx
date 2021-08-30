@@ -22,28 +22,31 @@ const useStyles = makeStyles((theme) => ({
 	},
 
 	mainText: {
-		// border: "4px solid #313b61",
-		backgroundColor: "#546f8b",
+		backgroundColor: "#003f5c",
 		color: "white",
-		padding: "1rem",
-		margin: "10px 0",
+		padding: "3rem 1rem",
+		margin: "10px auto",
 		[theme.breakpoints.up("sm")]: {
+			padding: "3rem",
 			textAlign: "left",
+			maxWidth: "66%",
+			fontSize: "1.4rem",
 		},
 	},
 	proTipContainer: {
-		width: "50%",
 		padding: "20px",
-		position: "relative",
-		marginLeft: "auto",
-		marginRight: 0,
-		backgroundColor: "white",
+		margin: "10px auto",
 		borderRadius: "5px 0 0 0",
+		paddingBottom: "10px",
+		[theme.breakpoints.up("sm")]: {
+			width: "50%",
+		},
 	},
 	proTip: {
 		fontSize: "1.2rem",
 		fontWeight: 700,
 		textTransform: "capitalize",
+		paddingBottom: "10px",
 
 		[theme.breakpoints.up("sm")]: {},
 	},
@@ -55,7 +58,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		color: "black",
-		paddingTop: "25px",
+		paddingTop: "30px",
+		[theme.breakpoints.up("sm")]: {
+			paddingTop: "25px",
+		},
 	},
 }));
 
@@ -75,19 +81,21 @@ export default function DocsPicsVids() {
 			</Typography>
 
 			<br />
-			<Grid container spacing={1} justify='center' alignItems='center'>
+			<Grid
+				container
+				spacing={1}
+				justifyContent='center'
+				alignItems='center'>
 				<Grid item sm={9} xs={12}>
 					<Typography
 						className={classes.mainText}
 						variant='body1'>
 						Upload Word documents, PDF files, vidoes, images
-						or any combination of the above to create the
-						perfect teaching resource.
+						to create the perfect teaching resource.
 						<br />
 						<br />
-						Describe how the material is used and give
-						additional details to help your material be easily
-						found when you need it, using search and filter.
+						Give additional details to help your material be
+						easily found using search and filter.
 					</Typography>
 					<div className={classes.proTipContainer}>
 						<Typography
