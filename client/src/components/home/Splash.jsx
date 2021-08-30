@@ -16,14 +16,8 @@ import {
 
 const useStyles = makeStyles((theme) => ({
 	splash: {
-		display: "flex",
-		flexDirection: "column",
-		overflow: "hidden",
-		textAlign: "center",
-		height: "100VH",
 		[theme.breakpoints.up("sm")]: {
 			margin: "-24px auto",
-			height: "calc(100VH - 64px)",
 			textAlign: "left",
 		},
 	},
@@ -36,19 +30,11 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	header: {
-		backgroundColor: "black",
 		width: "100%",
-		height: "130px",
-		position: "absolute",
-		top: "64px",
-		left: 0,
-		display: "flex",
-		justifyContent: "center",
-		alignItems: "center",
 	},
 	title: {
 		padding: "1rem",
-		color: "#fff",
+		color: "black",
 		[theme.breakpoints.up("sm")]: {},
 	},
 	icon: {
@@ -74,8 +60,6 @@ const useStyles = makeStyles((theme) => ({
 	box: {
 		verticalAlign: "middle",
 		padding: 10,
-		position: "absolute",
-		top: "258px",
 	},
 }));
 

@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
 		[theme.breakpoints.up("sm")]: {
 			margin: "0 -24px",
 		},
-		backgroundColor: "#546f8b",
+		backgroundColor: "white",
 	},
 	img: {
 		backgroundSize: "cover",
@@ -25,23 +25,16 @@ const useStyles = makeStyles((theme) => ({
 		// border: "4px solid #313b61",
 		backgroundColor: "#546f8b",
 		color: "white",
-
 		padding: "1rem",
 		margin: "10px 0",
 		[theme.breakpoints.up("sm")]: {
-			// padding: 40,
 			textAlign: "left",
-			// margin: "45px 0 90px 0",
-			fontSize: "1.9rem",
 		},
 	},
 	proTipContainer: {
 		width: "50%",
 		padding: "20px",
 		position: "relative",
-		// right: "0%",
-		// bottom: 0,
-		// margin: 0,
 		marginLeft: "auto",
 		marginRight: 0,
 		backgroundColor: "white",
@@ -61,10 +54,8 @@ const useStyles = makeStyles((theme) => ({
 		},
 	},
 	title: {
-		padding: "1rem",
-		marginBottom: "50px",
-		background: "rgb(0,0,0)",
-		color: "#fff",
+		color: "black",
+		paddingTop: "25px",
 	},
 }));
 
@@ -108,7 +99,7 @@ export default function DocsPicsVids() {
 						</Typography>
 						<Typography
 							className={classes.tipText}
-							variant='body1'>
+							variant='body2'>
 							Why not complete all the fields when
 							uploading a resource and make your own
 							resource book? Just print and send to the
