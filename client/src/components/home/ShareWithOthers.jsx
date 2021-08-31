@@ -1,119 +1,120 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
-import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
-import { Paper } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    overflow: "hidden",
-    // height: "100VH",
-    margin: 0,
-    backgroundPosition: "top",
-    backgroundSize: "cover",
-    backgroundImage: "url(./img/shareWithOthersImg.webp)",
-    backgroundRepeat: "no-repeat",
-    backgroundColor: "rgb(235,235,235)",
-    [theme.breakpoints.up("sm")]: {
-      textAlign: "left",
-      margin: "0 -24px",
-    },
-  },
-  docsPicsVidImg: {},
+	shareWithOthers: {
+		margin: "20px 0",
+		[theme.breakpoints.up("sm")]: {
+			margin: "0 -24px",
+		},
+		backgroundColor: "white",
+	},
+	img: {
+		backgroundSize: "cover",
+		background:
+			"url(./img/shareWithOthersImg.webp)  no-repeat center center",
+		backgroundAttachment: "fixed",
+		minHeight: "100vh",
+	},
 
-  typography: {
-    backgroundColor: "rgba(255, 255, 255, 0)",
-    padding: "0.5rem 0 1rem 0",
-    [theme.breakpoints.up("sm")]: {
-      padding: 20,
-      textAlign: "left",
-      margin: "0 20px",
-      fontSize: "1.3rem",
-    },
-  },
-  proTip: {
-    fontSize: "2rem",
-    [theme.breakpoints.up("sm")]: { marginLeft: 40 },
-  },
-  docsPicsVidText: {
-    margin: "7px",
-    padding: "10px",
-    backgroundColor: "rgba(255,255,255, 0.85)",
-    [theme.breakpoints.up("sm")]: {
-      marginTop: 0,
-      width: "100%",
-      height: "100%",
-    },
-  },
-  title: {
-    padding: "1rem",
-    backgroundColor: "rgba(0, 0, 0, 0.87)",
-    color: "#fff",
-    margin: "30px 0",
-    [theme.breakpoints.up("sm")]: {},
-    overflow: "hidden",
-  },
-  icon: {
-    fontSize: 40,
-    marginRight: 10,
-    marginBottom: 20,
-    [theme.breakpoints.up("sm")]: {
-      marginBottom: 30,
-      paddingTop: 5,
-      fontSize: 50,
-    },
-  },
+	mainText: {
+		backgroundColor: "#ffa600",
+		color: "white",
+		padding: "3rem 1rem",
+		margin: "10px auto",
+		[theme.breakpoints.up("sm")]: {
+			padding: "3rem",
+			textAlign: "left",
+			maxWidth: "66%",
+			fontSize: "1.4rem",
+		},
+	},
+	proTipContainer: {
+		padding: "20px",
+		margin: "10px auto",
+		borderRadius: "5px 0 0 0",
+		paddingBottom: "10px",
+		[theme.breakpoints.up("sm")]: {
+			width: "50%",
+		},
+	},
+	proTip: {
+		fontSize: "1.2rem",
+		fontWeight: 700,
+		textTransform: "capitalize",
+		paddingBottom: "10px",
+
+		[theme.breakpoints.up("sm")]: {},
+	},
+
+	tipText: {
+		[theme.breakpoints.up("sm")]: {
+			fontSize: "1rem",
+		},
+	},
+	title: {
+		color: "black",
+		paddingTop: "30px",
+		[theme.breakpoints.up("sm")]: {
+			paddingTop: "25px",
+		},
+	},
 }));
 
 export default function DocsPicsVids() {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  return (
-    <div className={classes.root}>
-      <div className={classes.slideContent}>
-        <Typography
-          className={classes.title}
-          align="center"
-          variant="h1"
-          component="h1"
-        >
-          Share With Other Teachers
-        </Typography>
+	return (
+		<div className={classes.shareWithOthers}>
+			<div className={classes.img}> </div>
 
-        <br />
-        <Grid container spacing={1} justify="center" alignItems="center">
-          <Grid item sm={8} xs={12}>
-            <Paper className={classes.docsPicsVidText}>
-              <Typography className={classes.typography} variant="body1">
-                Why not share your work with other teachers? Sharing makes
-                everyone's life easier. Imagine having not only your resources,
-                but every other teacher’s resources to hand, searchable in an
-                instant, 24/7.
-                <br />
-                <br />
-                Delight your students with resources they deserve.
-              </Typography>
+			<Typography
+				className={classes.title}
+				align='center'
+				variant='h1'
+				component='h1'>
+				Share With Other Teachers
+			</Typography>
 
-              <Typography
-                className={classes.proTip}
-                variant="h2"
-                component="h3"
-                color="secondary"
-              >
-                Pro Tip
-              </Typography>
-              <Typography className={classes.typography} variant="body1">
-                If you don't want to share your work with others, or it is not
-                complete yet, turn off sharing. Your document will be saved
-                under your profile. You can edit your resource or change the
-                sharing status at any time.
-              </Typography>
-            </Paper>
-          </Grid>
-        </Grid>
-      </div>
-    </div>
-  );
+			<br />
+			<Grid
+				container
+				spacing={1}
+				justifyContent='center'
+				alignItems='center'>
+				<Grid item sm={8} xs={12}>
+					<Typography
+						className={classes.mainText}
+						variant='body1'>
+						Share with other teachers. Imagine having every
+						other teacher’s resources to hand, searchable in
+						an instant, 24/7.
+						<br />
+						<br />
+						Delight your students with resources they deserve.
+					</Typography>
+					<div className={classes.proTipContainer}>
+						<Typography
+							className={classes.proTip}
+							variant='h2'
+							component='h3'
+							color='secondary'>
+							PRO TIP
+						</Typography>
+						<Typography
+							className={classes.tipText}
+							variant='body2'>
+							If you don't want to share your work with
+							others, or it is not complete yet, turn off
+							sharing. Your document will be saved under
+							your profile. You can edit your resource or
+							change the sharing status at any time.
+						</Typography>
+					</div>
+				</Grid>
+			</Grid>
+		</div>
+	);
 }
