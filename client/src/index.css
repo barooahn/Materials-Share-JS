@@ -9,3 +9,7 @@ body {
 .MuiListItem-gutters {
 	padding-left: 6px !important;
 }
+
+.MuiBottomNavigationAction-root {
+	min-width: 65px !important;
+}
