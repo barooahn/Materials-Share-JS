@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 	img: {
 		backgroundSize: "cover",
 		background:
-			"url(./img/saveSecurelyForeverImg.webp)  no-repeat center center",
+			"url(./img/saveSecurelyForeverImg.webp)  no-repeat 60% center",
 		backgroundAttachment: "fixed",
 		minHeight: "100vh",
 	},

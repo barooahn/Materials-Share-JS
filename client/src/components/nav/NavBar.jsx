@@ -34,6 +34,7 @@ import Icon from "@material-ui/core/Icon";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { deepOrange } from "@material-ui/core/colors";
 import Box from "@material-ui/core/Box";
+import IbLogo from "./icons/ibLogo";
 
 const drawerWidth = 240;
 
@@ -412,12 +413,13 @@ export default function MiniDrawer({ routePaths }) {
 									"/ibmyp" === location.pathname
 								}>
 								<ListItemIcon>
-									<img
+									{/* <img
 										src={"/img/ibLogo.png"}
 										alt='Materialsshare Logo'
 										className={classes.ibLogo}
 										onClick={handleHomeClick}
-									/>
+									/> */}
+									<IbLogo />
 								</ListItemIcon>
 								<ListItemText primary='IB-MPY' />
 							</ListItem>
