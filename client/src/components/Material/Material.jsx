@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
 import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
@@ -29,7 +28,7 @@ import PrintIcon from "@material-ui/icons/Print";
 import { useHistory } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
 import Box from "@material-ui/core/Box";
-import MetaTags from 'react-meta-tags';
+import MetaTags from "react-meta-tags";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -163,25 +162,51 @@ export default () => {
 				setLikes(resultData[0].likes);
 			});
 		}
-	}, [slug]);
+	}, [slug, likes, material]);
 
-
-  return (
-    <Paper className={classes.paperCenter} elevation={1}>
-      <Typography gutterBottom variant="h2" component="h2" align="center">
-        {material.title}
-      </Typography>
-      <MetaTags>
-            <title>{'Materials Share-'+ material.title}</title>
-            <meta name="description" content={'ELT TEFL teaching materials and resources ' + material.title}  />
-            <meta property="og:description" content={'ELT TEFL teaching materials and resources ' + material.title}  />
-            <meta property="og:title" content={'Materials Share - ' + material.title} />
-            <meta property="og:image" content={material.thumb} />
-            <meta property="og:url" content={window.location.href} />
-            <meta name="twitter:description" content={'ELT TEFL teaching materials and resources ' + material.title} />
-            <meta name="twitter:title" content={'Materials Share - ' + material.title} />
-          </MetaTags>
-
+	return (
+		<Paper className={classes.paperCenter} elevation={1}>
+			<Typography
+				gutterBottom
+				variant='h2'
+				component='h2'
+				align='center'>
+				{material.title}
+			</Typography>
+			<MetaTags>
+				<title>{"Materials Share-" + material.title}</title>
+				<meta
+					name='description'
+					content={
+						"ELT TEFL teaching materials and resources " +
+						material.title
+					}
+				/>
+				<meta
+					property='og:description'
+					content={
+						"ELT TEFL teaching materials and resources " +
+						material.title
+					}
+				/>
+				<meta
+					property='og:title'
+					content={"Materials Share - " + material.title}
+				/>
+				<meta property='og:image' content={material.thumb} />
+				<meta property='og:url' content={window.location.href} />
+				<meta
+					name='twitter:description'
+					content={
+						"ELT TEFL teaching materials and resources " +
+						material.title
+					}
+				/>
+				<meta
+					name='twitter:title'
+					content={"Materials Share - " + material.title}
+				/>
+			</MetaTags>
 
 			<Box display='block' displayPrint='none'>
 				<Tooltip
@@ -227,6 +252,7 @@ export default () => {
 				<SocialShare
 					handleShareClose={handleShareClose}
 					shareOpen={shareOpen}
+					material={material}
 				/>
 				{author === material.author_id ? (
 					<React.Fragment>

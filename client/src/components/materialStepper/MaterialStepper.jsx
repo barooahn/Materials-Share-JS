@@ -150,6 +150,7 @@ export default function MaterialStepper() {
 	const [type, setType] = React.useState("Create");
 	const [warnings, setWarnings] = React.useState([]);
 	const [saveAnywayFlag, setSaveAnywayFlag] = React.useState(false);
+	const [approved, setApproved] = React.useState(false);
 
 	React.useEffect(() => {
 		if (id !== undefined) {
@@ -176,6 +177,7 @@ export default function MaterialStepper() {
 				setTargetLanguage(resultData.targetLanguage);
 				setTimeInClass(resultData.timeInClass);
 				setTimePrep(resultData.timePrep);
+				setApproved(resultData.approved);
 				setType("Edit");
 			});
 		}
@@ -385,6 +387,7 @@ export default function MaterialStepper() {
 				id: id,
 				dateModified: Date.now(),
 				curriculum: curriculumValue,
+				approved:false
 			},
 			type,
 			setCompleted,

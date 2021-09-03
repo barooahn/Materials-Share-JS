@@ -59,6 +59,7 @@ let MaterialSchema = new mongoose.Schema({
   targetLanguage: { type: String, trim: true },
   materials: { type: String, trim: true },
   shared: Boolean,
+  approved: Boolean,
   dateCreated: Date,
   dateModified: Date,
   author_id: {
@@ -67,7 +68,6 @@ let MaterialSchema = new mongoose.Schema({
   author_img: {
     type: String,
   },
-
   comments: [
     {
       author_id: {
