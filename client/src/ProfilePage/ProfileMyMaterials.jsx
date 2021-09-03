@@ -9,140 +9,150 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import debounce from "lodash.debounce";
 
 const useStyles = makeStyles((theme) => ({
-  small: {
-    width: theme.spacing(3),
-    height: theme.spacing(3),
-  },
-  circularProgress: {
-    position: "absolute",
-    top: "50%",
-    left: "47%",
-    zIndex: 50,
-  },
-  info: {
-    textAlign: "center",
-    margin: 10,
-  },
-  myMaterialsText:{
-    paddingTop:20,
-  },
-  myMaterialsHeader: {
-    paddingTop:10,
-    paddingBottom: 10
-
-  }
+	small: {
+		width: theme.spacing(3),
+		height: theme.spacing(3),
+	},
+	circularProgress: {
+		position: "absolute",
+		top: "50%",
+		left: "47%",
+		zIndex: 50,
+	},
+	info: {
+		textAlign: "center",
+		margin: 10,
+	},
+	myMaterialsText: {
+		paddingTop: 20,
+	},
+	myMaterialsHeader: {
+		paddingTop: 10,
+		paddingBottom: 10,
+	},
 }));
 
 export default (props) => {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  const [gettingSearchResults, setGettingSearchResults] = React.useState(false);
-  const [hasMore, setHasMore] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const [page, setPage] = React.useState(0);
-  const [totalMaterials, setTotalMaterials] = React.useState(0);
-  const [userMaterials, setUserMaterials] = React.useState([]);
+	const [gettingSearchResults, setGettingSearchResults] =
+		React.useState(false);
+	const [hasMore, setHasMore] = React.useState(true);
+	const [error, setError] = React.useState(false);
+	const [page, setPage] = React.useState(0);
+	const [totalMaterials, setTotalMaterials] = React.useState(0);
+	const [userMaterials, setUserMaterials] = React.useState([]);
 
-  window.onscroll = debounce(() => {
-    if (error || gettingSearchResults || !hasMore) return;
+	window.onscroll = debounce(() => {
+		if (error || gettingSearchResults || !hasMore) return;
 
-    const height =
-      window.innerHeight ||
-      document.documentElement.clientHeight ||
-      document.body.clientHeight;
+		const height =
+			window.innerHeight ||
+			document.documentElement.clientHeight ||
+			document.body.clientHeight;
 
-    let top =
-      (document.documentElement && document.documentElement.scrollTop) ||
-      document.body.scrollTop;
+		let top =
+			(document.documentElement &&
+				document.documentElement.scrollTop) ||
+			document.body.scrollTop;
 
-    let offsetH =
-      document.body.offsetHeight || document.documentElement.offsetHeight;
-    if (height + top >= offsetH) {
-      if (userMaterials.length === totalMaterials.length) {
-        setHasMore(false);
-        return;
-      } else {
-        let nextpage = page + 1;
-        setPage(nextpage);
-        return;
-      }
-    }
-  }, 300);
+		let offsetH =
+			document.body.offsetHeight ||
+			document.documentElement.offsetHeight;
+		if (height + top >= offsetH) {
+			if (userMaterials.length === totalMaterials.length) {
+				setHasMore(false);
+				return;
+			} else {
+				let nextpage = page + 1;
+				setPage(nextpage);
+				return;
+			}
+		}
+	}, 300);
 
-  React.useEffect(() => {
-    async function fetchData() {
-      let resultData = await getPaginatedUserMaterials(
-        props.id,
-        page,
-        props.limit
-      );
-      // console.log("ProfileMyMaterials  resultData", resultData);
-      if (resultData.materials) {
-        setTotalMaterials(resultData.total);
-        resultData.materials.forEach((material) => {
-          material.files = Array.isArray(material.files)
-            ? [material.files[0]]
-            : [material.files];
-        });
-        setUserMaterials([...userMaterials, ...resultData.materials]);
-        setGettingSearchResults(false);
-      }
-    }
+	React.useEffect(() => {
+		async function fetchData() {
+			let resultData = await getPaginatedUserMaterials(
+				props.id,
+				page,
+				props.limit
+			);
+			// console.log("ProfileMyMaterials  resultData", resultData);
+			if (resultData.materials) {
+				setTotalMaterials(resultData.total);
+				resultData.materials.forEach((material) => {
+					material.files = Array.isArray(material.files)
+						? [material.files[0]]
+						: [material.files];
+				});
+				setUserMaterials([
+					...userMaterials,
+					...resultData.materials,
+				]);
+				setGettingSearchResults(false);
+			}
+		}
 
-    setGettingSearchResults(true);
-    fetchData();
-  }, [page]);
+		setGettingSearchResults(true);
+		fetchData();
+	}, [page, totalMaterials]);
 
-  return (
-    <React.Fragment>
-      {userMaterials.length > 1 ? (
-        <div className={classes.myMaterialsHeader}>
-          {gettingSearchResults ? (
-            <div className={classes.circularProgress}>
-              <CircularProgress size={40} color="secondary" />
-            </div>
-          ) : null}
-          <Typography gutterBottom variant="h5" component="h5">
-            Materials I Have Made
-          </Typography>
+	return (
+		<React.Fragment>
+			{userMaterials.length > 1 ? (
+				<div className={classes.myMaterialsHeader}>
+					{gettingSearchResults ? (
+						<div className={classes.circularProgress}>
+							<CircularProgress
+								size={40}
+								color='secondary'
+							/>
+						</div>
+					) : null}
+					<Typography gutterBottom variant='h5' component='h5'>
+						Materials I Have Made
+					</Typography>
 
-          <StackGrid
-            columnWidth={props.cardWidth}
-            gutterWidth={5}
-            gutterHeight={10}
-          >
-            {userMaterials.map((material, index) => (
-              //div important to stop flashing bug
-              <div key={material.title + Date.now()}>
-                <MaterialCard
-                  
-                  material={material}
-                  setMaterials={setUserMaterials}
-                  materials={userMaterials}
-                  index={index}
-                />
-              </div>
-            ))}
-          </StackGrid>
-          {error && (
-            <div className={classes.info} style={{ color: "#900" }}>
-              {error}
-            </div>
-          )}
-          {gettingSearchResults && (
-            <div className={classes.info}>Loading...</div>
-          )}
-          {!hasMore && (
-            <div className={classes.info}>You did it! You reached the end!</div>
-          )}
-        </div>
-      ) : (
-        <div className={classes.myMaterialsText}>
-          <Typography gutterBottom variant="body1">
-            Add or like resources to see them here
-          </Typography>
-        </div>
-      )}
-    </React.Fragment>
-  );
+					<StackGrid
+						columnWidth={props.cardWidth}
+						gutterWidth={5}
+						gutterHeight={10}>
+						{userMaterials.map((material, index) => (
+							//div important to stop flashing bug
+							<div key={material.title + Date.now()}>
+								<MaterialCard
+									material={material}
+									setMaterials={setUserMaterials}
+									materials={userMaterials}
+									index={index}
+								/>
+							</div>
+						))}
+					</StackGrid>
+					{error && (
+						<div
+							className={classes.info}
+							style={{ color: "#900" }}>
+							{error}
+						</div>
+					)}
+					{gettingSearchResults && (
+						<div className={classes.info}>Loading...</div>
+					)}
+					{!hasMore && (
+						<div className={classes.info}>
+							You did it! You reached the end!
+						</div>
+					)}
+				</div>
+			) : (
+				<div className={classes.myMaterialsText}>
+					<Typography gutterBottom variant='body1'>
+						Add or like resources to see them here
+					</Typography>
+				</div>
+			)}
+		</React.Fragment>
+	);
 };
