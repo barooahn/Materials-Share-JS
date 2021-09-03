@@ -28,7 +28,7 @@ import PrintIcon from "@material-ui/icons/Print";
 import { useHistory } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
 import Box from "@material-ui/core/Box";
-import MetaTags from 'react-meta-tags';
+import MetaTags from "react-meta-tags";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -162,25 +162,51 @@ export default () => {
 				setLikes(resultData[0].likes);
 			});
 		}
-	}, [slug]);
+	}, [slug, likes, material]);
 
-
-  return (
-    <Paper className={classes.paperCenter} elevation={1}>
-      <Typography gutterBottom variant="h2" component="h2" align="center">
-        {material.title}
-      </Typography>
-      <MetaTags>
-            <title>{'Materials Share-'+ material.title}</title>
-            <meta name="description" content={'ELT TEFL teaching materials and resources ' + material.title}  />
-            <meta property="og:description" content={'ELT TEFL teaching materials and resources ' + material.title}  />
-            <meta property="og:title" content={'Materials Share - ' + material.title} />
-            <meta property="og:image" content={material.thumb} />
-            <meta property="og:url" content={window.location.href} />
-            <meta name="twitter:description" content={'ELT TEFL teaching materials and resources ' + material.title} />
-            <meta name="twitter:title" content={'Materials Share - ' + material.title} />
-          </MetaTags>
-
+	return (
+		<Paper className={classes.paperCenter} elevation={1}>
+			<Typography
+				gutterBottom
+				variant='h2'
+				component='h2'
+				align='center'>
+				{material.title}
+			</Typography>
+			<MetaTags>
+				<title>{"Materials Share-" + material.title}</title>
+				<meta
+					name='description'
+					content={
+						"ELT TEFL teaching materials and resources " +
+						material.title
+					}
+				/>
+				<meta
+					property='og:description'
+					content={
+						"ELT TEFL teaching materials and resources " +
+						material.title
+					}
+				/>
+				<meta
+					property='og:title'
+					content={"Materials Share - " + material.title}
+				/>
+				<meta property='og:image' content={material.thumb} />
+				<meta property='og:url' content={window.location.href} />
+				<meta
+					name='twitter:description'
+					content={
+						"ELT TEFL teaching materials and resources " +
+						material.title
+					}
+				/>
+				<meta
+					name='twitter:title'
+					content={"Materials Share - " + material.title}
+				/>
+			</MetaTags>
 
 			<Box display='block' displayPrint='none'>
 				<Tooltip
