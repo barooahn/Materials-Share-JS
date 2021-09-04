@@ -58,7 +58,7 @@ export default (props) => {
 			document.documentElement.offsetHeight;
 
 		if (height + top >= offsetH) {
-			if (userLikes.length === totalMaterials.length) {
+			if (userLikes.length === totalMaterials) {
 				setHasMore(false);
 				return;
 			} else {
@@ -77,16 +77,13 @@ export default (props) => {
 			);
 			if (resultData.materials) {
 				setTotalMaterials(resultData.total);
-				// console.log("ProfilePage: retults data", resultData.materials.length);
-				if (resultData.materials) {
-					resultData.materials.forEach((material) => {
-						material.files = Array.isArray(material.files)
-							? [material.files[0]]
-							: [material.files];
-					});
-					setUserLikes([...userLikes, ...resultData.materials]);
-					setGettingSearchResults(false);
-				}
+				await resultData.materials.map((material) => {
+					material.files = Array.isArray(material.files)
+						? [material.files[0]]
+						: [material.files];
+				});
+				setUserLikes([...userLikes, ...resultData.materials]);
+				setGettingSearchResults(false);
 			}
 		}
 		setGettingSearchResults(true);
@@ -109,7 +106,7 @@ export default (props) => {
 				gutterWidth={5}
 				gutterHeight={10}>
 				{userLikes.map((material, index) => (
-					//div important to stop flashing bug
+					////////////// do not remove div - important to stop flashing bug
 					<div>
 						<MaterialCard
 							material={material}
@@ -119,6 +116,7 @@ export default (props) => {
 							key={material.title + Date.now()}
 						/>
 					</div>
+					////////////// do not remove div - important to stop flashing bug
 				))}
 			</StackGrid>
 			{gettingSearchResults && (
