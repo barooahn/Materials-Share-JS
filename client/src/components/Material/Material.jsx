@@ -162,7 +162,7 @@ export default () => {
 				setLikes(resultData[0].likes);
 			});
 		}
-	}, [slug, likes, material]);
+	}, [slug]);
 
 	return (
 		<Paper className={classes.paperCenter} elevation={1}>

@@ -60,7 +60,7 @@ export default (props) => {
 			document.body.offsetHeight ||
 			document.documentElement.offsetHeight;
 		if (height + top >= offsetH) {
-			if (userMaterials.length === totalMaterials.length) {
+			if (userMaterials.length === totalMaterials) {
 				setHasMore(false);
 				return;
 			} else {
@@ -78,10 +78,9 @@ export default (props) => {
 				page,
 				props.limit
 			);
-			// console.log("ProfileMyMaterials  resultData", resultData);
 			if (resultData.materials) {
 				setTotalMaterials(resultData.total);
-				resultData.materials.forEach((material) => {
+				resultData.materials.map((material) => {
 					material.files = Array.isArray(material.files)
 						? [material.files[0]]
 						: [material.files];
@@ -96,7 +95,7 @@ export default (props) => {
 
 		setGettingSearchResults(true);
 		fetchData();
-	}, [page, totalMaterials]);
+	}, [page]);
 
 	return (
 		<React.Fragment>
@@ -119,15 +118,17 @@ export default (props) => {
 						gutterWidth={5}
 						gutterHeight={10}>
 						{userMaterials.map((material, index) => (
-							//div important to stop flashing bug
-							<div key={material.title + Date.now()}>
+							////////////// do not remove div - important to stop flashing bug
+							<div>
 								<MaterialCard
+									key={material.title + Date.now()}
 									material={material}
 									setMaterials={setUserMaterials}
 									materials={userMaterials}
 									index={index}
 								/>
 							</div>
+							////////////// do not remove div - important to stop flashing bug
 						))}
 					</StackGrid>
 					{error && (
