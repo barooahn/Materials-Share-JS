@@ -11,18 +11,19 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import theme from "./theme";
 import Mobile from "./components/helpers/mobile";
 import GA from "./components/helpers/GoogleAnalytics";
+import HelmetMetaData from "./components/helpers/HelmetMetaData";
 
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
+	BrowserRouter as Router,
+	Route,
+	Switch,
+	Redirect,
 } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import Axios from "axios";
 
 const MaterialStepper = lazy(() =>
-  import("./components/materialStepper/MaterialStepper")
+	import("./components/materialStepper/MaterialStepper")
 );
 const ProfilePage = lazy(() => import("./ProfilePage/ProfilePage"));
 const Help = lazy(() => import("./components/Help"));
@@ -41,96 +42,110 @@ const jwtToken = localStorage.getItem("JWT_TOKEN");
 Axios.defaults.headers.common["Authorization"] = jwtToken;
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) =>
-      localStorage.getItem("JWT_TOKEN") ? (
-        <Component {...props} />
-      ) : (
-        <Redirect
-          to={{
-            pathname: "/login",
-            state: { prevPath: rest.name },
-          }}
-        />
-      )
-    }
-  />
+	<Route
+		{...rest}
+		render={(props) =>
+			localStorage.getItem("JWT_TOKEN") ? (
+				<Component {...props} />
+			) : (
+				<Redirect
+					to={{
+						pathname: "/login",
+						state: { prevPath: rest.name },
+					}}
+				/>
+			)
+		}
+	/>
 );
 
 function withProps(Component, props) {
-  return function (matchProps) {
-    return <Component {...props} {...matchProps} />;
-  };
+	return function (matchProps) {
+		return <Component {...props} {...matchProps} />;
+	};
 }
 
 const routePaths = () => {
-  return (
-    <main>
-      <Suspense
-        fallback={<div style={{ textAlign: "center" }}>Loading...</div>}
-      >
-        {GA.init() && <GA.RouteTracker />}
-        <Switch>
-          <Route exact path="/" component={App} />
-          <Route path="/users" component={Users} />
-          <Route path="/materials" component={Materials} />
-          <Route path="/material/:slug" component={Material}></Route>
-          <PrivateRoute
-            path="/create"
-            name="create"
-            component={MaterialStepper}
-          />
-          <Route path="/help" component={Help} />
-          <Route path="/ibmyp" component={Ibmyp} />
-          <Route path="/privacy" component={PrivacyPolicy} />
-          <Route
-            path="/login"
-            component={withProps(Login, { state: { prevPath: "login" } })}
-          />
-          <Route path="/forgotPassword" component={ForgotPassword} />
-          <Route path="/reset/:token" component={ResetPassword} />
-          <Route
-            path="/register"
-            component={withProps(Register, { state: { prevPath: "register" } })}
-          />
-          <Route path="/search" component={SearchResults} />
-          <PrivateRoute
-            path="/profile"
-            name="profile"
-            component={ProfilePage}
-          />
-          <PrivateRoute
-            path="/edit/:id"
-            name="editMaterial"
-            type="edit"
-            component={MaterialStepper}
-          />
-          <PrivateRoute
-            path="/admin"
-            name="adminPage"
-            component={Admin}
-          />
-          <Route component={Notfound} />
-        </Switch>
-      </Suspense>
-    </main>
-  );
+	return (
+		<main>
+			<Suspense
+				fallback={
+					<div style={{ textAlign: "center" }}>Loading...</div>
+				}>
+				{GA.init() && <GA.RouteTracker />}
+				<HelmetMetaData></HelmetMetaData>
+				<Switch>
+					<Route exact path='/' component={App} />
+					<Route path='/users' component={Users} />
+					<Route path='/materials' component={Materials} />
+					<Route
+						path='/material/:slug'
+						component={Material}></Route>
+					<PrivateRoute
+						path='/create'
+						name='create'
+						component={MaterialStepper}
+					/>
+					<Route path='/help' component={Help} />
+					<Route path='/ibmyp' component={Ibmyp} />
+					<Route path='/privacy' component={PrivacyPolicy} />
+					<Route
+						path='/login'
+						component={withProps(Login, {
+							state: { prevPath: "login" },
+						})}
+					/>
+					<Route
+						path='/forgotPassword'
+						component={ForgotPassword}
+					/>
+					<Route
+						path='/reset/:token'
+						component={ResetPassword}
+					/>
+					<Route
+						path='/register'
+						component={withProps(Register, {
+							state: { prevPath: "register" },
+						})}
+					/>
+					<Route path='/search' component={SearchResults} />
+					<PrivateRoute
+						path='/profile'
+						name='profile'
+						component={ProfilePage}
+					/>
+					<PrivateRoute
+						path='/edit/:id'
+						name='editMaterial'
+						type='edit'
+						component={MaterialStepper}
+					/>
+					<PrivateRoute
+						path='/admin'
+						name='adminPage'
+						component={Admin}
+					/>
+					<Route component={Notfound} />
+				</Switch>
+			</Suspense>
+		</main>
+	);
 };
 
 const nav = Mobile() ? (
-  <MobileNavBar routePaths={routePaths()} />
+	<MobileNavBar routePaths={routePaths()} />
 ) : (
-  <NavBar routePaths={routePaths()} />
+	<NavBar routePaths={routePaths()} />
 );
 
 const routing = (
-  <ThemeProvider theme={theme}>
-    <CssBaseline />
-    <Router>
-      <React.Fragment>{nav}</React.Fragment>
-    </Router>
-  </ThemeProvider>
+	<ThemeProvider theme={theme}>
+		<CssBaseline />
+		<Router>
+			<React.Fragment>{nav}</React.Fragment>
+		</Router>
+	</ThemeProvider>
 );
 
 ReactDOM.render(routing, document.getElementById("root"));
