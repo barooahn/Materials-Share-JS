@@ -39,6 +39,10 @@ const useStyles = makeStyles((theme) => ({
 		marginBottom: 50,
 		paddingBottom: 20,
 	},
+	mediacontainer: {
+		display: "flex",
+		justifyContent: "center",
+	},
 	media: {
 		width: "100%",
 		maxWidth: 1000,
@@ -300,7 +304,7 @@ export default () => {
 
 				<Grid container spacing={0}>
 					<List>
-						<ListItem>
+						<ListItem className={classes.mediacontainer}>
 							<div className={classes.media}>
 								{material.files
 									? material.files.map((file) => (
