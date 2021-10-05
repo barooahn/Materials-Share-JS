@@ -27,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "center",
 		[theme.breakpoints.up("sm")]: {
 			textAlign: "right",
-			marginBottom: 30,
 			paddingRight: 40,
 		},
 	},
@@ -49,21 +48,19 @@ const useStyles = makeStyles((theme) => ({
 	icon: {
 		fontSize: 40,
 		marginRight: 10,
-		marginBottom: 20,
+		marginBottom:10,
 		[theme.breakpoints.up("sm")]: {
-			marginBottom: 30,
 			paddingTop: 5,
 			fontSize: 50,
 		},
 	},
 	SVGicon: {
 		fontSize: 40,
-		marginBottom: 20,
+		marginBottom: 10,
 		marginRight: 5,
 		[theme.breakpoints.up("sm")]: {
 			paddingTop: 5,
 			fontSize: 55,
-			marginBottom: 25,
 		},
 	},
 	box: {
@@ -78,7 +75,8 @@ const useStyles = makeStyles((theme) => ({
 		margin: 10,
 	},
 	ctaContainer: {
-		// backgroundColor: "rgba(0,0,0,0.5)",
+		display: "flex",
+		justifyContent: "center",
 	},
 }));
 
