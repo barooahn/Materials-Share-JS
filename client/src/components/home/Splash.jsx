@@ -34,8 +34,13 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 	},
 	title: {
-		padding: "1rem",
 		color: "black",
+		fontSize: 20,
+		marginBottom: "20px",
+		[theme.breakpoints.up("sm")]: {
+			margin: "20px 0",
+			fontSize: 50,
+		},
 	},
 	iconWrapper: {
 		display: "flex",
@@ -48,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 	icon: {
 		fontSize: 40,
 		marginRight: 10,
-		marginBottom:10,
+		marginBottom: 10,
 		[theme.breakpoints.up("sm")]: {
 			paddingTop: 5,
 			fontSize: 50,
@@ -65,7 +70,23 @@ const useStyles = makeStyles((theme) => ({
 	},
 	box: {
 		verticalAlign: "middle",
-		padding: 10,
+		marginTop: "20px",
+		[theme.breakpoints.up("sm")]: {
+			margin: "50px 0",
+		},
+	},
+
+	videoContainer: {
+		display: "flex",
+		justifyContent: "center",
+	},
+	video: {
+		width: "100%",
+		height: "210px",
+		[theme.breakpoints.up("sm")]: {
+			width: "1268px",
+			height: "713px",
+		},
 	},
 	saveButton: {
 		margin: 10,
@@ -92,6 +113,17 @@ export default function AutoGridNoWrap() {
 					component='h1'>
 					Teaching Resources Made Simple
 				</Typography>
+			</div>
+			<div className={classes.videoContainer}>
+				<iframe
+					className={classes.video}
+					width='100%'
+					height='auto'
+					src='https://www.youtube.com/embed/cTYKiESEAJU'
+					title='MaterialsShare.com'
+					frameborder='0'
+					allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+					allowfullscreen></iframe>
 			</div>
 			<div>
 				<Grid
