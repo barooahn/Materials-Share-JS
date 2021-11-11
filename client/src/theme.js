@@ -34,7 +34,7 @@ const theme = createTheme({
 });
 
 theme.typography.h1 = {
-	fontFamily: ["playfair display", "serif"].join(","),
+	fontFamily: ["Poppins", "sans-serif"].join(","),
 	fontSize: "1.4rem",
 	fontWeight: 600,
 	"@media (min-width:600px)": {
