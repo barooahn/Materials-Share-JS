@@ -4,6 +4,8 @@ import Typography from "@material-ui/core/Typography";
 import Icon from "@material-ui/core/Icon";
 import Grid from "@material-ui/core/Grid";
 import { NavLink } from "react-router-dom";
+import Button from "@material-ui/core/Button";
+import { Link } from "react-router-dom";
 
 import SvgIcon from "@material-ui/core/SvgIcon";
 import {
@@ -17,7 +19,7 @@ import {
 const useStyles = makeStyles((theme) => ({
 	splash: {
 		[theme.breakpoints.up("sm")]: {
-			margin: "-24px auto",
+			// margin: "-24px auto",
 			textAlign: "left",
 		},
 	},
@@ -25,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 		textAlign: "center",
 		[theme.breakpoints.up("sm")]: {
 			textAlign: "right",
-			marginBottom: 30,
 			paddingRight: 40,
 		},
 	},
@@ -54,19 +55,17 @@ const useStyles = makeStyles((theme) => ({
 		marginRight: 10,
 		marginBottom: 10,
 		[theme.breakpoints.up("sm")]: {
-			marginBottom: 30,
 			paddingTop: 5,
 			fontSize: 50,
 		},
 	},
 	SVGicon: {
 		fontSize: 40,
-		marginBottom: 20,
+		marginBottom: 10,
 		marginRight: 5,
 		[theme.breakpoints.up("sm")]: {
 			paddingTop: 5,
 			fontSize: 55,
-			marginBottom: 25,
 		},
 	},
 	box: {
@@ -89,11 +88,21 @@ const useStyles = makeStyles((theme) => ({
 			height: "713px",
 		},
 	},
+	saveButton: {
+		margin: 10,
+		textDecoration: "none",
+	},
+	browseButton: {
+		margin: 10,
+	},
+	ctaContainer: {
+		display: "flex",
+		justifyContent: "center",
+	},
 }));
 
 export default function AutoGridNoWrap() {
 	const classes = useStyles();
-
 	return (
 		<div className={classes.splash}>
 			<div className={classes.header}>
@@ -242,6 +251,27 @@ export default function AutoGridNoWrap() {
 							filter_list
 						</Icon>
 					</Grid>
+					<div className={classes.ctaContainer}>
+						<Link
+							to='/create'
+							style={{ textDecoration: "none" }}>
+							<Button
+								className={classes.saveButton}
+								color='primary'
+								variant='contained'>
+								Save Resource
+							</Button>
+						</Link>
+						<Link
+							to='/materials'
+							style={{ textDecoration: "none" }}>
+							<Button
+								className={classes.browseButton}
+								variant='contained'>
+								Browse Resources
+							</Button>
+						</Link>
+					</div>
 				</Grid>
 			</div>
 		</div>
