@@ -121,11 +121,7 @@ const routePaths = () => {
 						type='edit'
 						component={MaterialStepper}
 					/>
-					<PrivateRoute
-						path='/admin'
-						name='adminPage'
-						component={Admin}
-					/>
+
 					<Route component={Notfound} />
 				</Switch>
 			</Suspense>

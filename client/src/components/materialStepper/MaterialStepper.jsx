@@ -19,6 +19,7 @@ import { SetAutocompletes } from "../helpers/SetAutocompletes";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import { sendEmail } from "../../actions/materials-share-email";
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -297,7 +298,7 @@ export default function MaterialStepper() {
 	}
 
 	const checkSave = () => {
-		if ((checkMaterialDetails() && checkFilesTitle()) || saveAnywayFlag ) {
+		if ((checkMaterialDetails() && checkFilesTitle()) || saveAnywayFlag) {
 			save();
 		} else {
 			handleOpenModelWarnings();
@@ -387,11 +388,12 @@ export default function MaterialStepper() {
 				id: id,
 				dateModified: Date.now(),
 				curriculum: curriculumValue,
-				approved:false
+				approved: false,
 			},
 			type,
 			setCompleted,
-			setSaved
+			setSaved,
+			sendMaterialUploadedEmail()
 		);
 	};
 	React.useEffect(() => {
@@ -456,6 +458,51 @@ export default function MaterialStepper() {
 
 	const changeTitle = (e) => {
 		setTitle(e.target.value);
+	};
+
+	const sendMaterialUploadedEmail = () => {
+		var body = {
+			from: "barooahn@gmail.com",
+			to: "barooahn@gmail.com",
+			subject: "Materials Share - User upload",
+			text: type,
+			title,
+			timeInClass,
+			timePrep,
+			procedureBefore,
+			procedureIn,
+			book,
+			page,
+			followUp,
+			variations,
+			tips,
+			notes,
+			files,
+			thumb,
+			localFiles,
+			likes: [],
+			objective,
+			level: levelValue,
+			languageFocus: languageFocusValue,
+			activityUse: activityUseValue,
+			pupilTask: pupilTaskValue,
+			category: categoryValue,
+			targetLanguage,
+			materials,
+			shared: share,
+			id: id,
+			dateModified: Date.now(),
+			curriculum: curriculumValue,
+			approved: false,
+		};
+		sendEmail(body).then((response) => {
+			if (response.status === "success") {
+				alert("Message Sent.");
+				this.resetForm();
+			} else if (response.status === "fail") {
+				alert("Message failed to send.");
+			}
+		});
 	};
 
 	return (
