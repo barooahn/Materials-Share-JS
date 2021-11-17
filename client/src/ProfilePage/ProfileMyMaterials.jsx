@@ -99,7 +99,7 @@ export default (props) => {
 
 	return (
 		<React.Fragment>
-			{userMaterials.length > 1 ? (
+			{userMaterials.length >= 1 ? (
 				<div className={classes.myMaterialsHeader}>
 					{gettingSearchResults ? (
 						<div className={classes.circularProgress}>
