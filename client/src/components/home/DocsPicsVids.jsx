@@ -27,10 +27,10 @@ const useStyles = makeStyles((theme) => ({
 		padding: "3rem 1rem",
 		margin: "10px auto",
 		[theme.breakpoints.up("sm")]: {
-			padding: "3rem",
+			padding: "2rem",
 			textAlign: "left",
 			maxWidth: "66%",
-			fontSize: "1.4rem",
+			fontSize: "1.2rem",
 		},
 	},
 	proTipContainer: {
@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	title: {
 		color: "black",
-		paddingTop: "30px",
+		padding: "30px 10px",
 		[theme.breakpoints.up("sm")]: {
 			paddingTop: "25px",
 		},
