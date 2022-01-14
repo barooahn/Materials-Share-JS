@@ -31,7 +31,7 @@ const Ibmyp = lazy(() => import("./components/Ibmyp"));
 const Login = lazy(() => import("./LoginPage/Login"));
 const Register = lazy(() => import("./RegisterPage/Register2"));
 const Material = lazy(() => import("./components/Material/Material"));
-const Materials = lazy(() => import("./components/Material/Materials"));
+const HomeLayout = lazy(() => import("./components/home/HomeLayout"));
 const Users = lazy(() => import("./components/Users"));
 const SearchResults = lazy(() => import("./components/nav/SearchResults"));
 const ResetPassword = lazy(() => import("./LoginPage/ResetPassword"));
@@ -77,7 +77,7 @@ const routePaths = () => {
 				<Switch>
 					<Route exact path='/' component={App} />
 					<Route path='/users' component={Users} />
-					<Route path='/materials' component={Materials} />
+					<Route path='/about' component={HomeLayout} />
 					<Route
 						path='/material/:slug'
 						component={Material}></Route>

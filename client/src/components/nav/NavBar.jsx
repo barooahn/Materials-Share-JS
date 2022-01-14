@@ -18,7 +18,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import AddBoxIcon from "@material-ui/icons/AddBoxRounded";
 import HomeIcon from "@material-ui/icons/HomeRounded";
-import ViewListIcon from "@material-ui/icons/ViewListRounded";
+import InfoIcon from "@material-ui/icons/Info";
 import AccountBoxIcon from "@material-ui/icons/AccountBoxRounded";
 import HelpIcon from "@material-ui/icons/HelpRounded";
 import Assignment from "@material-ui/icons/AssignmentRounded";
@@ -375,18 +375,18 @@ export default function MiniDrawer({ routePaths }) {
 							<ListItemText primary='Home' />
 						</ListItem>
 
-						<NavLink to='/materials' className='link'>
+						<NavLink to='/about' className='link'>
 							<ListItem
 								button
-								key={"Materials"}
-								aria-label='Materials'
+								key={"About"}
+								aria-label='About'
 								selected={
-									"/materials" === location.pathname
+									"/about" === location.pathname
 								}>
 								<ListItemIcon>
-									<ViewListIcon />
+									<InfoIcon />
 								</ListItemIcon>
-								<ListItemText primary='Browse Resources' />
+								<ListItemText primary='About' />
 							</ListItem>
 						</NavLink>
 

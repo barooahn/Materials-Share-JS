@@ -4,7 +4,7 @@ import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
 import AddBoxIcon from "@material-ui/icons/AddBoxRounded";
 import HomeIcon from "@material-ui/icons/HomeRounded";
-import ViewListIcon from "@material-ui/icons/ViewListRounded";
+import InfoIcon from "@material-ui/icons/Info";
 import HelpIcon from "@material-ui/icons/HelpRounded";
 import { useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -165,7 +165,7 @@ export default function LabelBottomNavigation({ routePaths }) {
 		history.push("/");
 	};
 	const handleBrowseClick = () => {
-		history.push("/materials");
+		history.push("/about");
 	};
 	const handleNewClick = () => {
 		history.push("/create");
@@ -364,9 +364,9 @@ export default function LabelBottomNavigation({ routePaths }) {
 						onClick={handleHomeClick}
 					/>
 					<BottomNavigationAction
-						label='Browse'
-						value='browse'
-						icon={<ViewListIcon />}
+						label='About'
+						value='about'
+						icon={<InfoIcon />}
 						showLabel={true}
 						onClick={handleBrowseClick}
 					/>
