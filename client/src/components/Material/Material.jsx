@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
@@ -9,7 +9,6 @@ import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 import { getMaterial } from "../../actions/materials-share-actions";
-import SocialShare from "./SocialShare";
 import ToggleLikes from "../helpers/ToggleLikes";
 import Badge from "@material-ui/core/Badge";
 import IconButton from "@material-ui/core/IconButton";
@@ -18,8 +17,6 @@ import ShareIcon from "@material-ui/icons/Share";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import { Link } from "react-router-dom";
-import DeleteMaterial from "../helpers/DeleteMaterial";
-import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Button from "@material-ui/core/Button";
 import Fade from "@material-ui/core/Fade";
@@ -29,6 +26,11 @@ import { useHistory } from "react-router-dom";
 import Tooltip from "@material-ui/core/Tooltip";
 import Box from "@material-ui/core/Box";
 import HelmetMetaData from "../helpers/HelmetMetaData";
+import Transition from "../helpers/Transition";
+
+const SocialShare = React.lazy(() => import("./SocialShare"));
+const DeleteMaterial = React.lazy(() => import("./../helpers/DeleteMaterial"));
+const Modal = React.lazy(() => import("@material-ui/core/Modal"));
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -59,6 +61,10 @@ const useStyles = makeStyles((theme) => ({
 	},
 	pageBreak: {
 		pageBreakBefore: "always",
+	},
+	mainImageWrapper: {
+		display: "flex",
+		justifyContent: "center",
 	},
 }));
 
@@ -165,7 +171,7 @@ export default () => {
 	}, [slug]);
 
 	return (
-		<>
+		<Suspense fallback={<Transition />}>
 			<HelmetMetaData
 				title={"Materials Share-" + material.title}
 				description={
@@ -179,7 +185,8 @@ export default () => {
 					gutterBottom
 					variant='h2'
 					component='h2'
-					align='center'>
+					align='center'
+				>
 					{material.title}
 				</Typography>
 				{/* <MetaTags>
@@ -227,16 +234,19 @@ export default () => {
 								? "Login to add to likes"
 								: "Add to likes"
 						}
-						placement='top'>
+						placement='top'
+					>
 						<span>
 							<IconButton
 								aria-label='add to favorites'
 								onClick={toggleLikes}
 								color={setLikesColour()}
-								disabled={!author}>
+								disabled={!author}
+							>
 								<Badge
 									color='default'
-									badgeContent={likes.length}>
+									badgeContent={likes.length}
+								>
 									<FavoriteIcon />
 								</Badge>
 							</IconButton>
@@ -244,12 +254,14 @@ export default () => {
 					</Tooltip>
 					<Tooltip
 						title={!author ? "Login to print" : "Print"}
-						placement='top'>
+						placement='top'
+					>
 						<span>
 							<IconButton
 								aria-label='add to favorites'
 								onClick={print}
-								disabled={!author}>
+								disabled={!author}
+							>
 								<PrintIcon />
 							</IconButton>
 						</span>
@@ -258,7 +270,8 @@ export default () => {
 						<span>
 							<IconButton
 								aria-label='share'
-								onClick={handleShareOpen}>
+								onClick={handleShareOpen}
+							>
 								<ShareIcon />
 							</IconButton>
 						</span>
@@ -272,25 +285,29 @@ export default () => {
 						<React.Fragment>
 							<Tooltip
 								title='Edit your material'
-								placement='top'>
+								placement='top'
+							>
 								<span>
 									<IconButton
 										component={Link}
-										to={"/edit/" + material._id}>
+										to={"/edit/" + material._id}
+									>
 										<EditIcon />
 									</IconButton>
 								</span>
 							</Tooltip>
 							<Tooltip
 								title='Delete your material'
-								placement='top'>
+								placement='top'
+							>
 								<span>
 									<IconButton
 										onClick={(event) =>
 											handleDeleteMaterial(
 												event
 											)
-										}>
+										}
+									>
 										<DeleteForeverIcon />
 									</IconButton>
 								</span>
@@ -301,7 +318,7 @@ export default () => {
 
 				<Grid container spacing={0}>
 					<List>
-						<ListItem>
+						<ListItem className={classes.mainImageWrapper}>
 							<div className={classes.media}>
 								{material.files
 									? material.files.map((file) => (
@@ -328,7 +345,8 @@ export default () => {
 						gutterBottom
 						variant='h4'
 						component='h4'
-						align='center'>
+						align='center'
+					>
 						Teacher Notes
 					</Typography>
 					{DisplayMaterialList(material)}
@@ -337,7 +355,8 @@ export default () => {
 							<Typography
 								variant='h6'
 								style={{ paddingLeft: 10 }}
-								component='h6'>
+								component='h6'
+							>
 								Material used in conjuction with text
 								book
 							</Typography>
@@ -348,7 +367,8 @@ export default () => {
 									padding: 10,
 									whiteSpace: "pre-wrap",
 								}}
-								component='p'>
+								component='p'
+							>
 								{material.book}
 								{" - Page " + material.page}
 							</Typography>
@@ -365,13 +385,15 @@ export default () => {
 					BackdropComponent={Backdrop}
 					BackdropProps={{
 						timeout: 500,
-					}}>
+					}}
+				>
 					<Fade in={deleteOpen}>
 						<div className={classes.paper}>
 							<Typography
 								variant='h6'
 								color='secondary'
-								component='p'>
+								component='p'
+							>
 								Are you sure you want to delete? This
 								cannot be undone.
 							</Typography>
@@ -382,7 +404,8 @@ export default () => {
 									variant='contained'
 									size='large'
 									startIcon={<DeleteForeverIcon />}
-									onClick={confirmDelete}>
+									onClick={confirmDelete}
+								>
 									Delete
 								</Button>
 								<br />
@@ -391,7 +414,8 @@ export default () => {
 									variant='contained'
 									size='large'
 									startIcon={<CancelIcon />}
-									onClick={cancelDelete}>
+									onClick={cancelDelete}
+								>
 									Cancel
 								</Button>
 							</div>
@@ -399,6 +423,6 @@ export default () => {
 					</Fade>
 				</Modal>
 			</Paper>
-		</>
+		</Suspense>
 	);
 };

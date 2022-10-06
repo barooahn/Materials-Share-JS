@@ -12,6 +12,7 @@ import theme from "./theme";
 import Mobile from "./components/helpers/mobile";
 import GA from "./components/helpers/GoogleAnalytics";
 import HelmetMetaData from "./components/helpers/HelmetMetaData";
+import Transition from "./components/helpers/Transition";
 
 import {
 	BrowserRouter as Router,
@@ -68,10 +69,7 @@ function withProps(Component, props) {
 const routePaths = () => {
 	return (
 		<main>
-			<Suspense
-				fallback={
-					<div style={{ textAlign: "center" }}>Loading...</div>
-				}>
+			<Suspense fallback={<Transition />}>
 				{GA.init() && <GA.RouteTracker />}
 				<HelmetMetaData></HelmetMetaData>
 				<Switch>
@@ -80,7 +78,8 @@ const routePaths = () => {
 					<Route path='/about' component={HomeLayout} />
 					<Route
 						path='/material/:slug'
-						component={Material}></Route>
+						component={Material}
+					></Route>
 					<PrivateRoute
 						path='/create'
 						name='create'
