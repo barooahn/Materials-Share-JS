@@ -1,63 +1,63 @@
 {
-  "name": "materials-share-fullstack",
-  "version": "1.0.0",
-  "description": "teachers resource application, save, comment, find and share teaching resources",
-  "main": "server.js",
-  "scripts": {
-    "client-install": "cd client && npm install",
-    "test": "test",
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server --inspect\" \"npm run client \"",
-    "heroku-postbuild": "cd client && NPM_CONFIG_PRODUCTION=false npm install && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "materialsshare_js"
-  },
-  "keywords": [
-    "teacher",
-    "resources"
-  ],
-  "author": "Nicholas R Barooah",
-  "license": "ISC",
-  "dependencies": {
-    "aws-sdk": "^2.409.0",
-    "bcrypt": "^5.0.0",
-    "body-parser": "^1.18.3",
-    "compression": "^1.7.4",
-    "connect-flash": "^0.1.1",
-    "connect-multiparty": "^2.2.0",
-    "cors": "^2.8.5",
-    "crypto": "^1.0.1",
-    "dotenv": "^6.2.0",
-    "express": "^4.16.4",
-    "express-fileupload": "^1.1.6",
-    "express-session": "^1.15.6",
-    "helmet": "^3.21.2",
-    "jsonwebtoken": "^8.4.0",
-    "mailgun-js": "^0.22.0",
-    "material-ui": "^0.20.2",
-    "mongoose": "^6.6.5",
-    "mongoose-slug-generator": "^1.0.4",
-    "morgan": "^1.9.1",
-    "nodemailer": "^6.8.0",
-    "passport": "^0.6.0",
-    "passport-jwt": "^4.0.0",
-    "passport-local": "^1.0.0",
-    "react-google-recaptcha": "^2.1.0",
-    "react-meta-tags": "^1.0.1",
-    "sharp": "^0.31.1",
-    "typeface-oswald": "^1.1.13",
-    "typeface-playfair-display": "^1.1.13",
-    "typeface-poppins": "^1.1.13"
-  },
-  "devDependencies": {
-    "concurrently": "^7.4.0",
-    "nodemon": "^2.0.20"
-  },
-  "engines": {
-    "node": "12.x"
-  }
+	"name": "materials-share-fullstack",
+	"version": "1.0.0",
+	"description": "teachers resource application, save, comment, find and share teaching resources",
+	"main": "server.js",
+	"scripts": {
+		"client-install": "cd client && npm install",
+		"test": "test",
+		"start": "node server.js",
+		"server": "nodemon server.js",
+		"client": "npm start --prefix client",
+		"dev": "concurrently \"npm run server --inspect\" \"npm run client \"",
+		"heroku-postbuild": "cd client && NPM_CONFIG_PRODUCTION=false npm install && npm run build"
+	},
+	"repository": {
+		"type": "git",
+		"url": "materialsshare_js"
+	},
+	"keywords": [
+		"teacher",
+		"resources"
+	],
+	"author": "Nicholas R Barooah",
+	"license": "ISC",
+	"dependencies": {
+		"aws-sdk": "^2.409.0",
+		"bcrypt": "^5.0.0",
+		"body-parser": "^1.18.3",
+		"compression": "^1.7.4",
+		"connect-flash": "^0.1.1",
+		"connect-multiparty": "^2.2.0",
+		"cors": "^2.8.5",
+		"crypto": "^1.0.1",
+		"dotenv": "^6.2.0",
+		"express": "^4.16.4",
+		"express-fileupload": "^1.1.6",
+		"express-session": "^1.15.6",
+		"helmet": "^3.21.2",
+		"jsonwebtoken": "^8.4.0",
+		"mailgun-js": "^0.22.0",
+		"material-ui": "^0.20.2",
+		"mongoose": "^6.6.5",
+		"mongoose-slug-generator": "^1.0.4",
+		"morgan": "^1.9.1",
+		"nodemailer": "^6.8.0",
+		"passport": "^0.6.0",
+		"passport-jwt": "^4.0.0",
+		"passport-local": "^1.0.0",
+		"react-google-recaptcha": "^2.1.0",
+		"react-meta-tags": "^1.0.1",
+		"sharp": "^0.31.1",
+		"typeface-oswald": "^1.1.13",
+		"typeface-playfair-display": "^1.1.13",
+		"typeface-poppins": "^1.1.13"
+	},
+	"devDependencies": {
+		"concurrently": "^7.4.0",
+		"nodemon": "^2.0.20"
+	},
+	"engines": {
+		"node": "16.x"
+	}
 }
