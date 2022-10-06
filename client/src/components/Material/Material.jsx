@@ -68,10 +68,10 @@ export default () => {
 	const { slug } = useParams();
 	const [material, setMaterial] = React.useState([]);
 	const [likes, setLikes] = React.useState(material.likes || []);
-	const [completed, setCompleted] = React.useState(0);
-	const [saved, setSaved] = React.useState(false);
-	const [printPDF, setPrintPDF] = React.useState(false);
-	const [printReady, setPrintReady] = React.useState(false);
+	const [, setCompleted] = React.useState(0);
+	const [, setSaved] = React.useState(false);
+	const [printPDF] = React.useState(false);
+	const [, setPrintReady] = React.useState(false);
 	const author = localStorage.getItem("USER_ID");
 
 	//Delete model stuff
@@ -172,7 +172,8 @@ export default () => {
 					material.title +
 					"ELT TEFL teaching materials and resources "
 				}
-				image={material.thumb}></HelmetMetaData>
+				image={material.thumb}
+			/>
 			<Paper className={classes.paperCenter} elevation={1}>
 				<Typography
 					gutterBottom
@@ -265,7 +266,7 @@ export default () => {
 					<SocialShare
 						handleShareClose={handleShareClose}
 						shareOpen={shareOpen}
-						material={material}
+						slug={material.slug}
 					/>
 					{author === material.author_id ? (
 						<React.Fragment>
