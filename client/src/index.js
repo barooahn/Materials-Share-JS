@@ -13,6 +13,7 @@ import Mobile from "./components/helpers/mobile";
 import GA from "./components/helpers/GoogleAnalytics";
 import HelmetMetaData from "./components/helpers/HelmetMetaData";
 import Transition from "./components/helpers/Transition";
+import ReactGA from "react-ga";
 
 import {
 	BrowserRouter as Router,
@@ -133,6 +134,10 @@ const nav = Mobile() ? (
 ) : (
 	<NavBar routePaths={routePaths()} />
 );
+
+const TRACKING_ID = "G-6VW77FWXTJ";
+
+ReactGA.initialize(TRACKING_ID);
 
 const routing = (
 	<ThemeProvider theme={theme}>
