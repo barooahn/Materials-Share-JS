@@ -6,11 +6,9 @@ import NavBar from "./components/nav/NavBar";
 import MobileNavBar from "./components/nav/MobileNavBar";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import { ThemeProvider } from "@mui/material/styles";
-import red from "@mui/material/colors/red";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import Mobile from "./components/helpers/mobile";
-import GA from "./components/helpers/GoogleAnalytics";
 import HelmetMetaData from "./components/helpers/HelmetMetaData";
 import Transition from "./components/helpers/Transition";
 import ReactGA from "react-ga";
@@ -71,7 +69,6 @@ const routePaths = () => {
 	return (
 		<main>
 			<Suspense fallback={<Transition />}>
-				{GA.init() && <GA.RouteTracker />}
 				<HelmetMetaData></HelmetMetaData>
 				<Switch>
 					<Route exact path='/' component={App} />
