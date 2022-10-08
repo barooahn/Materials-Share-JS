@@ -11,7 +11,7 @@ import theme from "./theme";
 import Mobile from "./components/helpers/mobile";
 import HelmetMetaData from "./components/helpers/HelmetMetaData";
 import Transition from "./components/helpers/Transition";
-import ReactGA from "react-ga";
+import ReactGA from "react-ga4";
 import { createRoot } from "react-dom/client";
 
 import {
@@ -135,6 +135,7 @@ const nav = Mobile() ? (
 const TRACKING_ID = "G-6VW77FWXTJ";
 
 ReactGA.initialize(TRACKING_ID);
+ReactGA.send("pageview");
 const root = createRoot(document.getElementById("root"));
 
 root.render(
