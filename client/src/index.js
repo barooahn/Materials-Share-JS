@@ -1,12 +1,12 @@
 import React, { Suspense, lazy } from "react";
-import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import Notfound from "./components/NotFound";
 import NavBar from "./components/nav/NavBar";
 import MobileNavBar from "./components/nav/MobileNavBar";
 import PrivacyPolicy from "./components/PrivacyPolicy";
-import { ThemeProvider } from "@mui/styles";
+import { ThemeProvider } from "@mui/material/styles";
+import red from "@mui/material/colors/red";
 import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import Mobile from "./components/helpers/mobile";
@@ -39,7 +39,6 @@ const Users = lazy(() => import("./components/Users"));
 const SearchResults = lazy(() => import("./components/nav/SearchResults"));
 const ResetPassword = lazy(() => import("./LoginPage/ResetPassword"));
 const ForgotPassword = lazy(() => import("./LoginPage/ForgotPassword"));
-const Admin = lazy(() => import("./admin/AdminPage"));
 
 const jwtToken = localStorage.getItem("JWT_TOKEN");
 Axios.defaults.headers.common["Authorization"] = jwtToken;

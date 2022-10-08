@@ -13,9 +13,6 @@ import {
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: "100%",
-		display: "flex",
-		height: 40,
-		marginTop: 5,
 	},
 	search: {
 		width: "100%",
