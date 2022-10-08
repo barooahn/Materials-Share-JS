@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
 		position: "absolute !important",
 		top: 0,
 		right: 0,
-		zIndex: 40,
+		zIndex: 4,
 		marginTop: "-7px",
 		marginRight: "-7px",
 	},
