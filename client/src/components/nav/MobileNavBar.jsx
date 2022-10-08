@@ -41,6 +41,8 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		zIndex: 10,
 		height: 60,
+		display: "flex",
+		flexDirection: "row",
 	},
 	bottomNav: {
 		position: "fixed",
@@ -69,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 		position: "fixed !important",
 		zIndex: 9,
 		bottom: 50,
-		right: 15,
+		right: 10,
 		width: "50px",
 	},
 	filter: {
@@ -97,9 +99,9 @@ const useStyles = makeStyles((theme) => ({
 	profile: { marginLeft: "auto" },
 	logo: {
 		cursor: "pointer",
-		height: 32,
+		height: 25,
 	},
-	search: { display: "flex ", width: "100%" },
+	search: { flexGrow: 1, width: "100%" },
 	circularProgress: {
 		position: "absolute",
 		top: "50%",
@@ -137,7 +139,6 @@ export default function LabelBottomNavigation({ routePaths }) {
 	};
 	const handleSignOutClick = () => {
 		logOut();
-		// setIsAuthenticated("");
 		handleMenuClose();
 		history.push("/");
 	};
@@ -267,12 +268,14 @@ export default function LabelBottomNavigation({ routePaths }) {
 						"/materials" === location.pathname ||
 						"/ibmyp" === location.pathname ||
 						"/search" === location.pathname ? (
-							<div className={classes.search}>
+							<>
 								<Search
+									className={classes.search}
 									setGettingSearchResults={
 										setGettingSearchResults
 									}
 								/>
+
 								<IconButton
 									className={clsx(classes.expand, {
 										[classes.expandOpen]:
@@ -282,11 +285,14 @@ export default function LabelBottomNavigation({ routePaths }) {
 									aria-expanded={expanded}
 									aria-label='show more'
 								>
-									<Icon color='secondary'>
+									<Icon
+										color='primary'
+										sx={{ fontSize: "35px" }}
+									>
 										filter_list
 									</Icon>
 								</IconButton>
-							</div>
+							</>
 						) : null}
 						<IconButton
 							className={classes.profile}
