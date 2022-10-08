@@ -2,7 +2,6 @@ const Search = require("../models/Search");
 
 module.exports = {
   getSearchQueries: (req, res) => {
-    // console.log("getting search queries... ");
     Search.find()
       .sort({ search: -1 })
       .exec((err, searchResults) => {
@@ -13,7 +12,6 @@ module.exports = {
   },
 
   saveSearchQuery: (req, res) => {
-    console.log("saving search backend... ", req.body.search);
     Search.findOneAndUpdate(
       { search: req.body.search },
       { $set: { search: req.body.search } },

@@ -7,8 +7,6 @@ const mailgun = require("mailgun-js")({
 module.exports = {
 	sendEmail: (req, res) => {
 		const data = req.body.body;
-		mailgun.messages().send(data, function (error, body) {
-			console.log(body);
-		});
+		mailgun.messages().send(data, function (error, body) {});
 	},
 };

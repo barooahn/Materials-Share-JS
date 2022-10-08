@@ -1,36 +1,36 @@
 import React, { Suspense } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
+import { makeStyles } from "@mui/styles";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
 import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { BrowserRouter as Router, useParams } from "react-router-dom";
 import { getMaterial } from "../../actions/materials-share-actions";
 import ToggleLikes from "../helpers/ToggleLikes";
-import Badge from "@material-ui/core/Badge";
-import IconButton from "@material-ui/core/IconButton";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
+import Badge from "@mui/material/Badge";
+import IconButton from "@mui/material/IconButton";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import ShareIcon from "@mui/icons-material/Share";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { Link } from "react-router-dom";
-import Backdrop from "@material-ui/core/Backdrop";
-import Button from "@material-ui/core/Button";
-import Fade from "@material-ui/core/Fade";
-import CancelIcon from "@material-ui/icons/Cancel";
-import PrintIcon from "@material-ui/icons/Print";
+import Backdrop from "@mui/material/Backdrop";
+import Button from "@mui/material/Button";
+import Fade from "@mui/material/Fade";
+import CancelIcon from "@mui/icons-material/Cancel";
+import PrintIcon from "@mui/icons-material/Print";
 import { useHistory } from "react-router-dom";
-import Tooltip from "@material-ui/core/Tooltip";
-import Box from "@material-ui/core/Box";
+import Tooltip from "@mui/material/Tooltip";
+import Box from "@mui/material/Box";
 import HelmetMetaData from "../helpers/HelmetMetaData";
 import Transition from "../helpers/Transition";
 
 const SocialShare = React.lazy(() => import("./SocialShare"));
 const DeleteMaterial = React.lazy(() => import("./../helpers/DeleteMaterial"));
-const Modal = React.lazy(() => import("@material-ui/core/Modal"));
+const Modal = React.lazy(() => import("@mui/material/Modal"));
 
 const useStyles = makeStyles((theme) => ({
 	root: {

@@ -10,11 +10,8 @@ module.exports = {
     const { email, password, name } = req.body;
 
     // Check if there is a user with the same email
-    console.log("user.ctrl - register user request", req.body);
-    console.log("body", req.body);
     const foundUser = await User.findOne({ email: email });
     if (foundUser) {
-      console.log("Email is already in use ");
       return res.status(403).json({ error: "Email is already in use" });
     }
 
@@ -26,7 +23,6 @@ module.exports = {
       password: password,
       img: "",
     });
-    console.log("user.ctrl - register usernew user", newUser);
     await newUser.save();
 
     // Generate the token
@@ -54,14 +50,12 @@ module.exports = {
   login: (req, res, next) => {
     // Generate token
     const token = signUser.signUser(req.user);
-    console.log("user ctrl- login - user token", token);
     res.status(200).json({ message: "User logged In", token, user: req.user });
   },
 
   signUser: async (req, res, next) => {
     // Generate token
     const user = req.body.user;
-    console.log("user ctrl- signUser - user", user);
     const token = signUser.signUser(user);
     const existingUser = await User.findOne({ email: user.email });
     if (existingUser) {

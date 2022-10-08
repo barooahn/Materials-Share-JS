@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import MaterialCard from "../components/Material/MaterialCard";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 import StackGrid from "react-stack-grid";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { editMaterial } from "../actions/materials-share-actions";
 
 import Mobile from "../components/helpers/mobile";
-import Button from "@material-ui/core/Button";
+import Button from "@mui/material/Button";
 // import material from "../../../server/routes/material";
 
 const useStyles = makeStyles((theme) => ({
@@ -30,13 +30,11 @@ const MaterialsAwaitingApproval = (props) => {
 		material.approved = true;
 		material.id = material._id;
 		editMaterial(material, setSaved);
-		console.log("approved", material, saved);
 	};
 	const handleBan = (material) => {
 		material.approved = false;
 		material.id = material._id;
 		editMaterial(material, setSaved);
-		console.log("banned", material, saved);
 	};
 
 	useEffect(() => {
@@ -62,13 +60,15 @@ const MaterialsAwaitingApproval = (props) => {
 				gutterBottom
 				variant='h2'
 				component='h2'
-				align='center'>
+				align='center'
+			>
 				Awaiting Approval
 			</Typography>
 			<StackGrid
 				columnWidth={cardWidth}
 				gutterWidth={10}
-				gutterHeight={10}>
+				gutterHeight={10}
+			>
 				{toApproveMaterials.map((material, index) => (
 					<div key={`card-${index}`}>
 						<MaterialCard
@@ -84,7 +84,8 @@ const MaterialsAwaitingApproval = (props) => {
 							color='default'
 							className={classes.button}
 							onClick={() => handleApprove(material)}
-							size='large'>
+							size='large'
+						>
 							Approve
 						</Button>
 						<Button
@@ -93,7 +94,8 @@ const MaterialsAwaitingApproval = (props) => {
 							color='default'
 							className={classes.button}
 							onClick={() => handleBan(material)}
-							size='large'>
+							size='large'
+						>
 							Ban
 						</Button>
 					</div>

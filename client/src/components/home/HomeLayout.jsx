@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 const DocsPicsVids = lazy(() => import("./DocsPicsVids"));
 const Splash = lazy(() => import("./Splash"));
@@ -10,15 +10,15 @@ const SearchAndFilter = lazy(() => import("./SearchAndFilter"));
 const useStyles = makeStyles((theme) => ({}));
 
 export default function HomeLayout() {
-  const classes = useStyles();
+	const classes = useStyles();
 
-  return (
-    <React.Fragment>
-      <Splash></Splash>
-      <DocsPicsVids></DocsPicsVids>
-      <SaveSecurelyForever></SaveSecurelyForever>
-      <ShareWithOthers></ShareWithOthers>
-      <SearchAndFilter></SearchAndFilter>
-    </React.Fragment>
-  );
+	return (
+		<React.Fragment>
+			<Splash></Splash>
+			<DocsPicsVids></DocsPicsVids>
+			<SaveSecurelyForever></SaveSecurelyForever>
+			<ShareWithOthers></ShareWithOthers>
+			<SearchAndFilter></SearchAndFilter>
+		</React.Fragment>
+	);
 }

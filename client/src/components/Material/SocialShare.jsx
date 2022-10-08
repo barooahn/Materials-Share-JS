@@ -1,9 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@mui/styles";
+import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
+import Fade from "@mui/material/Fade";
+import Typography from "@mui/material/Typography";
 
 import {
 	FacebookShareButton,
@@ -73,8 +73,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({ handleShareClose, shareOpen, slug }) => {
-	console.log("share slug", slug);
+const SocialSharing = ({ handleShareClose, shareOpen, slug }) => {
 	const classes = useStyles();
 
 	const shareUrl = `${window.location.protocol}//${window.location.hostname}/material/${slug} `;
@@ -92,13 +91,15 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 			BackdropComponent={Backdrop}
 			BackdropProps={{
 				timeout: 500,
-			}}>
+			}}
+		>
 			<Fade in={shareOpen}>
 				<div className={classes.paper}>
 					<Typography
 						align={"center"}
 						component='h5'
-						variant='h5'>
+						variant='h5'
+					>
 						Share with...
 					</Typography>
 					<br />
@@ -108,7 +109,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<FacebookShareButton
 								url={shareUrl}
 								quote={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<FacebookIcon size={55} round />
 							</FacebookShareButton>
 						</div>
@@ -117,7 +119,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<FacebookMessengerShareButton
 								url={shareUrl}
 								appId='521270401588372'
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<FacebookMessengerIcon
 									size={55}
 									round
@@ -129,7 +132,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<TwitterShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<TwitterIcon size={55} round />
 							</TwitterShareButton>
 						</div>
@@ -138,7 +142,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<TelegramShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<TelegramIcon size={55} round />
 							</TelegramShareButton>
 						</div>
@@ -148,7 +153,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 								url={shareUrl}
 								title={title}
 								separator=':: '
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<WhatsappIcon size={55} round />
 							</WhatsappShareButton>
 						</div>
@@ -156,7 +162,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 						<div className={classes.child}>
 							<LinkedinShareButton
 								url={shareUrl}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<LinkedinIcon size={55} round />
 							</LinkedinShareButton>
 						</div>
@@ -165,7 +172,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<PinterestShareButton
 								url={String(window.location)}
 								// media={`${String(window.location)}/${exampleImage}`}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<PinterestIcon size={55} round />
 							</PinterestShareButton>
 						</div>
@@ -174,7 +182,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<VKShareButton
 								url={shareUrl}
 								// image={`${String(window.location)}/${exampleImage}`}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<VKIcon size={55} round />
 							</VKShareButton>
 						</div>
@@ -183,7 +192,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<OKShareButton
 								url={shareUrl}
 								// image={`${String(window.location)}/${exampleImage}`}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<OKIcon size={55} round />
 							</OKShareButton>
 						</div>
@@ -194,7 +204,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 								title={title}
 								windowWidth={660}
 								windowHeight={460}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<RedditIcon size={55} round />
 							</RedditShareButton>
 						</div>
@@ -203,7 +214,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<TumblrShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<TumblrIcon size={55} round />
 							</TumblrShareButton>
 						</div>
@@ -213,7 +225,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 								url={shareUrl}
 								title={title}
 								description={shareUrl}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<LivejournalIcon size={55} round />
 							</LivejournalShareButton>
 						</div>
@@ -222,7 +235,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<MailruShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<MailruIcon size={55} round />
 							</MailruShareButton>
 						</div>
@@ -232,7 +246,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 								url={shareUrl}
 								subject={title}
 								body='body'
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<EmailIcon size={55} round />
 							</EmailShareButton>
 						</div>
@@ -240,7 +255,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<ViberShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<ViberIcon size={55} round />
 							</ViberShareButton>
 						</div>
@@ -249,7 +265,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<WorkplaceShareButton
 								url={shareUrl}
 								quote={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<WorkplaceIcon size={55} round />
 							</WorkplaceShareButton>
 						</div>
@@ -258,7 +275,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<LineShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<LineIcon size={55} round />
 							</LineShareButton>
 						</div>
@@ -268,7 +286,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 								url={shareUrl}
 								title={title}
 								// image={`${String(window.location)}/${exampleImage}`}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<WeiboIcon size={55} round />
 							</WeiboShareButton>
 						</div>
@@ -277,7 +296,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<PocketShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<PocketIcon size={55} round />
 							</PocketShareButton>
 						</div>
@@ -286,7 +306,8 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 							<InstapaperShareButton
 								url={shareUrl}
 								title={title}
-								className='Demo__some-network__share-button'>
+								className='Demo__some-network__share-button'
+							>
 								<InstapaperIcon size={55} round />
 							</InstapaperShareButton>
 						</div>
@@ -297,3 +318,4 @@ export default ({ handleShareClose, shareOpen, slug }) => {
 		</Modal>
 	);
 };
+export default SocialSharing;

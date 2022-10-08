@@ -4,7 +4,7 @@ import PDFViewer from "./PDFViewer";
 import WordViewer from "./WordViewer";
 import { fileExistsOnS3 } from "../helpers/fileExistsOnS3";
 
-export default ({
+const Viewer = ({
 	file,
 	ext = null,
 	thumb = null,
@@ -14,7 +14,6 @@ export default ({
 }) => {
 	const [hasPDF, setHasPDF] = React.useState(false);
 
-	console.log(" Viewer- printReadySetter", setPrintReady);
 	file = thumb !== null ? thumb : file;
 
 	const addDefaultSrc = (ev) => {
@@ -32,12 +31,10 @@ export default ({
 	if (ext === null) {
 		const reExtension = /(?:\.([^.]+))?$/;
 		ext = file.match(reExtension)[1].toLowerCase();
-		// dealWithFile(ext);
 	}
-	// const dealWithFile = async (ext) => {
+
 	switch (ext) {
 		case "docx":
-			// console.log("hasPDF", hasPDF.signedUrl);
 			if (hasPDF) {
 				return (
 					<PDFViewer
@@ -58,8 +55,6 @@ export default ({
 			}
 
 		case "pdf":
-			// console.log("ext", ext);
-			// console.log("Viewer: PDF found");
 			return (
 				<PDFViewer
 					key={file + Date.now()}
@@ -76,7 +71,6 @@ export default ({
 				width: "100%",
 				height: "auto",
 			};
-			// console.log("Viewer: Img found");
 			return (
 				<img
 					style={mediaStyle}
@@ -87,8 +81,7 @@ export default ({
 				/>
 			);
 		default:
-			// console.log("Viewer: Video found");
 			return <VideoFile key={file} file={file} />;
-		// }
 	}
 };
+export default Viewer;
