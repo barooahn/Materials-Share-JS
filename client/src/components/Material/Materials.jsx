@@ -44,7 +44,7 @@ const Materials = () => {
 		}
 	};
 
-	const cardWidth = Mobile() ? (getWindowWidth() -20) : 350;
+	const cardWidth = Mobile() ? getWindowWidth() - 20 : 350;
 
 	const calculateColumns = () => {
 		return Math.round(window.innerWidth / (cardWidth - 1));
@@ -54,6 +54,34 @@ const Materials = () => {
 	);
 
 	const limit = Mobile() ? 4 : 10;
+
+	window.onscroll = debounce(() => {
+		if (error || gettingSearchResults || !hasMore) return;
+
+		const height =
+			window.innerHeight ||
+			document.documentElement.clientHeight ||
+			document.body.clientHeight;
+
+		let top =
+			(document.documentElement &&
+				document.documentElement.scrollTop) ||
+			document.body.scrollTop;
+
+		let offsetH =
+			document.body.offsetHeight ||
+			document.documentElement.offsetHeight;
+
+		if (height + top >= offsetH) {
+			if (materials.length === totalMaterials) {
+				setHasMore(false);
+				return;
+			} else {
+				let nextpage = page + 1;
+				setPage(nextpage);
+			}
+		}
+	}, 300);
 
 	React.useEffect(() => {
 		async function fetchData() {

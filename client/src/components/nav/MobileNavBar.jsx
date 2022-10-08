@@ -61,19 +61,13 @@ const useStyles = makeStyles((theme) => ({
 	list: {
 		marginBottom: theme.spacing(2),
 	},
-	subheader: {
-		backgroundColor: theme.palette.background.paper,
-	},
 	appBar: {
 		top: 0,
 		marginBottom: 20,
 	},
-	grow: {
-		flexGrow: 1,
-	},
 	fabButton: {
-		position: "absolute",
-		zIndex: 1,
+		position: "fixed !important",
+		zIndex: 9,
 		bottom: 50,
 		right: 15,
 		width: "50px",
@@ -250,81 +244,71 @@ export default function LabelBottomNavigation({ routePaths }) {
 		<React.Fragment>
 			<CssBaseline />
 			<Box display='block' displayPrint='none'>
-				<HideOnScroll>
-					<AppBar color='default' className={classes.topNav}>
-						<Toolbar
-							className={classes.toolbar}
-							disableGutters
+				<AppBar
+					color='transparent'
+					sx={{ backdropFilter: "blur(20px)" }}
+					className={classes.topNav}
+				>
+					<Toolbar className={classes.toolbar} disableGutters>
+						<IconButton
+							className={classes.logo}
+							onClick={handleHomeClick}
+							aria-label='Home'
 						>
-							<IconButton
+							<img
+								src={
+									"/img/SVG/MaterialsshareLogoMobile.svg"
+								}
+								alt='Materialsshare Logo'
 								className={classes.logo}
-								onClick={handleHomeClick}
-								aria-label='Home'
-							>
-								<img
-									src={
-										"/img/SVG/MaterialsshareLogoMobile.svg"
+							/>
+						</IconButton>
+						{"/" === location.pathname ||
+						"/materials" === location.pathname ||
+						"/ibmyp" === location.pathname ||
+						"/search" === location.pathname ? (
+							<div className={classes.search}>
+								<Search
+									setGettingSearchResults={
+										setGettingSearchResults
 									}
-									alt='Materialsshare Logo'
-									className={classes.logo}
 								/>
-							</IconButton>
-							{"/" === location.pathname ||
-							"/materials" === location.pathname ||
-							"/ibmyp" === location.pathname ||
-							"/search" === location.pathname ? (
-								<div className={classes.search}>
-									<Search
-										setGettingSearchResults={
-											setGettingSearchResults
-										}
-									/>
-									<IconButton
-										className={clsx(
-											classes.expand,
-											{
-												[classes.expandOpen]:
-													expanded,
-											}
-										)}
-										onClick={handleExpandClick}
-										aria-expanded={expanded}
-										aria-label='show more'
-									>
-										<Icon color='secondary'>
-											filter_list
-										</Icon>
-									</IconButton>
-								</div>
-							) : null}
-							<IconButton
-								className={classes.profile}
-								aria-label='account of current user'
-								aria-controls={menuId}
-								aria-haspopup='true'
-								onClick={handleProfileMenuOpen}
-							>
-								<Avatar
-									alt={localStorage.getItem(
-										"USER_NAME"
-									)}
-									src={localStorage.getItem(
-										"USER_IMG"
-									)}
-									className={classes.orange}
+								<IconButton
+									className={clsx(classes.expand, {
+										[classes.expandOpen]:
+											expanded,
+									})}
+									onClick={handleExpandClick}
+									aria-expanded={expanded}
+									aria-label='show more'
 								>
-									{localStorage.getItem("USER_NAME")
-										? localStorage
-												.getItem(
-													"USER_NAME"
-												)
-												.charAt(0)
-										: null}
-								</Avatar>
-							</IconButton>
-						</Toolbar>
-					</AppBar>
-				</HideOnScroll>
+									<Icon color='secondary'>
+										filter_list
+									</Icon>
+								</IconButton>
+							</div>
+						) : null}
+						<IconButton
+							className={classes.profile}
+							aria-label='account of current user'
+							aria-controls={menuId}
+							aria-haspopup='true'
+							onClick={handleProfileMenuOpen}
+						>
+							<Avatar
+								alt={localStorage.getItem("USER_NAME")}
+								src={localStorage.getItem("USER_IMG")}
+								className={classes.orange}
+							>
+								{localStorage.getItem("USER_NAME")
+									? localStorage
+											.getItem("USER_NAME")
+											.charAt(0)
+									: null}
+							</Avatar>
+						</IconButton>
+					</Toolbar>
+				</AppBar>
 			</Box>
 
 			{"/" === location.pathname ||
@@ -354,12 +338,26 @@ export default function LabelBottomNavigation({ routePaths }) {
 				</Menu>
 			</Box>
 			<div className={classes.content}>{routePaths}</div>
+
 			<Box display='block' displayPrint='none'>
 				<BottomNavigation
 					bottomnavvalue={bottomNavValue}
 					onChange={handleBottomNavChange}
 					className={classes.bottomNav}
 				>
+					<HideOnScroll>
+						<IconButton
+							className={classes.fabButton}
+							aria-label='Create Material'
+							onClick={handleNewClick}
+							// color='primary'
+						>
+							<AddCircleIcon
+								// color='secondary'
+								sx={{ fontSize: "50px" }}
+							/>
+						</IconButton>
+					</HideOnScroll>
 					<BottomNavigationAction
 						label='Home'
 						value='home'
@@ -395,21 +393,9 @@ export default function LabelBottomNavigation({ routePaths }) {
 						showLabel={true}
 						onClick={handleHelpClick}
 					/>
-					<HideOnScroll>
-						<IconButton
-							className={classes.fabButton}
-							// aria-label='Create Material'
-							onClick={handleNewClick}
-							// color='primary'
-						>
-							<AddCircleIcon
-								// color='secondary'
-								sx={{ fontSize: "50px" }}
-							/>
-						</IconButton>
-					</HideOnScroll>
 				</BottomNavigation>
 			</Box>
+			<Box></Box>
 		</React.Fragment>
 	);
 }
