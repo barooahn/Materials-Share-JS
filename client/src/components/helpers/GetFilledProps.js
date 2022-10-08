@@ -25,7 +25,6 @@ const titles = [
 
 const getLabel = (name) => {
   const label = titles.filter((x) => name in x);
-  //   console.log("label ", label[0][name]);
   return label[0][name];
 };
 

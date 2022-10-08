@@ -30,7 +30,6 @@ module.exports = {
 	},
 
 	fileUpload: async (req, res) => {
-		console.log("uploading aws file ...", req.files.files);
 		if (req.files.files) {
 			Promise.all(
 				req.files.files.map((file) => {
@@ -70,7 +69,6 @@ module.exports = {
 	},
 
 	deleteFile: async (req, res, next) => {
-		console.log("deleting...", req.body.file);
 		const result = await deleteAws(req.body.file);
 		if (result) {
 			return res.json({
@@ -89,7 +87,6 @@ module.exports = {
 
 	addMaterial: (req, res, next) => {
 		new Material(req.body).save((err, material) => {
-			console.log("Checking material...", req.body);
 			if (err) res.send(err);
 			else if (!material) res.send(400);
 			else {
@@ -113,7 +110,7 @@ module.exports = {
 				if (err) {
 					return res.json(err);
 				}
-				return res.json({materials: doc});
+				return res.json({ materials: doc });
 			});
 	},
 
@@ -138,7 +135,6 @@ module.exports = {
 						if (err) {
 							return res.json(count_error);
 						}
-						// console.log("materials.ctrl - materialsPaginaged doc", doc);
 						return res.json({
 							total: count,
 							page: page,
@@ -151,13 +147,11 @@ module.exports = {
 	},
 
 	getUserLikes: async (req, res, next) => {
-		// console.log("material.ctrl.js - getUserLikes - id:", req.params.author_id);
 		var page = parseInt(req.query.page) || 0; //for next page pass 1 here
 		var limit = parseInt(req.query.limit) || 3;
 		var query = {
 			likes: req.query.id,
 		};
-		// console.log("materials.ctrl - getUserLikes req.query.id ", req.query.id);
 		await Material.find(query)
 			.sort({
 				dateModified: -1,
@@ -168,8 +162,7 @@ module.exports = {
 				if (err) {
 					return res.json(err);
 				}
-				// console.log("materials.ctrl - getUserLikes ", doc);
-				Material.countDocuments(query).exec(
+					Material.countDocuments(query).exec(
 					(count_error, count) => {
 						if (err) {
 							return res.json(count_error);
@@ -207,7 +200,6 @@ module.exports = {
 						if (err) {
 							return res.json(count_error);
 						}
-						// console.log("materials.ctrl - materialsPaginaged doc", doc);
 						return res.json({
 							total: count,
 							page: page,
@@ -242,10 +234,6 @@ module.exports = {
 						if (err) {
 							return res.json(count_error);
 						}
-						console.log(
-							"materials.ctrl - materialsPaginaged doc",
-							doc
-						);
 						return res.json({
 							total: count,
 							page: page,
@@ -262,7 +250,7 @@ module.exports = {
 		var limit = parseInt(req.query.limit) || 3;
 		var query = {
 			// shared: true,
-			 approved: false,
+			approved: false,
 		};
 		await Material.find(query)
 			.sort({
@@ -291,9 +279,7 @@ module.exports = {
 	},
 
 	getMaterialId: (req, res, next) => {
-		// console.log("Materials.ctrl getMaterialId id", req.params.id);
 		Material.findById(req.params.id).exec((err, material) => {
-			// console.log("Materials.ctrl getMaterialId material", material);
 			if (material) return res.send(material);
 			else if (err) return res.send(err);
 			else return res.send(404);
@@ -338,13 +324,8 @@ module.exports = {
 			},
 			function (err) {
 				if (err) {
-					console.log(
-						"there was an error deleteing the material",
-						err
-					);
 					return res.err;
 				}
-				console.log("material deleted ");
 				return res;
 			}
 		);
@@ -404,11 +385,9 @@ module.exports = {
 			})
 			.exec((err, materials) => {
 				if (materials) {
-					//console.log('materials', materials)
 					materials.forEach((x) => {
 						if (x[req.query.field]) {
 							x[req.query.field].forEach((y) => {
-								//console.log('y',!IsInObject(y.value, distinct))
 								if (!IsInObject(y.value, distinct)) {
 									distinct.push({
 										label: y.label,
@@ -428,7 +407,6 @@ module.exports = {
 
 	getSearchResults: (req, res, next) => {
 		const regex = new RegExp(escapeRegex(req.body.search), "gi");
-		console.log("material.ctrl.js-getSearchResults regex", regex);
 		Material.find(
 			{
 				$text: {
@@ -458,13 +436,11 @@ module.exports = {
 			category,
 			curriculum,
 		} = req.body;
-		console.log("material.ctrl - getFilterResults", search);
 		queryCond = {
 			...(search && {
 				$text: {
 					$search: new RegExp(escapeRegex(search), "gi"),
 				},
-				//   search: new RegExp(escapeRegex(search), "gi"),
 			}),
 			...(level.length > 0 && {
 				"level.value": `${level}`,
@@ -498,15 +474,7 @@ module.exports = {
 			}),
 		};
 
-		console.log("material.ctrl.js-filter queryCond: ", queryCond);
 		Material.find(queryCond, function (err, materials) {
-			// const searchResults = await Material.find(queryCond);
-			if (materials) {
-				console.log(
-					"material.ctrl.js-filter searchResults: ",
-					materials.length
-				);
-			}
 			if (materials) return res.send(materials);
 			if (err) console.log("there was a search error", err);
 		});

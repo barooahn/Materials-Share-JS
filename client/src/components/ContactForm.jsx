@@ -1,10 +1,10 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+import Typography from "@mui/material/Typography";
+import { makeStyles } from "@mui/styles";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import ReCAPTCHA from "react-google-recaptcha";
-import Paper from "@material-ui/core/Paper";
+import Paper from "@mui/material/Paper";
 import { sendEmail } from "../actions/materials-share-email";
 
 const useStyles = makeStyles((theme) => ({
@@ -104,7 +104,8 @@ export default function ContactForm() {
 					variant='contained'
 					aria-controls='simple-menu'
 					aria-haspopup='true'
-					onClick={handleSubmit}>
+					onClick={handleSubmit}
+				>
 					Submit
 				</Button>
 			</form>

@@ -1,39 +1,39 @@
 import React from "react";
 import clsx from "clsx";
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Divider from "@material-ui/core/Divider";
-import IconButton from "@material-ui/core/IconButton";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import MenuIcon from "@material-ui/icons/MenuRounded";
-import MenuItem from "@material-ui/core/MenuItem";
-import Menu from "@material-ui/core/Menu";
-import AddBoxIcon from "@material-ui/icons/AddBoxRounded";
-import HomeIcon from "@material-ui/icons/HomeRounded";
-import InfoIcon from "@material-ui/icons/Info";
-import AccountBoxIcon from "@material-ui/icons/AccountBoxRounded";
-import HelpIcon from "@material-ui/icons/HelpRounded";
-import Assignment from "@material-ui/icons/AssignmentRounded";
-import Eject from "@material-ui/icons/EjectRounded";
+import { makeStyles, useTheme } from "@mui/styles";
+import Drawer from "@mui/material/Drawer";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import List from "@mui/material/List";
+import CssBaseline from "@mui/material/CssBaseline";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import MenuIcon from "@mui/icons-material/MenuRounded";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
+import HomeIcon from "@mui/icons-material/HomeRounded";
+import InfoIcon from "@mui/icons-material/Info";
+import AccountBoxIcon from "@mui/icons-material/AccountBoxRounded";
+import HelpIcon from "@mui/icons-material/HelpRounded";
+import Assignment from "@mui/icons-material/AssignmentRounded";
+import Eject from "@mui/icons-material/EjectRounded";
 import { logOut } from "../../auth/helpers";
 import { NavLink } from "react-router-dom";
 import { useLocation, useHistory } from "react-router-dom";
-import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
 import Search from "./Search";
 import Filter from "./Filter";
-import Icon from "@material-ui/core/Icon";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { deepOrange } from "@material-ui/core/colors";
-import Box from "@material-ui/core/Box";
+import Icon from "@mui/material/Icon";
+import CircularProgress from "@mui/material/CircularProgress";
+import { deepOrange } from "@mui/material/colors";
+import Box from "@mui/material/Box";
 import IbLogo from "./icons/ibLogo";
 
 const drawerWidth = 240;
@@ -84,12 +84,13 @@ const useStyles = makeStyles((theme) => ({
 			duration: theme.transitions.duration.leavingScreen,
 		}),
 		overflowX: "hidden",
-		// width: theme.spacing(7) + 1,
 		[theme.breakpoints.up("sm")]: {
-			width: "36px",
+			width: "46px",
 		},
 	},
-	menuList: {},
+	drawerWrapper: {
+		zIndex: 1,
+	},
 	toolbar: {
 		display: "flex",
 		alignItems: "center",
@@ -98,6 +99,7 @@ const useStyles = makeStyles((theme) => ({
 		// necessary for content to be below app bar
 		...theme.mixins.toolbar,
 	},
+
 	content: {
 		flexGrow: 1,
 		padding: theme.spacing(3),
@@ -140,9 +142,10 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: deepOrange[500],
 	},
 	ibLogo: {
-		height: 22,
-		// paddingRight: 18,
-		// paddingLeft: 1,
+		
+	},
+	listIcon: {
+		marginLeft: "5px",
 	},
 }));
 
@@ -213,7 +216,8 @@ export default function MiniDrawer({ routePaths }) {
 						className={classes.button}
 						startIcon={<AccountBoxIcon />}
 						onClick={handleLoginClick}
-						aria-label='Login'>
+						aria-label='Login'
+					>
 						Login
 					</Button>
 					<Button
@@ -221,7 +225,8 @@ export default function MiniDrawer({ routePaths }) {
 						className={classes.button}
 						startIcon={<Assignment />}
 						onClick={handleRegisterClick}
-						aria-label='Register'>
+						aria-label='Register'
+					>
 						Register
 					</Button>
 				</React.Fragment>
@@ -234,11 +239,13 @@ export default function MiniDrawer({ routePaths }) {
 					aria-controls={menuId}
 					aria-haspopup='true'
 					onClick={handleProfileMenuOpen}
-					color='inherit'>
+					color='inherit'
+				>
 					<Avatar
 						src={localStorage.getItem("USER_IMG")}
 						alt={localStorage.getItem("USER_NAME")}
-						className={classes.orange}>
+						className={classes.orange}
+					>
 						{localStorage.getItem("USER_NAME")
 							? localStorage.getItem("USER_NAME").charAt(0)
 							: null}
@@ -257,7 +264,8 @@ export default function MiniDrawer({ routePaths }) {
 					color='default'
 					className={clsx(classes.appBar, {
 						[classes.appBarShift]: open,
-					})}>
+					})}
+				>
 					<Toolbar>
 						<IconButton
 							color='inherit'
@@ -266,7 +274,8 @@ export default function MiniDrawer({ routePaths }) {
 							edge='start'
 							className={clsx(classes.menuButton, {
 								[classes.hide]: open,
-							})}>
+							})}
+						>
 							<MenuIcon />
 						</IconButton>
 						<img
@@ -292,7 +301,8 @@ export default function MiniDrawer({ routePaths }) {
 									})}
 									onClick={handleExpandClick}
 									aria-expanded={expanded}
-									aria-label='show more'>
+									aria-label='show more'
+								>
 									<Icon color='secondary'>
 										filter_list
 									</Icon>
@@ -315,7 +325,8 @@ export default function MiniDrawer({ routePaths }) {
 				keepMounted
 				transformOrigin={{ vertical: "top", horizontal: "right" }}
 				open={isMenuOpen}
-				onClose={handleMenuClose}>
+				onClose={handleMenuClose}
+			>
 				<MenuItem onClick={handleMenuClose}>
 					<NavLink to='/profile' className='link' key='profile'>
 						<ListItem component='div'>
@@ -336,7 +347,11 @@ export default function MiniDrawer({ routePaths }) {
 					</ListItem>
 				</MenuItem>
 			</Menu>
-			<Box display='block' displayPrint='none'>
+			<Box
+				display='block'
+				displayPrint='none'
+				className={classes.drawerWrapper}
+			>
 				<Drawer
 					variant='permanent'
 					className={clsx(classes.drawer, {
@@ -348,11 +363,13 @@ export default function MiniDrawer({ routePaths }) {
 							[classes.drawerOpen]: open,
 							[classes.drawerClose]: !open,
 						}),
-					}}>
+					}}
+				>
 					<div className={classes.toolbar}>
 						<IconButton
 							onClick={handleDrawerClose}
-							aria-label='Close drawer'>
+							aria-label='Close drawer'
+						>
 							{theme.direction === "rtl" ? (
 								<ChevronRightIcon />
 							) : (
@@ -360,7 +377,6 @@ export default function MiniDrawer({ routePaths }) {
 							)}
 						</IconButton>
 					</div>
-					<Divider />
 					<List>
 						<ListItem
 							button
@@ -368,8 +384,9 @@ export default function MiniDrawer({ routePaths }) {
 							onClick={handleHomeClick}
 							selected={"/" === location.pathname}
 							gutters='5px'
-							aria-label='Home'>
-							<ListItemIcon>
+							aria-label='Home'
+						>
+							<ListItemIcon className={classes.listIcon}>
 								<HomeIcon />
 							</ListItemIcon>
 							<ListItemText primary='Home' />
@@ -382,8 +399,11 @@ export default function MiniDrawer({ routePaths }) {
 								aria-label='About'
 								selected={
 									"/about" === location.pathname
-								}>
-								<ListItemIcon>
+								}
+							>
+								<ListItemIcon
+									className={classes.listIcon}
+								>
 									<InfoIcon />
 								</ListItemIcon>
 								<ListItemText primary='About' />
@@ -397,8 +417,11 @@ export default function MiniDrawer({ routePaths }) {
 								key={"NewMaterial"}
 								selected={
 									"/create" === location.pathname
-								}>
-								<ListItemIcon>
+								}
+							>
+								<ListItemIcon
+									className={classes.listIcon}
+								>
 									<AddBoxIcon />
 								</ListItemIcon>
 								<ListItemText primary='New Material' />
@@ -411,14 +434,11 @@ export default function MiniDrawer({ routePaths }) {
 								key={"IB-MPY Curriculum"}
 								selected={
 									"/ibmyp" === location.pathname
-								}>
-								<ListItemIcon>
-									{/* <img
-										src={"/img/ibLogo.png"}
-										alt='Materialsshare Logo'
-										className={classes.ibLogo}
-										onClick={handleHomeClick}
-									/> */}
+								}
+							>
+								<ListItemIcon
+									className={classes.listIcon}
+								>
 									<IbLogo />
 								</ListItemIcon>
 								<ListItemText primary='IB-MPY' />
@@ -430,10 +450,11 @@ export default function MiniDrawer({ routePaths }) {
 								button
 								aria-label='help'
 								key={"help"}
-								selected={
-									"/help" === location.pathname
-								}>
-								<ListItemIcon>
+								selected={"/help" === location.pathname}
+							>
+								<ListItemIcon
+									className={classes.listIcon}
+								>
 									<HelpIcon />
 								</ListItemIcon>
 								<ListItemText primary='Help' />

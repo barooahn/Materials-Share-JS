@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import Typography from "@material-ui/core/Typography";
+import Typography from "@mui/material/Typography";
 // import { getSecret } from "../auth/helpers";
 import MaterialCard from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 import { getPaginatedUserMaterials } from "../actions/materials-share-actions";
-import CircularProgress from "@material-ui/core/CircularProgress";
+import CircularProgress from "@mui/material/CircularProgress";
 import debounce from "lodash.debounce";
 
 const useStyles = makeStyles((theme) => ({
@@ -116,7 +116,8 @@ export default (props) => {
 					<StackGrid
 						columnWidth={props.cardWidth}
 						gutterWidth={5}
-						gutterHeight={10}>
+						gutterHeight={10}
+					>
 						{userMaterials.map((material, index) => (
 							////////////// do not remove div - important to stop flashing bug
 							<div>
@@ -134,7 +135,8 @@ export default (props) => {
 					{error && (
 						<div
 							className={classes.info}
-							style={{ color: "#900" }}>
+							style={{ color: "#900" }}
+						>
 							{error}
 						</div>
 					)}

@@ -1,9 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Icon from "@material-ui/core/Icon";
-import Grid from "@material-ui/core/Grid";
-import { Paper } from "@material-ui/core";
+import { makeStyles } from "@mui/styles";
+import Typography from "@mui/material/Typography";
+import Icon from "@mui/material/Icon";
+import Grid from "@mui/material/Grid";
+import { Paper } from "@mui/material";
 
 const useStyles = makeStyles((theme) => ({
 	searchAndFilter: {
@@ -75,7 +75,8 @@ export default function DocsPicsVids() {
 				className={classes.title}
 				align='center'
 				variant='h1'
-				component='h1'>
+				component='h1'
+			>
 				Save Time With Search And Filter
 			</Typography>
 
@@ -84,11 +85,13 @@ export default function DocsPicsVids() {
 				container
 				spacing={1}
 				justifyContent='center'
-				alignItems='center'>
+				alignItems='center'
+			>
 				<Grid item sm={8} xs={12}>
 					<Typography
 						className={classes.mainText}
-						variant='body1'>
+						variant='body1'
+					>
 						Material Share can accurately find the resource
 						you are looking for in a split second. Just search
 						for a keyword.
@@ -103,12 +106,14 @@ export default function DocsPicsVids() {
 							className={classes.proTip}
 							variant='h2'
 							component='h3'
-							color='secondary'>
+							color='secondary'
+						>
 							PRO TIP
 						</Typography>
 						<Typography
 							className={classes.tipText}
-							variant='body2'>
+							variant='body2'
+						>
 							Combine search and filter to zoom in on
 							materials that suit your precise needs. If
 							you can’t find what you are looking for, why

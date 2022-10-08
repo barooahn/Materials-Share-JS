@@ -2,7 +2,6 @@ import { fileExistsOnS3 } from "../components/helpers/fileExistsOnS3";
 const axios = require("axios").default;
 
 export const SaveData = (payload, type, setCompleted, setSaved) => {
-	console.log("ms-share-actions- save ", payload);
 
 	function isFileImage(file) {
 		return file && file["type"].split("/")[0] === "image";
@@ -41,10 +40,8 @@ export const SaveData = (payload, type, setCompleted, setSaved) => {
 };
 
 export const editMaterial = (material, setSaved) => {
-	console.log("materialsactionshare- material", material);
 	axios.put(`/api/material/update/${material.id}`, material, {})
 		.then((res) => {
-			console.log("saved edit to db", res.data);
 			setSaved(true);
 		})
 		.catch(function (err) {
@@ -55,10 +52,8 @@ export const editMaterial = (material, setSaved) => {
 const createMaterial = (material, setSaved) => {
 	material.author_id = localStorage.getItem("USER_ID");
 	material.author_img = localStorage.getItem("USER_IMG");
-	console.log("materials-share-actions creatematerial - material", material);
 	axios.post(`/api/material`, material, {})
 		.then((res) => {
-			// console.log("saved new material to db", res.data);
 			setSaved(true);
 		})
 		.catch(function (err) {
@@ -75,7 +70,6 @@ const handleThumbUpload = async (thumbFile) => {
 		},
 		body: JSON.stringify({ file: thumbFile }),
 	});
-	// console.log("materials-share-actions handleThumbUpload response", response);
 	return response.json();
 };
 
@@ -104,7 +98,6 @@ const handleFileUpload = async (
 		},
 	});
 
-	console.log("uploaded files", uploadedFiles);
 	uploadedFiles.data.forEach((file) => {
 		payload.files.push(file.path);
 
@@ -127,44 +120,15 @@ const handleFileUpload = async (
 	if (type === "Edit") editMaterial(payload, setSaved);
 };
 
-// const getDocThumb = (file, ext, callback) => {
-//   let path =
-//     ext === "docx" ? file.path + ".pdf_thumb.jpg" : file.path + "_thumb.jpg";
-//   let timeout = 0;
-//   var findFile = setInterval(myTimer, 200);
-//   function myTimer() {
-//     console.log("searching for file: ", path);
-//     timeout++;
-
-//     let img = fileExistsOnS3(path);
-//     console.log("could not find file trying again: ", timeout);
-//     if (img) {
-//       myStopFunction();
-//       console.log("found file: ", path);
-//       callback(path);
-//     }
-//     if (timeout >= 15) {
-//       myStopFunction();
-//       console.log("could not find file: ", path);
-//     }
-//   }
-
-//   function myStopFunction() {
-//     clearInterval(findFile);
-//   }
-// };
-
 const getFileExt = (file) => {
 	const reExtension = /(?:\.([^.]+))?$/;
 	const ext = file.name.match(reExtension)[1].toLowerCase();
-	console.log("file ext = ", ext);
 	return ext;
 };
 
 export const makeThumb = async (file) => {
 	const formData = new FormData();
 	formData.append("file", file);
-	// console.log("materials-share-actions makeThumb file", file);
 	let response = await fetch("/api/material/makeThumb", {
 		method: "POST",
 		body: formData,
@@ -310,7 +274,6 @@ export const getSearchQueries = async () => {
 
 	return response.json();
 };
-// console.log("materials-share-actions - saveSearchResult search", searchQuery);
 
 export const saveSearchQuery = async (searchQuery) => {
 	let response = await fetch("/api/saveSearchQuery", {

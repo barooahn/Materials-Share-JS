@@ -1,5 +1,5 @@
-import { createTheme } from "@material-ui/core/styles";
-import red from "@material-ui/core/colors/red";
+import { createTheme } from "@mui/material/styles";
+import red from "@mui/material/colors/red";
 const theme = createTheme({
 	typography: {
 		// Use the system font instead of the default Roboto font.

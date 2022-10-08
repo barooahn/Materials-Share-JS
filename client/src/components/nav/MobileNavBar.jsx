@@ -1,39 +1,38 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import BottomNavigation from "@material-ui/core/BottomNavigation";
-import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import AddBoxIcon from "@material-ui/icons/AddBoxRounded";
-import HomeIcon from "@material-ui/icons/HomeRounded";
-import InfoIcon from "@material-ui/icons/Info";
-import HelpIcon from "@material-ui/icons/HelpRounded";
+import { makeStyles } from "@mui/styles";
+import BottomNavigation from "@mui/material/BottomNavigation";
+import BottomNavigationAction from "@mui/material/BottomNavigationAction";
+import AddBoxIcon from "@mui/icons-material/AddBoxRounded";
+import HomeIcon from "@mui/icons-material/HomeRounded";
+import InfoIcon from "@mui/icons-material/Info";
+import HelpIcon from "@mui/icons-material/HelpRounded";
 import { useHistory } from "react-router-dom";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import IconButton from "@material-ui/core/IconButton";
-import Avatar from "@material-ui/core/Avatar";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import useScrollTrigger from "@material-ui/core/useScrollTrigger";
-import Slide from "@material-ui/core/Slide";
-import AccountBoxIcon from "@material-ui/icons/AccountBoxRounded";
-import Assignment from "@material-ui/icons/AssignmentRounded";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import Menu from "@material-ui/core/Menu";
-import MenuItem from "@material-ui/core/MenuItem";
-import Eject from "@material-ui/icons/EjectRounded";
-import { deepOrange } from "@material-ui/core/colors";
+import AppBar from "@mui/material/AppBar";
+import CssBaseline from "@mui/material/CssBaseline";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Avatar from "@mui/material/Avatar";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import Fade from "@mui/material/Fade";
+import AccountBoxIcon from "@mui/icons-material/AccountBoxRounded";
+import Assignment from "@mui/icons-material/AssignmentRounded";
+import ListItem from "@mui/material/ListItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Eject from "@mui/icons-material/EjectRounded";
+import { deepOrange } from "@mui/material/colors";
 import { logOut } from "../../auth/helpers";
 import { NavLink, useLocation } from "react-router-dom";
 import Search from "./Search";
 import Filter from "./Filter";
-import Icon from "@material-ui/core/Icon";
+import Icon from "@mui/material/Icon";
 import IbLogo from "./icons/ibLogo";
 import clsx from "clsx";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Box from "@material-ui/core/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
 
 const useStyles = makeStyles((theme) => ({
 	topNav: {
@@ -49,6 +48,8 @@ const useStyles = makeStyles((theme) => ({
 		width: "100%",
 		zIndex: 10,
 		padding: "10px",
+		display: "flex",
+		justifyContent: "space-between",
 	},
 	content: { marginTop: 80 },
 	text: {
@@ -73,8 +74,9 @@ const useStyles = makeStyles((theme) => ({
 	fabButton: {
 		position: "absolute",
 		zIndex: 1,
-		bottom: 70,
-		right: 10,
+		bottom: 50,
+		right: 15,
+		width: "50px",
 	},
 	filter: {
 		marginTop: 100,
@@ -119,9 +121,6 @@ export default function LabelBottomNavigation({ routePaths }) {
 
 	const [gettingSearchResults, setGettingSearchResults] =
 		React.useState(false);
-
-	console.log("MobileNavBar - anchorEl", anchorEl);
-	// console.log("MobileNavBar - routePaths", routePaths);
 
 	const [expanded, setExpanded] = React.useState(false);
 	const isMenuOpen = Boolean(anchorEl);
@@ -182,9 +181,9 @@ export default function LabelBottomNavigation({ routePaths }) {
 		let thresh = expanded ? 1000000 : 100;
 		const trigger = useScrollTrigger({ threshold: thresh });
 		return (
-			<Slide appear={false} direction='down' in={!trigger}>
+			<Fade appear={false} direction='down' in={!trigger}>
 				{children}
-			</Slide>
+			</Fade>
 		);
 	}
 
@@ -196,7 +195,8 @@ export default function LabelBottomNavigation({ routePaths }) {
 						<NavLink
 							to='/profile'
 							className='link'
-							key='profile'>
+							key='profile'
+						>
 							<ListItem onClick={handleLoginClick}>
 								<ListItemIcon>
 									<AccountBoxIcon />
@@ -222,7 +222,8 @@ export default function LabelBottomNavigation({ routePaths }) {
 						<NavLink
 							to='/profile'
 							className='link'
-							key='profile'>
+							key='profile'
+						>
 							<ListItem component='div'>
 								<ListItemIcon>
 									<Assignment />
@@ -253,12 +254,13 @@ export default function LabelBottomNavigation({ routePaths }) {
 					<AppBar color='default' className={classes.topNav}>
 						<Toolbar
 							className={classes.toolbar}
-							disableGutters>
+							disableGutters
+						>
 							<IconButton
 								className={classes.logo}
 								onClick={handleHomeClick}
-								aria-label='Home'>
-								{/* <LocalLibraryIcon color="secondary" fontSize="large" /> */}
+								aria-label='Home'
+							>
 								<img
 									src={
 										"/img/SVG/MaterialsshareLogoMobile.svg"
@@ -267,7 +269,6 @@ export default function LabelBottomNavigation({ routePaths }) {
 									className={classes.logo}
 								/>
 							</IconButton>
-							{/* <div className={classes.grow} /> */}
 							{"/" === location.pathname ||
 							"/materials" === location.pathname ||
 							"/ibmyp" === location.pathname ||
@@ -288,7 +289,8 @@ export default function LabelBottomNavigation({ routePaths }) {
 										)}
 										onClick={handleExpandClick}
 										aria-expanded={expanded}
-										aria-label='show more'>
+										aria-label='show more'
+									>
 										<Icon color='secondary'>
 											filter_list
 										</Icon>
@@ -300,7 +302,8 @@ export default function LabelBottomNavigation({ routePaths }) {
 								aria-label='account of current user'
 								aria-controls={menuId}
 								aria-haspopup='true'
-								onClick={handleProfileMenuOpen}>
+								onClick={handleProfileMenuOpen}
+							>
 								<Avatar
 									alt={localStorage.getItem(
 										"USER_NAME"
@@ -308,7 +311,8 @@ export default function LabelBottomNavigation({ routePaths }) {
 									src={localStorage.getItem(
 										"USER_IMG"
 									)}
-									className={classes.orange}>
+									className={classes.orange}
+								>
 									{localStorage.getItem("USER_NAME")
 										? localStorage
 												.getItem(
@@ -344,7 +348,8 @@ export default function LabelBottomNavigation({ routePaths }) {
 					id={menuId}
 					keepMounted
 					open={isMenuOpen}
-					onClose={handleMenuClose}>
+					onClose={handleMenuClose}
+				>
 					<div>{menuOptions()}</div>
 				</Menu>
 			</Box>
@@ -354,7 +359,6 @@ export default function LabelBottomNavigation({ routePaths }) {
 					bottomnavvalue={bottomNavValue}
 					onChange={handleBottomNavChange}
 					className={classes.bottomNav}
-					// position="fixed"
 				>
 					<BottomNavigationAction
 						label='Home'
@@ -392,12 +396,17 @@ export default function LabelBottomNavigation({ routePaths }) {
 						onClick={handleHelpClick}
 					/>
 					<HideOnScroll>
-						<Fab
-							color='secondary'
+						<IconButton
 							className={classes.fabButton}
-							aria-label='Create Material'>
-							<AddIcon onClick={handleNewClick} />
-						</Fab>
+							// aria-label='Create Material'
+							onClick={handleNewClick}
+							// color='primary'
+						>
+							<AddCircleIcon
+								// color='secondary'
+								sx={{ fontSize: "50px" }}
+							/>
+						</IconButton>
 					</HideOnScroll>
 				</BottomNavigation>
 			</Box>

@@ -6,14 +6,15 @@ import Notfound from "./components/NotFound";
 import NavBar from "./components/nav/NavBar";
 import MobileNavBar from "./components/nav/MobileNavBar";
 import PrivacyPolicy from "./components/PrivacyPolicy";
-import { ThemeProvider } from "@material-ui/core/styles";
-import CssBaseline from "@material-ui/core/CssBaseline";
+import { ThemeProvider } from "@mui/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 import theme from "./theme";
 import Mobile from "./components/helpers/mobile";
 import GA from "./components/helpers/GoogleAnalytics";
 import HelmetMetaData from "./components/helpers/HelmetMetaData";
 import Transition from "./components/helpers/Transition";
 import ReactGA from "react-ga";
+import { createRoot } from "react-dom/client";
 
 import {
 	BrowserRouter as Router,
@@ -138,8 +139,9 @@ const nav = Mobile() ? (
 const TRACKING_ID = "G-6VW77FWXTJ";
 
 ReactGA.initialize(TRACKING_ID);
+const root = createRoot(document.getElementById("root"));
 
-const routing = (
+root.render(
 	<ThemeProvider theme={theme}>
 		<CssBaseline />
 		<Router>
@@ -147,8 +149,6 @@ const routing = (
 		</Router>
 	</ThemeProvider>
 );
-
-ReactDOM.render(routing, document.getElementById("root"));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

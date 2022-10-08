@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getAllMaterials } from "../actions/materials-share-actions";
 
-import { makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@mui/styles";
 
 import Mobile from "../components/helpers/mobile";
 import MaterialsAwaitingApproval from "./MaterialsAwaitingApproval";
@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 const AdminPage = () => {
 	const classes = useStyles();
 	const [allMaterials, setAllMaterials] = useState([]);
-	const [gettingSearchResults, setGettingSearchResults] = useState(false); 
+	const [gettingSearchResults, setGettingSearchResults] = useState(false);
 	const [totalMaterials, setTotalMaterials] = useState();
 
 	const limit = Mobile() ? 4 : 10;
@@ -51,7 +51,8 @@ const AdminPage = () => {
 			<MaterialsCount count={totalMaterials}></MaterialsCount>
 			<MaterialsAwaitingApproval
 				materials={allMaterials}
-				setMaterials={setAllMaterials}></MaterialsAwaitingApproval>
+				setMaterials={setAllMaterials}
+			></MaterialsAwaitingApproval>
 		</div>
 	);
 };
