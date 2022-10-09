@@ -34,9 +34,8 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
-			theme.spacing.unit * 3
-		}px`,
+		margin: "10px",
+		padding: "10px",
 	},
 	avatar: {
 		margin: theme.spacing.unit,
@@ -44,13 +43,16 @@ const useStyles = makeStyles((theme) => ({
 	},
 	form: {
 		width: "100%", // Fix IE 11 issue.
-		marginTop: theme.spacing.unit,
+		marginTop: "10px",
 	},
 	submit: {
 		marginTop: theme.spacing.unit * 3,
 	},
 	input: {
-		marginBottom: 12,
+		// marginTop: "5px",
+		// padding: "20px"
+		// border: "1px solid black",
+		// backgroundColor: "#000"
 	},
 	sbcontainer: {
 		display: "flex",
@@ -224,8 +226,6 @@ const Register2 = () => {
 							autoLoad={false}
 							fields='name,email,picture'
 							callback={responseFacebook}
-							// icon="fa-facebook"
-							// textButton="Login"
 							disableMobileRedirect={true}
 							render={(renderProps) => (
 								<Button
@@ -278,6 +278,7 @@ const Register2 = () => {
 						fullWidth
 						variant='outlined'
 						error={nameError}
+						margin='dense'
 					/>
 					<TextField
 						className={classes.input}
@@ -290,6 +291,7 @@ const Register2 = () => {
 						fullWidth
 						variant='outlined'
 						error={emailError}
+						margin='dense'
 					/>
 					<TextField
 						className={classes.input}
@@ -303,6 +305,7 @@ const Register2 = () => {
 						fullWidth
 						variant='outlined'
 						error={passwordError}
+						margin='dense'
 					/>
 					<TextField
 						className={classes.input}
@@ -316,6 +319,7 @@ const Register2 = () => {
 						fullWidth
 						variant='outlined'
 						error={password1Error}
+						margin='dense'
 					/>
 					<FormControlLabel
 						control={

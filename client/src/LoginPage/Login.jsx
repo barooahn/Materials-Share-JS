@@ -34,9 +34,8 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
-			theme.spacing.unit * 3
-		}px`,
+		margin: "10px",
+		padding: "10px"
 	},
 	avatar: {
 		margin: theme.spacing.unit,
@@ -227,6 +226,7 @@ const Login = () => {
 							value={email}
 							fullWidth
 							variant='outlined'
+							margin='dense'
 						/>
 					</div>
 					<div className={classes.input}>
@@ -241,6 +241,7 @@ const Login = () => {
 							value={password}
 							fullWidth
 							variant='outlined'
+							margin='dense'
 						/>
 					</div>
 					<FormControlLabel
