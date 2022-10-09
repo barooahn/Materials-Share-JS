@@ -272,7 +272,6 @@ const Register2 = () => {
 						className={classes.input}
 						label='Name *'
 						autoComplete='name'
-						autoFocus
 						onChange={handleNameChange}
 						value={name}
 						fullWidth

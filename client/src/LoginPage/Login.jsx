@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: "column",
 		alignItems: "center",
 		margin: "10px",
-		padding: "10px"
+		padding: "10px",
 	},
 	avatar: {
 		margin: theme.spacing.unit,
@@ -221,7 +221,6 @@ const Login = () => {
 							label='Email *'
 							name='email'
 							autoComplete='email'
-							autoFocus
 							onChange={handleEmailChange}
 							value={email}
 							fullWidth
