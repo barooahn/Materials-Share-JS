@@ -21,14 +21,13 @@ const useStyles = makeStyles((theme) => ({
 	collapse: {
 		display: "flex",
 		flexDirection: "column",
-		padding: 2,
 		maxWidth: "100%",
 		width: filterWidth,
 		height: filterHeight + "!important",
 		zIndex: 200,
 		position: "fixed",
 		top: "70px",
-		padding: 10,
+		padding: "10px",
 		backgroundColor: "white",
 	},
 	filterItem: {
@@ -51,12 +50,12 @@ const Filter = ({ expanded, setExpanded }) => {
 	const [timePrepValue, setTimePrepValue] = React.useState([0, 100]);
 	const [levelValue, setLevelValue] = React.useState([]);
 	const [curriculumValue, setCurriculumValue] = React.useState([]);
-	const [categoryValue, setCategoryValue] = React.useState([]);
+	const [categoryValue] = React.useState([]);
 	const [languageFocusValue, setLanguageFocusValue] = React.useState([]);
 	const [pupilTaskValue, setPupilTaskValue] = React.useState([]);
 	const [activityUseValue, setActivityUseValue] = React.useState([]);
 
-	const [dynamicCategory, setDynamicCategory] = React.useState([]);
+	const [, setDynamicCategory] = React.useState([]);
 	const [dynamicLevels, setDynamicLevels] = React.useState([]);
 	const [dynamicCurriculums, setDynamicCurriculums] = React.useState([]);
 	const [dynamicPupilTask, setDynamicPupilTask] = React.useState([]);
@@ -146,10 +145,10 @@ const Filter = ({ expanded, setExpanded }) => {
 		setPupilTaskValue(value);
 	};
 
-	const changeCategory = (e, value) => {
-		optionChange(value);
-		setCategoryValue(value);
-	};
+	// const changeCategory = (e, value) => {
+	// 	optionChange(value);
+	// 	setCategoryValue(value);
+	// };
 
 	const changeLanguageFocus = (e, value) => {
 		optionChange(value);
@@ -198,8 +197,7 @@ const Filter = ({ expanded, setExpanded }) => {
 			in={expanded}
 			timeout='auto'
 			unmountOnExit
-			className={classes.collapse}
-		>
+			className={classes.collapse}>
 			<div className={classes.filterItem}>
 				<Typography id='range-slider' gutterBottom>
 					Time in Class
@@ -319,8 +317,7 @@ const Filter = ({ expanded, setExpanded }) => {
 			<Button
 				className={classes.filterButton}
 				variant='outlined'
-				onClick={goToResults}
-			>
+				onClick={goToResults}>
 				Filter
 			</Button>
 			{searchQuery ? (
@@ -330,8 +327,7 @@ const Filter = ({ expanded, setExpanded }) => {
 							gutterBottom
 							variant='body1'
 							component='p'
-							align='center'
-						>
+							align='center'>
 							Search for... "{searchQuery}" Results
 							found...
 							{location.state?.searchResults.length}
@@ -345,8 +341,7 @@ const Filter = ({ expanded, setExpanded }) => {
 							gutterBottom
 							variant='body1'
 							component='p'
-							align='center'
-						>
+							align='center'>
 							{location.state?.searchResults.length > 0
 								? " Results found..." +
 								  location.state?.searchResults.length

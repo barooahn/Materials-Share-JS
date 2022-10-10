@@ -1,3 +1,5 @@
-export default () => {
-  return document.documentElement.clientWidth < 600;
+const mobile = () => {
+	return document.documentElement.clientWidth < 600;
 };
+
+export default mobile;

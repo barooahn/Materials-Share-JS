@@ -68,7 +68,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default () => {
+const Material = () => {
 	const classes = useStyles();
 	let history = useHistory();
 	const { slug } = useParams();
@@ -135,19 +135,6 @@ export default () => {
 		return color;
 	};
 
-	///////////////////////////////////Two print methods to be implmented/////////////////
-	// React.useEffect(() => {
-	//   if (printReady) {
-	//     window.print();
-	//   }
-	// }, [printReady]);
-
-	// const print = () => {
-	//   setPrintPDF(true);
-	//   //need to set in useEffect printPDF as dependancy
-	// };
-	///////////////////////////////////Two print methods to be implmented/////////////////
-
 	const print = () => {
 		window.print();
 	};
@@ -185,8 +172,7 @@ export default () => {
 					gutterBottom
 					variant='h2'
 					component='h2'
-					align='center'
-				>
+					align='center'>
 					{material.title}
 				</Typography>
 				{/* <MetaTags>
@@ -234,19 +220,16 @@ export default () => {
 								? "Login to add to likes"
 								: "Add to likes"
 						}
-						placement='top'
-					>
+						placement='top'>
 						<span>
 							<IconButton
 								aria-label='add to favorites'
 								onClick={toggleLikes}
 								color={setLikesColour()}
-								disabled={!author}
-							>
+								disabled={!author}>
 								<Badge
 									color='default'
-									badgeContent={likes.length}
-								>
+									badgeContent={likes.length}>
 									<FavoriteIcon />
 								</Badge>
 							</IconButton>
@@ -254,14 +237,12 @@ export default () => {
 					</Tooltip>
 					<Tooltip
 						title={!author ? "Login to print" : "Print"}
-						placement='top'
-					>
+						placement='top'>
 						<span>
 							<IconButton
 								aria-label='add to favorites'
 								onClick={print}
-								disabled={!author}
-							>
+								disabled={!author}>
 								<PrintIcon />
 							</IconButton>
 						</span>
@@ -270,8 +251,7 @@ export default () => {
 						<span>
 							<IconButton
 								aria-label='share'
-								onClick={handleShareOpen}
-							>
+								onClick={handleShareOpen}>
 								<ShareIcon />
 							</IconButton>
 						</span>
@@ -285,29 +265,23 @@ export default () => {
 						<React.Fragment>
 							<Tooltip
 								title='Edit your material'
-								placement='top'
-							>
+								placement='top'>
 								<span>
 									<IconButton
 										component={Link}
-										to={"/edit/" + material._id}
-									>
+										to={"/edit/" + material._id}>
 										<EditIcon />
 									</IconButton>
 								</span>
 							</Tooltip>
 							<Tooltip
 								title='Delete your material'
-								placement='top'
-							>
+								placement='top'>
 								<span>
 									<IconButton
 										onClick={(event) =>
-											handleDeleteMaterial(
-												event
-											)
-										}
-									>
+											handleDeleteMaterial()
+										}>
 										<DeleteForeverIcon />
 									</IconButton>
 								</span>
@@ -345,8 +319,7 @@ export default () => {
 						gutterBottom
 						variant='h4'
 						component='h4'
-						align='center'
-					>
+						align='center'>
 						Teacher Notes
 					</Typography>
 					{DisplayMaterialList(material)}
@@ -355,8 +328,7 @@ export default () => {
 							<Typography
 								variant='h6'
 								style={{ paddingLeft: 10 }}
-								component='h6'
-							>
+								component='h6'>
 								Material used in conjuction with text
 								book
 							</Typography>
@@ -367,8 +339,7 @@ export default () => {
 									padding: 10,
 									whiteSpace: "pre-wrap",
 								}}
-								component='p'
-							>
+								component='p'>
 								{material.book}
 								{" - Page " + material.page}
 							</Typography>
@@ -385,15 +356,13 @@ export default () => {
 					BackdropComponent={Backdrop}
 					BackdropProps={{
 						timeout: 500,
-					}}
-				>
+					}}>
 					<Fade in={deleteOpen}>
 						<div className={classes.paper}>
 							<Typography
 								variant='h6'
 								color='secondary'
-								component='p'
-							>
+								component='p'>
 								Are you sure you want to delete? This
 								cannot be undone.
 							</Typography>
@@ -404,8 +373,7 @@ export default () => {
 									variant='contained'
 									size='large'
 									startIcon={<DeleteForeverIcon />}
-									onClick={confirmDelete}
-								>
+									onClick={confirmDelete}>
 									Delete
 								</Button>
 								<br />
@@ -414,8 +382,7 @@ export default () => {
 									variant='contained'
 									size='large'
 									startIcon={<CancelIcon />}
-									onClick={cancelDelete}
-								>
+									onClick={cancelDelete}>
 									Cancel
 								</Button>
 							</div>
@@ -426,3 +393,4 @@ export default () => {
 		</Suspense>
 	);
 };
+export default Material;

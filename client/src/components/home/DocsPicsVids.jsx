@@ -3,7 +3,6 @@ import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 
 import Grid from "@mui/material/Grid";
-import { red } from "@mui/material/colors";
 
 const useStyles = makeStyles((theme) => ({
 	documentsPicturesVideo: {
@@ -76,8 +75,7 @@ export default function DocsPicsVids() {
 				className={classes.title}
 				align='center'
 				variant='h1'
-				component='h1'
-			>
+				component='h1'>
 				Documents, Pictures and Video
 			</Typography>
 
@@ -86,13 +84,11 @@ export default function DocsPicsVids() {
 				container
 				spacing={1}
 				justifyContent='center'
-				alignItems='center'
-			>
+				alignItems='center'>
 				<Grid item sm={9} xs={12}>
 					<Typography
 						className={classes.mainText}
-						variant='body1'
-					>
+						variant='body1'>
 						Upload Word documents, PDF files, vidoes, images
 						to create the perfect teaching resource.
 						<br />
@@ -105,14 +101,12 @@ export default function DocsPicsVids() {
 							className={classes.proTip}
 							variant='h2'
 							component='h3'
-							color='secondary'
-						>
+							color='secondary'>
 							PRO TIP
 						</Typography>
 						<Typography
 							className={classes.tipText}
-							variant='body2'
-						>
+							variant='body2'>
 							Why not complete all the fields when
 							uploading a resource and make your own
 							resource book? Just print and send to the

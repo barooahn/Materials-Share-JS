@@ -9,11 +9,7 @@ import MediaFiles from "./MediaFiles";
 import MaterialDetails from "./MaterialDetails";
 import { SaveData, getMaterialId } from "../../actions/materials-share-actions";
 import MaterialDetailsFull from "./MaterialDetailsFull";
-import {
-	BrowserRouter as Router,
-	useParams,
-	useHistory,
-} from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import LinearProgress from "@mui/material/LinearProgress";
 import { SetAutocompletes } from "../helpers/SetAutocompletes";
 import Modal from "@mui/material/Modal";
@@ -151,7 +147,7 @@ export default function MaterialStepper() {
 	const [type, setType] = React.useState("Create");
 	const [warnings, setWarnings] = React.useState([]);
 	const [saveAnywayFlag, setSaveAnywayFlag] = React.useState(false);
-	const [approved, setApproved] = React.useState(false);
+	const [, setApproved] = React.useState(false);
 
 	React.useEffect(() => {
 		if (id !== undefined) {
@@ -503,8 +499,7 @@ export default function MaterialStepper() {
 						labelProps.optional = (
 							<Typography
 								component={"span"}
-								variant='caption'
-							>
+								variant='caption'>
 								Optional
 							</Typography>
 						);
@@ -526,14 +521,12 @@ export default function MaterialStepper() {
 					<div>
 						<Typography
 							component={"span"}
-							className={classes.instructions}
-						>
+							className={classes.instructions}>
 							All steps completed - you&apos;re finished
 						</Typography>
 						<Button
 							onClick={handleReset}
-							className={classes.button}
-						>
+							className={classes.button}>
 							Reset
 						</Button>
 					</div>
@@ -541,8 +534,7 @@ export default function MaterialStepper() {
 					<div>
 						<Typography
 							component={"span"}
-							className={classes.instructions}
-						>
+							className={classes.instructions}>
 							{getStepContent(activeStep)}
 						</Typography>
 
@@ -550,8 +542,7 @@ export default function MaterialStepper() {
 							<div className={classes.linearProgress}>
 								<Typography
 									component={"span"}
-									className={classes.instructions}
-								>
+									className={classes.instructions}>
 									Saving ...
 								</Typography>
 								<LinearProgress color='secondary' />
@@ -566,8 +557,7 @@ export default function MaterialStepper() {
 								<Button
 									disabled={activeStep === 0}
 									onClick={handleBack}
-									className={classes.button}
-								>
+									className={classes.button}>
 									Back
 								</Button>
 								{isStepOptional(activeStep) && (
@@ -575,8 +565,7 @@ export default function MaterialStepper() {
 										variant='contained'
 										color='primary'
 										onClick={handleSkip}
-										className={classes.button}
-									>
+										className={classes.button}>
 										Skip
 									</Button>
 								)}
@@ -592,8 +581,7 @@ export default function MaterialStepper() {
 												files.length ===
 													0) ||
 											title === ""
-										}
-									>
+										}>
 										Next
 									</Button>
 								) : null}
@@ -602,8 +590,7 @@ export default function MaterialStepper() {
 									variant='contained'
 									color='secondary'
 									onClick={checkSave}
-									className={classes.button}
-								>
+									className={classes.button}>
 									Save
 								</Button>
 							</div>
@@ -621,8 +608,7 @@ export default function MaterialStepper() {
 				BackdropComponent={Backdrop}
 				BackdropProps={{
 					timeout: 500,
-				}}
-			>
+				}}>
 				<Fade in={openModelWarnings}>
 					<div className={classes.paper}>
 						<h4 id='transition-modal-title'>
@@ -642,16 +628,14 @@ export default function MaterialStepper() {
 							color='secondary'
 							onClick={saveAnyway}
 							variant='contained'
-							className={classes.button}
-						>
+							className={classes.button}>
 							Save Anyway
 						</Button>
 						<Button
 							color='primary'
 							onClick={addDetails}
 							variant='contained'
-							className={classes.button}
-						>
+							className={classes.button}>
 							Add Details
 						</Button>
 					</div>
