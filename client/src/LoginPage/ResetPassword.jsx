@@ -29,16 +29,15 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
-			theme.spacing.unit * 3
-		}px`,
+		margin: "10px",
+		padding: "10px",
 	},
 	avatar: {
 		margin: theme.spacing.unit,
 		backgroundColor: theme.palette.secondary.main,
 	},
 	form: {
-		width: "100%", // Fix IE 11 issue.
+		width: "100%",
 		marginTop: theme.spacing.unit,
 	},
 	submit: {
@@ -125,8 +124,7 @@ export default function ResetPassword() {
 					<Button
 						variant='contained'
 						color='secondary'
-						href='/forgotPassword'
-					>
+						href='/forgotPassword'>
 						Home
 					</Button>
 				</div>
@@ -157,8 +155,7 @@ export default function ResetPassword() {
 						<Typography
 							component='h5'
 							color='primary'
-							variant='h6'
-						>
+							variant='h6'>
 							Your password has been successfully reset,
 							please try logging in again.
 						</Typography>
@@ -166,8 +163,7 @@ export default function ResetPassword() {
 						<Button
 							variant='contained'
 							color='primary'
-							href='/login'
-						>
+							href='/login'>
 							Login
 						</Button>
 					</div>
@@ -177,8 +173,7 @@ export default function ResetPassword() {
 					align={"center"}
 					color={"error"}
 					component='h6'
-					variant='h6'
-				></Typography>
+					variant='h6'></Typography>
 				<br />
 				<br />
 				<TextField
@@ -198,13 +193,11 @@ export default function ResetPassword() {
 				<form
 					className={classes.form}
 					noValidate
-					autoComplete='off'
-				>
+					autoComplete='off'>
 					<Button
 						variant='contained'
 						color='primary'
-						onClick={updatePassword}
-					>
+						onClick={updatePassword}>
 						Update Password
 					</Button>
 					<br />
@@ -219,8 +212,7 @@ export default function ResetPassword() {
 							<Button
 								variant='contained'
 								color='primary'
-								href='/login'
-							>
+								href='/login'>
 								Login
 							</Button>
 						</div>
@@ -228,8 +220,7 @@ export default function ResetPassword() {
 					<Button
 						variant='contained'
 						color='secondary'
-						href='/forgotPassword'
-					>
+						href='/forgotPassword'>
 						Home
 					</Button>
 				</form>

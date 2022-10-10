@@ -7,7 +7,12 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
-import { BrowserRouter as Router, useParams } from "react-router-dom";
+import {
+	BrowserRouter as Router,
+	useParams,
+	useHistory,
+	Link,
+} from "react-router-dom";
 import { getMaterial } from "../../actions/materials-share-actions";
 import ToggleLikes from "../helpers/ToggleLikes";
 import Badge from "@mui/material/Badge";
@@ -16,13 +21,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
-import { Link } from "react-router-dom";
 import Backdrop from "@mui/material/Backdrop";
 import Button from "@mui/material/Button";
 import Fade from "@mui/material/Fade";
 import CancelIcon from "@mui/icons-material/Cancel";
 import PrintIcon from "@mui/icons-material/Print";
-import { useHistory } from "react-router-dom";
 import Tooltip from "@mui/material/Tooltip";
 import Box from "@mui/material/Box";
 import HelmetMetaData from "../helpers/HelmetMetaData";
