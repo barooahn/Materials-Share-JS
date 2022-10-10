@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const PDFViewer = ({ file, printPDF }) => {
+const PDFViewer = ({ file }) => {
 	const classes = useStyles();
 	const [numPages, setNumPages] = React.useState(1);
 	const [pageNumber, setPageNumber] = React.useState(1);
@@ -47,7 +47,7 @@ const PDFViewer = ({ file, printPDF }) => {
 				</Document>
 			</div>
 		);
-	}, [printPDF, numPages, pageNumber]);
+	}, [numPages, pageNumber]);
 	return pdfView;
 };
 export default PDFViewer;
