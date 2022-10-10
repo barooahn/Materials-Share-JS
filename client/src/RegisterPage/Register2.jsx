@@ -12,7 +12,7 @@ import { makeStyles } from "@mui/styles";
 import { signUser, register } from "../auth/helpers";
 import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
-import { withRouter, useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import TextField from "@mui/material/TextField";
 import SvgIcon from "@mui/material/SvgIcon";
 
@@ -232,8 +232,7 @@ const Register2 = () => {
 									onClick={renderProps.onClick}
 									startIcon={<FacebookIcon />}
 									variant='outlined'
-									size='large'
-								>
+									size='large'>
 									Login
 								</Button>
 							)}
@@ -248,8 +247,7 @@ const Register2 = () => {
 									onClick={renderProps.onClick}
 									startIcon={<GoogleIcon />}
 									variant='outlined'
-									size='large'
-								>
+									size='large'>
 									Login
 								</Button>
 							)}
@@ -332,8 +330,7 @@ const Register2 = () => {
 						variant='contained'
 						color='primary'
 						className={classes.submit}
-						onClick={onSubmit}
-					>
+						onClick={onSubmit}>
 						Register
 					</Button>
 				</form>

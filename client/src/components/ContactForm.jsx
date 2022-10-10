@@ -41,7 +41,7 @@ export default function ContactForm() {
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		var body = {
+		let body = {
 			from: email,
 			to: "barooahn@gmail.com",
 			subject: "Materials Share - User Email",
@@ -55,12 +55,6 @@ export default function ContactForm() {
 				alert("Message failed to send.");
 			}
 		});
-	};
-
-	const resetForm = () => {
-		setName("");
-		setEmail("");
-		setMessage("");
 	};
 
 	const classes = useStyles();
@@ -104,8 +98,7 @@ export default function ContactForm() {
 					variant='contained'
 					aria-controls='simple-menu'
 					aria-haspopup='true'
-					onClick={handleSubmit}
-				>
+					onClick={handleSubmit}>
 					Submit
 				</Button>
 			</form>

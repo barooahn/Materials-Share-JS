@@ -1,4 +1,3 @@
-import { fileExistsOnS3 } from "../components/helpers/fileExistsOnS3";
 const axios = require("axios").default;
 
 export const SaveData = (payload, type, setCompleted, setSaved) => {

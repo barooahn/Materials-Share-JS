@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import Typography from "@mui/material/Typography";
-// import { getSecret } from "../auth/helpers";
 import MaterialCard from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
 import { makeStyles } from "@mui/styles";
@@ -32,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default (props) => {
+const ProfileMyMaterials = (props) => {
 	const classes = useStyles();
 
 	const [gettingSearchResults, setGettingSearchResults] =
 		React.useState(false);
 	const [hasMore, setHasMore] = React.useState(true);
-	const [error, setError] = React.useState(false);
+	const [error] = React.useState(false);
 	const [page, setPage] = React.useState(0);
 	const [totalMaterials, setTotalMaterials] = React.useState(0);
 	const [userMaterials, setUserMaterials] = React.useState([]);
@@ -98,7 +97,7 @@ export default (props) => {
 	}, [page]);
 
 	return (
-		<React.Fragment>
+		<>
 			{userMaterials.length >= 1 ? (
 				<div className={classes.myMaterialsHeader}>
 					{gettingSearchResults ? (
@@ -116,8 +115,7 @@ export default (props) => {
 					<StackGrid
 						columnWidth={props.cardWidth}
 						gutterWidth={5}
-						gutterHeight={10}
-					>
+						gutterHeight={10}>
 						{userMaterials.map((material, index) => (
 							////////////// do not remove div - important to stop flashing bug
 							<div>
@@ -135,8 +133,7 @@ export default (props) => {
 					{error && (
 						<div
 							className={classes.info}
-							style={{ color: "#900" }}
-						>
+							style={{ color: "#900" }}>
 							{error}
 						</div>
 					)}
@@ -156,6 +153,7 @@ export default (props) => {
 					</Typography>
 				</div>
 			)}
-		</React.Fragment>
+		</>
 	);
 };
+export default ProfileMyMaterials;
