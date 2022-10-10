@@ -32,7 +32,7 @@ const Materials = () => {
 	const [page, setPage] = React.useState(0);
 	const [totalMaterials, setTotalMaterials] = React.useState(0);
 	const [hasMore, setHasMore] = React.useState(true);
-	const [error, setError] = React.useState(false);
+	const [error] = React.useState(false);
 
 	const limit = Mobile() ? 4 : 10;
 
@@ -97,16 +97,14 @@ const Materials = () => {
 				gutterBottom
 				variant='h2'
 				component='h2'
-				align='center'
-			>
+				align='center'>
 				Teaching Resources
 			</Typography>
 
 			<StackGrid
 				columnWidth={cardWidth}
 				gutterWidth={10}
-				gutterHeight={10}
-			>
+				gutterHeight={10}>
 				{materials.map((material, index) => (
 					<MaterialCard
 						key={material._id}

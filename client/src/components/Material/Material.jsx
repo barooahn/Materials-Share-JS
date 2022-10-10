@@ -7,12 +7,7 @@ import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
-import {
-	BrowserRouter as Router,
-	useParams,
-	useHistory,
-	Link,
-} from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { getMaterial } from "../../actions/materials-share-actions";
 import ToggleLikes from "../helpers/ToggleLikes";
 import Badge from "@mui/material/Badge";

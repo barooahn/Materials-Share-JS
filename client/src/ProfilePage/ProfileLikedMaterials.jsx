@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
-// import { getSecret } from "../auth/helpers";
 import MaterialCard from "../components/Material/MaterialCard";
 import StackGrid from "react-stack-grid";
 import { makeStyles } from "@mui/styles";
@@ -29,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default (props) => {
+const ProfileLikedMaterials = (props) => {
 	const classes = useStyles();
 	const [userMaterials, setUserMaterials] = useState([]);
 	const [userLikes, setUserLikes] = useState([]);
@@ -104,8 +103,7 @@ export default (props) => {
 			<StackGrid
 				columnWidth={props.cardWidth}
 				gutterWidth={5}
-				gutterHeight={10}
-			>
+				gutterHeight={10}>
 				{userLikes.map((material, index) => (
 					////////////// do not remove div - important to stop flashing bug
 					<div>
@@ -131,3 +129,4 @@ export default (props) => {
 		</div>
 	);
 };
+export default ProfileLikedMaterials;

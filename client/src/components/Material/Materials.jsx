@@ -1,7 +1,6 @@
 import React from "react";
 import MaterialCard from "./MaterialCard";
 import Typography from "@mui/material/Typography";
-import StackGrid from "react-stack-grid";
 import { makeStyles } from "@mui/styles";
 import { getPaginatedMaterials } from "../../actions/materials-share-actions";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -36,7 +35,7 @@ const Materials = () => {
 	const [page, setPage] = React.useState(0);
 	const [totalMaterials, setTotalMaterials] = React.useState(0);
 	const [hasMore, setHasMore] = React.useState(true);
-	const [error, setError] = React.useState(false);
+	const [error] = React.useState(false);
 
 	const getWindowWidth = () => {
 		if (typeof window !== "undefined") {
@@ -126,8 +125,7 @@ const Materials = () => {
 				gutterBottom
 				variant='h2'
 				component='h2'
-				align='center'
-			>
+				align='center'>
 				Teaching Resources
 			</Typography>
 
@@ -137,8 +135,7 @@ const Materials = () => {
 				sx={{
 					maxWidth: Mobile() ? cardWidth : "100%",
 					margin: 0,
-				}}
-			>
+				}}>
 				{materials.map((material, index) => (
 					<MaterialCard
 						key={material._id}
