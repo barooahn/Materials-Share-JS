@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-export default ({
+const MaterialDetailsFull = ({
 	procedureBefore,
 	setProcedureBefore,
 	procedureIn,
@@ -250,3 +250,5 @@ export default ({
 		</Paper>
 	);
 };
+
+export default MaterialDetailsFull;
