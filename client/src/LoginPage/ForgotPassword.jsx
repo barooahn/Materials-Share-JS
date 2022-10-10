@@ -28,9 +28,8 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${
-			theme.spacing.unit * 3
-		}px`,
+		margin: "10px",
+		padding: "10px",
 	},
 	avatar: {
 		margin: theme.spacing.unit,
@@ -103,8 +102,7 @@ export default function ForgotPassword() {
 					<Typography
 						component='h5'
 						color='secondary'
-						variant='h6'
-					>
+						variant='h6'>
 						The email address cannot be empty.
 					</Typography>
 				)}
@@ -113,8 +111,7 @@ export default function ForgotPassword() {
 						<Typography
 							component='h5'
 							color='secondary'
-							variant='h6'
-						>
+							variant='h6'>
 							That email address isn&apos;t recognized.
 							Please try again or register for a new
 							account.
@@ -123,8 +120,7 @@ export default function ForgotPassword() {
 						<Button
 							variant='contained'
 							color='primary'
-							href='/register'
-						>
+							href='/register'>
 							Register
 						</Button>
 					</div>
@@ -133,8 +129,7 @@ export default function ForgotPassword() {
 					<Typography
 						component='h5'
 						color='primary'
-						variant='h6'
-					>
+						variant='h6'>
 						Password Reset Email Successfully Sent!
 					</Typography>
 				)}
@@ -143,14 +138,12 @@ export default function ForgotPassword() {
 					align={"center"}
 					color={"error"}
 					component='h6'
-					variant='h6'
-				></Typography>
+					variant='h6'></Typography>
 
 				<form
 					className={classes.form}
 					noValidate
-					autoComplete='off'
-				>
+					autoComplete='off'>
 					<TextField
 						className={classes.input}
 						label='Email *'
@@ -167,8 +160,7 @@ export default function ForgotPassword() {
 					<Button
 						color='primary'
 						variant='contained'
-						onClick={sendEmail}
-					>
+						onClick={sendEmail}>
 						Send Password Reset Email
 					</Button>
 					<br />
