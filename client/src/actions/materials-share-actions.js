@@ -61,7 +61,7 @@ const createMaterial = (material, setSaved) => {
 };
 
 const handleThumbUpload = async (thumbFile) => {
-	let response = await fetch("/api/material/thumbUpload", {
+	const response = await fetch("/api/material/thumbUpload", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -103,7 +103,7 @@ const handleFileUpload = async (
 		const ext = getFileExt(file);
 
 		if (ext === "docx" || ext === "pdf") {
-			let path =
+			const path =
 				ext === "docx"
 					? file.path + ".pdf_thumb.jpg"
 					: file.path + "_thumb.jpg";
@@ -128,7 +128,7 @@ const getFileExt = (file) => {
 export const makeThumb = async (file) => {
 	const formData = new FormData();
 	formData.append("file", file);
-	let response = await fetch("/api/material/makeThumb", {
+	const response = await fetch("/api/material/makeThumb", {
 		method: "POST",
 		body: formData,
 	});
@@ -136,7 +136,7 @@ export const makeThumb = async (file) => {
 };
 
 export const getAllMaterials = async () => {
-	let response = await fetch(`/api/materials`, {
+	const response = await fetch(`/api/materials`, {
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json",
@@ -146,7 +146,7 @@ export const getAllMaterials = async () => {
 };
 
 export const getAutoComplete = async (field) => {
-	let response = await fetch(`/api/materialsAutocomplete?field=${field}`, {
+	const response = await fetch(`/api/materialsAutocomplete?field=${field}`, {
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json",
@@ -156,7 +156,7 @@ export const getAutoComplete = async (field) => {
 };
 
 export const getPaginatedMaterials = async (page, limit) => {
-	let response = await fetch(
+	const response = await fetch(
 		`/api/materialsPaginated?page=${page}&limit=${limit}`,
 		{
 			headers: {
@@ -169,7 +169,7 @@ export const getPaginatedMaterials = async (page, limit) => {
 };
 
 export const getMaterialsAwaitingApproval = async (page, limit) => {
-	let response = await fetch(
+	const response = await fetch(
 		`/api/getMaterialsAwaitingApproval?page=${page}&limit=${limit}`,
 		{
 			headers: {
@@ -182,7 +182,7 @@ export const getMaterialsAwaitingApproval = async (page, limit) => {
 };
 
 export const getPaginatedIBMaterials = async (page, limit) => {
-	let response = await fetch(
+	const response = await fetch(
 		`/api/materialsPaginatedIB?page=${page}&limit=${limit}`,
 		{
 			headers: {
@@ -195,7 +195,7 @@ export const getPaginatedIBMaterials = async (page, limit) => {
 };
 
 export const getMaterial = async (slug) => {
-	let response = await fetch(`/api/material/${slug}`, {
+	const response = await fetch(`/api/material/${slug}`, {
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json",
@@ -204,7 +204,7 @@ export const getMaterial = async (slug) => {
 	return response.json();
 };
 export const getMaterialId = async (id) => {
-	let response = await fetch(`/api/materialId/${id}`, {
+	const response = await fetch(`/api/materialId/${id}`, {
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json",
@@ -214,7 +214,7 @@ export const getMaterialId = async (id) => {
 };
 
 export const getPaginatedUserMaterials = async (id, page, limit) => {
-	let response = await fetch(
+	const response = await fetch(
 		`/api/getUserMaterialsPaginated?id=${id}&page=${page}&limit=${limit}`,
 		{
 			headers: {
@@ -227,7 +227,7 @@ export const getPaginatedUserMaterials = async (id, page, limit) => {
 };
 
 export const getUserLikes = async (id, page, limit) => {
-	let response = await fetch(
+	const response = await fetch(
 		`/api/getlikedMaterialsPaginated/?id=${id}&page=${page}&limit=${limit}`,
 		{
 			headers: {
@@ -240,7 +240,7 @@ export const getUserLikes = async (id, page, limit) => {
 };
 
 export const deleteRemoteFile = async (file) => {
-	let response = await fetch(`/api/material/file/delete`, {
+	const response = await fetch(`/api/material/file/delete`, {
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json",
@@ -252,7 +252,7 @@ export const deleteRemoteFile = async (file) => {
 };
 
 export const deleteMaterial = async (id) => {
-	let response = await fetch(`/api/material/delete/${id}`, {
+	const response = await fetch(`/api/material/delete/${id}`, {
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json",
@@ -263,7 +263,7 @@ export const deleteMaterial = async (id) => {
 };
 
 export const getSearchQueries = async () => {
-	let response = await fetch(`/api/getSearchQueries`, {
+	const response = await fetch(`/api/getSearchQueries`, {
 		method: "GET",
 		headers: {
 			Accept: "application/json",
@@ -275,7 +275,7 @@ export const getSearchQueries = async () => {
 };
 
 export const saveSearchQuery = async (searchQuery) => {
-	let response = await fetch("/api/saveSearchQuery", {
+	const response = await fetch("/api/saveSearchQuery", {
 		method: "POST",
 		headers: {
 			Accept: "application/json",
@@ -287,7 +287,7 @@ export const saveSearchQuery = async (searchQuery) => {
 };
 
 export const getSearchResults = async (search) => {
-	let response = await fetch(`api/searchResults`, {
+	const response = await fetch(`api/searchResults`, {
 		method: "POST",
 		headers: {
 			Accept: "application/json",
@@ -309,7 +309,7 @@ export const getFilterResults = async (
 	category,
 	curriculum
 ) => {
-	let response = await fetch(
+	const response = await fetch(
 		// `api/search?search=${search}&timeInClass=${timeInClass}&timePrep=${timePrep}&level=${level}&languageFocus=${languageFocus}&activityUse=${activityUse}&pupilTask=${pupilTask}&category=${category}`,
 		`api/filterResults`,
 		{
@@ -335,7 +335,7 @@ export const getFilterResults = async (
 };
 
 export const getAvatar = async (id) => {
-	let response = await fetch("/api/avatar/" + id, {
+	const response = await fetch("/api/avatar/" + id, {
 		method: "GET",
 		headers: {
 			Accept: "application/json",

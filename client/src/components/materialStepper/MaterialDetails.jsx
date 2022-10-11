@@ -1,9 +1,8 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { makeStyles } from "@mui/styles";
-import { Autocomplete } from "@mui/lab";
+import { Autocomplete, Slider } from "@mui/material";
 import Typography from "@mui/material/Typography";
-import { Slider } from "@mui/material";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Switch from "@mui/material/Switch";
 import Paper from "@mui/material/Paper";

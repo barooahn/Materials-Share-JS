@@ -1,7 +1,7 @@
 import React from "react";
 import TextField from "@mui/material/TextField";
 import { makeStyles } from "@mui/styles";
-import { Autocomplete } from "@mui/lab";
+import { Autocomplete } from "@mui/material";
 import Paper from "@mui/material/Paper";
 
 const useStyles = makeStyles((theme) => ({

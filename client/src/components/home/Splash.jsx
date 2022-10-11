@@ -110,8 +110,7 @@ export default function AutoGridNoWrap() {
 					className={classes.title}
 					align='center'
 					variant='h1'
-					component='h1'
-				>
+					component='h1'>
 					Teaching Resources Made Simple
 				</Typography>
 			</div>
@@ -122,10 +121,9 @@ export default function AutoGridNoWrap() {
 					height='auto'
 					src='https://www.youtube.com/embed/cTYKiESEAJU'
 					title='MaterialsShare.com'
-					frameborder='0'
+					frameBorder='0'
 					allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-					allowfullscreen
-				></iframe>
+					allowFullScreen></iframe>
 			</div>
 			<div>
 				<Grid
@@ -133,14 +131,12 @@ export default function AutoGridNoWrap() {
 					className={classes.box}
 					spacing={1}
 					justifyContent='center'
-					alignItems='center'
-				>
+					alignItems='center'>
 					<Grid item sm={7} xs={12}>
 						<NavLink to='/create' className='link'>
 							<Typography
 								className={classes.typography}
-								component='h3'
-							>
+								component='h3'>
 								Documents, pictures and video
 							</Typography>
 						</NavLink>
@@ -149,25 +145,21 @@ export default function AutoGridNoWrap() {
 						item
 						sm={5}
 						xs={12}
-						className={classes.iconWrapper}
-					>
+						className={classes.iconWrapper}>
 						<NavLink to='/create' className='link'>
 							<Icon
 								className={classes.icon}
-								color='secondary'
-							>
+								color='secondary'>
 								post_add
 							</Icon>
 							<Icon
 								className={classes.icon}
-								color='secondary'
-							>
+								color='secondary'>
 								camera_alt
 							</Icon>
 							<Icon
 								className={classes.icon}
-								color='secondary'
-							>
+								color='secondary'>
 								video_call
 							</Icon>
 						</NavLink>
@@ -176,8 +168,7 @@ export default function AutoGridNoWrap() {
 						<NavLink to='/create' className='link'>
 							<Typography
 								className={classes.typography}
-								component='h3'
-							>
+								component='h3'>
 								Save securely, forever. Access anywhere
 							</Typography>
 						</NavLink>
@@ -186,19 +177,16 @@ export default function AutoGridNoWrap() {
 						item
 						sm={5}
 						xs={12}
-						className={classes.iconWrapper}
-					>
+						className={classes.iconWrapper}>
 						<NavLink to='/create' className='link'>
 							<Icon
 								className={classes.icon}
-								color='secondary'
-							>
+								color='secondary'>
 								enhanced_encryption
 							</Icon>
 							<Icon
 								className={classes.icon}
-								color='secondary'
-							>
+								color='secondary'>
 								cloud_upload
 							</Icon>
 						</NavLink>
@@ -206,8 +194,7 @@ export default function AutoGridNoWrap() {
 					<Grid item sm={7} xs={12}>
 						<Typography
 							className={classes.typography}
-							component='h3'
-						>
+							component='h3'>
 							Share with other teachers
 						</Typography>
 					</Grid>
@@ -215,44 +202,37 @@ export default function AutoGridNoWrap() {
 						item
 						sm={5}
 						xs={12}
-						className={classes.iconWrapper}
-					>
+						className={classes.iconWrapper}>
 						<SvgIcon
 							className={classes.SVGicon}
-							color='secondary'
-						>
+							color='secondary'>
 							<Instagram />
 						</SvgIcon>
 						<SvgIcon
 							className={classes.SVGicon}
-							color='secondary'
-						>
+							color='secondary'>
 							<LinkedIn />
 						</SvgIcon>
 						<SvgIcon
 							className={classes.SVGicon}
-							color='secondary'
-						>
+							color='secondary'>
 							<Facebook />
 						</SvgIcon>
 						<SvgIcon
 							className={classes.SVGicon}
-							color='secondary'
-						>
+							color='secondary'>
 							<Reply />
 						</SvgIcon>
 						<SvgIcon
 							className={classes.SVGicon}
-							color='secondary'
-						>
+							color='secondary'>
 							<Email />
 						</SvgIcon>
 					</Grid>
 					<Grid item sm={7} xs={12}>
 						<Typography
 							className={classes.typography}
-							component='h3'
-						>
+							component='h3'>
 							Save time with search and filter
 						</Typography>
 					</Grid>
@@ -260,40 +240,34 @@ export default function AutoGridNoWrap() {
 						item
 						sm={5}
 						xs={12}
-						className={classes.iconWrapper}
-					>
+						className={classes.iconWrapper}>
 						<Icon className={classes.icon} color='secondary'>
 							search
 						</Icon>
 						<Icon
 							className={classes.icon}
 							color='secondary'
-							height='50px'
-						>
+							height='50px'>
 							filter_list
 						</Icon>
 					</Grid>
 					<div className={classes.ctaContainer}>
 						<Link
 							to='/create'
-							style={{ textDecoration: "none" }}
-						>
+							style={{ textDecoration: "none" }}>
 							<Button
 								className={classes.saveButton}
 								color='primary'
-								variant='contained'
-							>
+								variant='contained'>
 								Save Resource
 							</Button>
 						</Link>
 						<Link
 							to='/materials'
-							style={{ textDecoration: "none" }}
-						>
+							style={{ textDecoration: "none" }}>
 							<Button
 								className={classes.browseButton}
-								variant='contained'
-							>
+								variant='contained'>
 								Browse Resources
 							</Button>
 						</Link>
