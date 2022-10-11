@@ -445,7 +445,7 @@ export default function MaterialStepper() {
 	};
 
 	const sendMaterialUploadedEmail = () => {
-		var body = {
+		const body = {
 			from: "barooahn@gmail.com",
 			to: "barooahn@gmail.com",
 			subject: "Materials Share - User upload",

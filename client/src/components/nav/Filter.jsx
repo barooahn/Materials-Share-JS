@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
 import { Slider } from "@mui/material";
 import TextField from "@mui/material/TextField";
-import Autocomplete from "@mui/lab/Autocomplete";
+import {Autocomplete} from "@mui/material";
 import Button from "@mui/material/Button";
 import { useHistory, useLocation } from "react-router-dom";
 import Mobile from "../helpers/mobile";

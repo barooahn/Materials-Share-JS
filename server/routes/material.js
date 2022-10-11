@@ -8,12 +8,6 @@ module.exports = (router) => {
 	 * get files
 	 */
 	router.route("/material/file/").post(materialcontroller.getFiles);
-	// /**
-	//  * get file from path
-	//  */
-	// router
-	//   .route("/material/getFileFromPath/")
-	//   .post(materialcontroller.getFileFromPath);
 
 	/**
 	 * upload file
@@ -53,7 +47,7 @@ module.exports = (router) => {
 	router.route("/materials").get(materialcontroller.getMaterials);
 
 	/**
-	 * get a particlular material to view from slug
+	 * get a particular material to view from slug
 	 */
 	router.route("/material/:slug").get(materialcontroller.getMaterialSlug);
 
@@ -64,13 +58,10 @@ module.exports = (router) => {
 		.route("/doesFileExist")
 		.get(materialcontroller.getSignedUrlIfExists);
 	/**
-	 * get a particlular material to viewfrom id
+	 * get a particular material to view from id
 	 */
 	router.route("/materialId/:id").get(materialcontroller.getMaterialId);
-	// /**
-	//  * get a particlular material to view
-	//  */
-	// router.route("/material/:id").get(materialcontroller.getMaterial);
+
 	/**
 	 * add a material
 	 */
