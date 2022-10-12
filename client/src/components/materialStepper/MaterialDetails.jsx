@@ -18,14 +18,17 @@ const useStyles = makeStyles((theme) => ({
 		margin: "20px auto",
 		padding: "15px",
 	},
-	inputText: {
-		marginBottom: 10,
-	},
-	inputSlider: {
-		marginBottom: 10,
-	},
-	inputAutocomplete: {
-		marginBottom: 10,
+	// inputText: {
+	// 	margin: "10px",
+	// },
+	// inputSlider: {
+	// 	marginBottom: 10,
+	// },
+	// inputAutocomplete: {
+	// 	marginBottom: 10,
+	// },
+	sliderWrapper: {
+		margin: "10px",
 	},
 }));
 
@@ -118,6 +121,7 @@ const MaterialDetails = ({
 				if (input.type === "text") {
 					return (
 						<TextField
+							margin='dense'
 							key={index}
 							label={input.label}
 							value={input.value}
@@ -131,11 +135,11 @@ const MaterialDetails = ({
 					);
 				} else if (input.type === "slider") {
 					return (
-						<div key={index}>
-							<Typography gutterBottom>
-								{" "}
-								{input.label}{" "}
-							</Typography>
+						<div
+							key={index}
+							className={classes.sliderWrapper}
+						>
+							<Typography>{input.label}</Typography>
 							<Slider
 								key={index}
 								getAriaLabel={(index) =>
@@ -144,12 +148,12 @@ const MaterialDetails = ({
 										: "Maximum Minutes"
 								}
 								value={input.value}
-								valueLabelDisplay='on'
+								valueLabelDisplay='auto'
 								step={5}
 								className={classes.inputSlider}
 								onChange={input.onChange}
 								autoFocus={input.autoFocus}
-								fullwidth='true'
+								fullWidth='true'
 							/>
 						</div>
 					);
@@ -166,10 +170,7 @@ const MaterialDetails = ({
 				freeSolo={true}
 				className={classes.inputAutocomplete}
 				getOptionLabel={(option) => option.label}
-				// style={{
-				//   width: 600
-				// }}
-				fullwidth='true'
+				fullWidth='true'
 				renderInput={(params) => (
 					<TextField
 						{...params}
@@ -177,6 +178,7 @@ const MaterialDetails = ({
 						placeholder='IB, Cambridge etc.'
 						variant='outlined'
 						fullWidth
+						margin='dense'
 					/>
 				)}
 			/>
@@ -189,13 +191,11 @@ const MaterialDetails = ({
 				freeSolo={true}
 				className={classes.inputAutocomplete}
 				getOptionLabel={(option) => option.label}
-				// style={{
-				//   width: 600
-				// }}
-				fullwidth='true'
+				fullWidth='true'
 				renderInput={(params) => (
 					<TextField
 						{...params}
+						margin='dense'
 						label='Pupil Task'
 						placeholder='Pair, group, individual etc.'
 						variant='outlined'
@@ -212,13 +212,11 @@ const MaterialDetails = ({
 				freeSolo={true}
 				getOptionLabel={(option) => option.label}
 				className={classes.inputAutocomplete}
-				// style={{
-				//   width: 600
-				// }}
-				fullwidth='true'
+				fullWidth='true'
 				renderInput={(params) => (
 					<TextField
 						{...params}
+						margin='dense'
 						label='Level'
 						placeholder='Level 1, intermediate, first year etc.'
 						variant='outlined'
