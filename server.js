@@ -11,6 +11,8 @@ const morgan = require("morgan");
 const flash = require("connect-flash");
 const dotenv = require("dotenv").config();
 const compression = require("compression");
+const Material = require("./server/models/Material");
+const fs = require("fs");
 
 const app = express();
 const router = express.Router();
@@ -63,12 +65,38 @@ app.use((req, res, next) => {
 });
 
 app.use(helmet());
-//app.use('/static',express.static(path.join(__dirname,'static')))
 
 /** set up routes {API Endpoints} */
 routes(router);
 
+app.get("/api/material/learning-numbers", (req, res, next) => {
+	// console.log("indexPath", indexPath);
+	fs.readFile(indexPath, "utf8", (err, htmlData) => {
+		if (err) {
+			console.error("Error during file reading", err);
+			return res.status(404).end();
+		}
+		// console.log("htmlData", htmlData);
+		// get post info
+
+		const material = Material.find(req.params);
+
+		console.log("found material", material);
+		// .populate("author")
+		// .exec((err, material) => {
+		// 	if (material) return material;
+		// 	if (err) return res.send(err);
+		// 	else return res.status(404).send("Post not found");
+		// });
+
+		// console.log("material", material);
+		// 	// TODO inject meta tags
+	});
+	next();
+});
 app.use("/api", router);
+
+const indexPath = path.resolve(__dirname, "client/build", "index.html");
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {
@@ -123,7 +151,7 @@ app.use(function (req, res, next) {
 	} else next();
 });
 
-let port = process.env.PORT || 5000;
+const port = process.env.PORT || 5000;
 /** start server */
 app.listen(port, () => {
 	console.log(`Server started at port: ${port}`);

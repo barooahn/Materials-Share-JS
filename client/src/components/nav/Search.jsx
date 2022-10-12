@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import { useHistory } from "react-router-dom";
-import Autocomplete from "@mui/lab/Autocomplete";
+import { Autocomplete } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import CircularProgress from "@mui/material/CircularProgress";
 import {

@@ -98,7 +98,7 @@ module.exports = {
 	},
 
 	getMaterials: async (req, res, next) => {
-		var query = {
+		const query = {
 			// shared: true,
 			// approved: true,
 		};
@@ -115,9 +115,9 @@ module.exports = {
 	},
 
 	getUserMaterials: async (req, res, next) => {
-		var page = parseInt(req.query.page) || 0; //for next page pass 1 here
-		var limit = parseInt(req.query.limit) || 3;
-		var query = {
+		const page = parseInt(req.query.page) || 0; //for next page pass 1 here
+		const limit = parseInt(req.query.limit) || 3;
+		const query = {
 			author_id: req.query.id,
 		};
 		await Material.find(query)
@@ -147,9 +147,9 @@ module.exports = {
 	},
 
 	getUserLikes: async (req, res, next) => {
-		var page = parseInt(req.query.page) || 0; //for next page pass 1 here
-		var limit = parseInt(req.query.limit) || 3;
-		var query = {
+		const page = parseInt(req.query.page) || 0; //for next page pass 1 here
+		const limit = parseInt(req.query.limit) || 3;
+		const query = {
 			likes: req.query.id,
 		};
 		await Material.find(query)
@@ -162,7 +162,7 @@ module.exports = {
 				if (err) {
 					return res.json(err);
 				}
-					Material.countDocuments(query).exec(
+				Material.countDocuments(query).exec(
 					(count_error, count) => {
 						if (err) {
 							return res.json(count_error);
@@ -179,9 +179,9 @@ module.exports = {
 	},
 
 	materialsPaginated: async (req, res, next) => {
-		var page = parseInt(req.query.page) || 0; //for next page pass 1 here
-		var limit = parseInt(req.query.limit) || 3;
-		var query = {
+		const page = parseInt(req.query.page) || 0; //for next page pass 1 here
+		const limit = parseInt(req.query.limit) || 3;
+		const query = {
 			shared: true,
 			// approved: true,
 		};
@@ -212,9 +212,9 @@ module.exports = {
 	},
 
 	materialsPaginatedIB: async (req, res, next) => {
-		var page = parseInt(req.query.page) || 0; //for next page pass 1 here
-		var limit = parseInt(req.query.limit) || 3;
-		var query = {
+		const page = parseInt(req.query.page) || 0; //for next page pass 1 here
+		const limit = parseInt(req.query.limit) || 3;
+		const query = {
 			shared: true,
 			"curriculum.value": "internationalbaccalaureateib",
 			// approved: true,
@@ -246,9 +246,9 @@ module.exports = {
 	},
 
 	getMaterialsAwaitingApproval: async (req, res, next) => {
-		var page = parseInt(req.query.page) || 0; //for next page pass 1 here
-		var limit = parseInt(req.query.limit) || 3;
-		var query = {
+		const page = parseInt(req.query.page) || 0; //for next page pass 1 here
+		const limit = parseInt(req.query.limit) || 3;
+		const query = {
 			// shared: true,
 			approved: false,
 		};
@@ -348,19 +348,19 @@ module.exports = {
 					return 0;
 				}
 
-				const varA =
+				const letA =
 					typeof a[key] === "string"
 						? a[key].toUpperCase()
 						: a[key];
-				const varB =
+				const letB =
 					typeof b[key] === "string"
 						? b[key].toUpperCase()
 						: b[key];
 
 				let comparison = 0;
-				if (varA > varB) {
+				if (letA > letB) {
 					comparison = 1;
-				} else if (varA < varB) {
+				} else if (letA < letB) {
 					comparison = -1;
 				}
 				return order === "desc" ? comparison * -1 : comparison;
@@ -425,7 +425,7 @@ module.exports = {
 	},
 
 	getFilterResults: (req, res, next) => {
-		let {
+		const {
 			search,
 			timeInClass,
 			timePrep,

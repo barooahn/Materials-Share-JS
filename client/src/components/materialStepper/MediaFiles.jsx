@@ -73,7 +73,7 @@ const MediaFiles = ({
 
 	//to do refactor using action
 	const handleDelete = (file) => {
-		var fileNoPath = file.substring(
+		const fileNoPath = file.substring(
 			"https://matshre-assets.s3.eu-west-2.amazonaws.com/".length
 		);
 		axios.delete("/api/material/file/delete", {
