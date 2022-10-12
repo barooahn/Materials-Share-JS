@@ -8,25 +8,14 @@ const useStyles = makeStyles((theme) => ({
 	inputWrapper: {
 		display: "flex",
 		flexDirection: "column",
-		paddingTop: 40,
 	},
 	autoComplete: {
-		paddingTop: 30,
 		width: "100%",
 	},
 	paper: {
 		width: "95%",
 		margin: "20px auto",
 		padding: "15px",
-	},
-	inputText: {
-		marginBottom: 10,
-	},
-	inputSlider: {
-		marginBottom: 10,
-	},
-	inputAutocomplete: {
-		marginBottom: 10,
 	},
 }));
 
@@ -55,9 +44,6 @@ const MaterialDetailsFull = ({
 	activityUse,
 	activityUseValue,
 	setActivityUseValue,
-	category,
-	categoryValue,
-	setCategoryValue,
 }) => {
 	const classes = useStyles();
 	const changeProcedureBefore = (e) => {
@@ -103,7 +89,6 @@ const MaterialDetailsFull = ({
 			rows: 4,
 			value: procedureBefore,
 			onChange: changeProcedureBefore,
-			// placeholder: "eg. Copy handout for each pupil."
 			autoFocus: true,
 		},
 		{
@@ -166,6 +151,7 @@ const MaterialDetailsFull = ({
 					if (input.type === "text") {
 						return (
 							<TextField
+								margin='dense'
 								className={classes.inputText}
 								key={input.label}
 								label={input.label}
@@ -184,6 +170,7 @@ const MaterialDetailsFull = ({
 					}
 				})}
 				<TextField
+					margin='dense'
 					className={classes.inputText}
 					key={"Is the resource based on a textbook?"}
 					label='Is the resource based on a textbook?'
@@ -195,6 +182,7 @@ const MaterialDetailsFull = ({
 				/>
 
 				<TextField
+					margin='dense'
 					type='number'
 					className={classes.inputText}
 					key={"What page of the textbook?"}
@@ -218,6 +206,7 @@ const MaterialDetailsFull = ({
 					getOptionLabel={(option) => option.label}
 					renderInput={(params) => (
 						<TextField
+							margin='dense'
 							{...params}
 							label='What is the language focus?'
 							placeholder='Speaking, Listening etc.'
@@ -238,6 +227,7 @@ const MaterialDetailsFull = ({
 					getOptionLabel={(option) => option.label}
 					renderInput={(params) => (
 						<TextField
+							margin='dense'
 							{...params}
 							label='What is the activity use?'
 							placeholder='Production, Presenetation etc.'

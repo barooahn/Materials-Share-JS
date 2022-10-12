@@ -130,6 +130,7 @@ const useStyles = makeStyles((theme) => ({
 	loginRegisterButtons: {
 		display: "flex",
 		textAlign: "right",
+		gap: "5px",
 	},
 	logo: {
 		height: 32,
@@ -212,7 +213,8 @@ export default function MiniDrawer({ routePaths }) {
 						className={classes.button}
 						startIcon={<AccountBoxIcon />}
 						onClick={handleLoginClick}
-						aria-label='Login'>
+						aria-label='Login'
+					>
 						Login
 					</Button>
 					<Button
@@ -220,7 +222,8 @@ export default function MiniDrawer({ routePaths }) {
 						className={classes.button}
 						startIcon={<Assignment />}
 						onClick={handleRegisterClick}
-						aria-label='Register'>
+						aria-label='Register'
+					>
 						Register
 					</Button>
 				</React.Fragment>
@@ -233,11 +236,13 @@ export default function MiniDrawer({ routePaths }) {
 					aria-controls={menuId}
 					aria-haspopup='true'
 					onClick={handleProfileMenuOpen}
-					color='inherit'>
+					color='inherit'
+				>
 					<Avatar
 						src={localStorage.getItem("USER_IMG")}
 						alt={localStorage.getItem("USER_NAME")}
-						className={classes.orange}>
+						className={classes.orange}
+					>
 						{localStorage.getItem("USER_NAME")
 							? localStorage.getItem("USER_NAME").charAt(0)
 							: null}
@@ -256,7 +261,8 @@ export default function MiniDrawer({ routePaths }) {
 					color='default'
 					className={clsx(classes.appBar, {
 						[classes.appBarShift]: open,
-					})}>
+					})}
+				>
 					<Toolbar>
 						<IconButton
 							color='inherit'
@@ -265,7 +271,8 @@ export default function MiniDrawer({ routePaths }) {
 							edge='start'
 							className={clsx(classes.menuButton, {
 								[classes.hide]: open,
-							})}>
+							})}
+						>
 							<MenuIcon />
 						</IconButton>
 						<img
@@ -291,7 +298,8 @@ export default function MiniDrawer({ routePaths }) {
 									})}
 									onClick={handleExpandClick}
 									aria-expanded={expanded}
-									aria-label='show more'>
+									aria-label='show more'
+								>
 									<Icon color='secondary'>
 										filter_list
 									</Icon>
@@ -314,7 +322,8 @@ export default function MiniDrawer({ routePaths }) {
 				keepMounted
 				transformOrigin={{ vertical: "top", horizontal: "right" }}
 				open={isMenuOpen}
-				onClose={handleMenuClose}>
+				onClose={handleMenuClose}
+			>
 				<MenuItem onClick={handleMenuClose}>
 					<NavLink to='/profile' className='link' key='profile'>
 						<ListItem component='div'>
@@ -338,7 +347,8 @@ export default function MiniDrawer({ routePaths }) {
 			<Box
 				display='block'
 				displayPrint='none'
-				className={classes.drawerWrapper}>
+				className={classes.drawerWrapper}
+			>
 				<Drawer
 					variant='permanent'
 					className={clsx(classes.drawer, {
@@ -350,11 +360,13 @@ export default function MiniDrawer({ routePaths }) {
 							[classes.drawerOpen]: open,
 							[classes.drawerClose]: !open,
 						}),
-					}}>
+					}}
+				>
 					<div className={classes.toolbar}>
 						<IconButton
 							onClick={handleDrawerClose}
-							aria-label='Close drawer'>
+							aria-label='Close drawer'
+						>
 							{theme.direction === "rtl" ? (
 								<ChevronRightIcon />
 							) : (
@@ -369,7 +381,8 @@ export default function MiniDrawer({ routePaths }) {
 							onClick={handleHomeClick}
 							selected={"/" === location.pathname}
 							gutters='5px'
-							aria-label='Home'>
+							aria-label='Home'
+						>
 							<ListItemIcon className={classes.listIcon}>
 								<HomeIcon />
 							</ListItemIcon>
@@ -383,9 +396,11 @@ export default function MiniDrawer({ routePaths }) {
 								aria-label='About'
 								selected={
 									"/about" === location.pathname
-								}>
+								}
+							>
 								<ListItemIcon
-									className={classes.listIcon}>
+									className={classes.listIcon}
+								>
 									<InfoIcon />
 								</ListItemIcon>
 								<ListItemText primary='About' />
@@ -399,9 +414,11 @@ export default function MiniDrawer({ routePaths }) {
 								key={"NewMaterial"}
 								selected={
 									"/create" === location.pathname
-								}>
+								}
+							>
 								<ListItemIcon
-									className={classes.listIcon}>
+									className={classes.listIcon}
+								>
 									<AddBoxIcon />
 								</ListItemIcon>
 								<ListItemText primary='New Material' />
@@ -414,9 +431,11 @@ export default function MiniDrawer({ routePaths }) {
 								key={"IB-MPY Curriculum"}
 								selected={
 									"/ibmyp" === location.pathname
-								}>
+								}
+							>
 								<ListItemIcon
-									className={classes.listIcon}>
+									className={classes.listIcon}
+								>
 									<IbLogo />
 								</ListItemIcon>
 								<ListItemText primary='IB-MPY' />
@@ -428,11 +447,11 @@ export default function MiniDrawer({ routePaths }) {
 								button
 								aria-label='help'
 								key={"help"}
-								selected={
-									"/help" === location.pathname
-								}>
+								selected={"/help" === location.pathname}
+							>
 								<ListItemIcon
-									className={classes.listIcon}>
+									className={classes.listIcon}
+								>
 									<HelpIcon />
 								</ListItemIcon>
 								<ListItemText primary='Help' />

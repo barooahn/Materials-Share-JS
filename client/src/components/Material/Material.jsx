@@ -3,8 +3,6 @@ import { makeStyles } from "@mui/styles";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Viewer from "../Viewer/Viewer";
 import DisplayMaterialList from "./DisplayMaterialList";
 import { useParams, useHistory, Link } from "react-router-dom";
@@ -40,11 +38,13 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: 20,
 	},
 	media: {
-		width: "100%",
+		padding: "10px",
 		maxWidth: 1000,
 		paddingBottom: 5,
 		pageBreakBefore: "always",
 		overflow: "hidden",
+		display: "flex",
+		justifyContent: "center",
 	},
 	modal: {
 		display: "flex",
@@ -59,10 +59,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	pageBreak: {
 		pageBreakBefore: "always",
-	},
-	mainImageWrapper: {
-		display: "flex",
-		justifyContent: "center",
 	},
 }));
 
@@ -170,7 +166,8 @@ const Material = () => {
 					gutterBottom
 					variant='h2'
 					component='h2'
-					align='center'>
+					align='center'
+				>
 					{material.title}
 				</Typography>
 				{/* <MetaTags>
@@ -218,16 +215,19 @@ const Material = () => {
 								? "Login to add to likes"
 								: "Add to likes"
 						}
-						placement='top'>
+						placement='top'
+					>
 						<span>
 							<IconButton
 								aria-label='add to favorites'
 								onClick={toggleLikes}
 								color={setLikesColour()}
-								disabled={!author}>
+								disabled={!author}
+							>
 								<Badge
 									color='default'
-									badgeContent={likes.length}>
+									badgeContent={likes.length}
+								>
 									<FavoriteIcon />
 								</Badge>
 							</IconButton>
@@ -235,12 +235,14 @@ const Material = () => {
 					</Tooltip>
 					<Tooltip
 						title={!author ? "Login to print" : "Print"}
-						placement='top'>
+						placement='top'
+					>
 						<span>
 							<IconButton
 								aria-label='add to favorites'
 								onClick={print}
-								disabled={!author}>
+								disabled={!author}
+							>
 								<PrintIcon />
 							</IconButton>
 						</span>
@@ -249,7 +251,8 @@ const Material = () => {
 						<span>
 							<IconButton
 								aria-label='share'
-								onClick={handleShareOpen}>
+								onClick={handleShareOpen}
+							>
 								<ShareIcon />
 							</IconButton>
 						</span>
@@ -263,23 +266,27 @@ const Material = () => {
 						<React.Fragment>
 							<Tooltip
 								title='Edit your material'
-								placement='top'>
+								placement='top'
+							>
 								<span>
 									<IconButton
 										component={Link}
-										to={"/edit/" + material._id}>
+										to={"/edit/" + material._id}
+									>
 										<EditIcon />
 									</IconButton>
 								</span>
 							</Tooltip>
 							<Tooltip
 								title='Delete your material'
-								placement='top'>
+								placement='top'
+							>
 								<span>
 									<IconButton
 										onClick={(event) =>
 											handleDeleteMaterial()
-										}>
+										}
+									>
 										<DeleteForeverIcon />
 									</IconButton>
 								</span>
@@ -288,36 +295,26 @@ const Material = () => {
 					) : null}
 				</Box>
 
-				<Grid container spacing={0}>
-					<List>
-						<ListItem className={classes.mainImageWrapper}>
-							<div className={classes.media}>
-								{material.files
-									? material.files.map((file) => (
-											<Viewer
-												key={
-													file +
-													Date.now()
-												}
-												file={file}
-												printPDF={printPDF}
-												setPrintReady={
-													setPrintReady
-												}
-											/>
-									  ))
-									: null}
-							</div>
-						</ListItem>
-						<hr />
-					</List>
-				</Grid>
+				<Box className={classes.media}>
+					{material.files
+						? material.files.map((file) => (
+								<Viewer
+									key={file + Date.now()}
+									file={file}
+									printPDF={printPDF}
+									setPrintReady={setPrintReady}
+								/>
+						  ))
+						: null}
+				</Box>
+
 				<div className={classes.pageBreak}>
 					<Typography
 						gutterBottom
 						variant='h4'
 						component='h4'
-						align='center'>
+						align='center'
+					>
 						Teacher Notes
 					</Typography>
 					{DisplayMaterialList(material)}
@@ -326,7 +323,8 @@ const Material = () => {
 							<Typography
 								variant='h6'
 								style={{ paddingLeft: 10 }}
-								component='h6'>
+								component='h6'
+							>
 								Material used in conjuction with text
 								book
 							</Typography>
@@ -337,7 +335,8 @@ const Material = () => {
 									padding: 10,
 									whiteSpace: "pre-wrap",
 								}}
-								component='p'>
+								component='p'
+							>
 								{material.book}
 								{" - Page " + material.page}
 							</Typography>
@@ -354,13 +353,15 @@ const Material = () => {
 					BackdropComponent={Backdrop}
 					BackdropProps={{
 						timeout: 500,
-					}}>
+					}}
+				>
 					<Fade in={deleteOpen}>
 						<div className={classes.paper}>
 							<Typography
 								variant='h6'
 								color='secondary'
-								component='p'>
+								component='p'
+							>
 								Are you sure you want to delete? This
 								cannot be undone.
 							</Typography>
@@ -371,7 +372,8 @@ const Material = () => {
 									variant='contained'
 									size='large'
 									startIcon={<DeleteForeverIcon />}
-									onClick={confirmDelete}>
+									onClick={confirmDelete}
+								>
 									Delete
 								</Button>
 								<br />
@@ -380,7 +382,8 @@ const Material = () => {
 									variant='contained'
 									size='large'
 									startIcon={<CancelIcon />}
-									onClick={cancelDelete}>
+									onClick={cancelDelete}
+								>
 									Cancel
 								</Button>
 							</div>
