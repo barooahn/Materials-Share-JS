@@ -239,7 +239,7 @@ const Material = () => {
 					>
 						<span>
 							<IconButton
-								aria-label='add to favorites'
+								aria-label='Print'
 								onClick={print}
 								disabled={!author}
 							>

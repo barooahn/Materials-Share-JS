@@ -48,12 +48,6 @@ const useStyles = makeStyles((theme) => ({
 	submit: {
 		marginTop: theme.spacing.unit * 3,
 	},
-	input: {
-		// marginTop: "5px",
-		// padding: "20px"
-		// border: "1px solid black",
-		// backgroundColor: "#000"
-	},
 	sbcontainer: {
 		display: "flex",
 		flexDirection: "row",
@@ -66,7 +60,6 @@ const useStyles = makeStyles((theme) => ({
 
 const Register2 = () => {
 	const classes = useStyles();
-	// const [cardAnimaton, setCardAnimaton] = React.useState("cardHidden");
 	const [name, setName] = React.useState("");
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
@@ -232,7 +225,8 @@ const Register2 = () => {
 									onClick={renderProps.onClick}
 									startIcon={<FacebookIcon />}
 									variant='outlined'
-									size='large'>
+									size='large'
+								>
 									Login
 								</Button>
 							)}
@@ -247,7 +241,8 @@ const Register2 = () => {
 									onClick={renderProps.onClick}
 									startIcon={<GoogleIcon />}
 									variant='outlined'
-									size='large'>
+									size='large'
+								>
 									Login
 								</Button>
 							)}
@@ -330,7 +325,8 @@ const Register2 = () => {
 						variant='contained'
 						color='primary'
 						className={classes.submit}
-						onClick={onSubmit}>
+						onClick={onSubmit}
+					>
 						Register
 					</Button>
 				</form>

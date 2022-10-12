@@ -145,7 +145,7 @@ export default function MaterialCard({
 		<React.Fragment>
 			<Card className={classes.cardRoot} sx={{ width: { cardWidth } }}>
 				<Avatar
-					aria-label='material'
+					aria-label='Avatar'
 					alt={material.title}
 					src={material.author_img}
 					className={classes.avatar}

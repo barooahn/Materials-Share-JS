@@ -35,7 +35,7 @@ const ProfileLikedMaterials = (props) => {
 	const [gettingSearchResults, setGettingSearchResults] =
 		React.useState(false);
 	const [hasMore, setHasMore] = React.useState(true);
-	const [error, setError] = React.useState(false);
+	const [error] = React.useState(false);
 	const [page, setPage] = React.useState(0);
 	const [totalMaterials, setTotalMaterials] = React.useState(0);
 
@@ -103,7 +103,8 @@ const ProfileLikedMaterials = (props) => {
 			<StackGrid
 				columnWidth={props.cardWidth}
 				gutterWidth={5}
-				gutterHeight={10}>
+				gutterHeight={10}
+			>
 				{userLikes.map((material, index) => (
 					////////////// do not remove div - important to stop flashing bug
 					<div>
