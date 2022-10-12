@@ -40,11 +40,13 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: 20,
 	},
 	media: {
-		width: "100%",
+		padding: "10px",
 		maxWidth: 1000,
 		paddingBottom: 5,
 		pageBreakBefore: "always",
 		overflow: "hidden",
+		display: "flex",
+		justifyContent: "center",
 	},
 	modal: {
 		display: "flex",
@@ -59,10 +61,6 @@ const useStyles = makeStyles((theme) => ({
 	},
 	pageBreak: {
 		pageBreakBefore: "always",
-	},
-	mainImageWrapper: {
-		display: "flex",
-		justifyContent: "center",
 	},
 }));
 
@@ -288,30 +286,19 @@ const Material = () => {
 					) : null}
 				</Box>
 
-				<Grid container spacing={0}>
-					<List>
-						<ListItem className={classes.mainImageWrapper}>
-							<div className={classes.media}>
-								{material.files
-									? material.files.map((file) => (
-											<Viewer
-												key={
-													file +
-													Date.now()
-												}
-												file={file}
-												printPDF={printPDF}
-												setPrintReady={
-													setPrintReady
-												}
-											/>
-									  ))
-									: null}
-							</div>
-						</ListItem>
-						<hr />
-					</List>
-				</Grid>
+				<Box className={classes.media}>
+					{material.files
+						? material.files.map((file) => (
+								<Viewer
+									key={file + Date.now()}
+									file={file}
+									printPDF={printPDF}
+									setPrintReady={setPrintReady}
+								/>
+						  ))
+						: null}
+				</Box>
+
 				<div className={classes.pageBreak}>
 					<Typography
 						gutterBottom
