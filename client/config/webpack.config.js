@@ -363,6 +363,35 @@ module.exports = function (webpackEnv) {
 					loader: require.resolve("source-map-loader"),
 				},
 				{
+					test: /\.(gif|png|jpe?g|svg)$/i,
+					use: [
+						"file-loader",
+						{
+							loader: "image-webpack-loader",
+							options: {
+								mozjpeg: {
+									progressive: true,
+								},
+								// optipng.enabled: false will disable optipng
+								optipng: {
+									enabled: false,
+								},
+								pngquant: {
+									quality: [0.65, 0.9],
+									speed: 4,
+								},
+								gifsicle: {
+									interlaced: false,
+								},
+								// the webp option will enable WEBP
+								webp: {
+									quality: 75,
+								},
+							},
+						},
+					],
+				},
+				{
 					// "oneOf" will traverse all following loaders until one will
 					// match the requirements. When no loader matches it will fall
 					// back to the "file" loader at the end of the loader list.
