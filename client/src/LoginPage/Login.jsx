@@ -9,7 +9,7 @@ import TextField from "@mui/material/TextField";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
+// import FacebookLogin from "react-facebook-login/dist/facebook-login-render-props";
 import GoogleLogin from "react-google-login";
 import { useLocation, useHistory } from "react-router-dom";
 import { signUser, logIn } from "../auth/helpers";
@@ -18,38 +18,41 @@ import SvgIcon from "@mui/material/SvgIcon";
 
 const useStyles = makeStyles((theme) => ({
 	main: {
-		width: "auto",
-		display: "block", // Fix IE 11 issue.
-		marginLeft: theme.spacing.unit * 3,
-		marginRight: theme.spacing.unit * 3,
-		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-			width: 400,
-			marginLeft: "auto",
-			marginRight: "auto",
+		[theme.breakpoints.up("sm")]: {
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			justifyContent: "center",
+			height: "100%",
 		},
-		paddingBottom: 70,
 	},
+
 	paper: {
-		marginTop: theme.spacing.unit * 4,
+		maxWidth: "100%",
+		padding: "20px 10px",
+		margin: "10px",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		margin: "10px",
-		padding: "10px",
+		justifyContent: "center",
+		[theme.breakpoints.up("sm")]: {
+			gap: "5px",
+			width: "400px",
+		},
 	},
 	avatar: {
 		margin: theme.spacing.unit,
 		backgroundColor: theme.palette.secondary.main,
+		display: "flex",
+		alignItems: "center",
+		justifyContent: "center",
 	},
 	form: {
 		width: "100%", // Fix IE 11 issue.
 		marginTop: theme.spacing.unit,
 	},
 	submit: {
-		marginTop: theme.spacing.unit * 3,
-	},
-	input: {
-		marginBottom: 12,
+		marginTop: "10px !important",
 	},
 	sbcontainer: {
 		display: "flex",
@@ -138,13 +141,13 @@ const Login = () => {
 		}
 	};
 
-	function FacebookIcon(props) {
-		return (
-			<SvgIcon {...props}>
-				<path d='M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z' />
-			</SvgIcon>
-		);
-	}
+	// function FacebookIcon(props) {
+	// 	return (
+	// 		<SvgIcon {...props}>
+	// 			<path d='M23.9981 11.9991C23.9981 5.37216 18.626 0 11.9991 0C5.37216 0 0 5.37216 0 11.9991C0 17.9882 4.38789 22.9522 10.1242 23.8524V15.4676H7.07758V11.9991H10.1242V9.35553C10.1242 6.34826 11.9156 4.68714 14.6564 4.68714C15.9692 4.68714 17.3424 4.92149 17.3424 4.92149V7.87439H15.8294C14.3388 7.87439 13.8739 8.79933 13.8739 9.74824V11.9991H17.2018L16.6698 15.4676H13.8739V23.8524C19.6103 22.9522 23.9981 17.9882 23.9981 11.9991Z' />
+	// 		</SvgIcon>
+	// 	);
+	// }
 	function GoogleIcon(props) {
 		return (
 			<SvgIcon {...props}>
@@ -155,7 +158,6 @@ const Login = () => {
 
 	return (
 		<div className={classes.main}>
-			<CssBaseline />
 			<Paper className={classes.paper}>
 				<Avatar className={classes.avatar}>
 					<LockOutlinedIcon />

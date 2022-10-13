@@ -18,25 +18,29 @@ import SvgIcon from "@mui/material/SvgIcon";
 
 const useStyles = makeStyles((theme) => ({
 	main: {
-		width: "auto",
-		display: "block", // Fix IE 11 issue.
-		marginLeft: theme.spacing.unit * 3,
-		marginRight: theme.spacing.unit * 3,
-		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-			width: 400,
-			marginLeft: "auto",
-			marginRight: "auto",
+		[theme.breakpoints.up("sm")]: {
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			justifyContent: "center",
+			height: "100%",
 		},
-		paddingBottom: 70,
 	},
+
 	paper: {
-		marginTop: theme.spacing.unit * 8,
+		maxWidth: "100%",
+		padding: "20px 10px",
+		margin: "10px",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		margin: "10px",
-		padding: "10px",
+		justifyContent: "center",
+		[theme.breakpoints.up("sm")]: {
+			gap: "5px",
+			width: "400px",
+		},
 	},
+
 	avatar: {
 		margin: theme.spacing.unit,
 		backgroundColor: theme.palette.secondary.main,
@@ -206,7 +210,6 @@ const Register2 = () => {
 
 	return (
 		<div className={classes.main}>
-			<CssBaseline />
 			<Paper className={classes.paper}>
 				<Avatar className={classes.avatar}>
 					<LockOutlinedIcon />

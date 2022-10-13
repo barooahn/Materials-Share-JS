@@ -67,62 +67,51 @@ function withProps(Component, props) {
 
 const routePaths = () => {
 	return (
-		<main>
-			<Suspense fallback={<Transition />}>
-				<HelmetMetaData></HelmetMetaData>
-				<Switch>
-					<Route exact path='/' component={App} />
-					<Route path='/users' component={Users} />
-					<Route path='/about' component={HomeLayout} />
-					<Route
-						path='/material/:slug'
-						component={Material}
-					></Route>
-					<PrivateRoute
-						path='/create'
-						name='create'
-						component={MaterialStepper}
-					/>
-					<Route path='/help' component={Help} />
-					<Route path='/ibmyp' component={Ibmyp} />
-					<Route path='/privacy' component={PrivacyPolicy} />
-					<Route
-						path='/login'
-						component={withProps(Login, {
-							state: { prevPath: "login" },
-						})}
-					/>
-					<Route
-						path='/forgotPassword'
-						component={ForgotPassword}
-					/>
-					<Route
-						path='/reset/:token'
-						component={ResetPassword}
-					/>
-					<Route
-						path='/register'
-						component={withProps(Register, {
-							state: { prevPath: "register" },
-						})}
-					/>
-					<Route path='/search' component={SearchResults} />
-					<PrivateRoute
-						path='/profile'
-						name='profile'
-						component={ProfilePage}
-					/>
-					<PrivateRoute
-						path='/edit/:id'
-						name='editMaterial'
-						type='edit'
-						component={MaterialStepper}
-					/>
+		<Suspense fallback={<Transition />}>
+			<HelmetMetaData></HelmetMetaData>
+			<Switch>
+				<Route exact path='/' component={App} />
+				<Route path='/users' component={Users} />
+				<Route path='/about' component={HomeLayout} />
+				<Route path='/material/:slug' component={Material}></Route>
+				<PrivateRoute
+					path='/create'
+					name='create'
+					component={MaterialStepper}
+				/>
+				<Route path='/help' component={Help} />
+				<Route path='/ibmyp' component={Ibmyp} />
+				<Route path='/privacy' component={PrivacyPolicy} />
+				<Route
+					path='/login'
+					component={withProps(Login, {
+						state: { prevPath: "login" },
+					})}
+				/>
+				<Route path='/forgotPassword' component={ForgotPassword} />
+				<Route path='/reset/:token' component={ResetPassword} />
+				<Route
+					path='/register'
+					component={withProps(Register, {
+						state: { prevPath: "register" },
+					})}
+				/>
+				<Route path='/search' component={SearchResults} />
+				<PrivateRoute
+					path='/profile'
+					name='profile'
+					component={ProfilePage}
+				/>
+				<PrivateRoute
+					path='/edit/:id'
+					name='editMaterial'
+					type='edit'
+					component={MaterialStepper}
+				/>
 
-					<Route component={Notfound} />
-				</Switch>
-			</Suspense>
-		</main>
+				<Route component={Notfound} />
+			</Switch>
+		</Suspense>
 	);
 };
 

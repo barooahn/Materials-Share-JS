@@ -1,5 +1,6 @@
 html {
 	width: 100%;
+	height: 100%;
 }
 
 body {
@@ -9,6 +10,8 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-display: swap;
+	width: 100%;
+	height: 100%;
 }
 
 .MuiListItem-gutters {
@@ -21,6 +24,7 @@ body {
 
 #root {
 	width: 100%;
+	height: 100%;
 }
 
 #cards-container {
