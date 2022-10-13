@@ -213,7 +213,7 @@ const Register2 = () => {
 				</Avatar>
 
 				<div className={classes.sbcontainer}>
-					<div className={classes.socialButtons}>
+					{/* <div className={classes.socialButtons}>
 						<FacebookLogin
 							appId='1883125445347981'
 							autoLoad={false}
@@ -231,7 +231,7 @@ const Register2 = () => {
 								</Button>
 							)}
 						/>
-					</div>
+					</div> */}
 					<div className={classes.socialButtons}>
 						<GoogleLogin
 							clientId='164931093808-jtgcj34sphhdtvt9j6vg488nm3uvmall.apps.googleusercontent.com'
