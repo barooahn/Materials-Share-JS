@@ -40,6 +40,7 @@ const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
 	navBar: {
 		display: "flex",
+		height: "100%",
 	},
 	appBar: {
 		zIndex: theme.zIndex.drawer + 1,

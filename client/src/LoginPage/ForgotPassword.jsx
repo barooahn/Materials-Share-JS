@@ -12,24 +12,27 @@ import Typography from "@mui/material/Typography";
 
 const useStyles = makeStyles((theme) => ({
 	main: {
-		width: "auto",
-		display: "block", // Fix IE 11 issue.
-		marginLeft: theme.spacing.unit * 3,
-		marginRight: theme.spacing.unit * 3,
-		[theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-			width: 400,
-			marginLeft: "auto",
-			marginRight: "auto",
+		[theme.breakpoints.up("sm")]: {
+			display: "flex",
+			flexDirection: "column",
+			alignItems: "center",
+			justifyContent: "center",
+			height: "100%",
 		},
-		paddingBottom: 70,
 	},
+
 	paper: {
-		marginTop: theme.spacing.unit * 8,
+		maxWidth: "100%",
+		padding: "20px 10px",
+		margin: "10px",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
-		margin: "10px",
-		padding: "10px",
+		justifyContent: "center",
+		[theme.breakpoints.up("sm")]: {
+			gap: "5px",
+			width: "400px",
+		},
 	},
 	avatar: {
 		margin: theme.spacing.unit,
@@ -37,13 +40,13 @@ const useStyles = makeStyles((theme) => ({
 	},
 	form: {
 		width: "100%", // Fix IE 11 issue.
-		marginTop: theme.spacing.unit,
+		display: "flex",
+		flexDirection: "column",
+		justifyContent: "space-evenly",
+		gap: "10px",
 	},
 	submit: {
-		marginTop: theme.spacing.unit * 3,
-	},
-	input: {
-		marginBottom: 12,
+		marginTop: "10px !important",
 	},
 }));
 
@@ -102,7 +105,8 @@ export default function ForgotPassword() {
 					<Typography
 						component='h5'
 						color='secondary'
-						variant='h6'>
+						variant='h6'
+					>
 						The email address cannot be empty.
 					</Typography>
 				)}
@@ -111,7 +115,8 @@ export default function ForgotPassword() {
 						<Typography
 							component='h5'
 							color='secondary'
-							variant='h6'>
+							variant='h6'
+						>
 							That email address isn&apos;t recognized.
 							Please try again or register for a new
 							account.
@@ -119,8 +124,10 @@ export default function ForgotPassword() {
 						<br />
 						<Button
 							variant='contained'
+							className={classes.submit}
 							color='primary'
-							href='/register'>
+							href='/register'
+						>
 							Register
 						</Button>
 					</div>
@@ -129,7 +136,8 @@ export default function ForgotPassword() {
 					<Typography
 						component='h5'
 						color='primary'
-						variant='h6'>
+						variant='h6'
+					>
 						Password Reset Email Successfully Sent!
 					</Typography>
 				)}
@@ -138,14 +146,16 @@ export default function ForgotPassword() {
 					align={"center"}
 					color={"error"}
 					component='h6'
-					variant='h6'></Typography>
+					variant='h6'
+				></Typography>
 
 				<form
 					className={classes.form}
 					noValidate
-					autoComplete='off'>
+					autoComplete='off'
+				>
 					<TextField
-						className={classes.input}
+						margin='dense'
 						label='Email *'
 						name='email'
 						autoComplete='email'
@@ -160,11 +170,11 @@ export default function ForgotPassword() {
 					<Button
 						color='primary'
 						variant='contained'
-						onClick={sendEmail}>
+						onClick={sendEmail}
+					>
 						Send Password Reset Email
 					</Button>
-					<br />
-					<br />
+
 					<Button color='secondary' variant='contained' href='/'>
 						Home
 					</Button>
