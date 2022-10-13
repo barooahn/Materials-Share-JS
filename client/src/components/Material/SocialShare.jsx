@@ -5,7 +5,7 @@ import Fade from "@mui/material/Fade";
 import Typography from "@mui/material/Typography";
 
 import {
-	// FacebookShareButton,
+	FacebookShareButton,
 	FacebookMessengerShareButton,
 	FacebookMessengerIcon,
 	LinkedinShareButton,
@@ -26,7 +26,7 @@ import {
 	WeiboShareButton,
 	PocketShareButton,
 	InstapaperShareButton,
-	// FacebookIcon,
+	FacebookIcon,
 	TwitterIcon,
 	LinkedinIcon,
 	PinterestIcon,
@@ -97,15 +97,14 @@ const SocialSharing = ({ handleShareClose, shareOpen, slug }) => {
 								alignContent: "center",
 							}}
 						>
-							{/* <div >
-							<FacebookShareButton
-								url={shareUrl}
-								quote={title}
-								
-							>
-								<FacebookIcon size={55} round />
-							</FacebookShareButton>
-						</div> */}
+							<div>
+								<FacebookShareButton
+									url={shareUrl}
+									quote={title}
+								>
+									<FacebookIcon size={55} round />
+								</FacebookShareButton>
+							</div>
 
 							<div>
 								<FacebookMessengerShareButton
