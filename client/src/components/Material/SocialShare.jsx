@@ -95,6 +95,7 @@ const SocialSharing = ({ handleShareClose, shareOpen, slug }) => {
 								justifyContent: "center",
 								alignItems: "center",
 								alignContent: "center",
+								gap: "10px",
 							}}
 						>
 							<div>
