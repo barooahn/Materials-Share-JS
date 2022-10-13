@@ -20,7 +20,6 @@ import {
 	Switch,
 	Redirect,
 } from "react-router-dom";
-// import * as serviceWorker from "./service-worker";
 import { register } from "./serviceWorkerRegistration";
 import Axios from "axios";
 

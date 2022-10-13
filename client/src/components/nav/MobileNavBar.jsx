@@ -95,6 +95,7 @@ const useStyles = makeStyles((theme) => ({
 	toolbar: {
 		display: "flex",
 		flexDirection: "row",
+		justifyContent: "space-between",
 	},
 	profile: { marginLeft: "auto" },
 	logo: {

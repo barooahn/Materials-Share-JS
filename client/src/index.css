@@ -1,4 +1,9 @@
+html {
+	width: 100%;
+}
+
 body {
+	background: rgba(0, 0, 0, 0.05);
 	margin: 0;
 	padding: 0;
 	-webkit-font-smoothing: antialiased;
@@ -12,4 +17,61 @@ body {
 
 .MuiBottomNavigationAction-root {
 	min-width: 65px !important;
+}
+
+#root {
+	width: 100%;
+}
+
+#cards-container {
+	flex-wrap: wrap;
+	justify-content: space-around;
+	align-content: stretch;
+}
+
+.paperCenter {
+	margin: 5px;
+}
+
+.link {
+	color: #2b333f;
+	text-decoration: none;
+}
+
+.menu {
+	justify-content: left !important;
+	width: 50px;
+	margin-left: 20px;
+}
+
+.delete-icon {
+	vertical-align: bottom;
+	padding-left: 10px;
+}
+
+.inputFile {
+	display: none;
+}
+
+.document-container {
+	width: 100% !important;
+	padding: 0 !important;
+}
+
+.MuiMenu-paper {
+	right: 5px;
+	left: auto !important;
+	top: 55px !important;
+}
+
+.MuiList-root {
+	width: 100%;
+}
+
+/* document viewer */
+.pg-viewer-wrapper {
+	overflow: hidden !important;
+}
+
+@media screen and (min-width: 600px) {
 }

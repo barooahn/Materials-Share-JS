@@ -52,7 +52,7 @@ export default function HelmetMetaData(props) {
 			<meta content='image/*' property='og:image:type' />
 			<meta property='og:url' content={currentUrl} />
 			<meta property='og:site_name' content='MaterialsShare' />
-			<meta property='og:description' content={description} />{" "}
+			<meta property='og:description' content={description} />
 		</Helmet>
 	);
 }
