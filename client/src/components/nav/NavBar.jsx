@@ -29,7 +29,7 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import Search from "./Search";
 import Filter from "./Filter";
-import Icon from "@mui/material/Icon";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import CircularProgress from "@mui/material/CircularProgress";
 import { deepOrange } from "@mui/material/colors";
 import Box from "@mui/material/Box";
@@ -301,9 +301,7 @@ export default function MiniDrawer({ routePaths }) {
 									aria-expanded={expanded}
 									aria-label='show more'
 								>
-									<Icon color='secondary'>
-										filter_list
-									</Icon>
+									<FilterListIcon color='secondary' />
 								</IconButton>
 							</div>
 						) : null}

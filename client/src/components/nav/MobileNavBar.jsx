@@ -28,7 +28,7 @@ import { logOut } from "../../auth/helpers";
 import { NavLink, useLocation } from "react-router-dom";
 import Search from "./Search";
 import Filter from "./Filter";
-import Icon from "@mui/material/Icon";
+import FilterListIcon from "@mui/icons-material/FilterList";
 import IbLogo from "./icons/ibLogo";
 import clsx from "clsx";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -286,12 +286,10 @@ export default function LabelBottomNavigation({ routePaths }) {
 									aria-expanded={expanded}
 									aria-label='show more'
 								>
-									<Icon
+									<FilterListIcon
 										color='primary'
 										sx={{ fontSize: "35px" }}
-									>
-										filter_list
-									</Icon>
+									/>
 								</IconButton>
 							</>
 						) : null}
