@@ -36,6 +36,9 @@ const useStyles = makeStyles((theme) => ({
 	paperCenter: {
 		marginBottom: 50,
 		paddingBottom: 20,
+		display: "flex",
+		alignItems: "center",
+		flexDirection: "column",
 	},
 	media: {
 		padding: "10px",
@@ -43,8 +46,6 @@ const useStyles = makeStyles((theme) => ({
 		paddingBottom: 5,
 		pageBreakBefore: "always",
 		overflow: "hidden",
-		display: "flex",
-		justifyContent: "center",
 	},
 	modal: {
 		display: "flex",
@@ -59,6 +60,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 	pageBreak: {
 		pageBreakBefore: "always",
+		width: "100%",
 	},
 }));
 

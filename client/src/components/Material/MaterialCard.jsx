@@ -139,8 +139,6 @@ export default function MaterialCard({
 
 	const thumb = material.thumb ? material.thumb : null;
 
-	console.log("cardWidth", cardWidth);
-
 	return (
 		<React.Fragment>
 			<Card className={classes.cardRoot} sx={{ width: { cardWidth } }}>

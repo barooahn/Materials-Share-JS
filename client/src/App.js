@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import "./App.css";
 import Materials from "./components/Material/Materials";
 
 class App extends Component {
