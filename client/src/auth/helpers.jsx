@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const signUser = async (user) => {
-  // console.log("In helpers.jsx sign user");
   const res = await axios
     .post("/api/users/signUser", {
       user: user,
