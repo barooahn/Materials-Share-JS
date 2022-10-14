@@ -136,7 +136,6 @@ const Material = () => {
 	};
 
 	React.useEffect(() => {
-		//get all Materials from db setMaterials\
 		if (slug !== undefined) {
 			getMaterial(slug).then((resultData) => {
 				setMaterial(resultData[0]);
@@ -172,43 +171,6 @@ const Material = () => {
 				>
 					{material.title}
 				</Typography>
-				{/* <MetaTags>
-					<title>{"Materials Share-" + material.title}</title>
-					<meta
-						name='description'
-						content={
-							material.title +
-							"ELT TEFL teaching materials and resources "
-						}
-					/>
-					<meta
-						property='og:description'
-						content={
-							material.title +
-							"ELT TEFL teaching materials and resources "
-						}
-					/>
-					<meta
-						property='og:title'
-						content={"Materials Share - " + material.title}
-					/>
-					<meta property='og:image' content={material.thumb} />
-					<meta
-						property='og:url'
-						content={window.location.href}
-					/>
-					<meta
-						name='twitter:description'
-						content={
-							"ELT TEFL teaching materials and resources " +
-							material.title
-						}
-					/>
-					<meta
-						name='twitter:title'
-						content={"Materials Share - " + material.title}
-					/>
-				</MetaTags> */}
 
 				<Box display='block' displayPrint='none'>
 					<Tooltip

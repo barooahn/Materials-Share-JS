@@ -66,45 +66,6 @@ app.use((req, res, next) => {
 
 app.use(helmet());
 
-// app.get("", (req, res, next) => {
-// 	console.log("getting html");
-// 	// let responseCode = 200;
-// 	let responseData;
-
-// 	fs.readFile(indexPath, "utf8", (err, htmlData) => {
-// 		if (err) {
-// 			console.error("Error during file reading", err);
-// 			return res.status(404).end();
-// 		}
-// 		Material.find(req.params).exec((err, material) => {
-// 			console.log("sending headers from server");
-// 			if (material) {
-// 				// return res.send(material);
-// 				console.log("material", material[0].title);
-// 				htmlData = htmlData
-// 					.replace(/__META_OG_TITLE__/g, material[0].title)
-// 					.replace(
-// 						/__META_OG_DESCRIPTION__/g,
-// 						material[0].objective
-// 					)
-// 					.replace(
-// 						/__META_DESCRIPTION__/g,
-// 						material[0].objective
-// 					)
-// 					.replace(/__META_OG_IMAGE__/g, material[0].files)
-// 					.replace(/__META_OG_URL__/g, material[0].files);
-
-// 				if (htmlData) return res.send(htmlData);
-// 				else if (err) {
-// 					responseData = 400;
-// 				} else responseData = 404;
-// 			}
-// 		});
-// 	});
-// 	console.log("html head", responseData);
-// 	return res.send(responseData);
-// });
-
 /** set up routes {API Endpoints} */
 routes(router);
 

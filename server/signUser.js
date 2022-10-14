@@ -3,7 +3,6 @@ const jwt = require("jsonwebtoken");
 
 module.exports = {
   signUser: (user) => {
-    // console.log("signUser user", user);
     return jwt.sign(
       {
         iss: "MaterialsShare",

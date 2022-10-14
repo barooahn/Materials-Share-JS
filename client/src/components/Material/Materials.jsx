@@ -62,60 +62,39 @@ const Materials = () => {
 			document.documentElement.clientHeight ||
 			document.body.clientHeight;
 
-		const top =
+		let top =
 			(document.documentElement &&
 				document.documentElement.scrollTop) ||
 			document.body.scrollTop;
 
-		console.log("document.documentElement", document.documentElement);
-		console.log(
-			"document.documentElement.scrollTop",
-			document.documentElement.scrollTop
-		);
-		console.log("document.body.scrollTop", document.body.scrollTop);
-		console.log(
-			"document.documentElement document.documentElement.scrollTop",
-			document.documentElement && document.documentElement.scrollTop
-		);
-
-		const offsetH =
+		let offsetH =
 			document.body.offsetHeight ||
 			document.documentElement.offsetHeight;
-
-		console.log("document.body.offsetHeight", document.body.offsetHeight);
-		console.log(
-			"document.documentElement.offsetHeight",
-			document.documentElement.offsetHeight
-		);
-
-		console.log("height", height);
-		console.log("top", top);
-		console.log("offsetH", offsetH);
-		console.log("height + top >= offsetH", height + top >= offsetH);
 
 		if (height + top >= offsetH) {
 			if (materials.length === totalMaterials) {
 				setHasMore(false);
 				return;
 			} else {
-				let nextpage = page + 1;
-				setPage(nextpage);
+				let nextPage = page + 1;
+				setPage(nextPage);
 			}
 		}
-	}, 600);
+	}, 300);
 
 	React.useEffect(() => {
 		async function fetchData() {
 			let resultData = await getPaginatedMaterials(page, limit);
-			setTotalMaterials(resultData.total);
-			await resultData.materials.forEach((material) => {
-				material.files = Array.isArray(material.files)
-					? [material.files[0]]
-					: [material.files];
-			});
-			setMaterials([...materials, ...resultData.materials]);
-			// setMaterials([(materials) => resultData.materials]);
-			setGettingSearchResults(false);
+			if (resultData) {
+				setTotalMaterials(resultData.total);
+				await resultData.materials.forEach((material) => {
+					material.files = Array.isArray(material.files)
+						? [material.files[0]]
+						: [material.files];
+				});
+				setMaterials([...materials, ...resultData.materials]);
+				setGettingSearchResults(false);
+			}
 		}
 		setGettingSearchResults(true);
 		fetchData();
@@ -131,13 +110,35 @@ const Materials = () => {
 		);
 
 		window.addEventListener("resize", debouncedHandleResize);
-		console.log("resized");
 		return () => {
 			window.removeEventListener("resize", debouncedHandleResize);
 		};
 	}, []);
 
-	console.log("material", materials);
+	const MasonryMemoized = React.memo(
+		() => (
+			<Masonry
+				spacing={2}
+				columns={calculatedColumns}
+				sx={{
+					maxWidth: Mobile() ? cardWidth : "100%",
+					margin: 0,
+				}}
+			>
+				{materials.map((material, index) => (
+					<MaterialCard
+						key={material._id + index}
+						material={material}
+						index={index}
+						setMaterials={setMaterials}
+						cardWidth={cardWidth}
+						materials={materials}
+					/>
+				))}
+			</Masonry>
+		),
+		[materials]
+	);
 
 	return (
 		<div className={classes.root}>
@@ -155,25 +156,7 @@ const Materials = () => {
 				Teaching Resources
 			</Typography>
 
-			<Masonry
-				spacing={2}
-				columns={calculatedColumns}
-				sx={{
-					maxWidth: Mobile() ? cardWidth : "100%",
-					margin: 0,
-				}}
-			>
-				{materials.map((material, index) => (
-					<MaterialCard
-						key={index + material._id}
-						material={material}
-						index={index}
-						setMaterials={setMaterials}
-						cardWidth={cardWidth}
-						materials={materials}
-					/>
-				))}
-			</Masonry>
+			<MasonryMemoized />
 			{error && (
 				<div className={classes.info} style={{ color: "#900" }}>
 					{error}

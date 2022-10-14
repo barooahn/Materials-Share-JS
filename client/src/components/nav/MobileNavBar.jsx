@@ -332,7 +332,7 @@ export default function LabelBottomNavigation({ routePaths }) {
 					onChange={handleBottomNavChange}
 					className={classes.bottomNav}
 				>
-					<HideOnScroll>
+					{/* <HideOnScroll>
 						<IconButton
 							className={classes.fabButton}
 							aria-label='Create Material'
@@ -344,7 +344,7 @@ export default function LabelBottomNavigation({ routePaths }) {
 								sx={{ fontSize: "50px" }}
 							/>
 						</IconButton>
-					</HideOnScroll>
+					</HideOnScroll> */}
 					<BottomNavigationAction
 						label='Home'
 						value='home'

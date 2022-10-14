@@ -112,11 +112,35 @@ const Ibmyp = () => {
 		);
 
 		window.addEventListener("resize", debouncedHandleResize);
-		console.log("resized");
 		return () => {
 			window.removeEventListener("resize", debouncedHandleResize);
 		};
 	}, []);
+
+	const MasonryMemoized = React.memo(
+		() => (
+			<Masonry
+				spacing={2}
+				columns={calculatedColumns}
+				sx={{
+					maxWidth: Mobile() ? cardWidth : "100%",
+					margin: 0,
+				}}
+			>
+				{materials.map((material, index) => (
+					<MaterialCard
+						key={material._id + index}
+						material={material}
+						index={index}
+						setMaterials={setMaterials}
+						cardWidth={cardWidth}
+						materials={materials}
+					/>
+				))}
+			</Masonry>
+		),
+		[materials]
+	);
 
 	return (
 		<div className={classes.root}>
@@ -134,25 +158,7 @@ const Ibmyp = () => {
 				Teaching Resources
 			</Typography>
 
-			<Masonry
-				spacing={2}
-				columns={calculatedColumns}
-				sx={{
-					maxWidth: Mobile() ? cardWidth : "100%",
-					margin: 0,
-				}}
-			>
-				{materials.map((material, index) => (
-					<MaterialCard
-						key={index + material._id}
-						material={material}
-						index={index}
-						setMaterials={setMaterials}
-						cardWidth={cardWidth}
-						materials={materials}
-					/>
-				))}
-			</Masonry>
+			<MasonryMemoized />
 			{error && (
 				<div className={classes.info} style={{ color: "#900" }}>
 					{error}
