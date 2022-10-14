@@ -62,14 +62,36 @@ const Materials = () => {
 			document.documentElement.clientHeight ||
 			document.body.clientHeight;
 
-		let top =
+		const top =
 			(document.documentElement &&
 				document.documentElement.scrollTop) ||
 			document.body.scrollTop;
 
-		let offsetH =
+		console.log("document.documentElement", document.documentElement);
+		console.log(
+			"document.documentElement.scrollTop",
+			document.documentElement.scrollTop
+		);
+		console.log("document.body.scrollTop", document.body.scrollTop);
+		console.log(
+			"document.documentElement document.documentElement.scrollTop",
+			document.documentElement && document.documentElement.scrollTop
+		);
+
+		const offsetH =
 			document.body.offsetHeight ||
 			document.documentElement.offsetHeight;
+
+		console.log("document.body.offsetHeight", document.body.offsetHeight);
+		console.log(
+			"document.documentElement.offsetHeight",
+			document.documentElement.offsetHeight
+		);
+
+		console.log("height", height);
+		console.log("top", top);
+		console.log("offsetH", offsetH);
+		console.log("height + top >= offsetH", height + top >= offsetH);
 
 		if (height + top >= offsetH) {
 			if (materials.length === totalMaterials) {
@@ -80,18 +102,19 @@ const Materials = () => {
 				setPage(nextpage);
 			}
 		}
-	}, 300);
+	}, 600);
 
 	React.useEffect(() => {
 		async function fetchData() {
 			let resultData = await getPaginatedMaterials(page, limit);
 			setTotalMaterials(resultData.total);
-			await resultData.materials.map((material) => {
+			await resultData.materials.forEach((material) => {
 				material.files = Array.isArray(material.files)
 					? [material.files[0]]
 					: [material.files];
 			});
 			setMaterials([...materials, ...resultData.materials]);
+			// setMaterials([(materials) => resultData.materials]);
 			setGettingSearchResults(false);
 		}
 		setGettingSearchResults(true);
@@ -114,6 +137,8 @@ const Materials = () => {
 		};
 	}, []);
 
+	console.log("material", materials);
+
 	return (
 		<div className={classes.root}>
 			{gettingSearchResults ? (
@@ -125,7 +150,8 @@ const Materials = () => {
 				gutterBottom
 				variant='h2'
 				component='h2'
-				align='center'>
+				align='center'
+			>
 				Teaching Resources
 			</Typography>
 
@@ -135,10 +161,11 @@ const Materials = () => {
 				sx={{
 					maxWidth: Mobile() ? cardWidth : "100%",
 					margin: 0,
-				}}>
+				}}
+			>
 				{materials.map((material, index) => (
 					<MaterialCard
-						key={material._id}
+						key={index + material._id}
 						material={material}
 						index={index}
 						setMaterials={setMaterials}

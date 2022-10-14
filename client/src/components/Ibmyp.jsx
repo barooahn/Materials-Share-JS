@@ -1,7 +1,7 @@
 import React from "react";
 import MaterialCard from "./Material/MaterialCard";
 import Typography from "@mui/material/Typography";
-import StackGrid from "react-stack-grid";
+import Masonry from "@mui/lab/Masonry";
 import { makeStyles } from "@mui/styles";
 import { getPaginatedIBMaterials } from "../actions/materials-share-actions";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -11,6 +11,9 @@ import Mobile from "./helpers/mobile";
 const useStyles = makeStyles((theme) => ({
 	root: {
 		marginBottom: "70px",
+		[theme.breakpoints.down("md")]: {
+			marginLeft: "10px",
+		},
 	},
 	circularProgress: {
 		position: "absolute",
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Materials = () => {
+const Ibmyp = () => {
 	const classes = useStyles();
 	const [materials, setMaterials] = React.useState([]);
 	const [gettingSearchResults, setGettingSearchResults] =
@@ -33,6 +36,21 @@ const Materials = () => {
 	const [totalMaterials, setTotalMaterials] = React.useState(0);
 	const [hasMore, setHasMore] = React.useState(true);
 	const [error] = React.useState(false);
+
+	const getWindowWidth = () => {
+		if (typeof window !== "undefined") {
+			return Math.round(window.innerWidth);
+		}
+	};
+
+	const cardWidth = Mobile() ? getWindowWidth() - 20 : 350;
+
+	const calculateColumns = () => {
+		return Math.round(window.innerWidth / (cardWidth - 1));
+	};
+	const [calculatedColumns, setCalculatedColumns] = React.useState(
+		calculateColumns()
+	);
 
 	const limit = Mobile() ? 4 : 10;
 
@@ -84,7 +102,21 @@ const Materials = () => {
 		fetchData();
 	}, [page]);
 
-	const cardWidth = Mobile() ? "100%" : 250;
+	React.useEffect(() => {
+		const debouncedHandleResize = debounce(
+			function handleResize() {
+				setCalculatedColumns(calculateColumns());
+			},
+			100,
+			false
+		);
+
+		window.addEventListener("resize", debouncedHandleResize);
+		console.log("resized");
+		return () => {
+			window.removeEventListener("resize", debouncedHandleResize);
+		};
+	}, []);
 
 	return (
 		<div className={classes.root}>
@@ -97,24 +129,30 @@ const Materials = () => {
 				gutterBottom
 				variant='h2'
 				component='h2'
-				align='center'>
+				align='center'
+			>
 				Teaching Resources
 			</Typography>
 
-			<StackGrid
-				columnWidth={cardWidth}
-				gutterWidth={10}
-				gutterHeight={10}>
+			<Masonry
+				spacing={2}
+				columns={calculatedColumns}
+				sx={{
+					maxWidth: Mobile() ? cardWidth : "100%",
+					margin: 0,
+				}}
+			>
 				{materials.map((material, index) => (
 					<MaterialCard
-						key={material._id}
+						key={index + material._id}
 						material={material}
 						index={index}
 						setMaterials={setMaterials}
+						cardWidth={cardWidth}
 						materials={materials}
 					/>
 				))}
-			</StackGrid>
+			</Masonry>
 			{error && (
 				<div className={classes.info} style={{ color: "#900" }}>
 					{error}
@@ -132,4 +170,4 @@ const Materials = () => {
 	);
 };
 
-export default Materials;
+export default Ibmyp;
