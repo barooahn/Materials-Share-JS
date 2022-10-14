@@ -22,7 +22,7 @@ app.use(compression());
 // ... other imports
 const path = require("path");
 
-//middleware for loggind - dev only
+//middleware for logging - dev only
 app.use(morgan("dev"));
 
 const db = process.env.MONGODB_URI;
@@ -66,37 +66,52 @@ app.use((req, res, next) => {
 
 app.use(helmet());
 
+// app.get("", (req, res, next) => {
+// 	console.log("getting html");
+// 	// let responseCode = 200;
+// 	let responseData;
+
+// 	fs.readFile(indexPath, "utf8", (err, htmlData) => {
+// 		if (err) {
+// 			console.error("Error during file reading", err);
+// 			return res.status(404).end();
+// 		}
+// 		Material.find(req.params).exec((err, material) => {
+// 			console.log("sending headers from server");
+// 			if (material) {
+// 				// return res.send(material);
+// 				console.log("material", material[0].title);
+// 				htmlData = htmlData
+// 					.replace(/__META_OG_TITLE__/g, material[0].title)
+// 					.replace(
+// 						/__META_OG_DESCRIPTION__/g,
+// 						material[0].objective
+// 					)
+// 					.replace(
+// 						/__META_DESCRIPTION__/g,
+// 						material[0].objective
+// 					)
+// 					.replace(/__META_OG_IMAGE__/g, material[0].files)
+// 					.replace(/__META_OG_URL__/g, material[0].files);
+
+// 				if (htmlData) return res.send(htmlData);
+// 				else if (err) {
+// 					responseData = 400;
+// 				} else responseData = 404;
+// 			}
+// 		});
+// 	});
+// 	console.log("html head", responseData);
+// 	return res.send(responseData);
+// });
+
 /** set up routes {API Endpoints} */
 routes(router);
 
-app.get("/api/material/learning-numbers", (req, res, next) => {
-	// console.log("indexPath", indexPath);
-	fs.readFile(indexPath, "utf8", (err, htmlData) => {
-		if (err) {
-			console.error("Error during file reading", err);
-			return res.status(404).end();
-		}
-		// console.log("htmlData", htmlData);
-		// get post info
-
-		const material = Material.find(req.params);
-
-		console.log("found material", material);
-		// .populate("author")
-		// .exec((err, material) => {
-		// 	if (material) return material;
-		// 	if (err) return res.send(err);
-		// 	else return res.status(404).send("Post not found");
-		// });
-
-		// console.log("material", material);
-		// 	// TODO inject meta tags
-	});
-	next();
-});
 app.use("/api", router);
 
 const indexPath = path.resolve(__dirname, "client/build", "index.html");
+console.log("server IndexPath", indexPath);
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === "production") {

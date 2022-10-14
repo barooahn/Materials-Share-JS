@@ -187,27 +187,9 @@ export default function LabelBottomNavigation({ routePaths }) {
 		if (!localStorage.getItem("JWT_TOKEN")) {
 			return (
 				<div>
-					<MenuItem onClick={handleMenuClose}>
-						<NavLink
-							to='/profile'
-							className='link'
-							key='profile'
-						>
-							<ListItem onClick={handleLoginClick}>
-								<ListItemIcon>
-									<AccountBoxIcon />
-								</ListItemIcon>
-								<ListItemText primary='Login' />
-							</ListItem>
-						</NavLink>
-					</MenuItem>
-					<MenuItem onClick={handleMenuClose}>
-						<ListItem onClick={handleRegisterClick}>
-							<ListItemIcon>
-								<Assignment />
-							</ListItemIcon>
-							<ListItemText primary='Register' />
-						</ListItem>
+					<MenuItem onClick={handleLoginClick}>Login</MenuItem>
+					<MenuItem onClick={handleRegisterClick}>
+						Register
 					</MenuItem>
 				</div>
 			);

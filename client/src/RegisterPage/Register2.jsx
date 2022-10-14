@@ -258,8 +258,12 @@ const Register2 = () => {
 				<Typography component='h1' variant='h5'>
 					Register
 				</Typography>
-				{formError.map((error) => (
-					<Typography variant='body1' color='secondary'>
+				{formError.map((error, index) => (
+					<Typography
+						key={`error` + index}
+						variant='body1'
+						color='secondary'
+					>
 						{error}
 					</Typography>
 				))}
