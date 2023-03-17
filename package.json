@@ -36,7 +36,7 @@
 		"express-fileupload": "^1.1.6",
 		"express-session": "^1.15.6",
 		"helmet": "^3.21.2",
-		"jsonwebtoken": "^8.4.0",
+		"jsonwebtoken": "^9.0.0",
 		"mailgun-js": "^0.22.0",
 		"mongoose": "^6.6.5",
 		"mongoose-slug-generator": "^1.0.4",
