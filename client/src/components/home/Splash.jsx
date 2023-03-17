@@ -1,11 +1,17 @@
 import React from "react";
 import { makeStyles } from "@mui/styles";
 import Typography from "@mui/material/Typography";
-import Icon from "@mui/material/Icon";
 import Grid from "@mui/material/Grid";
 import { NavLink } from "react-router-dom";
 import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import CameraAltIcon from "@mui/icons-material/CameraAlt";
+import VideoCallIcon from "@mui/icons-material/VideoCall";
+import EnhancedEncryptionIcon from "@mui/icons-material/EnhancedEncryption";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
+import SearchIcon from "@mui/icons-material/Search";
+import FilterListIcon from "@mui/icons-material/FilterList";
 
 import SvgIcon from "@mui/material/SvgIcon";
 import {
@@ -32,13 +38,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 	header: {
 		width: "100%",
+		margin: "10px auto 15px auto",
 	},
 	title: {
 		color: "black",
 		fontSize: 20,
 		marginBottom: "20px",
 		[theme.breakpoints.up("sm")]: {
-			margin: "20px 0",
+			margin: "3rem 0",
 			fontSize: 50,
 		},
 	},
@@ -50,30 +57,19 @@ const useStyles = makeStyles((theme) => ({
 			justifyContent: "flex-start",
 		},
 	},
+	iconsContainer: {
+		margin: 20,
+	},
 	icon: {
-		fontSize: 40,
 		marginRight: 10,
-		marginBottom: 10,
-		[theme.breakpoints.up("sm")]: {
-			paddingTop: 5,
-			fontSize: 50,
-		},
 	},
 	SVGicon: {
-		fontSize: 40,
-		marginBottom: 10,
 		marginRight: 5,
-		[theme.breakpoints.up("sm")]: {
-			paddingTop: 5,
-			fontSize: 55,
-		},
 	},
 	box: {
 		verticalAlign: "middle",
 		marginTop: "20px",
-		[theme.breakpoints.up("sm")]: {
-			margin: "50px 0",
-		},
+		[theme.breakpoints.up("sm")]: {},
 	},
 
 	videoContainer: {
@@ -99,7 +95,7 @@ const useStyles = makeStyles((theme) => ({
 		display: "flex",
 		justifyContent: "center",
 		gap: "5px",
-		margin: "10px 0",
+		margin: "30px 0",
 	},
 }));
 
@@ -124,18 +120,18 @@ export default function AutoGridNoWrap() {
 					height='auto'
 					src='https://www.youtube.com/embed/cTYKiESEAJU'
 					title='MaterialsShare.com'
-					frameBorder='0'
 					allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
 					allowFullScreen
 				></iframe>
 			</div>
-			<div>
+			<div className={classes.iconsContainer}>
 				<Grid
 					container
 					className={classes.box}
-					spacing={1}
+					spacing={3}
 					justifyContent='center'
 					alignItems='center'
+					// marginBottom={5}
 				>
 					<Grid item sm={7} xs={12}>
 						<NavLink to='/create' className='link'>
@@ -154,24 +150,20 @@ export default function AutoGridNoWrap() {
 						className={classes.iconWrapper}
 					>
 						<NavLink to='/create' className='link'>
-							<Icon
+							<PostAddIcon
 								className={classes.icon}
 								color='secondary'
-							>
-								post_add
-							</Icon>
-							<Icon
+							/>
+
+							<CameraAltIcon
 								className={classes.icon}
 								color='secondary'
-							>
-								camera_alt
-							</Icon>
-							<Icon
+							/>
+
+							<VideoCallIcon
 								className={classes.icon}
 								color='secondary'
-							>
-								video_call
-							</Icon>
+							/>
 						</NavLink>
 					</Grid>
 					<Grid item sm={7} xs={12}>
@@ -191,18 +183,14 @@ export default function AutoGridNoWrap() {
 						className={classes.iconWrapper}
 					>
 						<NavLink to='/create' className='link'>
-							<Icon
+							<EnhancedEncryptionIcon
 								className={classes.icon}
 								color='secondary'
-							>
-								enhanced_encryption
-							</Icon>
-							<Icon
+							/>
+							<CloudUploadIcon
 								className={classes.icon}
 								color='secondary'
-							>
-								cloud_upload
-							</Icon>
+							/>
 						</NavLink>
 					</Grid>
 					<Grid item sm={7} xs={12}>
@@ -264,43 +252,39 @@ export default function AutoGridNoWrap() {
 						xs={12}
 						className={classes.iconWrapper}
 					>
-						<Icon className={classes.icon} color='secondary'>
-							search
-						</Icon>
-						<Icon
+						<SearchIcon
 							className={classes.icon}
 							color='secondary'
-							height='50px'
-						>
-							filter_list
-						</Icon>
+						/>
+
+						<FilterListIcon
+							className={classes.icon}
+							color='secondary'
+						/>
 					</Grid>
-					<div className={classes.ctaContainer}>
-						<Link
-							to='/create'
-							style={{ textDecoration: "none" }}
-						>
-							<Button
-								className={classes.saveButton}
-								color='primary'
-								variant='contained'
-							>
-								Save Resource
-							</Button>
-						</Link>
-						<Link
-							to='/materials'
-							style={{ textDecoration: "none" }}
-						>
-							<Button
-								className={classes.browseButton}
-								variant='contained'
-							>
-								Browse Resources
-							</Button>
-						</Link>
-					</div>
 				</Grid>
+				<div className={classes.ctaContainer}>
+					<Link to='/create' style={{ textDecoration: "none" }}>
+						<Button
+							className={classes.saveButton}
+							color='primary'
+							variant='contained'
+						>
+							Save Resource
+						</Button>
+					</Link>
+					<Link
+						to='/materials'
+						style={{ textDecoration: "none" }}
+					>
+						<Button
+							className={classes.browseButton}
+							variant='contained'
+						>
+							Browse Resources
+						</Button>
+					</Link>
+				</div>
 			</div>
 		</div>
 	);
