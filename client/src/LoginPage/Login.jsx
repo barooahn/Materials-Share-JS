@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@mui/styles";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import TextField from "@mui/material/TextField";
@@ -15,6 +14,10 @@ import { useLocation, useHistory } from "react-router-dom";
 import { signUser, logIn } from "../auth/helpers";
 import { NavLink } from "react-router-dom";
 import SvgIcon from "@mui/material/SvgIcon";
+import Box from "@mui/material/Box";
+import Assignment from "@mui/icons-material/AssignmentRounded";
+import Mobile from "../components/helpers/mobile";
+import Alert from "@mui/material/Alert";
 
 const useStyles = makeStyles((theme) => ({
 	main: {
@@ -23,18 +26,18 @@ const useStyles = makeStyles((theme) => ({
 			flexDirection: "column",
 			alignItems: "center",
 			justifyContent: "center",
-			height: "100%",
+			// height: "100%",
 		},
 	},
 
 	paper: {
 		maxWidth: "100%",
-		padding: "20px 10px",
-		margin: "10px",
+		padding: "1rem",
 		display: "flex",
 		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
+		marginBottom: "4rem",
 		[theme.breakpoints.up("sm")]: {
 			gap: "5px",
 			width: "400px",
@@ -64,6 +67,30 @@ const useStyles = makeStyles((theme) => ({
 	},
 	forgottenPass: {
 		cursor: "pointer",
+	},
+	alertWrapper: {
+		display: "flex",
+		marginTop: 0,
+		[theme.breakpoints.up("sm")]: {
+			marginBottom: "2rem",
+		},
+	},
+	alert: {
+		margin: "0 1rem",
+		display: "flex",
+		alignItems: "center",
+		textAlign: "center",
+		[theme.breakpoints.up("sm")]: {
+			margin: 0,
+		},
+	},
+	alertButton: {
+		marginTop: "0.5rem !important",
+		[theme.breakpoints.up("sm")]: {
+			marginTop: "0 !important",
+			marginLeft: "1rem !important",
+			display: "flex",
+		},
 	},
 }));
 
@@ -141,6 +168,10 @@ const Login = () => {
 		}
 	};
 
+	const handleRegisterClick = () => {
+		history.push("/register");
+	};
+
 	// function FacebookIcon(props) {
 	// 	return (
 	// 		<SvgIcon {...props}>
@@ -158,6 +189,25 @@ const Login = () => {
 
 	return (
 		<div className={classes.main}>
+			<Box className={classes.alertWrapper}>
+				<Alert
+					className={classes.alert}
+					severity='success'
+					variant='outlined'
+					color='info'
+				>
+					Need an account? It's free.
+					<Button
+						className={classes.alertButton}
+						variant='contained'
+						startIcon={<Assignment />}
+						onClick={handleRegisterClick}
+						aria-label='Register'
+					>
+						Register
+					</Button>
+				</Alert>
+			</Box>
 			<Paper className={classes.paper}>
 				<Avatar className={classes.avatar}>
 					<LockOutlinedIcon />
