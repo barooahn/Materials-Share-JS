@@ -3,7 +3,7 @@ import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
-import Icon from "@mui/material/Icon";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Viewer from "../Viewer/Viewer";
@@ -112,7 +112,7 @@ const MediaFiles = ({
 						onClick={() => handleDeleteLocal(file)}
 						className={classes.button}
 					>
-						<Icon>delete_forever</Icon> Delete
+						<DeleteForeverIcon /> Delete
 					</Button>
 				</div>
 			);
@@ -131,7 +131,7 @@ const MediaFiles = ({
 						onClick={() => handleDelete(file)}
 						className={classes.button}
 					>
-						<Icon>delete_forever</Icon> Delete
+						<DeleteForeverIcon /> Delete
 					</Button>
 					<br />
 				</div>

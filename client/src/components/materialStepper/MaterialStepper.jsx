@@ -45,10 +45,16 @@ const useStyles = makeStyles((theme) => ({
 		border: "2px solid #000",
 		boxShadow: theme.shadows[5],
 		padding: theme.spacing(2, 4, 3),
+		zIndex: 1000,
 	},
 	navButtonsWrapper: {
 		display: "flex",
 		gap: "5px",
+	},
+
+	modalButtonWrapper: {
+		display: "flex",
+		gap: "1rem",
 	},
 }));
 
@@ -638,22 +644,24 @@ export default function MaterialStepper() {
 								<p key={index}>{warning}</p>
 							))}
 						</div>
-						<Button
-							color='secondary'
-							onClick={saveAnyway}
-							variant='contained'
-							className={classes.button}
-						>
-							Save Anyway
-						</Button>
-						<Button
-							color='primary'
-							onClick={addDetails}
-							variant='contained'
-							className={classes.button}
-						>
-							Add Details
-						</Button>
+						<div className={classes.modalButtonWrapper}>
+							<Button
+								color='secondary'
+								onClick={saveAnyway}
+								variant='contained'
+								className={classes.button}
+							>
+								Save Anyway
+							</Button>
+							<Button
+								color='primary'
+								onClick={addDetails}
+								variant='contained'
+								className={classes.button}
+							>
+								Add Details
+							</Button>
+						</div>
 					</div>
 				</Fade>
 			</Modal>

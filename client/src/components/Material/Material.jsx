@@ -40,6 +40,13 @@ const useStyles = makeStyles((theme) => ({
 		alignItems: "center",
 		flexDirection: "column",
 	},
+	paper: {
+		zIndex: 1000,
+		backgroundColor: theme.palette.background.paper,
+		border: "2px solid #000",
+		boxShadow: theme.shadows[5],
+		padding: theme.spacing(2, 4, 3),
+	},
 	media: {
 		padding: "10px",
 		maxWidth: 1000,
