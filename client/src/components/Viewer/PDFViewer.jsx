@@ -1,6 +1,6 @@
 import React from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import Pagination from "@mui/lab/Pagination";
+import { Pagination } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
