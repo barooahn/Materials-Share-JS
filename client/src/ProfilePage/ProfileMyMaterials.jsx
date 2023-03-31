@@ -1,11 +1,12 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import MaterialCard from "../components/Material/MaterialCard";
-import StackGrid from "react-stack-grid";
+import Mobile from "../components/helpers/mobile";
 import { makeStyles } from "@mui/styles";
 import { getPaginatedUserMaterials } from "../actions/materials-share-actions";
 import CircularProgress from "@mui/material/CircularProgress";
 import debounce from "lodash.debounce";
+import Masonry from "@mui/lab/Masonry";
 
 const useStyles = makeStyles((theme) => ({
 	small: {
@@ -41,6 +42,19 @@ const ProfileMyMaterials = (props) => {
 	const [page, setPage] = React.useState(0);
 	const [totalMaterials, setTotalMaterials] = React.useState(0);
 	const [userMaterials, setUserMaterials] = React.useState([]);
+
+	const getWindowWidth = () => {
+		if (typeof window !== "undefined") {
+			return Math.round(window.innerWidth);
+		}
+	};
+
+	const cardWidth = Mobile() ? getWindowWidth() - 20 : 350;
+
+	const calculateColumns = () => {
+		return Math.round(window.innerWidth / (cardWidth - 1));
+	};
+	const [calculatedColumns] = React.useState(calculateColumns());
 
 	window.onscroll = debounce(() => {
 		if (error || gettingSearchResults || !hasMore) return;
@@ -96,6 +110,34 @@ const ProfileMyMaterials = (props) => {
 		fetchData();
 	}, [page]);
 
+	const MyMaterialsMasonryMemoized = React.memo(
+		() => (
+			<Masonry
+				spacing={2}
+				columns={calculatedColumns}
+				sx={{
+					maxWidth: Mobile() ? cardWidth : "100%",
+					margin: 0,
+				}}
+			>
+				{userMaterials.map((material, index) => (
+					////////////// do not remove div - important to stop flashing bug
+					<div>
+						<MaterialCard
+							key={material.title + Date.now()}
+							material={material}
+							setMaterials={setUserMaterials}
+							materials={userMaterials}
+							index={index}
+						/>
+					</div>
+					////////////// do not remove div - important to stop flashing bug
+				))}
+			</Masonry>
+		),
+		[userMaterials]
+	);
+
 	return (
 		<>
 			{userMaterials.length >= 1 ? (
@@ -112,28 +154,12 @@ const ProfileMyMaterials = (props) => {
 						Materials I Have Made
 					</Typography>
 
-					<StackGrid
-						columnWidth={props.cardWidth}
-						gutterWidth={5}
-						gutterHeight={10}>
-						{userMaterials.map((material, index) => (
-							////////////// do not remove div - important to stop flashing bug
-							<div>
-								<MaterialCard
-									key={material.title + Date.now()}
-									material={material}
-									setMaterials={setUserMaterials}
-									materials={userMaterials}
-									index={index}
-								/>
-							</div>
-							////////////// do not remove div - important to stop flashing bug
-						))}
-					</StackGrid>
+					<MyMaterialsMasonryMemoized />
 					{error && (
 						<div
 							className={classes.info}
-							style={{ color: "#900" }}>
+							style={{ color: "#900" }}
+						>
 							{error}
 						</div>
 					)}

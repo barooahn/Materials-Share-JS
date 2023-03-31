@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import MaterialCard from "../components/Material/MaterialCard";
-import StackGrid from "react-stack-grid";
 import { makeStyles } from "@mui/styles";
 import { getUserLikes } from "../actions/materials-share-actions";
 import CircularProgress from "@mui/material/CircularProgress";
 import debounce from "lodash.debounce";
+import Mobile from "../components/helpers/mobile";
+import Masonry from "@mui/lab/Masonry";
 
 const useStyles = makeStyles((theme) => ({
 	small: {
@@ -38,6 +39,19 @@ const ProfileLikedMaterials = (props) => {
 	const [error] = React.useState(false);
 	const [page, setPage] = React.useState(0);
 	const [totalMaterials, setTotalMaterials] = React.useState(0);
+
+	const getWindowWidth = () => {
+		if (typeof window !== "undefined") {
+			return Math.round(window.innerWidth);
+		}
+	};
+
+	const cardWidth = Mobile() ? getWindowWidth() - 20 : 350;
+
+	const calculateColumns = () => {
+		return Math.round(window.innerWidth / (cardWidth - 1));
+	};
+	const [calculatedColumns] = React.useState(calculateColumns());
 
 	window.onscroll = debounce(() => {
 		if (error || gettingSearchResults || !hasMore) return;
@@ -89,21 +103,15 @@ const ProfileLikedMaterials = (props) => {
 		fetchData();
 	}, [page]);
 
-	return (
-		<div className={classes.likedMaterialsHeader}>
-			{gettingSearchResults ? (
-				<div className={classes.circularProgress}>
-					<CircularProgress size={40} color='secondary' />
-				</div>
-			) : null}
-			<Typography gutterBottom variant='h5' component='h5'>
-				Materials I Like
-			</Typography>
-
-			<StackGrid
-				columnWidth={props.cardWidth}
-				gutterWidth={5}
-				gutterHeight={10}
+	const MyLikesMasonryMemoized = React.memo(
+		() => (
+			<Masonry
+				spacing={2}
+				columns={calculatedColumns}
+				sx={{
+					maxWidth: Mobile() ? cardWidth : "100%",
+					margin: 0,
+				}}
 			>
 				{userLikes.map((material, index) => (
 					////////////// do not remove div - important to stop flashing bug
@@ -118,7 +126,23 @@ const ProfileLikedMaterials = (props) => {
 					</div>
 					////////////// do not remove div - important to stop flashing bug
 				))}
-			</StackGrid>
+			</Masonry>
+		),
+		[userMaterials]
+	);
+
+	return (
+		<div className={classes.likedMaterialsHeader}>
+			{gettingSearchResults ? (
+				<div className={classes.circularProgress}>
+					<CircularProgress size={40} color='secondary' />
+				</div>
+			) : null}
+			<Typography gutterBottom variant='h5' component='h5'>
+				Materials I Like
+			</Typography>
+
+			<MyLikesMasonryMemoized />
 			{gettingSearchResults && (
 				<div className={classes.info}>Loading...</div>
 			)}
