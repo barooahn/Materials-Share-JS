@@ -2,7 +2,7 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import MaterialCard from "../Material/MaterialCard";
 import Typography from "@mui/material/Typography";
-import StackGrid from "react-stack-grid";
+import Masonry from "@mui/lab/Masonry";
 import Mobile from "../helpers/mobile";
 import Button from "@mui/material/Button";
 
@@ -10,6 +10,19 @@ const SearchResults = () => {
 	let location = useLocation();
 
 	const [materials, setMaterials] = React.useState([]);
+
+	const getWindowWidth = () => {
+		if (typeof window !== "undefined") {
+			return Math.round(window.innerWidth);
+		}
+	};
+
+	const cardWidth = Mobile() ? getWindowWidth() - 20 : 350;
+
+	const calculateColumns = () => {
+		return Math.round(window.innerWidth / (cardWidth - 1));
+	};
+	const [calculatedColumns] = React.useState(calculateColumns());
 
 	React.useEffect(() => {
 		if (location.state?.searchResults.length > 0) {
@@ -25,7 +38,29 @@ const SearchResults = () => {
 		}
 	}, [location.state]);
 
-	const cardWidth = Mobile() ? "100%" : 250;
+	const MaterialsMasonryMemoized = React.memo(
+		() => (
+			<Masonry
+				spacing={2}
+				columns={calculatedColumns}
+				sx={{
+					maxWidth: Mobile() ? cardWidth : "100%",
+					margin: 0,
+				}}
+			>
+				{materials.map((material, index) => (
+					<MaterialCard
+						key={material._id}
+						material={material}
+						index={index}
+						setMaterials={setMaterials}
+						materials={materials}
+					/>
+				))}
+			</Masonry>
+		),
+		[materials]
+	);
 
 	return (
 		<React.Fragment>
@@ -48,21 +83,7 @@ const SearchResults = () => {
 					>
 						Results found {materials.length}
 					</Typography>
-					<StackGrid
-						columnWidth={cardWidth}
-						gutterWidth={10}
-						gutterHeight={10}
-					>
-						{materials.map((material, index) => (
-							<MaterialCard
-								key={material._id}
-								material={material}
-								index={index}
-								setMaterials={setMaterials}
-								materials={materials}
-							/>
-						))}
-					</StackGrid>
+					<MaterialsMasonryMemoized />
 				</React.Fragment>
 			) : (
 				<div
