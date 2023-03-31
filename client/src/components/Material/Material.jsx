@@ -172,8 +172,8 @@ const Material = () => {
 			<Paper className={classes.paperCenter} elevation={1}>
 				<Typography
 					gutterBottom
-					variant='h2'
-					component='h2'
+					variant='h1'
+					component='h1'
 					align='center'
 				>
 					{material.title}

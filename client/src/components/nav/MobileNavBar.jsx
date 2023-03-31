@@ -12,10 +12,8 @@ import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Avatar from "@mui/material/Avatar";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Fade from "@mui/material/Fade";
-import AccountBoxIcon from "@mui/icons-material/AccountBoxRounded";
 import Assignment from "@mui/icons-material/AssignmentRounded";
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
@@ -382,7 +380,6 @@ export default function LabelBottomNavigation({ routePaths }) {
 					/>
 				</BottomNavigation>
 			</Box>
-			<Box></Box>
 		</React.Fragment>
 	);
 }
