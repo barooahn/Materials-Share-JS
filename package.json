@@ -23,7 +23,7 @@
 	"author": "Nicholas R Barooah",
 	"license": "ISC",
 	"dependencies": {
-		"aws-sdk": "^2.409.0",
+		"aws-sdk": "^2.1354.0",
 		"bcrypt": "^5.0.0",
 		"body-parser": "^1.18.3",
 		"compression": "^1.7.4",
